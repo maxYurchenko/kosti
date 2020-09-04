@@ -1,5 +1,6 @@
 var contentLib = require("/lib/xp/content");
 var portal = require("/lib/xp/portal");
+var nodeLib = require("/lib/xp/node");
 var norseUtils = require("norseUtils");
 var hashLib = require("hashLib");
 var mailsLib = require("mailsLib");
@@ -85,30 +86,55 @@ function beautifyUser(userObj, user) {
 }
 
 function editUser(data) {
-  var currUser = getCurrentUser();
+  
+  var currUser     = getCurrentUser();
+  var userNameChange = data._name && data._name != currUser._name;
   if (currUser._id != data.id) {
     return false;
   }
-  var user = contentLib.modify({
-    key: currUser._id,
-    editor: userEditor
-  });
+
+  if(userNameChange){
+    log.info("@!$");
+    var urlChange = nodeLib.connect({
+      repoId: 'com.enonic.cms.default',
+      branch: 'draft',
+      principals: ['role:system.admin']
+    });
+    var user = urlChange.modify({
+      key: currUser._id,
+      editor: userEditor
+    });
+  }
+  else{
+    log.info("nonononono");
+    var user = contentLib.modify({
+      key: currUser._id,
+      editor: userEditor
+    });
+
+    
+  }
+
   var publishResult = contextLib.runAsAdminAsUser(currUser, function () {
     return contentLib.publish({
       keys: [user._id],
-      sourceBranch: "master",
-      targetBranch: "draft",
+      sourceBranch: "draft",
+      targetBranch: "master",
       includeDependencies: false
     });
   });
+
+  log.info("NAME: "+user._name);
+  log.info("DATA: "+data._name);
   function userEditor(node) {
     node.displayName = data.displayName ? data.displayName : node.displayName;
     node.data.firstName = data.firstName ? data.firstName : node.data.firstName;
     node.data.lastName = data.lastName ? data.lastName : node.data.lastName;
     node.data.city = data.city ? data.city : node.data.city;
-    node.data.phone = data.phone ? data.phone : node.data.phone;
+    if(userNameChange){ log.info("edit"); node._name = data._name ? data._name : node._name;}
     return node;
   }
+  log.info("_________________________________");
   return true;
 }
 
@@ -400,7 +426,6 @@ function createUserContentType(name, displayName, mail, userKey) {
       permissions: permissions.default(userKey)
     });
   });
-
   var result = contentLib.publish({
     keys: [user._id],
     sourceBranch: "draft",
