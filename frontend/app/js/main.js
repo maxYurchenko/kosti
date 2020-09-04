@@ -1,3 +1,5 @@
+var loadMoreRequest = null;
+
 function initPDPFunctions() {
   $(".qty-decrement").on("click", function () {
     var selector = ".qty-input[data-id=" + $(this).data().id + "]";
@@ -206,6 +208,16 @@ function initSharedEvents() {
     } else {
       $(".js_back_to_top").addClass("hide");
     }
+    var load =
+      $(document).height() -
+        ($(document).scrollTop() +
+          $(window).height() +
+          $("footer.footer").height() +
+          300) <
+        0 && window.innerWidth >= 768;
+    if (load) {
+      loadMoreArticles();
+    }
   });
   $(".js_back_to_top").on("click", function () {
     $("html,body").animate({ scrollTop: 0 }, "slow");
@@ -282,6 +294,7 @@ $(".js_feed-button").on("click", function (e) {
   wrapper.data("date", date.toISOString());
   wrapper.data("start", 0);
   wrapper.data("query", "");
+  wrapper.data("nomorearticles", false);
   $(".js_blog-list-empty").addClass("hidden");
   $(".js_feed-button.active").removeClass("active");
   $(this).addClass("active");
@@ -290,17 +303,28 @@ $(".js_feed-button").on("click", function (e) {
 });
 
 function loadMoreArticles() {
-  $(".js_lazyload-icon").removeClass("hidden");
-  $(".js_blog-load_more").addClass("hidden");
   var wrapper = $(".blog-list");
-  var page = wrapper.data().page;
-  if (!page) {
-    page = 0;
+  if (wrapper.length !== 1) {
+    return false;
   }
+  var page = wrapper.data().page;
   var feedType = wrapper.data().feedtype;
   var date = wrapper.data().date;
   var query = wrapper.data().query;
-  var call = makeAjaxCall(
+
+  if (
+    (loadMoreRequest && loadMoreRequest.state() !== "resolved") ||
+    wrapper.data().nomorearticles === true
+  ) {
+    return false;
+  }
+
+  $(".js_blog-list-lazyload-icon").removeClass("hidden");
+  $(".js_blog-load_more").addClass("hidden");
+  if (!page) {
+    page = 0;
+  }
+  loadMoreRequest = makeAjaxCall(
     contentServiceUrl,
     "GET",
     {
@@ -313,18 +337,14 @@ function loadMoreArticles() {
       start: wrapper.data("start"),
       userId: $(".js_user-page-id").data("userid")
     },
-    true
+    false
   );
-  call.done(function (data) {
+  loadMoreRequest.done(function (data) {
     data = JSON.parse(data);
     if (data && data.articles && data.articles.trim() !== "") {
-      $(".js_blog-load_more").text(data.buttonText);
-      $(".js_blog-load_more").prop("title", data.buttonText);
-      $(".js_blog-load_more").removeClass("hidden");
       wrapper.append(data.articles);
     }
     if (data.hideButton) {
-      $(".js_blog-load_more").addClass("hidden");
       $(".js_blog-list-empty").removeClass("hidden");
       wrapper.data("nomorearticles", true);
     }
@@ -339,7 +359,7 @@ function loadMoreArticles() {
     } else {
       wrapper.data("page", page + 1);
     }
-    $(".js_lazyload-icon").addClass("hidden");
+    $(".js_blog-list-lazyload-icon").addClass("hidden");
   });
 }
 
