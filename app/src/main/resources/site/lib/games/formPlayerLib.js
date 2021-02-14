@@ -486,13 +486,14 @@ function fixGameDate(game) {
 }
 
 function beautifyGameBlock(locationId, block) {
-  let tempBlock = festivalCache.api.getOnly(block._id);
+  /*let tempBlock = festivalCache.api.getOnly(block._id);
   if (!tempBlock) {
     block = getBlockCache(block);
     festivalCache.api.put(block._id, block);
   } else {
     block = tempBlock;
-  }
+  }*/
+  block = getBlockCache(block);
   if (locationId) {
     block.space = getLocationSpace(locationId, block._id);
   }
