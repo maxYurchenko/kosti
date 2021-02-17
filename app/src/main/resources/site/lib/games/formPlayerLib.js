@@ -56,10 +56,25 @@ function getDays(params) {
         additionalQuery: gamesQuery
       });
       let games = block.games;
+      let result = [];
+      block.games = [];
       for (let i = 0; i < games.length; i++) {
-        games[i] = beautifyGame(games[i], { getBlock: false });
+        if (!games[i].data.players) games[i].data.players = [];
+        games[i].data.players = norseUtils.forceArray(games[i].data.players);
+        if (
+          (params.gameSpace === "free" &&
+            games[i].data.players.length <
+              parseInt(games[i].data.maxPlayers)) ||
+          (params.gameSpace === "full" &&
+            games[i].data.players.length >=
+              parseInt(games[i].data.maxPlayers)) ||
+          !params.gameSpace ||
+          params.gameSpace === ""
+        ) {
+          result.push(beautifyGame(games[i], { getBlock: false }));
+        }
       }
-      block.games = games;
+      block.games = result;
     });
   });
   return days;
