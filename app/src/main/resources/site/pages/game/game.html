@@ -51,8 +51,10 @@
                     <div class="k_gdp-img_wrap">
                         <img data-th-if="${game.bigImage and !game.bigImage.placeholder}"
                             data-th-src="${game.bigImage.url}">
-                        <img data-th-if="${(!game.image or game.image.placeholder) and game.system and game.system.text}"
+                        <img data-th-if="${(!game.bigImage or game.bigImage.placeholder) and game.system and game.system.localizable}"
                             data-th-src="${portal.assetUrl({'_path=images/gameSystems/' + game.system.text + '.jpg'})}">
+                        <img data-th-if="${(!game.bigImage or game.bigImage.placeholder) and game.system and !game.system.localizable}"
+                            data-th-src="${portal.assetUrl({'_path=images/gameSystems/default.jpg'})}">
                         <span data-th-if="${game.data.exclusive}" class="k_games-exclusive_game"><i
                                 class="icon-rock"></i> Экслюзивная игра</span>
                     </div>
@@ -102,19 +104,30 @@
                         data-th-text="${portal.localize({'_key=myGames.form.adventureLang.' + game.data.language, '_locale=ru'})}">
                     </div>
                 </div>
+                <div class="k_gdp-info">
+                    <div class="k_gdp-label">СОЗДАНИЕ ПЕРСОНАЖЕЙ</div>
+                    <div class="k_gdp-value"
+                        data-th-text="${portal.localize({'_key=myGames.form.pregens.' + game.data.pregens, '_locale=ru'})}">
+                    </div>
+                </div>
                 <div class="k_gdp-info" data-th-if="${game.additionalInfo != ''}">
                     <div class="k_gdp-label">ДОПОЛНИТЕЛЬНО</div>
                     <div class="k_gdp-value" data-th-utext="${game.additionalInfo}"></div>
                 </div>
             </div>
             <div class="k_gdp-sign_up">
-                <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1"
-                    data-th-unless="${user and user.data and (user.data.firstName or user.data.kosticonnect2021)}">
-                    <div data-th-unless="${user and user.data and user.data.firstName}">
+                <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1">
+                    <div class="form-group" data-th-unless="${user and user.data and user.data.firstName}">
                         <input class="js_get-user-data" name="firstName" placeholder="Ваше им'я" required>
                     </div>
-                    <div data-th-unless="${user and user.data and user.data.kosticonnect2021}"><input
-                            class="js_get-user-data" name="ticket" placeholder="Номер билета" required>
+                    <div class="form-group"
+                        data-th-unless="${user and user.data and (user.data.kosticonnect2021 or user.roles.gameMaster)}">
+                        <input class="js_get-user-data" name="ticket" placeholder="Номер билета" required>
+                    </div>
+                    <div class="k_gdp-agreement form-group">
+                        <input required type="checkbox" name="agreement" id="fest-agreement" hidden />
+                        <label for="fest-agreement" class="label-checkbox">Я прочитал и принимаю
+                            <a href="/kosticonnect/pravila-kosticonnect" target="_blank">условия фестиваля</a></label>
                     </div>
                 </form>
                 <div class="k_gdp-sign_up-step_2 js_game-sign-up-step-2" data-th-if="${discordUrl}"
@@ -122,14 +135,19 @@
                     <a data-th-href="${discordUrl}" class="button social_login-discord" name="discord"
                         placeholder="discord"> Залогиньтесь через Дискорд</a>
                 </div>
-                <div data-th-if="${gameSigned}">
-                    <div>Вы уже записаны на эту игру.</div>
-                    <button data-step="init" class="kosticonnect-button primary js_sign-out-of-game">ОТПИСАТЬСЯ ОТ
+                <div class="k_gdp-signed" data-th-if="${gameSigned}">
+                    <div class="k_games-time_title">Вы уже записаны на эту игру.</div>
+                    <button data-step="init"
+                        class="kosticonnect-button primary k_gdp-sign_out-btn js_sign-out-of-game">ОТПИСАТЬСЯ ОТ
                         ИГРЫ</button>
                 </div>
-                <button data-step="init" data-th-unless="${gameSigned}"
-                    class="kosticonnect-button primary js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
-                <a href="/kosticonnect/games/">Назад к списку</a>
+                <div class="k_gdp-actions">
+                    <button data-step="init" data-th-unless="${gameSigned}"
+                        class="kosticonnect-button primary k_gdp-sign_up-btn js_sign-up-for-game">ЗАПИСАТЬСЯ НА
+                        ИГРУ</button>
+                    <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow"
+                        href="/kosticonnect/games/"><span>
+                            Назад к списку</span></a></div>
             </div>
         </div>
     </main>

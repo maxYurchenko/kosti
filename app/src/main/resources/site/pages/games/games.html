@@ -46,9 +46,10 @@
                     </div>
                 </div>
             </div>
-            <div class="kosticonnect-header_insert">
+            <div class="kosticonnect-header_insert kosticonnect-header_insert-games">
                 <h2 class="kosticonnect-title" data-th-text="${content.displayName}">
                 </h2>
+                <a data-th-href="${mygamesLink}" class="kosticonnect-button primary">Мои Игры</a>
             </div>
         </div>
     </header>
@@ -74,7 +75,6 @@
                             <label class="k_games-filters-label" for="k_games-day-select">День</label>
                             <div class="k_games-filters-select select-field">
                                 <select name="day" class="select js_festival-filter-select" id="k_games-day-select">
-                                    <option>Все дни</option>
                                     <option data-th-each="day : ${days}" data-th-value="${day._id}"
                                         data-th-text="${day.displayName}"></option>
                                 </select>
@@ -104,6 +104,17 @@
                                     <option data-th-each="system : ${filters.system}" data-th-value="${system}"
                                         data-th-text="${portal.localize({'_key=myGames.gameSystem.' + system, '_locale=ru'})}">
                                     </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="k_games-filters-item availability">
+                            <label class="k_games-filters-label" for="k_games-system-select">Наличие мест</label>
+                            <div class="k_games-filters-select select-field">
+                                <select name="gameSpace" class="select js_festival-filter-select"
+                                    id="k_games-system-select">
+                                    <option value="">Все игры</option>
+                                    <option value="free">Есть свободные места</option>
+                                    <option value="full">Мест больше нет</option>
                                 </select>
                             </div>
                         </div>

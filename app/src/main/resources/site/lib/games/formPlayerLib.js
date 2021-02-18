@@ -21,6 +21,7 @@ exports.updateEntity = updateEntity;
 exports.signOutOfGame = signOutOfGame;
 exports.checkPlayersCartsBooking = checkPlayersCartsBooking;
 exports.updateGameDate = updateGameDate;
+exports.getGamesByPlayer = getGamesByPlayer;
 
 const festivalCache = cacheLib.api.createGlobalCache({
   name: "festival",
@@ -34,7 +35,7 @@ function getDays(params) {
   if (params.day) {
     days = getDay(params.day);
   } else {
-    days = formSharedLib.getDays();
+    days = formSharedLib.getFirstDay();
   }
   let gamesQuery = "";
   if (params.system) {
@@ -55,10 +56,25 @@ function getDays(params) {
         additionalQuery: gamesQuery
       });
       let games = block.games;
+      let result = [];
+      block.games = [];
       for (let i = 0; i < games.length; i++) {
-        games[i] = beautifyGame(games[i], { getBlock: false });
+        if (!games[i].data.players) games[i].data.players = [];
+        games[i].data.players = norseUtils.forceArray(games[i].data.players);
+        if (
+          (params.gameSpace === "free" &&
+            games[i].data.players.length <
+              parseInt(games[i].data.maxPlayers)) ||
+          (params.gameSpace === "full" &&
+            games[i].data.players.length >=
+              parseInt(games[i].data.maxPlayers)) ||
+          !params.gameSpace ||
+          params.gameSpace === ""
+        ) {
+          result.push(beautifyGame(games[i], { getBlock: false }));
+        }
       }
-      block.games = games;
+      block.games = result;
     });
   });
   return days;
@@ -180,6 +196,21 @@ function checkTicket(params) {
   return false;
 }
 
+function getGamesByPlayer() {
+  let user = userLib.getCurrentUser();
+  if (!user) return false;
+  let games = contentLib.query({
+    start: 0,
+    count: -1,
+    query: "data.players = '" + user._id + "'",
+    contentTypes: [app.name + ":game"]
+  }).hits;
+  games.forEach((game) => {
+    game.url = portalLib.pageUrl({ id: game._id });
+  });
+  return games;
+}
+
 function validateUser(game) {
   let user = userLib.getCurrentUser();
   if (!user) return { error: true, message: "Вам нужно войти." };
@@ -248,6 +279,9 @@ function bookSpace(params) {
       };
     }
   }
+  if (user && user.data && user.data.kosticonnect2021) {
+    params.kosticonnect2021 = user.data.kosticonnect2021;
+  }
   if (!validateTicketGameAllowed(params.kosticonnect2021, game._id)) {
     return {
       error: true,
@@ -259,7 +293,7 @@ function bookSpace(params) {
     user.data &&
     user.data.firstName &&
     user.data.discord &&
-    user.data.kosticonnect2021
+    (user.data.kosticonnect2021 || user.roles.gameMaster)
   ) {
     let signInResult = signForGame({ gameId: params.gameId });
     if (!signInResult.error) {
@@ -403,6 +437,7 @@ function signOutOfGame(params) {
 function validateTicketGameAllowed(ticketId, gameId) {
   let game = contentLib.get({ key: gameId });
   if (!game.data.exclusive) return true;
+  if (!ticketId) return false;
   let cart = cartLib.getCartByQr(ticketId);
   if (cart.legendary) return true;
   return false;
