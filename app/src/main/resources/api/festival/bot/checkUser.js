@@ -8,7 +8,7 @@ const userLib = require(libLocation + "userLib");
 const formPlayerLib = require(libLocation + "games/formPlayerLib");
 const festivalBotLib = require(libLocation + "games/bot");
 
-exports.get = function (req) {
+exports.post = function (req) {
   return {
     body: festivalBotLib.checkUser(req.params),
     contentType: "application/json"
