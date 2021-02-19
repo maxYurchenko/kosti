@@ -259,5 +259,8 @@
     <mapping controller="/api/festival/bot/checkUser.js">
       <pattern>/api/festival/bot/checkuser</pattern>
     </mapping>
+    <mapping controller="/api/festival/bot/getComingGames.js">
+      <pattern>/api/festival/bot/cominggames</pattern>
+    </mapping>
   </mappings>
 </site>
