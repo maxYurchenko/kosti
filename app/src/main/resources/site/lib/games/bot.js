@@ -51,11 +51,18 @@ function getUserByTicket(ticketId) {
 }
 
 function getComingGames() {
-  let now = new Date();
-  now.setTime(now.getTime() + 60 * 60 * 1000);
+  let start = new Date();
+  let end = new Date();
+  start.setTime(start.getTime() - 60 * 60 * 1000);
+  end.setTime(end.getTime() + 60 * 60 * 1000);
   let result = [];
   let comingGames = contentLib.query({
-    query: "data.datetime = dateTime('" + now.toISOString() + "')",
+    query:
+      "data.datetime > dateTime('" +
+      start.toISOString() +
+      "') and data.datetime < dateTime('" +
+      end.toISOString() +
+      "')",
     start: 0,
     count: -1,
     contentTypes: [app.name + ":game"]
