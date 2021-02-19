@@ -67,6 +67,11 @@
                 <span class="value" data-th-text="${game.players}">
                 </span>
             </div>
+            <div class="my_games-text" data-th-if="${game and game.table}">
+                <span class="label" data-th-text="${portal.localize({'_key=myGames.table', '_locale=ru'})}"></span>
+                <span class="value" data-th-text="${game.table}">
+                </span>
+            </div>
             <div class="my_games-action-block">
                 <button class="my_games-link button js-my_games-edit-game" data-th-attr="data-id=${game._id}"
                     data-th-text="${portal.localize({'_key=myGames.edit', '_locale=ru'})}"></button>

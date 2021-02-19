@@ -519,7 +519,7 @@ function updateGameDate() {
 }
 
 function fixGameDate(game) {
-  if (game.data.datetime) return true;
+  //if (game.data.datetime) return true;
   let gameBlock = util.content.getParent({ key: game._id });
   game.data.datetime = gameBlock.data.datetime;
   updateEntity(game);

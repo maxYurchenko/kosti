@@ -4,6 +4,7 @@ const portalLib = require("/lib/xp/portal");
 const userLib = require("../userLib");
 const formSharedLib = require("formSharedLib");
 const formPlayerLib = require("formPlayerLib");
+const festivalSharedLib = require("festivalSharedLib");
 const i18nLib = require("/lib/xp/i18n");
 const util = require("/lib/util");
 const contextLib = require("../contextLib");
@@ -70,7 +71,7 @@ function getComingGames() {
   let tables = null;
   for (let i = 0; i < comingGames.length; i++) {
     let game = comingGames[i];
-    if (!tables) tables = getTablesStartNum(game._id);
+    if (!tables) tables = festivalSharedLib.getTablesStartNum(game._id);
     let players = [];
     game.data.players ? game.data.players : [];
     game.data.players = norseUtils.forceArray(game.data.players);
@@ -92,15 +93,4 @@ function getComingGames() {
     });
   }
   return { success: true, games: result };
-}
-
-function getTablesStartNum(gameId) {
-  let block = util.content.getParent({ key: gameId });
-  let blockNumber = null;
-  let tables = 0;
-  if (block && block.data && block.data.blockNumber) {
-    blockNumber = parseInt(block.data.blockNumber);
-  }
-  blockNumber && blockNumber % 2 === 1 ? (tables = 1) : (tables = 20);
-  return tables;
 }
