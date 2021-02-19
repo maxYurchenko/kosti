@@ -4,6 +4,7 @@ const portalLib = require("/lib/xp/portal");
 const userLib = require("../userLib");
 const formSharedLib = require("formSharedLib");
 const formPlayerLib = require("formPlayerLib");
+const festivalSharedLib = require("festivalSharedLib");
 const i18nLib = require("/lib/xp/i18n");
 const util = require("/lib/util");
 const contextLib = require("../contextLib");
@@ -51,16 +52,26 @@ function getUserByTicket(ticketId) {
 }
 
 function getComingGames() {
-  let now = new Date();
-  now.setTime(now.getTime() + 60 * 60 * 1000);
+  let start = new Date();
+  let end = new Date();
+  start.setTime(start.getTime() - 60 * 60 * 1000);
+  end.setTime(end.getTime() + 60 * 60 * 1000);
   let result = [];
   let comingGames = contentLib.query({
-    query: "data.datetime = dateTime('" + now.toISOString() + "')",
+    query:
+      "data.datetime > dateTime('" +
+      start.toISOString() +
+      "') and data.datetime < dateTime('" +
+      end.toISOString() +
+      "')",
     start: 0,
     count: -1,
     contentTypes: [app.name + ":game"]
   }).hits;
-  comingGames.forEach((game) => {
+  let tables = null;
+  for (let i = 0; i < comingGames.length; i++) {
+    let game = comingGames[i];
+    if (!tables) tables = festivalSharedLib.getTablesStartNum(game._id);
     let players = [];
     game.data.players ? game.data.players : [];
     game.data.players = norseUtils.forceArray(game.data.players);
@@ -77,8 +88,9 @@ function getComingGames() {
     result.push({
       displayName: game.displayName,
       description: game.data.description,
+      table: tables + i,
       players: players
     });
-  });
+  }
   return { success: true, games: result };
 }

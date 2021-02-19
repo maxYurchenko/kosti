@@ -8,6 +8,7 @@ const common = require("/lib/xp/common");
 const thymeleaf = require("/lib/thymeleaf");
 const util = require("/lib/util");
 const cacheLib = require("../cacheLib");
+const festivalSharedLib = require("festivalSharedLib");
 const i18nLib = require("/lib/xp/i18n");
 
 const cache = cacheLib.api.createGlobalCache({
@@ -346,7 +347,6 @@ function beautifyGame(game) {
   var location = util.content.getParent({ key: gameBlock._id });
   game.block = beautifyGameBlock(location._id, gameBlock);
   game.location = location.displayName;
-  game.table = getGameTable(game._id, game.block);
   game.seatsReserved = game.data.players
     ? norseUtils.forceArray(game.data.players).length
     : 0;
@@ -383,19 +383,10 @@ function beautifyGame(game) {
       );
     }
   });
+  game.table = getGameTable(game);
   game.players = game.players.join(", ");
   if (game.data.image) game.image = norseUtils.getImage(game.data.image);
   return game;
-}
-
-function getGameTable(id, block) {
-  var games = getItemsList({ type: "game", parentId: block._id });
-  for (var i = 0; i < games.length; i++) {
-    if (games[i]._id === id) {
-      return (i + 1).toFixed();
-    }
-  }
-  return false;
 }
 
 function getDaySpace(dayId) {
@@ -491,4 +482,35 @@ function getGameMisc(game) {
       })
     );
   return additionalInfo.join(", ");
+}
+
+function getGameTable(game) {
+  if (!game) return false;
+  let table = cache.api.getOnly(game._id + "-table");
+  if (!table || table === 0) {
+    table = countGameTable(game);
+    if (table) cache.api.put(game._id + "-table", table);
+  }
+  return table;
+}
+
+function countGameTable(game) {
+  let result = 0;
+  let block = util.content.getParent({ key: game._id });
+  let tables = festivalSharedLib.getTablesStartNum(game._id);
+  let allGamesBlock = cache.api.getOnly(block._id + "-games");
+  if (!allGamesBlock || allGamesBlock.length === 0) {
+    allGamesBlock = getItemsList({
+      parentId: block._id,
+      parentPathLike: true,
+      type: "game"
+    });
+    if (allGamesBlock) cache.api.put(block._id + "-games", allGamesBlock);
+  }
+  for (let i = 0; i < allGamesBlock.length; i++) {
+    if (game._id === allGamesBlock[i]._id) {
+      result = tables + i;
+    }
+  }
+  return result.toFixed();
 }
