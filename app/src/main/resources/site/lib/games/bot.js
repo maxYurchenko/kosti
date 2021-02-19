@@ -67,7 +67,10 @@ function getComingGames() {
     count: -1,
     contentTypes: [app.name + ":game"]
   }).hits;
-  comingGames.forEach((game) => {
+  let tables = null;
+  for (let i = 0; i < comingGames.length; i++) {
+    let game = comingGames[i];
+    if (!tables) tables = getTablesStartNum(game._id);
     let players = [];
     game.data.players ? game.data.players : [];
     game.data.players = norseUtils.forceArray(game.data.players);
@@ -84,8 +87,20 @@ function getComingGames() {
     result.push({
       displayName: game.displayName,
       description: game.data.description,
+      table: tables + i,
       players: players
     });
-  });
+  }
   return { success: true, games: result };
+}
+
+function getTablesStartNum(gameId) {
+  let block = util.content.getParent({ key: gameId });
+  let blockNumber = null;
+  let tables = 0;
+  if (block && block.data && block.data.blockNumber) {
+    blockNumber = parseInt(block.data.blockNumber);
+  }
+  blockNumber && blockNumber % 2 === 1 ? (tables = 1) : (tables = 20);
+  return tables;
 }
