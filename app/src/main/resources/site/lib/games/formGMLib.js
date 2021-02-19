@@ -142,6 +142,7 @@ function addGame(data) {
       userLib.editUser({ firstName: data.masterName, id: user._id });
     }
     data.master = user._id;
+    data.datetime = parent.data.datetime;
     var game = contentLib.create({
       name: common.sanitize(
         displayName + (epiBlock ? "-" + data.masterName : "")
