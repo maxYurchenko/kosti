@@ -144,7 +144,7 @@ function addGame(data) {
     data.master = user._id;
     var game = contentLib.create({
       name: common.sanitize(
-        displayName + epiBlock ? "-" + data.masterName : ""
+        displayName + (epiBlock ? "-" + data.masterName : "")
       ),
       parentPath: parent._path,
       displayName: displayName,
