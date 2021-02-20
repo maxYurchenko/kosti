@@ -23,6 +23,10 @@
           <label>kosticon2020</label>
           <occurrences minimum="0" maximum="1"/> 
         </input>
+        <input name="kosticonnect2021" type="CheckBox">
+          <label>kosticonnect2021</label>
+          <occurrences minimum="0" maximum="1"/> 
+        </input>
         <input name="admins" type="CheckBox">
           <label>Admins</label>
           <occurrences minimum="0" maximum="1"/> 
