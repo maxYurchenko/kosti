@@ -522,6 +522,7 @@ function fixGameDate(game) {
   //if (game.data.datetime) return true;
   let gameBlock = util.content.getParent({ key: game._id });
   game.data.datetime = gameBlock.data.datetime;
+  game.data.datetimeEnd = gameBlock.data.datetimeEnd;
   updateEntity(game);
 }
 

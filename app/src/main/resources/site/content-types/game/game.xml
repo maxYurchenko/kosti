@@ -14,6 +14,13 @@
       </config>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="datetimeEnd" type="DateTime">
+      <label>Date and time end</label>
+      <config>
+        <timezone>true</timezone>
+      </config>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="description" type="HtmlArea">
       <label>Form description</label>
       <config>
