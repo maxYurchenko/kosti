@@ -77,10 +77,17 @@ function getComingGames() {
         });
       else if (player) players.push({ displayName: player.displayName });
     });
+    let master = contentLib.get({ key: game.data.master });
     result.push({
       displayName: game.displayName,
       description: game.data.description,
       table: tables + i,
+      master: master
+        ? {
+            discord: master.data.discord,
+            displayName: master.displayName
+          }
+        : null,
       players: players
     });
   }
