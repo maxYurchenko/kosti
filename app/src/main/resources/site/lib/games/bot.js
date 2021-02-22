@@ -106,7 +106,7 @@ function getCurrentEvents() {
     let event = events[i];
     result.push({
       displayName: event.displayName,
-      description: event.data.description,
+      description: event.data.description.replace(/(<([^>]+)>)/gi, ""),
       dateTimeStart: event.data.datetime,
       dateTimeEnd: event.data.datetimeEnd
     });
