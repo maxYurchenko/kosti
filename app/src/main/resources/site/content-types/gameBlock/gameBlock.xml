@@ -38,6 +38,18 @@
       </config>
       <default>one</default> 
     </input>
+    <input name="blockNumber" type="ComboBox">
+      <label>Block number</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="1">1</option> 
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </config>
+      <default>one</default> 
+    </input>
     <input name="system" type="ComboBox">
       <label>Preselected system. For game blocks only</label>
       <occurrences minimum="0" maximum="1"/>

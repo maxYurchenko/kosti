@@ -256,5 +256,14 @@
     <mapping controller="/api/festival/gamesList.js">
       <pattern>/api/festival/games/list</pattern>
     </mapping>
+    <mapping controller="/api/festival/bot/checkUser.js">
+      <pattern>/api/festival/bot/checkuser</pattern>
+    </mapping>
+    <mapping controller="/api/festival/bot/getComingGames.js">
+      <pattern>/api/festival/bot/cominggames</pattern>
+    </mapping>
+    <mapping controller="/api/festival/bot/getCurrentEvents.js">
+      <pattern>/api/festival/bot/currentevents</pattern>
+    </mapping>
   </mappings>
 </site>
