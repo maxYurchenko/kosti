@@ -66,7 +66,12 @@ function removeGame(id) {
     type: "POST",
     success: function (data) {
       hideLoader();
-      showSnackBar(data.message, "success");
+      if (data.error) {
+        showSnackBar(data.message, "error");
+      } else {
+        $(".js-my_games-available-item[data-id=" + id + "]").remove();
+        showSnackBar(data.message, "success");
+      }
     },
     error: function () {
       hideLoader();
@@ -291,7 +296,6 @@ $(".js-my_games").on(
 $(".js-my_games").on("click", ".js-my_games-remove-game", function (e) {
   var id = $(this).data().id;
   removeGame(id);
-  $(".js-my_games-available-item[data-id=" + id + "]").remove();
 });
 
 $(".js-my_games").on("click", ".js-my_games-edit-game", function (e) {

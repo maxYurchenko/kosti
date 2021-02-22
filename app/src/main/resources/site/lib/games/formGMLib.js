@@ -56,13 +56,16 @@ function checkIfMasterBookedThisBlock(data) {
 }
 
 function deleteGame(id) {
-  contentLib.delete({
-    key: id
-  });
-  contextLib.runInDraft(function () {
-    contentLib.delete({
-      key: id
-    });
+  if (!checkIfGameRegisterOpen()) {
+    return {
+      error: true,
+      message: i18nLib.localize({
+        key: "myGames.form.message.registrationClosed"
+      })
+    };
+  }
+  contentLib.unpublish({
+    keys: [id]
   });
   return {
     error: false,
@@ -130,6 +133,14 @@ function addGame(data) {
       })
     };
   }
+  if (!checkIfGameRegisterOpen()) {
+    return {
+      error: true,
+      message: i18nLib.localize({
+        key: "myGames.form.message.registrationClosed"
+      })
+    };
+  }
   var day = util.content.getParent({ key: data.location });
   var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
     var parent = contentLib.get({ key: data.blockId });
@@ -188,4 +199,16 @@ function addGame(data) {
     }),
     html: formSharedLib.getView("gmComp", null, { expanded: day._id })
   };
+}
+
+function checkIfGameRegisterOpen() {
+  var festival = contentLib.query({
+    query: "data.gmRegisterOpen = 'true'",
+    start: 0,
+    count: 1
+  });
+  if (festival.total > 0) {
+    return true;
+  }
+  return false;
 }

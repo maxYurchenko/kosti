@@ -65,5 +65,11 @@
         <alignment>right</alignment>
       </config>
     </input>
+    <input name="gmRegisterOpen" type="CheckBox">
+      <label>GM register open</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
   </form>
 </content-type>
