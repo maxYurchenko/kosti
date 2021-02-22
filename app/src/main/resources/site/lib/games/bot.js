@@ -14,6 +14,7 @@ const cacheLib = require("../cacheLib");
 
 exports.checkUser = checkUser;
 exports.getComingGames = getComingGames;
+exports.getCurrentEvents = getCurrentEvents;
 
 function checkUser(params) {
   if (!params || !params.ticketId || !params.discordId)
@@ -52,18 +53,9 @@ function getUserByTicket(ticketId) {
 }
 
 function getComingGames() {
-  let start = new Date();
-  let end = new Date();
-  start.setTime(start.getTime() - 60 * 60 * 1000);
-  end.setTime(end.getTime() + 60 * 60 * 1000);
   let result = [];
   let comingGames = contentLib.query({
-    query:
-      "data.datetime > dateTime('" +
-      start.toISOString() +
-      "') and data.datetime < dateTime('" +
-      end.toISOString() +
-      "')",
+    query: getDateTimeFilter(),
     start: 0,
     count: -1,
     contentTypes: [app.name + ":game"]
@@ -93,4 +85,37 @@ function getComingGames() {
     });
   }
   return { success: true, games: result };
+}
+
+function getCurrentEvents() {
+  let result = [];
+  let events = contentLib.query({
+    query: getDateTimeFilter(),
+    start: 0,
+    count: -1,
+    contentTypes: [app.name + ":festivalEvent"]
+  }).hits;
+  for (let i = 0; i < events.length; i++) {
+    let event = events[i];
+    result.push({
+      displayName: event.displayName,
+      description: event.data.description,
+      dateTimeStart: event.data.datetime,
+      dateTimeEnd: event.data.datetimeEnd
+    });
+  }
+  return { success: true, games: result };
+}
+
+function getDateTimeFilter() {
+  let prepareDate = new Date();
+  prepareDate.setTime(prepareDate.getTime() - 15 * 60 * 1000);
+  let now = new Date();
+  return (
+    "data.datetime < dateTime('" +
+    prepareDate.toISOString() +
+    "') and data.datetimeEnd > dateTime('" +
+    now.toISOString() +
+    "')"
+  );
 }
