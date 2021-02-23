@@ -25,6 +25,6 @@ function getTablesStartNum(gameId) {
   if (block && block.data && block.data.blockNumber) {
     blockNumber = parseInt(block.data.blockNumber);
   }
-  blockNumber && blockNumber % 2 === 1 ? (tables = 1) : (tables = 20);
+  blockNumber && blockNumber % 2 === 1 ? (tables = 1) : (tables = 25);
   return tables;
 }
