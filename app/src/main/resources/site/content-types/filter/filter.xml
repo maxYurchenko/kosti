@@ -3,5 +3,11 @@
   <display-name>Filter</display-name>
   <super-type>base:structured</super-type>
   <form>
+    <input name="hidden" type="CheckBox">
+      <label>Hidden</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
   </form>
 </content-type>

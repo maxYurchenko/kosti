@@ -167,24 +167,28 @@ function getProducts(params) {
   if (params.sort && params.sort !== "") {
     sort = "data." + params.sort.replace(",", " ");
   }
+  let filters =
+    params.theme && params.theme === "kosticonnect"
+      ? {}
+      : {
+          boolean: {
+            mustNot: {
+              hasValue: [
+                {
+                  field: "data.discontinued",
+                  values: "true"
+                }
+              ]
+            }
+          }
+        };
   var products = contentLib.query({
     start: 0,
     count: -1,
     query: "data.inventory != '0'" + query,
     contentTypes: [app.name + ":product"],
     sort: sort,
-    filters: {
-      boolean: {
-        mustNot: {
-          hasValue: [
-            {
-              field: "data.discontinued",
-              values: "true"
-            }
-          ]
-        }
-      }
-    }
+    filters: filters
   });
   var outOfStockProducts = contentLib.query({
     start: 0,
@@ -192,18 +196,7 @@ function getProducts(params) {
     query: "data.inventory = '0'" + query,
     contentTypes: [app.name + ":product"],
     sort: sort,
-    filters: {
-      boolean: {
-        mustNot: {
-          hasValue: [
-            {
-              field: "data.discontinued",
-              values: "true"
-            }
-          ]
-        }
-      }
-    }
+    filters: filters
   });
   if (products && products.hits) {
     products = products.hits.concat(outOfStockProducts.hits);

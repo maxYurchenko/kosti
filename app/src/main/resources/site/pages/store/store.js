@@ -89,6 +89,7 @@ function handleReq(req) {
         name: filtersCategories[i]._name
       };
       for (var j = 0; j < filters.length; j++) {
+        if (filters[j] && filters[j].data && filters[j].data.hidden) continue;
         temp.items.push({
           value: filters[j]._name,
           title: filters[j].displayName
