@@ -326,7 +326,8 @@ function getDaysByUser(parent, admin) {
     games = getItemsList({
       parentId: parent,
       parentPathLike: true,
-      type: "game"
+      type: "game",
+      sort: "_parentPath ASC"
     });
   } else {
     games = getItemsList({
