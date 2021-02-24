@@ -25,5 +25,15 @@
       </config>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="location" type="ComboBox">
+      <label>Location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="Мега Лекторий">Мега Лекторий</option> 
+        <option value="Гипер Лекторий">Гипер Лекторий</option>
+        <option value="Башня">Башня</option>
+      </config>
+      <default>one</default> 
+    </input>
   </form>
 </content-type>

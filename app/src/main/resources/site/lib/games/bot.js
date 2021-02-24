@@ -99,7 +99,7 @@ function getGames(filter, userId) {
     let master = contentLib.get({ key: game.data.master });
     result.push({
       displayName: game.displayName,
-      description: game.data.description,
+      description: game.data.description.replace(/(<([^>]+)>)/gi, ""),
       table: currTables + j,
       dateTimeStart: game.data.datetime,
       dateTimeEnd: game.data.datetimeEnd,
@@ -139,7 +139,8 @@ function getEvents(filter) {
       displayName: event.displayName,
       description: event.data.description.replace(/(<([^>]+)>)/gi, ""),
       dateTimeStart: event.data.datetime,
-      dateTimeEnd: event.data.datetimeEnd
+      dateTimeEnd: event.data.datetimeEnd,
+      location: event.data.location
     });
   }
   return { success: true, games: result };
