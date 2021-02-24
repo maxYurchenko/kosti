@@ -259,11 +259,14 @@
     <mapping controller="/api/festival/bot/checkUser.js">
       <pattern>/api/festival/bot/checkuser</pattern>
     </mapping>
-    <mapping controller="/api/festival/bot/getComingGames.js">
-      <pattern>/api/festival/bot/cominggames</pattern>
+    <mapping controller="/api/festival/bot/games/coming.js">
+      <pattern>/api/festival/bot/games/coming</pattern>
     </mapping>
-    <mapping controller="/api/festival/bot/getCurrentEvents.js">
-      <pattern>/api/festival/bot/currentevents</pattern>
+    <mapping controller="/api/festival/bot/events/current.js">
+      <pattern>/api/festival/bot/events/current</pattern>
+    </mapping>
+    <mapping controller="/api/festival/bot/events/today.js">
+      <pattern>/api/festival/bot/events/today</pattern>
     </mapping>
   </mappings>
 </site>

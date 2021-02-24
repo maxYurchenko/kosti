@@ -15,6 +15,7 @@ const cacheLib = require("../cacheLib");
 exports.checkUser = checkUser;
 exports.getComingGames = getComingGames;
 exports.getCurrentEvents = getCurrentEvents;
+exports.getTodayEvents = getTodayEvents;
 
 function checkUser(params) {
   if (!params || !params.ticketId || !params.discordId)
@@ -55,7 +56,7 @@ function getUserByTicket(ticketId) {
 function getComingGames() {
   let result = [];
   let comingGames = contentLib.query({
-    query: getDateTimeFilter(),
+    query: getComingTimeFilter(),
     start: 0,
     count: -1,
     contentTypes: [app.name + ":game"]
@@ -97,7 +98,7 @@ function getComingGames() {
 function getCurrentEvents() {
   let result = [];
   let events = contentLib.query({
-    query: getDateTimeFilter(),
+    query: getComingTimeFilter(),
     start: 0,
     count: -1,
     contentTypes: [app.name + ":festivalEvent"]
@@ -114,7 +115,7 @@ function getCurrentEvents() {
   return { success: true, games: result };
 }
 
-function getDateTimeFilter() {
+function getComingTimeFilter() {
   let prepareDate = new Date();
   prepareDate.setTime(prepareDate.getTime() - 15 * 60 * 1000);
   let now = new Date();
@@ -125,4 +126,38 @@ function getDateTimeFilter() {
     now.toISOString() +
     "')"
   );
+}
+
+function getTodayTimeFilter() {
+  let todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  let todayEnd = new Date();
+  todayEnd.setHours(23, 59, 59, 999);
+  return (
+    "data.datetime < dateTime('" +
+    todayEnd.toISOString() +
+    "') and data.datetime > dateTime('" +
+    todayStart.toISOString() +
+    "')"
+  );
+}
+
+function getTodayEvents() {
+  let result = [];
+  let events = contentLib.query({
+    query: getTodayTimeFilter(),
+    start: 0,
+    count: -1,
+    contentTypes: [app.name + ":festivalEvent"]
+  }).hits;
+  for (let i = 0; i < events.length; i++) {
+    let event = events[i];
+    result.push({
+      displayName: event.displayName,
+      description: event.data.description.replace(/(<([^>]+)>)/gi, ""),
+      dateTimeStart: event.data.datetime,
+      dateTimeEnd: event.data.datetimeEnd
+    });
+  }
+  return { success: true, games: result };
 }
