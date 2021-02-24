@@ -148,24 +148,10 @@ function getEvents(filter) {
 
 function getComingTimeFilter() {
   let prepareDate = new Date();
-  prepareDate.setTime(prepareDate.getTime() - 30 * 60 * 1000);
-  let startDate = new Date();
-  startDate.setHours(19, 30, 59, 999);
+  prepareDate.setTime(prepareDate.getTime() + 20 * 60 * 1000);
   let endDate = new Date();
-  endDate.setHours(23, 59, 59, 999);
+  endDate.setTime(endDate.getTime() + 2.5 * 60 * 60 * 1000);
   let now = new Date();
-  norseUtils.log(
-    "(data.datetime < dateTime('" +
-      prepareDate.toISOString() +
-      "') and data.datetimeEnd > dateTime('" +
-      now.toISOString() +
-      "'))" +
-      " OR (data.datetime > dateTime('" +
-      endDate.toISOString() +
-      "') and type='" +
-      app.name +
-      ":game')"
-  );
   return (
     "(data.datetime < dateTime('" +
     prepareDate.toISOString() +
@@ -173,7 +159,7 @@ function getComingTimeFilter() {
     now.toISOString() +
     "'))" +
     " OR (data.datetime > dateTime('" +
-    startDate.toISOString() +
+    prepareDate.toISOString() +
     "') and data.datetime < dateTime('" +
     endDate.toISOString() +
     "') and type='" +
