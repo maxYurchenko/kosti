@@ -10,7 +10,7 @@ const festivalBotLib = require(libLocation + "games/bot");
 
 exports.get = function (req) {
   return {
-    body: festivalBotLib.getComingGames(),
+    body: festivalBotLib.getGames(),
     contentType: "application/json"
   };
 };

@@ -262,6 +262,9 @@
     <mapping controller="/api/festival/bot/games/coming.js">
       <pattern>/api/festival/bot/games/coming</pattern>
     </mapping>
+    <mapping controller="/api/festival/bot/games/today.js">
+      <pattern>/api/festival/bot/games/today</pattern>
+    </mapping>
     <mapping controller="/api/festival/bot/events/current.js">
       <pattern>/api/festival/bot/events/current</pattern>
     </mapping>

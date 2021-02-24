@@ -13,9 +13,8 @@ const sharedLib = require("../sharedLib");
 const cacheLib = require("../cacheLib");
 
 exports.checkUser = checkUser;
-exports.getComingGames = getComingGames;
-exports.getCurrentEvents = getCurrentEvents;
-exports.getTodayEvents = getTodayEvents;
+exports.getGames = getGames;
+exports.getEvents = getEvents;
 
 function checkUser(params) {
   if (!params || !params.ticketId || !params.discordId)
@@ -53,18 +52,26 @@ function getUserByTicket(ticketId) {
   return null;
 }
 
-function getComingGames() {
+function getGames(filter) {
+  let query = null;
+  switch (filter) {
+    case "today":
+      query = getTodayTimeFilter();
+      break;
+    default:
+      query = getComingTimeFilter();
+      break;
+  }
   let result = [];
   let comingGames = contentLib.query({
-    query: getComingTimeFilter(),
+    query: query,
     start: 0,
     count: -1,
     contentTypes: [app.name + ":game"]
   }).hits;
-  let tables = null;
   for (let i = 0; i < comingGames.length; i++) {
     let game = comingGames[i];
-    if (!tables) tables = festivalSharedLib.getTablesStartNum(game._id);
+    let tables = festivalSharedLib.getTablesStartNum(game._id);
     let players = [];
     game.data.players ? game.data.players : [];
     game.data.players = norseUtils.forceArray(game.data.players);
@@ -95,10 +102,19 @@ function getComingGames() {
   return { success: true, games: result };
 }
 
-function getCurrentEvents() {
+function getEvents(filter) {
+  let query = null;
+  switch (filter) {
+    case "today":
+      query = getTodayTimeFilter();
+      break;
+    default:
+      query = getComingTimeFilter();
+      break;
+  }
   let result = [];
   let events = contentLib.query({
-    query: getComingTimeFilter(),
+    query: query,
     start: 0,
     count: -1,
     contentTypes: [app.name + ":festivalEvent"]
@@ -139,24 +155,4 @@ function getTodayTimeFilter() {
     todayStart.toISOString() +
     "')"
   );
-}
-
-function getTodayEvents() {
-  let result = [];
-  let events = contentLib.query({
-    query: getTodayTimeFilter(),
-    start: 0,
-    count: -1,
-    contentTypes: [app.name + ":festivalEvent"]
-  }).hits;
-  for (let i = 0; i < events.length; i++) {
-    let event = events[i];
-    result.push({
-      displayName: event.displayName,
-      description: event.data.description.replace(/(<([^>]+)>)/gi, ""),
-      dateTimeStart: event.data.datetime,
-      dateTimeEnd: event.data.datetimeEnd
-    });
-  }
-  return { success: true, games: result };
 }
