@@ -67,11 +67,18 @@ function getGames(filter) {
     query: query,
     start: 0,
     count: -1,
-    contentTypes: [app.name + ":game"]
+    contentTypes: [app.name + ":game"],
+    sort: "_parentPath ASC"
   }).hits;
+  let tables = 0;
+  let j = 0;
   for (let i = 0; i < comingGames.length; i++) {
     let game = comingGames[i];
-    let tables = festivalSharedLib.getTablesStartNum(game._id);
+    let currTables = festivalSharedLib.getTablesStartNum(game._id);
+    if (tables !== currTables) {
+      tables = currTables;
+      j = 0;
+    }
     let players = [];
     game.data.players ? game.data.players : [];
     game.data.players = norseUtils.forceArray(game.data.players);
@@ -89,7 +96,7 @@ function getGames(filter) {
     result.push({
       displayName: game.displayName,
       description: game.data.description,
-      table: tables + i,
+      table: currTables + j,
       master: master
         ? {
             discord: master.data.discord,
@@ -98,6 +105,7 @@ function getGames(filter) {
         : null,
       players: players
     });
+    j++;
   }
   return { success: true, games: result };
 }
