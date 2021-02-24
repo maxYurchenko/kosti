@@ -130,13 +130,12 @@ function getComingTimeFilter() {
 
 function getTodayTimeFilter() {
   let todayStart = new Date();
-  todayStart.setHours(0, 0, 0, 0);
   let todayEnd = new Date();
   todayEnd.setHours(23, 59, 59, 999);
   return (
     "data.datetime < dateTime('" +
     todayEnd.toISOString() +
-    "') and data.datetime > dateTime('" +
+    "') and data.datetimeEnd > dateTime('" +
     todayStart.toISOString() +
     "')"
   );
