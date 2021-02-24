@@ -99,7 +99,6 @@ function getGames(filter, userId) {
     let master = contentLib.get({ key: game.data.master });
     result.push({
       displayName: game.displayName,
-      description: game.data.description.replace(/(<([^>]+)>)/gi, ""),
       table: currTables + j,
       dateTimeStart: game.data.datetime,
       dateTimeEnd: game.data.datetimeEnd,
@@ -137,7 +136,6 @@ function getEvents(filter) {
     let event = events[i];
     result.push({
       displayName: event.displayName,
-      description: event.data.description.replace(/(<([^>]+)>)/gi, ""),
       dateTimeStart: event.data.datetime,
       dateTimeEnd: event.data.datetimeEnd,
       location: event.data.location
@@ -148,7 +146,7 @@ function getEvents(filter) {
 
 function getComingTimeFilter() {
   let prepareDate = new Date();
-  prepareDate.setTime(prepareDate.getTime() + 20 * 60 * 1000);
+  prepareDate.setTime(prepareDate.getTime() - 20 * 60 * 1000);
   let endDate = new Date();
   endDate.setTime(endDate.getTime() + 2.5 * 60 * 60 * 1000);
   let now = new Date();
