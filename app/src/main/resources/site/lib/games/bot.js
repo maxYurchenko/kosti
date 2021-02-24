@@ -52,16 +52,20 @@ function getUserByTicket(ticketId) {
   return null;
 }
 
-function getGames(filter) {
+function getGames(filter, userId) {
   let query = null;
   switch (filter) {
     case "today":
       query = getTodayTimeFilter();
       break;
+    case "user":
+      query = getUserFilter(userId);
+      break;
     default:
       query = getComingTimeFilter();
       break;
   }
+  if (!query) return { success: false };
   let result = [];
   let comingGames = contentLib.query({
     query: query,
@@ -97,6 +101,8 @@ function getGames(filter) {
       displayName: game.displayName,
       description: game.data.description,
       table: currTables + j,
+      dateTimeStart: game.data.datetime,
+      dateTimeEnd: game.data.datetimeEnd,
       master: master
         ? {
             discord: master.data.discord,
@@ -163,4 +169,27 @@ function getTodayTimeFilter() {
     todayStart.toISOString() +
     "')"
   );
+}
+
+function getUserFilter(userId) {
+  let users = contentLib.query({
+    query: "data.discord = '" + userId + "'",
+    start: 0,
+    count: -1,
+    contentTypes: [app.name + ":user"]
+  }).hits;
+  let ids = [];
+  users.forEach((u) => {
+    ids.push(u._id);
+  });
+  if (ids.length > 0) {
+    return (
+      "data.players IN ('" +
+      ids.join("','") +
+      "') OR data.master IN ('" +
+      ids.join("','") +
+      "')"
+    );
+  }
+  return false;
 }
