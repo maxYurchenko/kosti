@@ -35,5 +35,9 @@
       </config>
       <default>one</default> 
     </input>
+    <input name="url" type="TextLine">
+      <label>URL</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
   </form>
 </content-type>

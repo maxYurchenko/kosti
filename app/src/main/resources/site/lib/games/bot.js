@@ -138,7 +138,8 @@ function getEvents(filter) {
       displayName: event.displayName,
       dateTimeStart: event.data.datetime,
       dateTimeEnd: event.data.datetimeEnd,
-      location: event.data.location
+      location: event.data.location,
+      url: event.data.url
     });
   }
   return { success: true, games: result };
@@ -146,10 +147,11 @@ function getEvents(filter) {
 
 function getComingTimeFilter() {
   let prepareDate = new Date();
-  prepareDate.setTime(prepareDate.getTime() - 20 * 60 * 1000);
+  prepareDate.setTime(prepareDate.getTime() + 20 * 60 * 1000);
   let endDate = new Date();
   endDate.setTime(endDate.getTime() + 2.5 * 60 * 60 * 1000);
   let now = new Date();
+  now.setTime(now.getTime() + 20 * 60 * 1000);
   return (
     "(data.datetime < dateTime('" +
     prepareDate.toISOString() +
