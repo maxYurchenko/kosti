@@ -173,7 +173,7 @@ function getTodayTimeFilter() {
   return (
     "data.datetime < dateTime('" +
     todayEnd.toISOString() +
-    "') and data.datetimeEnd > dateTime('" +
+    "') and data.datetime > dateTime('" +
     todayStart.toISOString() +
     "')"
   );
