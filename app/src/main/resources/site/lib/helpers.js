@@ -342,6 +342,8 @@ exports.getPagination = function (
     } else {
       params = mergeObjects(params, { page: pageNum });
     }
+    if (currentContent.indexOf("/") !== -1)
+      return currentContent + portal.pageUrl({ id: null, params: params });
     return portal.pageUrl({ id: currentContent, params: params });
   }
 };

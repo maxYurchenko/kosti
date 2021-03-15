@@ -13,18 +13,18 @@ exports.get = function (req) {
     return false;
   }
   const params = req.params;
-  const carts = cartLib.getCreatedCarts(req.params).hits;
+  const carts = cartLib.getCreatedCarts(req.params);
   return {
     body: thymeleaf.render(resolve("../templates/ordersList.html"), {
       pageComponents: helpers.getPageComponents(req),
       pagination: helpers.getPagination(
-        null,
+        "/orders",
         carts.total,
         30,
         params.page ? parseInt(params.page) : 0,
         req.params
       ),
-      carts: carts,
+      carts: carts.hits,
       params: req.params,
       products: contentLib.query({
         start: 0,
