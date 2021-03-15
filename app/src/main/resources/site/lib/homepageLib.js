@@ -75,8 +75,6 @@ function getScheduleFromCache() {
 }
 
 function getSchedule() {
-  let site = portal.getSiteConfig();
-  let scheduleLocation = contentLib.get({ key: site.scheduleLocation });
   let now = new Date();
   now.setDate(now.getDate() - 1);
   now = now.toISOString();
@@ -91,12 +89,14 @@ function getSchedule() {
     result[i] = beautifySchedule(result[i]);
   }
   let resCopy = JSON.parse(JSON.stringify(result));
+  let stopRepeat = true;
   while (result.length < 3 && result.length > 0) {
     for (let i = 0; i < resCopy.length; i++) {
       if (result.length >= 3) {
         break;
       }
       if (resCopy[i].data.repeat) {
+        stopRepeat = false;
         let temp = JSON.parse(JSON.stringify(resCopy[i]));
         let itemDate = new Date(temp.data.date);
         itemDate.setDate(itemDate.getDate() + 7 * parseInt(temp.data.repeat));
@@ -104,6 +104,7 @@ function getSchedule() {
         result.push(beautifySchedule(temp));
       }
     }
+    if (stopRepeat) break;
   }
   return result;
 }
