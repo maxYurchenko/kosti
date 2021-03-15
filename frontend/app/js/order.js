@@ -6,7 +6,13 @@ function initOrderPage() {
       url: data.url,
       type: "POST",
       data: JSON.stringify(data),
-      contentType: "application/json"
+      contentType: "application/json",
+      success: function (data) {
+        showSnackBar("Done", "success");
+      },
+      error: function (data) {
+        showSnackBar("Error", "error");
+      }
     });
   });
   $(".js_api-call-button-with-form").on("click", function (e) {
@@ -20,7 +26,13 @@ function initOrderPage() {
       url: form.attr("action"),
       type: "POST",
       data: JSON.stringify(data),
-      contentType: "application/json"
+      contentType: "application/json",
+      success: function (data) {
+        showSnackBar("Done", "success");
+      },
+      error: function (data) {
+        showSnackBar("Error", "error");
+      }
     });
   });
   $(".js_update-api-button-data-select").on("change", function (e) {
