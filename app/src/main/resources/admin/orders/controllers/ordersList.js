@@ -12,8 +12,8 @@ exports.get = function (req) {
   if (!adminLib.validateUserAdmin()) {
     return false;
   }
-  var params = req.params;
-  var carts = cartLib.getCreatedCarts(req.params).hits;
+  const params = req.params;
+  const carts = cartLib.getCreatedCarts(req.params).hits;
   return {
     body: thymeleaf.render(resolve("../templates/ordersList.html"), {
       pageComponents: helpers.getPageComponents(req),

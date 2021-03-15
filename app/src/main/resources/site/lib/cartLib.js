@@ -162,8 +162,8 @@ function getCreatedCarts(params) {
   var result = [];
   var query = "_ts > '2019-03-26T07:24:47.393Z'";
   if (params.status) {
-    params.status = norseUtils.forceArray(params.status);
-    query += " and status IN ('" + params.status.join("','") + "')";
+    let statuses = norseUtils.forceArray(params.status);
+    query += " and status IN ('" + statuses.join("','") + "')";
   } else {
     query +=
       " and status in ('failed', 'paid', 'pending', 'created', 'shipped')";
