@@ -165,9 +165,6 @@
     <mapping controller="/services/promos/promos.js" order="10">
       <pattern>/promos</pattern>
     </mapping>
-    <mapping controller="/services/orders/orders.js" order="10">
-      <pattern>/orders</pattern>
-    </mapping>
     <mapping controller="/services/search/search.js" order="10">
       <pattern>/search</pattern>
     </mapping>
@@ -273,6 +270,42 @@
     </mapping>
     <mapping controller="/api/festival/bot/events/today.js">
       <pattern>/api/festival/bot/events/today</pattern>
+    </mapping>
+    <mapping controller="/admin/orders/controllers/ordersList.js">
+      <pattern>/orders</pattern>
+    </mapping>
+    <mapping controller="/admin/orders/controllers/order.js">
+      <pattern>/orders/single</pattern>
+    </mapping>
+    <mapping controller="/api/orders/update.js">
+      <pattern>/api/orders/update</pattern>
+    </mapping>
+    <mapping controller="/api/orders/confirmation.js">
+      <pattern>/api/orders/confirmation</pattern>
+    </mapping>
+    <mapping controller="/api/orders/shipped.js">
+      <pattern>/api/orders/shipped</pattern>
+    </mapping>
+    <mapping controller="/api/orders/generateIds.js">
+      <pattern>/api/orders/generate</pattern>
+    </mapping>
+    <mapping controller="/api/orders/addItem.js">
+      <pattern>/api/orders/add-item</pattern>
+    </mapping>
+    <mapping controller="/api/orders/removeItem.js">
+      <pattern>/api/orders/remove-item</pattern>
+    </mapping>
+    <mapping controller="/api/orders/novaPoshta.js">
+      <pattern>/api/orders/nova-poshta</pattern>
+    </mapping>
+    <mapping controller="/admin/statistics/statistics.js">
+      <pattern>/statistics</pattern>
+    </mapping>
+    <mapping controller="/api/statistics/itemsSold.js">
+      <pattern>/api/statistics/items-sold</pattern>
+    </mapping>
+    <mapping controller="/api/statistics/cartCountry.js">
+      <pattern>/api/statistics/cart-country</pattern>
     </mapping>
   </mappings>
 </site>

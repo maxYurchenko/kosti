@@ -162,7 +162,8 @@ function getCreatedCarts(params) {
   var result = [];
   var query = "_ts > '2019-03-26T07:24:47.393Z'";
   if (params.status) {
-    query += " and status = '" + params.status + "'";
+    params.status = norseUtils.forceArray(params.status);
+    query += " and status IN ('" + params.status.join("','") + "')";
   } else {
     query +=
       " and status in ('failed', 'paid', 'pending', 'created', 'shipped')";
@@ -177,6 +178,20 @@ function getCreatedCarts(params) {
       "\"', 'OR') or ngram('_allText', '\"" +
       params.search +
       "\"', 'OR')";
+    if (parseInt(params.search) !== NaN && parseInt(params.search)) {
+      query += " OR items.itemsIds.id=" + params.search;
+    }
+  }
+  if (params.start) {
+    let date = new Date(params.start).toISOString();
+    query += " and transactionDate > dateTime('" + date + "')";
+  }
+  if (params.end) {
+    let date = new Date(params.end).toISOString();
+    query += " and transactionDate < dateTime('" + date + "')";
+  }
+  if (params.product) {
+    query += " and items.id = '" + params.product + "'";
   }
   params.page = params.page ? parseInt(params.page) : 1;
   var carts = cartRepo.query({
@@ -333,6 +348,7 @@ function setUserDetails(cartId, params) {
     node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
     node.userId = node.userId ? node.userId : getNextId();
     node.index = params.index ? params.index : node.index;
+    node.comment = params.comment ? params.comment : node.comment;
     node.paymentMethod = params.paymentMethod
       ? params.paymentMethod
       : node.paymentMethod;
@@ -394,6 +410,7 @@ function generateItemsIds(cartId) {
     editor: editor
   });
   modifyCartUtils({ ticketCount: utils.ticketCount });
+  return result;
   function editor(node) {
     if (node && node.items) {
       node.items = norseUtils.forceArray(node.items);

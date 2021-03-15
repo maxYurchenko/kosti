@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+        <div class="site_width">
+            <form class="checkout-form">
+                <div class="form-group-column">
+                    <div class="form-group">
+                        <label for="start" class="label">Date start</label>
+                        <input type="date" id="start" data-th-value="${params.start}" name="start" min="2017-01-01">
+                    </div>
+                    <div class="form-group">
+                        <label for="end" class="label">Date end</label>
+                        <input type="date" data-th-value="${params.end}" id="end" min="2017-01-01" name="end">
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Apply</label>
+                        <input type="submit" value="Apply" />
+                    </div>
+                </div>
+            </form>
+            <div>
+                <span>Total paid carts:</span>
+                <span data-th-text="${paidCarts.total}"></span>
+            </div>
+            <div>
+                <span>Total failed carts:</span>
+                <span data-th-text="${failedCarts.total}"></span>
+            </div>
+            <div>
+                <span>Total income:</span>
+                <span data-th-text="${income.total}"></span>
+            </div>
+            <div>
+                <span>Total items income:</span>
+                <span data-th-text="${income.itemsPrice}"></span>
+            </div>
+            <div>
+                <span>Total shipping income:</span>
+                <span data-th-text="${income.shipping}"></span>
+            </div>
+            <div>
+                <span>Average cart price:</span>
+                <span data-th-text="${income.averageTotal}"></span>
+            </div>
+            <div>
+                <span>Average shipping price:</span>
+                <span data-th-text="${income.averageShipping}"></span>
+            </div>
+            <div>
+                <span>Average items price:</span>
+                <span data-th-text="${income.averageItemsPrice}"></span>
+            </div>
+            <div>
+                <span>Unique buyers amount:</span>
+                <span data-th-text="${uniqueBuyersAmount}"></span>
+            </div>
+            <canvas id="itemsChart"></canvas>
+            <canvas id="countryChart"></canvas>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>

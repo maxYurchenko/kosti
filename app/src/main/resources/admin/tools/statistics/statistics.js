@@ -1,29 +1,22 @@
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
-var thymeleaf = require("/lib/thymeleaf");
-var nodeLib = require("/lib/xp/node");
-var htmlExporter = require("/lib/openxp/html-exporter");
-var textEncodingLib = require("/lib/text-encoding");
-var adminLib = require("/lib/xp/admin");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
+const thymeleaf = require("/lib/thymeleaf");
+const adminLib = require("/lib/xp/admin");
 
-var libLocation = "../../../site/lib/";
-var contextLib = require(libLocation + "contextLib");
-var helpers = require(libLocation + "helpers");
-var norseUtils = require(libLocation + "norseUtils");
-var userLib = require(libLocation + "userLib");
-var cartLib = require(libLocation + "cartLib");
-var statisticsLib = require(libLocation + "statisticsLib");
-var qrLib = require(libLocation + "qrLib");
-var hashLib = require(libLocation + "hashLib");
-var mailsLib = require(libLocation + "mailsLib");
-var sharedLib = require(libLocation + "sharedLib");
+const libLocation = "../../../site/lib/";
+const helpers = require(libLocation + "helpers");
+const norseUtils = require(libLocation + "norseUtils");
+const statisticsLib = require(libLocation + "statisticsLib");
+const cartLib = require(libLocation + "cartLib");
 
-exports.get = function(req) {
-  var view = resolve("statistics.html");
+exports.get = function (req) {
+  let paidCarts = cartLib.getCreatedCarts({ status: ["paid", "shipped"] });
+  let failedCarts = cartLib.getCreatedCarts({ status: "failed" });
   return {
-    body: thymeleaf.render(view, {
+    body: thymeleaf.render(resolve("statistics.html"), {
       pageComponents: helpers.getPageComponents(req),
-      carts: statisticsLib.getCartsByProduct({ status: "paid" })
+      paidCarts: paidCarts,
+      failedCarts: failedCarts
     }),
     contentType: "text/html"
   };

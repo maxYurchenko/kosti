@@ -1,9 +1,10 @@
-var norseUtils = require("norseUtils");
-var nodeLib = require("/lib/xp/node");
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
-var repoLib = require("/lib/xp/repo");
-var contextLib = require("contextLib");
+const norseUtils = require("norseUtils");
+const nodeLib = require("/lib/xp/node");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
+const repoLib = require("/lib/xp/repo");
+const contextLib = require("contextLib");
+const transliterationLetters = require("misc/transliterationLetters");
 
 exports.connectRepo = getRepoConnection;
 exports.generateNiceServiceUrl = generateNiceServiceUrl;
@@ -11,13 +12,14 @@ exports.getTranslationCounter = getTranslationCounter;
 exports.getSite = getSite;
 exports.getSiteConfig = getSiteConfig;
 exports.getShopUrl = getShopUrl;
+exports.transliterate = transliterate;
 
 function getRepoConnection(id, branch) {
   let conn = null;
   if (!branch) {
     var branch = "master";
   }
-  contextLib.runAsAdmin(function() {
+  contextLib.runAsAdmin(function () {
     if (!repoLib.get(id)) {
       createRepo(id);
     }
@@ -106,4 +108,12 @@ function getTranslationCounter(count) {
       return "3";
       break;
   }
+}
+
+function transliterate(word) {
+  const keys = transliterationLetters.letters;
+  return word
+    .split("")
+    .map((char) => keys[char] || char)
+    .join("");
 }

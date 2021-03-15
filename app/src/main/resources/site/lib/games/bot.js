@@ -152,6 +152,8 @@ function getComingTimeFilter() {
   endDate.setTime(endDate.getTime() + 2.5 * 60 * 60 * 1000);
   let now = new Date();
   now.setTime(now.getTime() + 20 * 60 * 1000);
+  let gameFilter = new Date();
+  gameFilter.setTime(gameFilter.getTime() - 20 * 60 * 1000);
   return (
     "(data.datetime < dateTime('" +
     prepareDate.toISOString() +
@@ -159,7 +161,7 @@ function getComingTimeFilter() {
     now.toISOString() +
     "'))" +
     " OR (data.datetime > dateTime('" +
-    prepareDate.toISOString() +
+    gameFilter.toISOString() +
     "') and data.datetime < dateTime('" +
     endDate.toISOString() +
     "') and type='" +

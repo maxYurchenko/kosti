@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
-  <body>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div class="site_width"></div>
+        <div class="site_width">
+            <div>
+                <span>Total paid carts:</span>
+                <span data-th-text="${paidCarts.total}"></span>
+            </div>
+            <div>
+                <span>Total failed carts:</span>
+                <span data-th-text="${failedCarts.total}"></span>
+            </div>
+        </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-  </body>
+</body>
+
 </html>
