@@ -238,7 +238,6 @@ function savePrices(cartId) {
 //function modify(cartId, itemId, amount, size, force) {
 function modify(params) {
   let cart = getCart(params.cartId);
-  norseUtils.log(params.cartId);
   if (!validateCartStatusAvailableForModify(cart) && !params.adminUser) {
     cart = getCart();
   }
