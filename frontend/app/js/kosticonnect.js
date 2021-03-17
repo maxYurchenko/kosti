@@ -7,7 +7,7 @@ function initKosticonnetcScripts() {
     addTocart(e, this);
   });
 
-  $(".js_faq-item h4").on("click", function() {
+  $(".js_faq-item h4").on("click", function () {
     var parent = $(this).parent();
     if (parent.hasClass("active")) {
       parent.removeClass("active");
@@ -30,8 +30,10 @@ function addTocart(e, element) {
   if (sizeSelect.length > 0) {
     data.size = sizeSelect.val();
   }
-  let call = makeAjaxCall(cartServiceUrl, "POST", data, true);
-  call.done(function () {
+  let call = makeAjaxCall(updateCartUrl, "POST", data, true);
+  call.done(function (data) {
+    var cart = data.data;
+    setCookie(cart._id);
     window.location.href = "/cart";
   });
 }

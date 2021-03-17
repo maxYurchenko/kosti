@@ -55,34 +55,35 @@ function addToCart(data) {
     };
   }
   $(".minicart .minicart-qty").removeClass("animate");
-  var call = makeAjaxCall(cartServiceUrl, "POST", data, true);
+  var call = makeAjaxCall(updateCartUrl, "POST", data, true);
   call.done(function (data) {
-    setCookie(data._id);
-    $(".minicart .minicart-total").html("UAH " + data.price.items);
+    var cart = data.data;
+    setCookie(cart._id);
+    $(".minicart .minicart-total").html("UAH " + cart.price.items);
     $(".minicart .minicart-qty").text(
-      parseInt(data.itemsNum) > 99 ? "9+" : data.itemsNum
+      parseInt(cart.itemsNum) > 99 ? "9+" : cart.itemsNum
     );
-    $(".cart-total .value .cart-items-price").text(data.price.items);
+    $(".cart-total .value .cart-items-price").text(cart.price.items);
     $(".minicart .minicart-qty").addClass("animate");
-    if (data.stock) {
+    if (cart.stock) {
       $(".checkout-action .checkout-continue").removeClass("not-active");
     } else {
       $(".checkout-action .checkout-continue").addClass("not-active");
     }
     if (
-      data.items &&
-      data.items.length < 1 &&
+      cart.items &&
+      cart.items.length < 1 &&
       $(".checkout-action .checkout-continue").length > 0
     ) {
       $(".checkout-action .checkout-continue").addClass("not-active");
     }
-    for (var i = 0; i < data.items.length; i++) {
+    for (var i = 0; i < cart.items.length; i++) {
       var selector =
-        ".cart-product_price-wrap[data-id=" + data.items[i]._id + "]";
-      data.items[i].itemSize
-        ? (selector += "[data-size=" + data.items[i].itemSize + "]")
+        ".cart-product_price-wrap[data-id=" + cart.items[i]._id + "]";
+      cart.items[i].itemSize
+        ? (selector += "[data-size=" + cart.items[i].itemSize + "]")
         : false;
-      if (data.items[i].stock && data.items[i].itemSizeStock) {
+      if (cart.items[i].stock && cart.items[i].itemSizeStock) {
         $(selector).find(".productPrice").removeClass("hidden");
         $(selector).find(".productOutOfStock").addClass("hidden");
       } else {

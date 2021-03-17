@@ -4,7 +4,6 @@ const thymeleaf = require("/lib/thymeleaf");
 
 const libLocation = "/site/lib/";
 const norseUtils = require(libLocation + "norseUtils");
-const mailsLib = require(libLocation + "mailsLib");
 const cartLib = require(libLocation + "cartLib");
 const adminLib = require(libLocation + "adminLib");
 
@@ -15,17 +14,14 @@ exports.post = function (req) {
   };
 
   function createModel() {
-    const data = JSON.parse(req.body);
+    let data = JSON.parse(req.body);
     if (!data.id || !adminLib.validateUserAdmin()) {
       return { success: false };
     }
-    const cart = cartLib.modify(
-      data.id,
-      data.itemId,
-      data.amount,
-      data.size,
-      true
-    );
+    data.force = true;
+    const cart = contextLib.runAsAdmin(function () {
+      return cartLib.modify(data);
+    });
     if (cart) {
       return { success: true, data: cart };
     }

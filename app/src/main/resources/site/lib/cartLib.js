@@ -235,59 +235,65 @@ function savePrices(cartId) {
   }
 }
 
-function modify(cartId, id, amount, itemSize, force) {
-  var cart = getCart(cartId);
-  var cartRepo = connectCartRepo();
-  var item = contentLib.get({ key: id });
+//function modify(cartId, itemId, amount, size, force) {
+function modify(params) {
+  let cart = getCart(params.cartId);
+  norseUtils.log(params.cartId);
+  if (!validateCartStatusAvailableForModify(cart) && !params.adminUser) {
+    cart = getCart();
+  }
+  const cartRepo = connectCartRepo();
+  var item = contentLib.get({ key: params.itemId });
   if (item && item.data && item.data.generateIds) {
     var generateIds = parseInt(item.data.generateIds);
   }
-  var result = cartRepo.modify({
+  return cartRepo.modify({
     key: cart._id,
     editor: editor
   });
-  result = getCart(cartId);
 
   function editor(node) {
     if (node.items) {
       node.items = norseUtils.forceArray(node.items);
       for (var i = 0; i < node.items.length; i++) {
-        if (node.items[i].id == id && node.items[i].itemSize == itemSize) {
-          if (force) {
-            node.items[i].amount = amount;
+        if (
+          node.items[i].id == params.itemId &&
+          node.items[i].itemSize == params.size
+        ) {
+          if (params.force) {
+            node.items[i].amount = params.amount;
           } else {
             node.items[i].amount =
-              parseInt(node.items[i].amount) + parseInt(amount);
+              parseInt(node.items[i].amount) + parseInt(params.amount);
           }
           node.items[i].generateIds = generateIds
             ? generateIds
             : node.items[i].generateIds;
-          if (parseInt(amount) < 1) {
+          if (parseInt(params.amount) < 1) {
             delete node.items[i];
           }
           return node;
         }
       }
       node.items.push({
-        id: id,
-        amount: amount,
-        itemSize: itemSize,
+        id: params.itemId,
+        amount: params.amount,
+        itemSize: params.size,
         generateIds: generateIds ? generateIds : null
       });
       return node;
     } else {
       node.items = [
         {
-          id: id,
-          amount: amount,
-          itemSize: itemSize,
+          id: params.itemId,
+          amount: params.amount,
+          itemSize: params.size,
           generateIds: generateIds ? generateIds : null
         }
       ];
       return node;
     }
   }
-  return result;
 }
 
 function modifyInventory(items) {
@@ -843,4 +849,10 @@ function fixItemIds() {
   for (var i = 0; i < result.hits.length; i++) {
     generateItemsIds(result.hits[i].id);
   }
+}
+
+function validateCartStatusAvailableForModify(cart) {
+  const statuses = ["failed", "paid"];
+  if (statuses.indexOf(cart.status) === -1) return true;
+  return false;
 }

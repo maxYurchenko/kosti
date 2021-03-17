@@ -111,6 +111,7 @@ function getTranslationCounter(count) {
 }
 
 function transliterate(word) {
+  if (!word) return "";
   const keys = transliterationLetters.letters;
   return word
     .split("")

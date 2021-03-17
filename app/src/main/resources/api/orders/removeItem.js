@@ -15,11 +15,13 @@ exports.post = function (req) {
   };
 
   function createModel() {
-    const data = JSON.parse(req.body);
+    let data = JSON.parse(req.body);
     if (!data.cartid || !adminLib.validateUserAdmin()) {
       return { success: false };
     }
-    const cart = cartLib.modify(data.cartid, data.itemid, 0, data.size, true);
+    data.force = true;
+    data.amount = 0;
+    const cart = cartLib.modify(data);
     if (cart) {
       return { success: true, data: cart };
     }

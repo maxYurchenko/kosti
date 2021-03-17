@@ -307,5 +307,8 @@
     <mapping controller="/api/statistics/cartCountry.js">
       <pattern>/api/statistics/cart-country</pattern>
     </mapping>
+    <mapping controller="/api/cart/update.js">
+      <pattern>/api/cart/update</pattern>
+    </mapping>
   </mappings>
 </site>

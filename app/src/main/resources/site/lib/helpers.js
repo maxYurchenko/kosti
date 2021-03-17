@@ -34,9 +34,6 @@ function getPageComponents(req, footerType, activeEl, title) {
   var contentServiceUrl = portal.serviceUrl({
     service: "content"
   });
-  var cartServiceUrl = portal.serviceUrl({
-    service: "cart"
-  });
   var commentsServiceUrl = portal.serviceUrl({
     service: "comments"
   });
@@ -108,7 +105,7 @@ function getPageComponents(req, footerType, activeEl, title) {
       {
         userServiceUrl: userServiceUrl,
         contentServiceUrl: contentServiceUrl,
-        cartServiceUrl: cartServiceUrl,
+        updateCartUrl: "/api/cart/update",
         commentsServiceUrl: commentsServiceUrl,
         monsterServiceUrl: monsterServiceUrl,
         cartId: cartLib.getCart(req && req.cookies ? req.cookies.cartId : null)
