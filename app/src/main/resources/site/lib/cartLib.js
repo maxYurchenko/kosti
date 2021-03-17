@@ -246,10 +246,11 @@ function modify(params) {
   if (item && item.data && item.data.generateIds) {
     var generateIds = parseInt(item.data.generateIds);
   }
-  return cartRepo.modify({
+  cart = cartRepo.modify({
     key: cart._id,
     editor: editor
   });
+  return getCart(cart._id);
 
   function editor(node) {
     if (node.items) {
