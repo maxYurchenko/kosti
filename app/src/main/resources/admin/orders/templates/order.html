@@ -6,7 +6,7 @@
 <body class="page-wrapper">
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <header class="header" data-th-utext="${pageComponents.loginRegisterModal}"></header>
-    <main class="main">
+    <main class="main admin-wrap">
         <div class="site_width">
             <a href="/orders" class="checkout-back">Back to list</a>
             <div class="order">
@@ -15,117 +15,54 @@
                         Order details
                     </h2>
                     <div class="order-info-item">
-                        <div class="order-row">
-                            <h3 class="order-label">Order ID:</h3>
-                            <div class="order-value" data-th-text="${cart.userId}"></div>
-                        </div>
-                        <div class="order-row">
-                            <h3 class="order-label">Address:</h3>
-                            <div class="order-value">
-                                <p
-                                    data-th-text="${portal.localize({'_key=countries.title.' + cart.country, '_locale=ru'})}">
-                                </p>
-                                <p data-th-text="${cart.city + ', ' + cart.address}"></p>
-                                <p data-th-text="${cart.cityLatinic + ', ' + cart.addressLatinic}"></p>
+                        <div class="order-row order-row_column">
+                            <div class="order-column">
+                                <h3 class="order-label">Order ID:</h3>
+                                <div class="order-value" data-th-text="${cart.userId}"></div>
+                                <h3 class="order-label">Order Date:</h3>
+                                <div class="order-value" data-th-text="${cart.dates.createdTime}"></div>
                             </div>
-                        </div>
-                        <div class="order-row">
-                            <h3 class="order-label">Index:</h3>
-                            <div class="order-value" data-th-text="${cart.index}"></div>
-                        </div>
-                        <div class="order-row">
-                            <h3 class="order-label">Shipping:</h3>
-                            <div class="order-value">
-                                <p
-                                    data-th-text="${portal.localize({'_key=store.shipping.' + cart.shipping, '_locale=ru'})}">
-                                </p>
-                                <p data-th-text="${cart.novaPoshtaСity}"></p>
-                                <p data-th-text="${cart.novaPoshtaWarehouse}"></p>
-                            </div>
-                        </div>
-                        <div class="order-row">
-                            <h3 class="order-label">Payment:</h3>
-                            <div class="order-value" data-th-text="${cart.paymentMethod}"></div>
-                        </div>
-                        <div class="order-row">
-                            <h3 class="order-label">Name:</h3>
-                            <div class="order-value" data-th-if="${cart and cart.name and cart.surname}"
-                                data-th-text="${cart.name + ' ' + cart.surname}"></div>
-                        </div>
-                        <div class="order-row">
-                            <h3 class="order-label">Email:</h3>
-                            <div class="order-value" data-th-text="${cart.email}"></div>
-                        </div>
-                        <div class="order-row">
-                            <h3 class="order-label">Phone:</h3>
-                            <div class="order-value" data-th-text="${cart.phone}"></div>
-                        </div>
-                        <div class="order-row">
-                            <h3 class="order-label">Order Date:</h3>
-                            <div class="order-value" data-th-text="${cart.dates.createdTime}"></div>
-                        </div>
-                        <div data-th-if="${cart.dates.transactionTime}" class="order-row">
-                            <h3 class="order-label">Payment Date:</h3>
-                            <div class="order-value" data-th-text="${cart.dates.transactionTime}"></div>
-                        </div>
-                    </div>
-                    <div class="order-info-item">
-                        <div class="order-row">
-                            <div class="order-value">
-                                <button data-url="/api/orders/confirmation" data-th-attr="data-id=${cart._id}"
-                                    class="js_api-call-button-with-data">
-                                    Resend order confirmation mail
-                                </button>
-                            </div>
-                        </div>
-                        <div class="order-row">
-                            <h3 class="order-label">Send shipped mail:</h3>
-                            <form class="order-value" action="/api/orders/shipped">
-                                <div class="form-group">
-                                    <input data-th-value="${cart.trackNum} ? ${cart.trackNum} : ${''}" name="track"
-                                        type="text" class="input-text" />
+
+                            <div class="order-column">
+                                <h3 class="order-label">Payment:</h3>
+                                <div class="order-value" data-th-text="${cart.paymentMethod}"></div>
+                                <div data-th-if="${cart.dates.transactionTime}" data-th-remove>
+                                    <h3 class="order-label">Payment Date:</h3>
+                                    <div class="order-value" data-th-text="${cart.dates.transactionTime}"></div>
                                 </div>
-                                <input data-th-value="${cart._id}" name="id" type="hidden" />
-                                <button class="js_api-call-button-with-form">
-                                    Send shipped mail
-                                </button>
-                            </form>
-                        </div>
-                        <form class="order-row" action="/api/orders/update">
-                            <h3 class="order-label">Status:</h3>
-                            <div class="select-field">
-                                <select name="status" id="pdp-size-select"
-                                    class="pdp-size_select select js_update-api-button-data-select">
-                                    <option value="created" data-th-selected="${cart.status == 'created'}">Created
-                                    </option>
-                                    <option value="pending" data-th-selected="${cart.status == 'pending'}">Pending
-                                    </option>
-                                    <option value="paid" data-th-selected="${cart.status == 'paid'}">Paid</option>
-                                    <option value="failed" data-th-selected="${cart.status == 'failed'}">Failed
-                                    </option>
-                                    <option value="shipped" data-th-selected="${cart.status == 'shipped'}">Shipped
-                                    </option>
-                                </select>
-                            </div>
-                            <input data-th-value="${cart._id}" name="id" type="hidden" />
-                            <button class="js_api-call-button-with-form">
-                                Set status
-                            </button>
-                        </form>
-                        <div class="order-row">
-                            <div class="order-value">
-                                <button data-url="/api/orders/nova-poshta" data-th-attr="data-id=${cart._id}"
-                                    class="js_api-call-button-with-data">
-                                    Create Nova poshta order
-                                </button>
                             </div>
                         </div>
-                        <div class="order-row">
-                            <div class="order-value">
-                                <button data-url="/api/orders/generate" data-th-attr="data-id=${cart._id}"
-                                    class="js_api-call-button-with-data">
-                                    Regenerate Ids
-                                </button>
+                        <div class="order-row order-row_column">
+                            <div class="order-column">
+                                <h3 class="order-label">Address:</h3>
+                                <div class="order-value">
+                                    <p
+                                        data-th-text="${portal.localize({'_key=countries.title.' + cart.country, '_locale=ru'})}">
+                                    </p>
+                                    <p data-th-text="${cart.city + ', ' + cart.address}"></p>
+                                    <p data-th-text="${cart.cityLatinic + ', ' + cart.addressLatinic}"></p>
+                                </div>
+                                <h3 class="order-label">Index:</h3>
+                                <div class="order-value" data-th-text="${cart.index}"></div>
+                                <h3 class="order-label">Shipping:</h3>
+                                <div class="order-value">
+                                    <p
+                                        data-th-text="${portal.localize({'_key=store.shipping.' + cart.shipping, '_locale=ru'})}">
+                                    </p>
+                                    <p data-th-text="${cart.novaPoshtaСity}"></p>
+                                    <p data-th-text="${cart.novaPoshtaWarehouse}"></p>
+                                </div>
+                            </div>
+                            <div class="order-column">
+                                <h3 class="order-label">Name:</h3>
+                                <div class="order-value" data-th-if="${cart and cart.name and cart.surname}"
+                                    data-th-text="${cart.name + ' ' + cart.surname}"></div>
+                                    <div class="order-value" data-th-if="${cart and cart.name and cart.surname}"
+                                        data-th-text="${cart.nameLatinic + ' ' + cart.surnameLatinic}"></div>
+                                <h3 class="order-label">Email:</h3>
+                                <div class="order-value" data-th-text="${cart.email}"></div>
+                                <h3 class="order-label">Phone:</h3>
+                                <div class="order-value" data-th-text="${cart.phone}"></div>
                             </div>
                         </div>
                         <div class="order-row">
@@ -145,7 +82,7 @@
                                                 <span class="label">Размер: </span>
                                                 <span class="value" data-th-text="${item.itemSize}"></span>
                                             </div>
-                                            <span class="label">Количетсво: </span>
+                                            <span class="label">Количество: </span>
                                             <span class="value" data-th-text="${item.amount}"></span>
                                             <div data-th-if="${item.itemsIds.size > 0}" class="cart-product_size">
                                                 <span class="label">Ids: </span>
@@ -161,33 +98,98 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="order-info-item">
                         <div class="order-row">
-                            <div class="order-value">
-                                <form action="/api/orders/add-item">
-                                    <input data-th-value="${cart._id}" type="hidden" name="id" />
-                                    <div class="select-field">
+                            <h3 class="order-label">Send shipped mail:</h3>
+                            <form class="order-value order-row_column" action="/api/orders/shipped">
+                                <input data-th-value="${cart._id}" name="id" type="hidden" />
+                                <div class="order-column">
+                                    <input data-th-value="${cart.trackNum} ? ${cart.trackNum} : ${''}" name="track"
+                                        type="text" class="input-text" />
+                                </div>
+                                <div class="order-column">
+                                    <button class="js_api-call-button-with-form button-light">
+                                        Send shipped mail
+                                    </button>
+                                </div>
+                            </form>
+                            <form  action="/api/orders/update">
+                                <h3 class="order-label">Status:</h3>
+                                <div class="order-row_column">
+                                    <input data-th-value="${cart._id}" name="id" type="hidden" />
+                                    <div class="order-column select-field order-set_status-field">
+                                        <select name="status" id="pdp-size-select"
+                                            class="pdp-size_select select js_update-api-button-data-select">
+                                            <option value="created" data-th-selected="${cart.status == 'created'}">Created
+                                            </option>
+                                            <option value="pending" data-th-selected="${cart.status == 'pending'}">Pending
+                                            </option>
+                                            <option value="paid" data-th-selected="${cart.status == 'paid'}">Paid</option>
+                                            <option value="failed" data-th-selected="${cart.status == 'failed'}">Failed
+                                            </option>
+                                            <option value="shipped" data-th-selected="${cart.status == 'shipped'}">Shipped
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="order-column">
+                                        <button class="js_api-call-button-with-form button-light ">
+                                            Set status
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="order-row">
+                            <h3 class="order-label">Actions:</h3>
+                            <div class="h-mb-15">
+                                <button data-url="/api/orders/confirmation" data-th-attr="data-id=${cart._id}"
+                                    class="js_api-call-button-with-data button-light">
+                                    Resend order confirmation mail
+                                </button>
+                            </div>
+                            <div class="h-mb-15">
+                                <button data-url="/api/orders/nova-poshta" data-th-attr="data-id=${cart._id}"
+                                    class="js_api-call-button-with-data button-secondary">
+                                    Create Nova poshta order
+                                </button>
+                            </div>
+                            <div>
+                                <button data-url="/api/orders/generate" data-th-attr="data-id=${cart._id}"
+                                    class="js_api-call-button-with-data button-link">
+                                    Regenerate Ids
+                                </button>
+                            </div>
+                        </div>
+                        <div class="order-row order-products">
+                            <form action="/api/orders/add-item">
+                                <input data-th-value="${cart._id}" type="hidden" name="id" />
+                                <div class="form-group-column">
+                                    <div class="form-group select-field">
                                         <label class="order-label" for="item-orders-select">Item</label>
                                         <select name="itemId" class="pdp-size_select select" id="item-orders-select">
                                             <option data-th-each="product: ${products}" data-th-value="${product._id}"
                                                 data-th-text="${product.displayName}"></option>
                                         </select>
                                     </div>
-                                    <div class="form-group-column">
-                                        <div class="form-group">
-                                            <label for="amount-orders-input" class="order-label">Amount</label>
-                                            <input name="amount" id="amount-orders-input" type="text"
-                                                class="input-text" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="size-orders-input" class="order-label">Size</label>
-                                            <input name="size" id="size-orders-input" type="text" class="input-text" />
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="amount-orders-input" class="order-label">Amount</label>
+                                        <input name="amount" id="amount-orders-input" type="text"
+                                            class="input-text" />
                                     </div>
-                                    <button value="Add item" class="js_api-call-button-with-form">
-                                        Add item
-                                    </button>
-                                </form>
-                            </div>
+                                </div>
+                                <div class="form-group-column">
+                                    <div class="form-group">
+                                        <label for="size-orders-input" class="order-label">Size</label>
+                                        <input name="size" id="size-orders-input" type="text" class="input-text" />
+                                    </div>
+                                    <div class="form-group">
+                                        <button value="Add item" class="js_api-call-button-with-form button-light ">
+                                            Add item
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

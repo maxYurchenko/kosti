@@ -1,3 +1,9 @@
+.admin-wrap {
+    .site_width {
+        padding-top: 40px;
+    }
+}
+
 .order {
     margin-top: 50px;
 
@@ -15,7 +21,7 @@
     
     &-title {
         flex: 1 1 100%;
-        padding: 20px 15px;
+        padding: 15px 15px;
         background: $color-primary5;
         color: $color-primary1;
         text-transform: uppercase;
@@ -25,7 +31,7 @@
     
     &-row {
         border-top: 1px solid $color-primary9;
-        padding: 30px;
+        padding: 20px;
     }
     &-label {
         margin-bottom: 5px;
@@ -34,26 +40,58 @@
     
     &-value {
         color: $color-primary12;
+        margin-bottom: 5px;
     }
 
     button {
-        @include button-style(global light);
+        padding: 10px 15px;
+        width: auto;
     }
 
-    .form-group,
-    .select-field {
-        margin-bottom: 15px;
+    &-products {
+        .form-group,
+        .select-field {
+            margin-bottom: 15px;
+        }
     }
 
     .checkout-back {
         display: inline-block;
         margin-bottom: 30px;
     }
+
+    &-row_column{
+        @include tablet-all {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-column {
+            @include tablet-all {
+                flex: 0 1 48%;
+            }
+        }
+    }
+
+    &-products {
+        .form-group-column {
+            margin: 0;
+            align-items: center;
+        }
+    }
 }
 
 .orders {
     &-search {
-        margin-bottom: 30px;
+        .form-group-column {
+            align-items: flex-end;
+        }
+
+        &-action.form-group {
+            min-width: 164px;
+            flex-basis: auto;
+        }
     }
 }
 .readQrCanvas{
