@@ -104,6 +104,7 @@
             .button {
                 @include button-style(global light);
 
+                padding: 10px 15px;
                 margin-bottom: 25px;
             }
         }
