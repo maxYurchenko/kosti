@@ -1,37 +1,46 @@
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
-var thymeleaf = require("/lib/thymeleaf");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
+const thymeleaf = require("/lib/thymeleaf");
 
-var contextLib = require("contextLib");
-var norseUtils = require("norseUtils");
-var helpers = require("helpers");
-var cartLib = require("cartLib");
-var mailsLib = require("mailsLib");
-var sharedLib = require("sharedLib");
-var promosLib = require("promosLib");
+const contextLib = require("contextLib");
+const norseUtils = require("norseUtils");
+const helpers = require("helpers");
+const cartLib = require("cartLib");
+const mailsLib = require("mailsLib");
+const sharedLib = require("sharedLib");
+const promosLib = require("promosLib");
+const storeLib = require("storeLib");
 
-exports.getShipping = getShipping;
-exports.getShippingById = getShippingById;
-exports.renderSuccessPage = renderSuccessPage;
 exports.checkIKResponse = checkIKResponse;
 exports.getLiqpayData = getLiqpayData;
 exports.getLiqpayStatusData = getLiqpayStatusData;
-exports.checkoutCart = checkoutCart;
 exports.getCartDescription = getCartDescription;
+exports.checkLiqpayOrderStatus = checkLiqpayOrderStatus;
+exports.getCheckoutMainModel = getCheckoutMainModel;
 
-function checkoutCart(cart, status) {
-  cartLib.modifyCartWithParams(cart._id, {
-    status: status,
-    transactionDate: new Date(),
-    price: cart.price
-  });
-  contextLib.runAsAdmin(function () {
-    cartLib.savePrices(cart._id);
-    cartLib.modifyInventory(cart.items);
-    if (cart.promos) {
-      promosLib.reduceUsePromos(cart.promos);
-    }
-  });
+function getCheckoutMainModel(req) {
+  var cart = cartLib.getCart(req.cookies.cartId);
+  var site = portal.getSiteConfig();
+  for (var i = 0; i < cart.items.length; i++) {
+    cart.items[i].priceBlock = storeLib.getPriceBlock(cart.items[i]._id);
+  }
+  return {
+    cart: cart,
+    promos: thymeleaf.render(
+      resolve("/services/checkout/components/promos.html"),
+      {
+        promos: cart.price.discount.codes
+      }
+    ),
+    ik_id: app.config.interkassaID,
+    pageComponents: helpers.getPageComponents(
+      req,
+      "footerCheckout",
+      null,
+      "Оплата и доставка"
+    ),
+    promosUrl: sharedLib.generateNiceServiceUrl("promos")
+  };
 }
 
 function getLiqpayData(cart) {
@@ -75,95 +84,6 @@ function getLiqpayStatusData(cart) {
   };
 }
 
-function getShipping(country, weight) {
-  if (parseFloat(weight) === 0) {
-    return [
-      {
-        id: "digital",
-        title: "Доставка",
-        price: 0,
-        terms: ""
-      }
-    ];
-  }
-  var site = portal.getSiteConfig();
-  var shipping = contentLib.get({ key: site.shipping });
-  var result = [];
-  shipping.data.shipping = norseUtils.forceArray(shipping.data.shipping);
-  for (var i = 0; i < shipping.data.shipping.length; i++) {
-    if (shipping.data.shipping[i].country.indexOf(country) != -1) {
-      result = getShippingsWithPrices(
-        shipping.data.shipping[i],
-        country,
-        weight
-      );
-    }
-  }
-  return result;
-}
-
-function getShippingsWithPrices(shipping, country, weight) {
-  var result = [];
-  shipping.methods = norseUtils.forceArray(shipping.methods);
-  for (var j = 0; j < shipping.methods.length; j++) {
-    var price = cartLib.getShippingPrice({
-      country: country,
-      itemsWeight: weight,
-      shipping: shipping.methods[j].id
-    });
-    result.push({
-      id: shipping.methods[j].id,
-      title: shipping.methods[j].title,
-      price: price.toFixed(),
-      terms: shipping.methods[j].terms
-    });
-  }
-  return result;
-}
-
-function getShippingById(shipping, id) {
-  for (var i = 0; i < shipping.length; i++) {
-    if (shipping[i].id == id) {
-      return shipping[i];
-    }
-  }
-}
-
-function renderSuccessPage(req, cart, pendingPage) {
-  if (!pendingPage) {
-    cart = contextLib.runAsAdmin(function () {
-      return (cart = cartLib.generateItemsIds(cart._id));
-    });
-    mailsLib.sendMail("orderCreated", cart.email, {
-      cart: cart
-    });
-  } else {
-    /*cart = contextLib.runAsAdmin(function () {
-      return (cart = cartLib.generateItemsIds(cart._id));
-    });*/
-    mailsLib.sendMail(
-      "pendingItem",
-      ["maxskywalker94@gmail.com", "demura.vi@gmail.com"],
-      {
-        id: cart._id,
-        userId: cart.userId
-      }
-    );
-  }
-  return {
-    body: thymeleaf.render(
-      resolve("../../services/checkout/components/success.html"),
-      {
-        pageComponents: helpers.getPageComponents(req),
-        cart: cart,
-        pendingPage: pendingPage,
-        shopUrl: sharedLib.getShopUrl()
-      }
-    ),
-    contentType: "text/html"
-  };
-}
-
 function checkIKResponse(params, model) {
   if (params.ik_inv_st == "success") {
     params.step = "success";
@@ -196,4 +116,45 @@ function checkIKResponse(params, model) {
     });
   }
   return params;
+}
+
+function checkLiqpayOrderStatus() {
+  var carts = cartLib.getPendingLiqpayCarts();
+  norseUtils.log(carts.length + " total pending carts found.");
+  for (var i = 0; i < carts.length; i++) {
+    norseUtils.log("fixing cart " + carts[i].userId);
+    var data = hashLib.generateLiqpayData(
+      checkoutLib.getLiqpayStatusData(carts[i])
+    );
+    var signature = hashLib.generateLiqpaySignature(data);
+    var result = JSON.parse(
+      httpClientLib.request({
+        url: "https://www.liqpay.ua/api/request",
+        method: "POST",
+        connectionTimeout: 2000000,
+        readTimeout: 500000,
+        body: "data=" + data + "&signature=" + signature + "",
+        contentType: "application/x-www-form-urlencoded"
+      }).body
+    );
+    norseUtils.log("cart status " + result.status);
+    if (result && result.status && result.status === "success") {
+      norseUtils.log("cart is paid");
+      checkoutLib.checkoutCart(carts[i], "paid");
+      carts[i] = contextLib.runAsAdmin(function () {
+        return (carts[i] = cartLib.generateItemsIds(carts[i]._id));
+      });
+      norseUtils.log("sending mail");
+      mailsLib.sendMail("orderCreated", carts[i].email, {
+        cart: carts[i]
+      });
+    } else if (
+      result &&
+      result.status &&
+      (result.status === "failure" || result.status === "error")
+    ) {
+      norseUtils.log("updating status");
+      cartLib.modifyCartWithParams(carts[i]._id, { status: "failed" });
+    }
+  }
 }

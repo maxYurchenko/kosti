@@ -214,12 +214,14 @@ function modifyCartWithParams(id, params) {
 
 function savePrices(cartId) {
   var cartRepo = connectCartRepo();
+  var cart = getCart(cartId);
   var result = cartRepo.modify({
     key: cartId,
     editor: editor
   });
 
   function editor(node) {
+    node.transactionPrice = cart.price;
     if (node.items) {
       node.items = norseUtils.forceArray(node.items);
       for (var i = 0; i < node.items.length; i++) {
@@ -852,7 +854,7 @@ function fixItemIds() {
 }
 
 function validateCartStatusAvailableForModify(cart) {
-  const statuses = ["failed", "paid"];
+  const statuses = ["failed", "paid", "pending"];
   if (statuses.indexOf(cart.status) === -1) return true;
   return false;
 }

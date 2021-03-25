@@ -19,9 +19,7 @@ exports.post = function (req) {
       return { success: false };
     }
     params.adminUser = adminLib.validateUserAdmin();
-    const result = contextLib.runAsAdmin(function () {
-      return cartLib.modify(params);
-    });
+    const result = cartLib.modify(params);
     if (!result) {
       return { success: false };
     }

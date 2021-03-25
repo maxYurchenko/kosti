@@ -16,7 +16,7 @@
     </div>
 </div>
 <h2 class="checkout-title">Метод доставки</h2>
-<form class="checkout-form js_shipping-form" method="POST" data-th-action="${checkoutUrl}">
+<form class="checkout-form js_shipping-form" method="POST" action="/checkout/payment">
     <div class="delivery_m">
         <div class="form-group" data-th-each="ship: ${shipping}">
             <input name="shipping" type="radio" class="input-radio"

@@ -4,7 +4,6 @@ const norseUtils = require("norseUtils");
 const sharedLib = require("sharedLib");
 const cartLib = require("cartLib");
 const hashLib = require("hashLib");
-const checkoutLib = require("checkoutLib");
 const thymeleaf = require("/lib/thymeleaf");
 const httpClientLib = require("/lib/http-client");
 const contextLib = require("contextLib");
@@ -14,51 +13,9 @@ const currencyLib = require("currencyLib");
 
 exports.getSoldTicketsAmount = getSoldTicketsAmount;
 exports.getPriceBlock = getPriceBlock;
-exports.checkLiqpayOrderStatus = checkLiqpayOrderStatus;
 exports.beautifyProduct = beautifyProduct;
 exports.getProducts = getProducts;
 exports.getProductsByIds = getProductsByIds;
-
-function checkLiqpayOrderStatus() {
-  var carts = cartLib.getPendingLiqpayCarts();
-  norseUtils.log(carts.length + " total pending carts found.");
-  for (var i = 0; i < carts.length; i++) {
-    norseUtils.log("fixing cart " + carts[i].userId);
-    var data = hashLib.generateLiqpayData(
-      checkoutLib.getLiqpayStatusData(carts[i])
-    );
-    var signature = hashLib.generateLiqpaySignature(data);
-    var result = JSON.parse(
-      httpClientLib.request({
-        url: "https://www.liqpay.ua/api/request",
-        method: "POST",
-        connectionTimeout: 2000000,
-        readTimeout: 500000,
-        body: "data=" + data + "&signature=" + signature + "",
-        contentType: "application/x-www-form-urlencoded"
-      }).body
-    );
-    norseUtils.log("cart status " + result.status);
-    if (result && result.status && result.status === "success") {
-      norseUtils.log("cart is paid");
-      checkoutLib.checkoutCart(carts[i], "paid");
-      carts[i] = contextLib.runAsAdmin(function () {
-        return (carts[i] = cartLib.generateItemsIds(carts[i]._id));
-      });
-      norseUtils.log("sending mail");
-      mailsLib.sendMail("orderCreated", carts[i].email, {
-        cart: carts[i]
-      });
-    } else if (
-      result &&
-      result.status &&
-      (result.status === "failure" || result.status === "error")
-    ) {
-      norseUtils.log("updating status");
-      cartLib.modifyCartWithParams(carts[i]._id, { status: "failed" });
-    }
-  }
-}
 
 function getPriceBlock(id, ip) {
   let product = contentLib.get({ key: id });

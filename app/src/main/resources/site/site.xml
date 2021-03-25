@@ -153,63 +153,17 @@
   <x-data name="relatedLocale"/>
 
   <mappings>
-    <mapping controller="/services/cart/cart.js" order="10">
-      <pattern>/cart</pattern>
-    </mapping>
-    <mapping controller="/services/checkout/checkout.js" order="10">
-      <pattern>/checkout</pattern>
-    </mapping>
-    <mapping controller="/services/form/form.js" order="10">
-      <pattern>/form</pattern>
-    </mapping>
-    <mapping controller="/services/promos/promos.js" order="10">
-      <pattern>/promos</pattern>
-    </mapping>
-    <mapping controller="/services/search/search.js" order="10">
-      <pattern>/search</pattern>
-    </mapping>
-    <mapping controller="/services/newArticle/newArticle.js" order="10">
-      <pattern>/create</pattern>
-    </mapping>
-    <mapping controller="/services/newArticle/status.js" order="10">
-      <pattern>/article/status</pattern>
-    </mapping>
-    <mapping controller="/services/newArticle/edit.js" order="10">
-      <pattern>/article/edit</pattern>
-    </mapping>
-    <mapping controller="/services/newArticle/delete.js" order="10">
-      <pattern>/article/delete</pattern>
-    </mapping>
-    <mapping controller="/services/checkout/controllers/liqpay.js" order="10">
-      <pattern>/payment-processing</pattern>
-    </mapping>
-    <mapping controller="/api/user/becomeGm.js">
-      <pattern>/become-gm</pattern>
-    </mapping>
-    <mapping controller="/services/monsterApi/monsterApi.js">
-      <pattern>/api/monster</pattern>
-    </mapping>
-    <mapping controller="/api/user/auth.js">
-      <pattern>/api/user/auth</pattern>
-    </mapping>
-    <mapping controller="/api/user/vk.js">
-      <pattern>/user/auth/vk</pattern>
-    </mapping>
+    <!--
+      API
+    -->
     <mapping controller="/api/user/user.js">
       <pattern>/api/user</pattern>
     </mapping>
     <mapping controller="/api/user/fb.js">
       <pattern>/api/user/auth/fb</pattern>
     </mapping>
-    <mapping controller="/api/user/google.js">
-      <pattern>/api/user/auth/google</pattern>
-    </mapping>
-    <mapping controller="/api/user/discord.js">
-      <pattern>/user/auth/discord</pattern>
-    </mapping>
-    <mapping controller="/api/user/forgotPass.js">
-      <pattern>/api/user/auth/forgotpass</pattern>
-      <pattern>/user/auth/forgotpass</pattern>
+    <mapping controller="/api/user/auth.js">
+      <pattern>/api/user/auth</pattern>
     </mapping>
     <mapping controller="/api/user/image.js">
       <pattern>/api/user/image</pattern>
@@ -271,12 +225,6 @@
     <mapping controller="/api/festival/bot/events/today.js">
       <pattern>/api/festival/bot/events/today</pattern>
     </mapping>
-    <mapping controller="/admin/orders/controllers/ordersList.js">
-      <pattern>/orders</pattern>
-    </mapping>
-    <mapping controller="/admin/orders/controllers/order.js">
-      <pattern>/orders/single</pattern>
-    </mapping>
     <mapping controller="/api/orders/update.js">
       <pattern>/api/orders/update</pattern>
     </mapping>
@@ -298,9 +246,6 @@
     <mapping controller="/api/orders/novaPoshta.js">
       <pattern>/api/orders/nova-poshta</pattern>
     </mapping>
-    <mapping controller="/admin/statistics/statistics.js">
-      <pattern>/statistics</pattern>
-    </mapping>
     <mapping controller="/api/statistics/itemsSold.js">
       <pattern>/api/statistics/items-sold</pattern>
     </mapping>
@@ -309,6 +254,112 @@
     </mapping>
     <mapping controller="/api/cart/update.js">
       <pattern>/api/cart/update</pattern>
+    </mapping>
+    <!--
+      Checkout
+    -->
+    <mapping controller="/services/checkout/checkout.js" >
+      <pattern>/checkout</pattern>
+    </mapping>
+    <mapping controller="/services/promos/promos.js">
+      <pattern>/promos</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/liqpay/processing.js">
+      <pattern>/checkout/liqpay/processing</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/liqpay/processing.js">
+      <pattern>/payment-processing</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/userInfo.js">
+      <pattern>/checkout/details</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/shipping.js">
+      <pattern>/checkout/shipping</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/payment.js">
+      <pattern>/checkout/payment</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/interkassa/success.js">
+      <pattern>/checkout/payment/interkassa/success</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/interkassa/pending.js">
+      <pattern>/checkout/payment/interkassa/pending</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/interkassa/failed.js">
+      <pattern>/checkout/payment/interkassa/failed</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/interkassa/status.js">
+      <pattern>/checkout/payment/interkassa/status</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/submit.js">
+      <pattern>/checkout/payment/submit</pattern>
+    </mapping>
+    <!--
+      Cart
+    -->
+    <mapping controller="/services/cart/cart.js">
+      <pattern>/cart</pattern>
+    </mapping>
+    <!--
+      Blog
+    -->
+    <mapping controller="/services/newArticle/newArticle.js">
+      <pattern>/create</pattern>
+    </mapping>
+    <mapping controller="/services/newArticle/status.js">
+      <pattern>/article/status</pattern>
+    </mapping>
+    <mapping controller="/services/newArticle/edit.js">
+      <pattern>/article/edit</pattern>
+    </mapping>
+    <mapping controller="/services/newArticle/delete.js">
+      <pattern>/article/delete</pattern>
+    </mapping>
+    <!--
+      Festival
+    -->
+    <mapping controller="/api/user/becomeGm.js">
+      <pattern>/become-gm</pattern>
+    </mapping>
+    <!--
+      Encounter builder
+    -->
+    <mapping controller="/services/monsterApi/monsterApi.js">
+      <pattern>/api/monster</pattern>
+    </mapping>
+    <!--
+      General
+    -->
+    <mapping controller="/api/user/vk.js">
+      <pattern>/user/auth/vk</pattern>
+    </mapping>
+    <mapping controller="/api/user/google.js">
+      <pattern>/api/user/auth/google</pattern>
+    </mapping>
+    <mapping controller="/api/user/discord.js">
+      <pattern>/user/auth/discord</pattern>
+    </mapping>
+    <mapping controller="/api/user/forgotPass.js">
+      <pattern>/api/user/auth/forgotpass</pattern>
+      <pattern>/user/auth/forgotpass</pattern>
+    </mapping>
+    <mapping controller="/services/form/form.js">
+      <pattern>/form</pattern>
+    </mapping>
+    <mapping controller="/services/search/search.js">
+      <pattern>/search</pattern>
+    </mapping>
+    <!--
+      Admin
+    -->
+    <mapping controller="/admin/orders/controllers/ordersList.js">
+      <pattern>/orders</pattern>
+    </mapping>
+    <mapping controller="/admin/orders/controllers/order.js">
+      <pattern>/orders/single</pattern>
+    </mapping>
+    <mapping controller="/admin/statistics/statistics.js">
+      <pattern>/statistics</pattern>
     </mapping>
   </mappings>
 </site>

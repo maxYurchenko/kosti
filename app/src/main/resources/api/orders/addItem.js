@@ -15,13 +15,12 @@ exports.post = function (req) {
 
   function createModel() {
     let data = JSON.parse(req.body);
-    if (!data.id || !adminLib.validateUserAdmin()) {
+    if (!data.cartId || !adminLib.validateUserAdmin()) {
       return { success: false };
     }
+    data.adminUser = true;
     data.force = true;
-    const cart = contextLib.runAsAdmin(function () {
-      return cartLib.modify(data);
-    });
+    const cart = cartLib.modify(data);
     if (cart) {
       return { success: true, data: cart };
     }

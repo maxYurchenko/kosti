@@ -6,10 +6,10 @@
     </div>
 </div>
 <h2 class="checkout-title">Способ оплаты</h2>
-<form class="checkout-form" method="POST" data-th-action="${checkoutUrl}">
+<form class="checkout-form" method="POST" action="/checkout/payment/submit">
     <div class="payment_m">
         <div class="form-group">
-            <input name="step" type="radio" class="input-radio" id="liqpay-payment" value="liqpay" hidden required />
+            <input name="method" type="radio" class="input-radio" id="liqpay-payment" value="liqpay" hidden required />
             <label for="liqpay-payment" class="label-radio">
                 <div class="radio_align-type">
                     <div class="radio_align-top">
@@ -27,7 +27,7 @@
             </label>
         </div>
         <div class="form-group">
-            <input name="step" type="radio" class="input-radio" id="intecasa-payment" value="interkassa" hidden
+            <input name="method" type="radio" class="input-radio" id="intecasa-payment" value="interkassa" hidden
                 required />
             <label for="intecasa-payment" class="label-radio">
                 <div class="radio_align-type">

@@ -3,7 +3,7 @@ const norseUtils = require(libLocation + "norseUtils");
 const helpers = require(libLocation + "helpers");
 const votesLib = require(libLocation + "votesLib");
 const cartLib = require(libLocation + "cartLib");
-const storeLib = require(libLocation + "storeLib");
+const checkoutLib = require(libLocation + "checkoutLib");
 const blogLib = require(libLocation + "blogLib");
 const homepageLib = require(libLocation + "homepageLib");
 const newsletterLib = require(libLocation + "newsletterLib");
@@ -37,7 +37,7 @@ exports.get = function (req) {
       votesLib.removeUnusedVotes();
       break;
     case "fixPendingOrders":
-      storeLib.checkLiqpayOrderStatus();
+      checkoutLib.checkLiqpayOrderStatus();
       break;
     case "updateSchedule":
       blogLib.updateSchedule();

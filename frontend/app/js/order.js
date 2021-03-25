@@ -17,7 +17,7 @@ function initOrderPage() {
   });
   $(".js_api-call-button-with-form").on("click", function (e) {
     e.preventDefault();
-    var form = $(this).parent();
+    var form = $(this).closest("form");
     var data = {};
     form.find("input, select").each(function () {
       data[$(this).attr("name")] = $(this).val();

@@ -9,14 +9,17 @@
     <main class="main js_payment-success" id="payment-success">
         <div class="confirmation-wrap">
             <div class="site_width">
-                <h2 class="checkout-title">Спасибо за ваш заказ!</h2>
-                <div class="confirmation-msg" data-th-if="${pendingPage}">
-                    Ваш заказ получен под номером
-                    <span data-th-text="${cart.userId}"></span> и сейчас обрабатывается.
-                </div>
-                <div class="confirmation-msg" data-th-unless="${pendingPage}">
-                    Все прошло как по маслу! Ваш заказ получен под номером
-                    <span data-th-text="${cart.userId}"></span> и успешно оплачен.
+                <h2 class="checkout-title"
+                    data-th-text="${portal.localize({'_key=shop.payment.status.heading.' + cart.status, '_locale=ru'})}">
+                    Спасибо за ваш заказ!
+                </h2>
+                <div class="confirmation-msg">
+                    <div data-th-if="${status != 'error'}" data-th-remove="tag">
+                        Ваш заказ получен под номером
+                        <span data-th-text="${cart.userId}"></span>.
+                    </div>
+                    <span data-th-remove="tag"
+                        data-th-text="${portal.localize({'_key=shop.payment.status.' + cart.status, '_locale=ru'})}"></span>
                 </div>
                 <a data-th-href="${shopUrl}" class="checkout-back"
                     data-th-text="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"

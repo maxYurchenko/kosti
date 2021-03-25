@@ -25,8 +25,7 @@ exports.get = function (req) {
     body: thymeleaf.render(view, {
       cart: cart,
       pageComponents: helpers.getPageComponents(req, null, null, "Корзина"),
-      shopUrl: shopUrl,
-      checkoutUrl: sharedLib.generateNiceServiceUrl("checkout")
+      shopUrl: shopUrl
     }),
     contentType: "text/html"
   };

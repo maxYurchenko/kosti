@@ -19,8 +19,11 @@ exports.post = function (req) {
     if (!data.cartid || !adminLib.validateUserAdmin()) {
       return { success: false };
     }
+    data.cartId = data.cartid;
+    data.itemId = data.itemid;
     data.force = true;
     data.amount = 0;
+    data.adminUser = true;
     const cart = cartLib.modify(data);
     if (cart) {
       return { success: true, data: cart };

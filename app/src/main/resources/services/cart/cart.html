@@ -70,7 +70,7 @@
                         data-th-title="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"></a>
                     <a class="checkout-continue"
                         data-th-classappend="${cart.stock and cart.itemsNum > 0 ? '' : 'not-active'}"
-                        data-th-href="${checkoutUrl}"
+                        href="/checkout/details"
                         data-th-text="${portal.localize({'_key=shop.title.continue', '_locale=ru'})}"
                         data-th-title="${portal.localize({'_key=shop.title.continue', '_locale=ru'})}">
                     </a>

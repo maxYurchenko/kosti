@@ -4,8 +4,8 @@
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
 <body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <header class="header" data-th-utext="${pageComponents.loginRegisterModal}"></header>
     <main class="main admin-wrap">
         <div class="site_width">
             <a href="/orders" class="checkout-back">Back to list</a>
@@ -57,8 +57,8 @@
                                 <h3 class="order-label">Name:</h3>
                                 <div class="order-value" data-th-if="${cart and cart.name and cart.surname}"
                                     data-th-text="${cart.name + ' ' + cart.surname}"></div>
-                                    <div class="order-value" data-th-if="${cart and cart.name and cart.surname}"
-                                        data-th-text="${cart.nameLatinic + ' ' + cart.surnameLatinic}"></div>
+                                <div class="order-value" data-th-if="${cart and cart.name and cart.surname}"
+                                    data-th-text="${cart.nameLatinic + ' ' + cart.surnameLatinic}"></div>
                                 <h3 class="order-label">Email:</h3>
                                 <div class="order-value" data-th-text="${cart.email}"></div>
                                 <h3 class="order-label">Phone:</h3>
@@ -114,21 +114,25 @@
                                     </button>
                                 </div>
                             </form>
-                            <form  action="/api/orders/update">
+                            <form action="/api/orders/update">
                                 <h3 class="order-label">Status:</h3>
                                 <div class="order-row_column">
                                     <input data-th-value="${cart._id}" name="id" type="hidden" />
                                     <div class="order-column select-field order-set_status-field">
                                         <select name="status" id="pdp-size-select"
                                             class="pdp-size_select select js_update-api-button-data-select">
-                                            <option value="created" data-th-selected="${cart.status == 'created'}">Created
+                                            <option value="created" data-th-selected="${cart.status == 'created'}">
+                                                Created
                                             </option>
-                                            <option value="pending" data-th-selected="${cart.status == 'pending'}">Pending
+                                            <option value="pending" data-th-selected="${cart.status == 'pending'}">
+                                                Pending
                                             </option>
-                                            <option value="paid" data-th-selected="${cart.status == 'paid'}">Paid</option>
+                                            <option value="paid" data-th-selected="${cart.status == 'paid'}">Paid
+                                            </option>
                                             <option value="failed" data-th-selected="${cart.status == 'failed'}">Failed
                                             </option>
-                                            <option value="shipped" data-th-selected="${cart.status == 'shipped'}">Shipped
+                                            <option value="shipped" data-th-selected="${cart.status == 'shipped'}">
+                                                Shipped
                                             </option>
                                         </select>
                                     </div>
@@ -163,7 +167,7 @@
                         </div>
                         <div class="order-row order-products">
                             <form action="/api/orders/add-item">
-                                <input data-th-value="${cart._id}" type="hidden" name="id" />
+                                <input data-th-value="${cart._id}" type="hidden" name="cartId" />
                                 <div class="form-group-column">
                                     <div class="form-group select-field">
                                         <label class="order-label" for="item-orders-select">Item</label>
@@ -174,8 +178,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="amount-orders-input" class="order-label">Amount</label>
-                                        <input name="amount" id="amount-orders-input" type="text"
-                                            class="input-text" />
+                                        <input name="amount" id="amount-orders-input" type="text" class="input-text" />
                                     </div>
                                 </div>
                                 <div class="form-group-column">
