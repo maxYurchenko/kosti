@@ -372,6 +372,9 @@ function setUserDetails(cartId, params) {
     node.novaPoshtaWarehouse = params.novaPoshtaWarehouse
       ? params.novaPoshtaWarehouse
       : node.novaPoshtaWarehouse;
+    node.novaPoshtaWarehouseId = params.novaPoshtaWarehouseId
+      ? params.novaPoshtaWarehouseId
+      : node.novaPoshtaWarehouseId;
     node.shippingPrice = params.shippingPrice
       ? params.shippingPrice
       : node.shippingPrice;

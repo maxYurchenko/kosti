@@ -61,8 +61,11 @@ function initNovaPoshta() {
           '<option disabled="disabled" selected="selected">Выберите отделение</option>'
         );
         for (var i = 0; i < response.data.length; i++) {
+          console.log(response.data[i]);
           $("#delivery_np-warehouses").append(
-            '<option value="' +
+            '<option data-warehouseid="' +
+              response.data[i].Ref +
+              '" value="' +
               response.data[i].DescriptionRu +
               '">' +
               response.data[i].DescriptionRu +
@@ -103,6 +106,11 @@ function initNovaPoshta() {
   });
   $("input[name=shipping]").on("click", function () {
     $("input[name=shippingPrice]").val($(this).data("price"));
+  });
+  $("#delivery_np-warehouses").on("change", function (e) {
+    var form = $(this).closest("form");
+    var input = form.find(".js_novaPoshtaWarehouseId");
+    input.val($(this).find("option:selected").data().warehouseid);
   });
 }
 

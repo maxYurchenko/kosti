@@ -43,15 +43,15 @@ exports.post = function (req) {
           SeatsAmount: "1",
           Description: "одежда",
           Cost: "100",
-          CitySender: "e221d627-391c-11dd-90d9-001a92567626",
+          CitySender: "e71f4773-4b33-11e4-ab6d-005056801329",
           Sender: "5ace4a2e-13ee-11e5-add9-005056887b8d",
-          SenderAddress: "d492290b-55f2-11e5-ad08-005056801333",
-          ContactSender: "613b77c4-1411-11e5-ad08-005056801333",
+          SenderAddress: "5a39e538-e1c2-11e3-8c4a-0050568002cf",
           SendersPhone: "380991234567",
           RecipientName: cart.name + " " + cart.surname,
           RecipientType: "PrivatePerson",
+          RecipientAddress: "542ab50a-0bf3-11e4-acce-0050568002cf",
           RecipientsPhone: cart.phone,
-          DateTime: moment().format("DD-MM-YYYY")
+          DateTime: moment().format("DD.MM.YYYY")
         }
       }),
       contentType: "application/json"
