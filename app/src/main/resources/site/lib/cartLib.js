@@ -173,11 +173,11 @@ function getCreatedCarts(params) {
   }
   if (params.search) {
     query +=
-      " and fulltext('_allText', '\"" +
+      " and (fulltext('_allText', '\"" +
       params.search +
       "\"', 'OR') or ngram('_allText', '\"" +
       params.search +
-      "\"', 'OR')";
+      "\"', 'OR'))";
     if (parseInt(params.search) !== NaN && parseInt(params.search)) {
       query += " OR items.itemsIds.id=" + params.search;
     }
