@@ -100,7 +100,6 @@ function getInternetDocumentData(cart) {
   const sender = getExistingCounterparty();
   const senderContact = getConterpatyContactPersons(sender.Ref);
   return {
-    NewAddress: "1",
     PayerType: "Sender",
     PaymentMethod: "Cash",
     CargoType: "Parcel",
