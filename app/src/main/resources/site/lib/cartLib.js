@@ -71,12 +71,15 @@ function getCartsByUser(email, id, count) {
   return result;
 }
 
-function getPendingLiqpayCarts() {
+function getPendingLiqpayCarts(payment) {
+  if (!payment) {
+    payment = "liqpay";
+  }
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
     count: -1,
-    query: "paymentMethod = 'liqpay' and status = 'pending'"
+    query: "paymentMethod = '" + payment + "' and status = 'pending'"
   });
   var carts = [];
   for (var i = 0; i < result.hits.length; i++) {
@@ -380,6 +383,7 @@ function setUserDetails(cartId, params) {
       : node.shippingPrice;
     node.trackNum = params.trackNum ? params.trackNum : node.trackNum;
     node.price = params.price ? params.price : node.price;
+    node.ik_inv_id = params.ik_inv_id ? params.ik_inv_id : node.ik_inv_id;
     return node;
   }
   return getCart(cartId);

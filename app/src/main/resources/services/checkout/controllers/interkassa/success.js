@@ -29,9 +29,13 @@ exports.post = function (req) {
     ) {
       cart.transactionDate = new Date();
       cart.status = "paid";
+      cart.ik_inv_id = params.ik_inv_id;
       cart = checkoutHelper.checkoutCart(cart);
     } else {
-      cart.status = "pending";
+      cart = cartLib.modifyCartWithParams(cart._id, {
+        status: "pending",
+        ik_inv_id: params.ik_inv_id
+      });
     }
 
     return {

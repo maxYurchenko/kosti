@@ -3,4 +3,5 @@ var checkoutLib = require("../site/lib/storeLib");
 
 exports.run = function () {
   checkoutLib.checkLiqpayOrderStatus();
+  checkoutLib.checkInterkassaOrderStatus();
 };

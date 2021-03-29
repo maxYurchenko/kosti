@@ -38,6 +38,7 @@ exports.get = function (req) {
       break;
     case "fixPendingOrders":
       checkoutLib.checkLiqpayOrderStatus();
+      checkoutLib.checkInterkassaOrderStatus();
       break;
     case "updateSchedule":
       blogLib.updateSchedule();

@@ -25,6 +25,7 @@ exports.post = function (req) {
 
     cart.transactionDate = new Date();
     cart.status = "pending";
+    cart.ik_inv_id = params.ik_inv_id;
     cart = checkoutHelper.checkoutCart(cart);
 
     return {

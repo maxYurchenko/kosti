@@ -18,12 +18,14 @@ function checkoutCart(cart) {
     cartLib.modifyCartWithParams(cart._id, {
       status: cart.status,
       transactionDate: cart.transactionDate,
-      transactionPrice: cart.price
+      transactionPrice: cart.price,
+      ik_inv_id: cart.ik_inv_id
     });
     cartLib.savePrices(cart._id);
     if (cart.promos) {
       promosLib.reduceUsePromos(cart.promos);
     }
+    cart = cartLib.getCart(cart._id);
     sendConfirmationMail(cart);
     if (cart.status === "pending") {
       return cartLib.getCart(cart._id);

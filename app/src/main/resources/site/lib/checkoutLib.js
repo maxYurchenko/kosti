@@ -1,6 +1,7 @@
 const portal = require("/lib/xp/portal");
 const contentLib = require("/lib/xp/content");
 const thymeleaf = require("/lib/thymeleaf");
+const httpClientLib = require("/lib/http-client");
 
 const contextLib = require("contextLib");
 const norseUtils = require("norseUtils");
@@ -10,13 +11,15 @@ const mailsLib = require("mailsLib");
 const sharedLib = require("sharedLib");
 const promosLib = require("promosLib");
 const storeLib = require("storeLib");
+const checkoutHelper = require("/services/checkout/lib/helper");
+const hashLib = require("hashLib");
 
-exports.checkIKResponse = checkIKResponse;
 exports.getLiqpayData = getLiqpayData;
 exports.getLiqpayStatusData = getLiqpayStatusData;
 exports.getCartDescription = getCartDescription;
 exports.checkLiqpayOrderStatus = checkLiqpayOrderStatus;
 exports.getCheckoutMainModel = getCheckoutMainModel;
+exports.checkInterkassaOrderStatus = checkInterkassaOrderStatus;
 
 function getCheckoutMainModel(req) {
   var cart = cartLib.getCart(req.cookies.cartId);
@@ -84,48 +87,13 @@ function getLiqpayStatusData(cart) {
   };
 }
 
-function checkIKResponse(params, model) {
-  if (params.ik_inv_st == "success") {
-    params.step = "success";
-    cartLib.modifyCartWithParams(model.cart._id, {
-      status: "paid",
-      transactionDate: new Date(),
-      price: model.cart.price
-    });
-    contextLib.runAsAdmin(function () {
-      cartLib.savePrices(model.cart._id);
-      cartLib.modifyInventory(model.cart.items);
-      if (model.cart.promos) {
-        promosLib.reduceUsePromos(model.cart.promos);
-      }
-    });
-  } else if (params.ik_inv_st == "fail" || params.ik_inv_st == "canceled") {
-    params.error = true;
-    params.step = "3";
-    cartLib.modifyCartWithParams(model.cart._id, { status: "failed" });
-  } else if (params.ik_inv_st == "waitAccept") {
-    params.step = "pending";
-    contextLib.runAsAdmin(function () {
-      cartLib.modifyInventory(model.cart.items);
-      cartLib.savePrices(model.cart._id);
-      cartLib.modifyCartWithParams(model.cart._id, {
-        status: "pending",
-        transactionDate: new Date(),
-        price: model.cart.price
-      });
-    });
-  }
-  return params;
-}
-
 function checkLiqpayOrderStatus() {
   var carts = cartLib.getPendingLiqpayCarts();
-  norseUtils.log(carts.length + " total pending carts found.");
+  norseUtils.log(carts.length + " total liqpay pending carts found.");
   for (var i = 0; i < carts.length; i++) {
+    let cart = carts[i];
     norseUtils.log("fixing cart " + carts[i].userId);
-    var data = hashLib.generateLiqpayData(
-      checkoutLib.getLiqpayStatusData(carts[i])
-    );
+    var data = hashLib.generateLiqpayData(getLiqpayStatusData(carts[i]));
     var signature = hashLib.generateLiqpaySignature(data);
     var result = JSON.parse(
       httpClientLib.request({
@@ -140,18 +108,54 @@ function checkLiqpayOrderStatus() {
     norseUtils.log("cart status " + result.status);
     if (result && result.status && result.status === "success") {
       norseUtils.log("cart is paid");
-      checkoutLib.checkoutCart(carts[i], "paid");
-      carts[i] = contextLib.runAsAdmin(function () {
-        return (carts[i] = cartLib.generateItemsIds(carts[i]._id));
-      });
-      norseUtils.log("sending mail");
-      mailsLib.sendMail("orderCreated", carts[i].email, {
-        cart: carts[i]
-      });
+      cart.transactionDate = new Date();
+      cart.status = "paid";
+      cart = checkoutHelper.checkoutCart(cart);
     } else if (
       result &&
       result.status &&
       (result.status === "failure" || result.status === "error")
+    ) {
+      norseUtils.log("updating status");
+      cartLib.modifyCartWithParams(carts[i]._id, { status: "failed" });
+    }
+  }
+}
+
+function checkInterkassaOrderStatus() {
+  var carts = cartLib.getPendingLiqpayCarts("interkassa");
+  norseUtils.log(carts.length + " total interkassa pending carts found.");
+  for (var i = 0; i < carts.length; i++) {
+    norseUtils.log("fixing cart " + carts[i].userId);
+    var result = JSON.parse(
+      httpClientLib.request({
+        url: "https://api.interkassa.com/v1/co-invoice/292835395",
+        method: "GET",
+        headers: {
+          "Ik-Api-Account-Id": "5c1cb5253d1eaf58328b456c"
+        },
+        auth: {
+          user: "5c1cb5073d1eafec2e8b456a",
+          password: "nAxatKVfIXH1fbaIuW9pLcbjaR6vPfvN"
+        }
+      }).body
+    );
+    if (result.code !== 0) continue;
+    let cart = carts[i];
+    result = result.data;
+    norseUtils.log("cart status " + result.state);
+    if (result && result.state && result.state == "7") {
+      norseUtils.log("cart is paid");
+      cart.transactionDate = new Date();
+      cart.status = "paid";
+      cart = checkoutHelper.checkoutCart(cart);
+    } else if (
+      result &&
+      result.state &&
+      (result.state == "8" ||
+        result.state == "9" ||
+        result.state == "6" ||
+        result.state == "5")
     ) {
       norseUtils.log("updating status");
       cartLib.modifyCartWithParams(carts[i]._id, { status: "failed" });

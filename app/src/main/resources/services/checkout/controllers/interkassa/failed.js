@@ -31,7 +31,10 @@ exports.post = function (req) {
         status: "failed"
       });
     } else {
-      cart.status = "pending";
+      cart = cartLib.modifyCartWithParams(cart._id, {
+        status: "pending",
+        ik_inv_id: params.ik_inv_id
+      });
     }
 
     return {
