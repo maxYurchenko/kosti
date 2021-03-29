@@ -152,7 +152,7 @@
                                     Resend order confirmation mail
                                 </button>
                             </div>
-                            <div class="h-mb-15">
+                            <div class="h-mb-15" data-th-if="${cart.country == 'ua'}">
                                 <button data-url="/api/orders/nova-poshta" data-th-attr="data-id=${cart._id}"
                                     class="js_api-call-button-with-data button-secondary">
                                     Create Nova poshta order

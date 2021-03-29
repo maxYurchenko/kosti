@@ -15,11 +15,16 @@ exports.post = function (req) {
 
   function createModel() {
     let params = req.params;
-    if (!params.cartId) {
+    if (!req.cookies.cartId || !params.cartId) {
       return { success: false };
     }
     params.adminUser = adminLib.validateUserAdmin();
-    const result = cartLib.modify(params);
+    if (!params.adminUser) {
+      params.cartId = req.cookies.cartId;
+    }
+    const result = contextLib.runAsAdmin(function () {
+      return cartLib.modify(params);
+    });
     if (!result) {
       return { success: false };
     }

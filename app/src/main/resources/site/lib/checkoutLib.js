@@ -27,7 +27,7 @@ function getCheckoutMainModel(req) {
   return {
     cart: cart,
     promos: thymeleaf.render(
-      resolve("/services/checkout/components/promos.html"),
+      resolve("/services/checkout/templates/promos.html"),
       {
         promos: cart.price.discount.codes
       }
