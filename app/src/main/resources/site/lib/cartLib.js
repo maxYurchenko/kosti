@@ -549,9 +549,9 @@ function calculateCart(cart) {
 function getCartDates(cart) {
   return {
     createdDate: moment(cart._ts).format("DD.MM.YYYY"),
-    createdTime: moment(cart._ts).format("DD.MM.YYYY HH:MM"),
+    createdTime: moment(cart._ts).format("DD.MM.YYYY HH:mm"),
     transactionDate: moment(cart.transactionDate).format("DD.MM.YYYY"),
-    transactionTime: moment(cart.transactionDate).format("DD.MM.YYYY HH:MM")
+    transactionTime: moment(cart.transactionDate).format("DD.MM.YYYY HH:mm")
   };
 }
 

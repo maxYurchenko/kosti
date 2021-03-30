@@ -13,6 +13,7 @@ exports.getSite = getSite;
 exports.getSiteConfig = getSiteConfig;
 exports.getShopUrl = getShopUrl;
 exports.transliterate = transliterate;
+exports.redirect = redirect;
 
 function getRepoConnection(id, branch) {
   let conn = null;
@@ -117,4 +118,16 @@ function transliterate(word) {
     .split("")
     .map((char) => keys[char] || char)
     .join("");
+}
+
+function redirect(params) {
+  if (!params) {
+    params = {};
+  }
+  return {
+    status: 302,
+    headers: {
+      Location: params.url ? params.url : "/"
+    }
+  };
 }

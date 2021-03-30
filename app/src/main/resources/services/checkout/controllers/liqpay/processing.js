@@ -13,14 +13,25 @@ const checkoutLib = require(libLocation + "checkoutLib");
 const checkoutHelper = require("../../lib/helper");
 
 exports.post = function (req) {
-  const view = resolve("../../templates/processing.html");
+  const model = createModel();
+  if (model.redirect) {
+    return sharedLib.redirect(model);
+  }
   return {
-    body: thymeleaf.render(view, createModel()),
+    body: thymeleaf.render(resolve("../../templates/processing.html"), model),
     contentType: "text/html"
   };
 
   function createModel() {
     var cart = cartLib.getCart(req.cookies.cartId);
+
+    if (!checkoutHelper.validateCartForCheckout(cart)) {
+      return {
+        redirect: true,
+        url: sharedLib.getShopUrl()
+      };
+    }
+
     const data = hashLib.generateLiqpayData(
       checkoutLib.getLiqpayStatusData(cart)
     );

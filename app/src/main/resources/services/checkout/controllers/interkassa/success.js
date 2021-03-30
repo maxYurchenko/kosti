@@ -11,21 +11,28 @@ const checkoutLib = require(libLocation + "checkoutLib");
 const checkoutHelper = require("../../lib/helper");
 
 exports.post = function (req) {
+  const model = createModel();
+  if (model.redirect) {
+    return sharedLib.redirect(model);
+  }
   return {
-    body: thymeleaf.render(
-      resolve("../../templates/processing.html"),
-      createModel()
-    ),
+    body: thymeleaf.render(resolve("../../templates/processing.html"), model),
     contentType: "text/html"
   };
 
   function createModel() {
     const params = req.params;
     let cart = cartLib.getCart(req.cookies.cartId);
+    if (!checkoutHelper.validateCartForCheckout(cart)) {
+      return {
+        redirect: true,
+        url: sharedLib.getShopUrl()
+      };
+    }
 
     if (
-      params.ik_co_id !== app.config.interkassaID ||
-      params.ik_pm_no !== cart.ik_id
+      params.ik_co_id === app.config.interkassaID &&
+      params.ik_pm_no === cart.ik_id
     ) {
       cart.transactionDate = new Date();
       cart.status = "paid";

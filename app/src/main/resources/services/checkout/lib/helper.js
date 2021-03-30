@@ -11,6 +11,7 @@ const mailsLib = require(libLocation + "mailsLib");
 
 exports.checkoutCart = checkoutCart;
 exports.sendConfirmationMail = sendConfirmationMail;
+exports.validateCartForCheckout = validateCartForCheckout;
 
 function checkoutCart(cart) {
   return contextLib.runAsAdmin(function () {
@@ -50,4 +51,17 @@ function sendConfirmationMail(cart) {
       }
     );
   }
+}
+
+function validateCartForCheckout(cart) {
+  if (
+    !cart.items ||
+    cart.items.length === 0 ||
+    !cart.status ||
+    !cart.userId ||
+    !cart.price
+  ) {
+    return false;
+  }
+  return true;
 }
