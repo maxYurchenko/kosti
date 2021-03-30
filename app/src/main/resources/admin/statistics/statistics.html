@@ -5,7 +5,7 @@
 
 <body>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main">
+    <main class="main admin-wrap">
         <div class="site_width">
             <form class="checkout-form">
                 <div class="form-group-column">
@@ -23,41 +23,43 @@
                     </div>
                 </div>
             </form>
-            <div>
-                <span>Total paid carts:</span>
-                <span data-th-text="${paidCarts.total}"></span>
-            </div>
-            <div>
-                <span>Total failed carts:</span>
-                <span data-th-text="${failedCarts.total}"></span>
-            </div>
-            <div>
-                <span>Total income:</span>
-                <span data-th-text="${income.total}"></span>
-            </div>
-            <div>
-                <span>Total items income:</span>
-                <span data-th-text="${income.itemsPrice}"></span>
-            </div>
-            <div>
-                <span>Total shipping income:</span>
-                <span data-th-text="${income.shipping}"></span>
-            </div>
-            <div>
-                <span>Average cart price:</span>
-                <span data-th-text="${income.averageTotal}"></span>
-            </div>
-            <div>
-                <span>Average shipping price:</span>
-                <span data-th-text="${income.averageShipping}"></span>
-            </div>
-            <div>
-                <span>Average items price:</span>
-                <span data-th-text="${income.averageItemsPrice}"></span>
-            </div>
-            <div>
-                <span>Unique buyers amount:</span>
-                <span data-th-text="${uniqueBuyersAmount}"></span>
+            <div class="statics_grid">
+                <div class="statics_grid-item m-blue">
+                    <p class="label">Total paid carts:</p>
+                    <p class="value" data-th-text="${paidCarts.total}"></p>
+                </div>
+                <div class="statics_grid-item m-orange">
+                    <p class="label">Total failed carts:</p>
+                    <p class="value" data-th-text="${failedCarts.total}"></p>
+                </div>
+                <div class="statics_grid-item m-red">
+                    <p class="label">Total income:</p>
+                    <p class="value" data-th-text="${income.total}"></p>
+                </div>
+                <div class="statics_grid-item m-green">
+                    <p class="label">Total items income:</p>
+                    <p class="value" data-th-text="${income.itemsPrice}"></p>
+                </div>
+                <div class="statics_grid-item m-grey">
+                    <p class="label">Total shipping income:</p>
+                    <p class="value" data-th-text="${income.shipping}"></p>
+                </div>
+                <div class="statics_grid-item m-blue">
+                    <p class="label">Average cart price:</p>
+                    <p class="value" data-th-text="${income.averageTotal}"></p>
+                </div>
+                <div class="statics_grid-item m-orange">
+                    <p class="label">Average shipping price:</p>
+                    <p class="value" data-th-text="${income.averageShipping}"></p>
+                </div>
+                <div class="statics_grid-item m-red">
+                    <p class="label">Average items price:</p>
+                    <p class="value" data-th-text="${income.averageItemsPrice}"></p>
+                </div>
+                <div class="statics_grid-item m-green">
+                    <p class="label">Unique buyers amount:</p>
+                    <p class="value" data-th-text="${uniqueBuyersAmount}"></p>
+                </div>
             </div>
             <canvas id="itemsChart"></canvas>
             <canvas id="countryChart"></canvas>
