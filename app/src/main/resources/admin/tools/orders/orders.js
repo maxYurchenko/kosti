@@ -2,7 +2,6 @@ var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var thymeleaf = require("/lib/thymeleaf");
 var nodeLib = require("/lib/xp/node");
-var htmlExporter = require("/lib/openxp/html-exporter");
 var textEncodingLib = require("/lib/text-encoding");
 var adminLib = require("/lib/xp/admin");
 

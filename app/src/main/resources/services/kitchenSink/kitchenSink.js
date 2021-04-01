@@ -2,7 +2,6 @@ var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var thymeleaf = require("/lib/thymeleaf");
 var nodeLib = require("/lib/xp/node");
-var htmlExporter = require("/lib/openxp/html-exporter");
 var textEncodingLib = require("/lib/text-encoding");
 var httpClientLib = require("/lib/http-client");
 
@@ -13,7 +12,7 @@ var helpers = require(libLocation + "helpers");
 var qrLib = require(libLocation + "qrLib");
 var pdfLib = require(libLocation + "pdfLib");
 
-exports.get = function(req) {
+exports.get = function (req) {
   var qr = qrLib(4, "L");
   qr.addData("KOSTICON2020");
   qr.make();

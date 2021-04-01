@@ -1,9 +1,8 @@
-var htmlExporter = require("/lib/openxp/html-exporter");
 var thymeleaf = require("/lib/thymeleaf");
 var norseUtils = require("norseUtils");
 var textEncoding = require("/lib/text-encoding");
 var jsonUtilBean = __.newBean("com.myurchenko.lib.pdf.JSONUtil");
-var htmlExporterBean = __.newBean("com.myurchenko.lib.pdf.PdfHandler");
+var htmlExporter = __.newBean("com.myurchenko.lib.pdf.PdfHandler");
 
 var qrLib = require("qrLib");
 var templates = {
@@ -39,9 +38,7 @@ function generateTicket(params) {
     legendary: params.template === "legendaryTicket2020"
   });
 
-  var filesource = __.toNativeObject(
-    toJson(htmlExporterBean.exportToPdf(html))
-  );
+  var filesource = __.toNativeObject(toJson(htmlExporter.exportToPdf(html)));
   filesource.name = params.name;
   return getStream(filesource);
 }

@@ -3,7 +3,6 @@ const portal = require("/lib/xp/portal");
 const thymeleaf = require("/lib/thymeleaf");
 const norseUtils = require("norseUtils");
 const mailLib = require("/lib/xp/mail");
-const htmlExporter = require("/lib/openxp/html-exporter");
 const ioLib = require("/lib/xp/io");
 const qrLib = require("qrLib");
 const nodeLib = require("/lib/xp/node");
