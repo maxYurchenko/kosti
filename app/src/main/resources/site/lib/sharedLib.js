@@ -14,6 +14,7 @@ exports.getSiteConfig = getSiteConfig;
 exports.getShopUrl = getShopUrl;
 exports.transliterate = transliterate;
 exports.redirect = redirect;
+exports.transliterateToCyrillic = transliterateToCyrillic;
 
 function getRepoConnection(id, branch) {
   let conn = null;
@@ -111,13 +112,49 @@ function getTranslationCounter(count) {
   }
 }
 
-function transliterate(word) {
-  if (!word) return "";
+function transliterate(string) {
+  if (!string) return "";
   const keys = transliterationLetters.letters;
-  return word
+  return string
     .split("")
     .map((char) => keys[char] || char)
     .join("");
+}
+
+function transliterateToCyrillic(string) {
+  const isRegisterInUpperCase = (symbol) => symbol === symbol.toUpperCase();
+  const letterExists = (symbol) =>
+    transliterationLetters.latinLetters[symbol.toLowerCase()];
+  for (let i = 0; i < string.length; i++) {
+    if (
+      isRegisterInUpperCase(string[i]) &&
+      string[i] &&
+      string[i + 1] &&
+      letterExists(string[i] + string[i + 1])
+    ) {
+      string = string.replace(
+        string[i] + string[i + 1],
+        letterExists(string[i] + string[i + 1]).toUpperCase()
+      );
+    } else if (
+      string[i] &&
+      string[i + 1] &&
+      letterExists(string[i] + string[i + 1])
+    ) {
+      string = string.replace(
+        string[i] + string[i + 1],
+        transliterationLetters.latinLetters[
+          string[i].toLowerCase() + string[i + 1]
+        ]
+      );
+    } else if (isRegisterInUpperCase(string[i]) && letterExists(string[i])) {
+      string = string.replace(string[i], letterExists(string[i]).toUpperCase());
+    } else if (letterExists(string[i])) {
+      string = string.replace(string[i], letterExists(string[i]));
+    }
+  }
+
+  return string;
 }
 
 function redirect(params) {

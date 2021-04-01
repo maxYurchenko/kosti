@@ -38,7 +38,7 @@ exports.post = function (req) {
       }
       return { success: false };
     } catch (e) {
-      return { success: false };
+      return { success: false, message: e.message };
     }
   }
 };

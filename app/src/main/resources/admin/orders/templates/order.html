@@ -19,7 +19,7 @@
                             <div class="order-column">
                                 <h3 class="order-label">Order ID:</h3>
                                 <div class="order-value" data-th-text="${cart.userId}"></div>
-                                <h3 class="order-label">Order Date:</h3>
+                                <h3 class="order-label">Order created date:</h3>
                                 <div class="order-value" data-th-text="${cart.dates.createdTime}"></div>
                             </div>
 
@@ -27,7 +27,7 @@
                                 <h3 class="order-label">Payment:</h3>
                                 <div class="order-value" data-th-text="${cart.paymentMethod}"></div>
                                 <div data-th-if="${cart.dates.transactionTime}" data-th-remove>
-                                    <h3 class="order-label">Payment Date:</h3>
+                                    <h3 class="order-label">Payment date:</h3>
                                     <div class="order-value" data-th-text="${cart.dates.transactionTime}"></div>
                                 </div>
                             </div>

@@ -61,8 +61,8 @@ function createCounterparty(cart, property, type) {
     type = "PrivatePerson";
   }
   const counterparty = makeRequest("Counterparty", "save", {
-    LastName: cart.name,
-    FirstName: cart.surname,
+    LastName: sharedLib.transliterateToCyrillic(cart.name),
+    FirstName: sharedLib.transliterateToCyrillic(cart.surname),
     Phone: cart.phone,
     Email: cart.email,
     CounterpartyType: type,
@@ -94,7 +94,7 @@ function getConterpatyContactPersons(id) {
 
 function getInternetDocumentData(cart) {
   const senderPhone = "0662098750";
-  const recipientCity = getCity(cart.city);
+  const recipientCity = getCity(sharedLib.transliterateToCyrillic(cart.city));
   const recipient = createCounterparty(cart);
   const senderCity = getCity("Ужгород");
   const sender = getExistingCounterparty();

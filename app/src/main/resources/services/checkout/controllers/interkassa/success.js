@@ -32,7 +32,7 @@ exports.post = function (req) {
 
     if (
       params.ik_co_id === app.config.interkassaID &&
-      params.ik_pm_no === cart.ik_id
+      params.ik_pm_no === "ID_" + cart.userId
     ) {
       cart.transactionDate = new Date();
       cart.status = "paid";
