@@ -27,7 +27,7 @@ exports.crons = [
       log.info("Checking orders");
 
       httpClientLib.request({
-        url: app.config["base.url"] + "/api/cart/checkout",
+        url: app.config["base.url"] + "/api/cron/pendingcarts",
         method: "POST",
         auth: {
           user: "cronuser",

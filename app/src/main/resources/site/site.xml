@@ -367,8 +367,8 @@
     <!--
       Cron-specific
     -->
-    <mapping controller="/api/crons/checkoutCart.js">
-      <pattern>/api/cart/checkout</pattern>
+    <mapping controller="/api/crons/checkPendingCarts.js">
+      <pattern>/api/cron/pendingcarts</pattern>
     </mapping>
   </mappings>
 </site>
