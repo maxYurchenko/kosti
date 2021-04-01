@@ -22,7 +22,7 @@ exports.crons = [
   },
   {
     name: "checkOrdersStatus",
-    cron: "*/1 * * * *",
+    cron: "*/15 * * * *",
     callback: function () {
       log.info("Checking orders");
 
