@@ -1,7 +1,0 @@
-<tool>
-  <display-name>Statistics (WIP)</display-name>
-  <description>Orders statistics</description>
-  <allow>
-    <principal>role:system.admin</principal>
-  </allow>
-</tool>

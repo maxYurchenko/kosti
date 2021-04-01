@@ -3,17 +3,14 @@
 
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<body>
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main">
+    <main class="main admin-wrap">
         <div class="site_width">
-            <div>
-                <span>Total paid carts:</span>
-                <span data-th-text="${paidCarts.total}"></span>
-            </div>
-            <div>
-                <span>Total failed carts:</span>
-                <span data-th-text="${failedCarts.total}"></span>
+            <div data-th-each="cron: ${crons.jobs}">
+                <span data-th-text="${cron.name}"></span>
+                <span data-th-text="${cron.cron}"></span>
             </div>
         </div>
     </main>

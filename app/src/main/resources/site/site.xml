@@ -361,5 +361,14 @@
     <mapping controller="/admin/statistics/statistics.js">
       <pattern>/statistics</pattern>
     </mapping>
+    <mapping controller="/admin/crons/crons.js">
+      <pattern>/crons</pattern>
+    </mapping>
+    <!--
+      Cron-specific
+    -->
+    <mapping controller="/api/crons/checkoutCart.js">
+      <pattern>/api/cart/checkout</pattern>
+    </mapping>
   </mappings>
 </site>
