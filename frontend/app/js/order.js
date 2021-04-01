@@ -1,5 +1,6 @@
 function initOrderPage() {
   $(".js_api-call-button-with-data").on("click", function (e) {
+    showLoader();
     e.preventDefault();
     var data = $(this).data();
     $.ajax({
@@ -8,14 +9,21 @@ function initOrderPage() {
       data: JSON.stringify(data),
       contentType: "application/json",
       success: function (data) {
-        showSnackBar("Done", "success");
+        hideLoader();
+        if (data.success) {
+          showSnackBar("Done", "success");
+        } else {
+          showSnackBar(data.message ? data.message : "Error", "error");
+        }
       },
       error: function (data) {
+        hideLoader();
         showSnackBar("Error", "error");
       }
     });
   });
   $(".js_api-call-button-with-form").on("click", function (e) {
+    showLoader();
     e.preventDefault();
     var form = $(this).closest("form");
     var data = {};
@@ -28,9 +36,15 @@ function initOrderPage() {
       data: JSON.stringify(data),
       contentType: "application/json",
       success: function (data) {
-        showSnackBar("Done", "success");
+        hideLoader();
+        if (data.success) {
+          showSnackBar("Done", "success");
+        } else {
+          showSnackBar(data.message ? data.message : "Error", "error");
+        }
       },
       error: function (data) {
+        hideLoader();
         showSnackBar("Error", "error");
       }
     });
