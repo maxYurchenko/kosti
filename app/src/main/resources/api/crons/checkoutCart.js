@@ -14,7 +14,6 @@ exports.post = function (req) {
   };
 
   function createModel() {
-    let data = JSON.parse(req.body);
     if (!adminLib.validateUserAdmin()) {
       return { success: false };
     }
