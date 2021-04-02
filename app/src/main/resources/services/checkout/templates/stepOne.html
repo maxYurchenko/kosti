@@ -18,14 +18,14 @@
         <div class="form-group">
             <label for="address-checkout-input" class="label">АДРЕС</label>
             <input required
-                data-th-attr="value=${cart.address} ? ${cart.address} : (${user && user.data.address} ? ${user && user.data.address} : '')"
+                data-th-value="${cart.address} ? ${cart.address} : (${user && user.data.address} ? ${user && user.data.address} : '')"
                 name="address" type="text" class="input-text" id="address-checkout-input" />
         </div>
         <div class="form-group button_wrap-field">
             <label for="zip-checkout-input" class="label">ИНДЕКС</label>
             <button type="submit" class="button_wrap-btn hidden">НАЙТИ</button>
             <input required name="index" type="text"
-                data-th-attr="value=${cart.index} ? ${cart.index} : (${user && user.data.postalCode} ? ${user && user.data.postalCode} : '')"
+                data-th-value="${cart.index} ? ${cart.index} : (${user && user.data.postalCode} ? ${user && user.data.postalCode} : '')"
                 class="input-text button_wrap-input" id="zip-checkout-input" />
         </div>
     </div>
@@ -45,7 +45,7 @@
         <div class="form-group">
             <label for="city-checkout-input" class="label">ГОРОД</label>
             <input required
-                data-th-attr="value=${cart.city} ? ${cart.city} : (${user && user.data.city} ? ${user && user.data.city} : '')"
+                data-th-value="${cart.city} ? ${cart.city} : (${user && user.data.city} ? ${user && user.data.city} : '')"
                 name="city" type="text" class="input-text" id="city-checkout-input" />
         </div>
     </div>
@@ -53,15 +53,20 @@
         <div class="form-group">
             <label for="email-checkout-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
             <input required
-                data-th-attr="value=${cart.email} ? ${cart.email} : (${user && user.data.email} ? ${user && user.data.email} : '')"
+                data-th-value="${cart.email} ? ${cart.email} : (${user && user.data.email} ? ${user && user.data.email} : '')"
                 name="email" type="email" class="input-text" id="email-checkout-input" />
         </div>
         <div class="form-group">
             <label for="phone-checkout-input" class="label">ТЕЛЕФОН</label>
             <input required
-                data-th-attr="value=${cart.phone} ? ${cart.phone} : (${user && user.data.phone} ? ${user && user.data.phone} : '')"
+                data-th-value="${cart.phone} ? ${cart.phone} : (${user && user.data.phone} ? ${user && user.data.phone} : '')"
                 name="phone" type="text" class="input-text" id="phone-checkout-input" />
         </div>
+    </div>
+    <div class="form-group">
+        <label for="comment" class="label">Комментарий к заказу</label>
+        <input data-th-value="${cart.comment} ? ${cart.comment} : ''" name="comment" type="text" class="input-text"
+            id="comment" />
     </div>
     <div class="form-group">
         <input data-th-checked="${cart.checkoutRules}" name="checkoutRules" required type="checkbox" id="agreement"
