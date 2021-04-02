@@ -18,6 +18,7 @@ const commentsLib = require(libLocation + "commentsLib");
 const notificationLib = require(libLocation + "notificationLib");
 const cacheLib = require(libLocation + "cacheLib");
 const formPlayerLib = require(libLocation + "games/formPlayerLib");
+const countries = require(libLocation + "misc/countries");
 
 const cache = cacheLib.api.createGlobalCache({
   name: "users",
@@ -174,6 +175,7 @@ function handleReq(req) {
       var editUserModal = thymeleaf.render(
         resolve("components/userEditModal.html"),
         {
+          countries: countries,
           user: content
         }
       );
