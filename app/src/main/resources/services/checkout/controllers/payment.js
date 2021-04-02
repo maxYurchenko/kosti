@@ -9,6 +9,7 @@ const sharedLib = require(libLocation + "sharedLib");
 const checkoutLib = require(libLocation + "checkoutLib");
 const userLib = require(libLocation + "userLib");
 const shippingLib = require("../lib/shipping");
+const checkoutHelper = require("../lib/helper");
 
 exports.post = function (req) {
   return {
@@ -20,7 +21,7 @@ exports.post = function (req) {
   };
 
   function createModel() {
-    var model = checkoutLib.getCheckoutMainModel(req);
+    var model = checkoutHelper.getCheckoutMainModel(req);
     req.params.status = "created";
     var user = userLib.getCurrentUser();
     if (user) {

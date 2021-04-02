@@ -7,6 +7,7 @@ const norseUtils = require(libLocation + "norseUtils");
 const cartLib = require(libLocation + "cartLib");
 const hashLib = require(libLocation + "hashLib");
 const checkoutLib = require(libLocation + "checkoutLib");
+const checkoutHelper = require("../lib/helper");
 
 exports.post = function (req) {
   return {
@@ -18,7 +19,7 @@ exports.post = function (req) {
   };
 
   function createModel() {
-    let model = checkoutLib.getCheckoutMainModel(req);
+    let model = checkoutHelper.getCheckoutMainModel(req);
     if (req.params.method === "liqpay") {
       getLiqpayModel();
     } else if (req.params.method === "interkassa") {

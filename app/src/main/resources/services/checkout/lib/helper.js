@@ -8,10 +8,14 @@ const norseUtils = require(libLocation + "norseUtils");
 const cartLib = require(libLocation + "cartLib");
 const promosLib = require(libLocation + "promosLib");
 const mailsLib = require(libLocation + "mailsLib");
+const storeLib = require(libLocation + "storeLib");
+const helpers = require(libLocation + "helpers");
+const sharedLib = require(libLocation + "sharedLib");
 
 exports.checkoutCart = checkoutCart;
 exports.sendConfirmationMail = sendConfirmationMail;
 exports.validateCartForCheckout = validateCartForCheckout;
+exports.getCheckoutMainModel = getCheckoutMainModel;
 
 function checkoutCart(cart) {
   return contextLib.runAsAdmin(function () {
@@ -64,4 +68,28 @@ function validateCartForCheckout(cart) {
     return false;
   }
   return true;
+}
+
+function getCheckoutMainModel(req) {
+  let cart = cartLib.getCart(req.cookies.cartId);
+  for (let i = 0; i < cart.items.length; i++) {
+    cart.items[i].priceBlock = storeLib.getPriceBlock(cart.items[i]._id);
+  }
+  return {
+    cart: cart,
+    promos: thymeleaf.render(
+      resolve("/services/checkout/templates/promos.html"),
+      {
+        promos: cart.price.discount.codes
+      }
+    ),
+    ik_id: app.config.interkassaID,
+    pageComponents: helpers.getPageComponents(
+      req,
+      "footerCheckout",
+      null,
+      "Оплата и доставка"
+    ),
+    promosUrl: sharedLib.generateNiceServiceUrl("promos")
+  };
 }

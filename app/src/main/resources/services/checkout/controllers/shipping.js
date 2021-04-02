@@ -9,6 +9,7 @@ const sharedLib = require(libLocation + "sharedLib");
 const checkoutLib = require(libLocation + "checkoutLib");
 const userLib = require(libLocation + "userLib");
 const shippingLib = require("../lib/shipping");
+const checkoutHelper = require("../lib/helper");
 
 exports.post = function (req) {
   return {
@@ -20,7 +21,7 @@ exports.post = function (req) {
   };
 
   function createModel() {
-    let model = checkoutLib.getCheckoutMainModel(req);
+    let model = checkoutHelper.getCheckoutMainModel(req);
     model.cart = cartLib.modifyCartWithParams(model.cart._id, req.params);
     model.stepView = thymeleaf.render(
       resolve("../templates/stepTwo.html"),

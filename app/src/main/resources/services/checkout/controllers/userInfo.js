@@ -9,6 +9,7 @@ const sharedLib = require(libLocation + "sharedLib");
 const checkoutLib = require(libLocation + "checkoutLib");
 const userLib = require(libLocation + "userLib");
 const countries = require(libLocation + "misc/countries");
+const checkoutHelper = require("../lib/helper");
 
 exports.get = function (req) {
   return {
@@ -20,7 +21,7 @@ exports.get = function (req) {
   };
 
   function createModel() {
-    let model = checkoutLib.getCheckoutMainModel(req);
+    let model = checkoutHelper.getCheckoutMainModel(req);
     model.stepView = thymeleaf.render(
       resolve("../templates/stepOne.html"),
       createStepOneModel(model.cart, req)

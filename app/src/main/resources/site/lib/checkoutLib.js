@@ -18,33 +18,7 @@ exports.getLiqpayData = getLiqpayData;
 exports.getLiqpayStatusData = getLiqpayStatusData;
 exports.getCartDescription = getCartDescription;
 exports.checkLiqpayOrderStatus = checkLiqpayOrderStatus;
-exports.getCheckoutMainModel = getCheckoutMainModel;
 exports.checkInterkassaOrderStatus = checkInterkassaOrderStatus;
-
-function getCheckoutMainModel(req) {
-  var cart = cartLib.getCart(req.cookies.cartId);
-  var site = portal.getSiteConfig();
-  for (var i = 0; i < cart.items.length; i++) {
-    cart.items[i].priceBlock = storeLib.getPriceBlock(cart.items[i]._id);
-  }
-  return {
-    cart: cart,
-    promos: thymeleaf.render(
-      resolve("/services/checkout/templates/promos.html"),
-      {
-        promos: cart.price.discount.codes
-      }
-    ),
-    ik_id: app.config.interkassaID,
-    pageComponents: helpers.getPageComponents(
-      req,
-      "footerCheckout",
-      null,
-      "Оплата и доставка"
-    ),
-    promosUrl: sharedLib.generateNiceServiceUrl("promos")
-  };
-}
 
 function getLiqpayData(cart) {
   var description = getCartDescription(cart);
