@@ -176,7 +176,8 @@ function handleReq(req) {
         resolve("components/userEditModal.html"),
         {
           countries: countries,
-          user: content
+          user: content,
+          discord: discord
         }
       );
     }

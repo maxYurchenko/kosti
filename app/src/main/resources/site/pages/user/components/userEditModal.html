@@ -23,6 +23,12 @@
                         <input data-th-value="${user.data.lastName} ? ${user.data.lastName} : ''" name="lastName"
                             type="text" class="input-text" id="surname-user-input" />
                     </div>
+                    <div class="form-group" data-th-if="${discord}">
+                        <label class="label">Discord</label>
+                        <input data-th-value="${discord.username + ':' + discord.discriminator}"
+                            data-th-placeholder="${portal.localize({'_key=myGames.form.discord.placeholder', '_locale=ru'})}"
+                            type="text" data-ignore="true" disabled />
+                    </div>
                     <div class="form-group">
                         <label for="city-user-input" class="label">Город</label>
                         <input data-th-value="${user.data.city} ? ${user.data.city} : ''" name="city" type="text"
