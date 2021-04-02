@@ -7,6 +7,8 @@ const norseUtils = require(libLocation + "norseUtils");
 const cartLib = require(libLocation + "cartLib");
 const sharedLib = require(libLocation + "sharedLib");
 const checkoutLib = require(libLocation + "checkoutLib");
+const userLib = require(libLocation + "userLib");
+const countries = require(libLocation + "misc/countries");
 
 exports.get = function (req) {
   return {
@@ -27,6 +29,8 @@ exports.get = function (req) {
 
     function createStepOneModel(cart, req) {
       return {
+        user: userLib.getCurrentUser(),
+        countries: countries,
         shopUrl: sharedLib.getShopUrl(),
         agreementPage: portal.pageUrl({
           id: portal.getSiteConfig().agreementPage

@@ -23,6 +23,18 @@
       <label>Phone</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="postalCode" type="TextLine">
+      <label>Postal code</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="address" type="TextLine">
+      <label>Address</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="country" type="TextLine">
+      <label>Country</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="discord" type="TextLine">
       <label>Discord</label>
       <occurrences minimum="0" maximum="1"/>

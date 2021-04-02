@@ -37,7 +37,7 @@
                                 <h3 class="order-label">Address:</h3>
                                 <div class="order-value">
                                     <p
-                                        data-th-text="${portal.localize({'_key=countries.title.' + cart.country, '_locale=ru'})}">
+                                        data-th-text="${portal.localize({'_key=countries.' + cart.country, '_locale=ru'})}">
                                     </p>
                                     <p data-th-text="${cart.city + ', ' + cart.address}"></p>
                                     <p data-th-text="${cart.cityLatinic + ', ' + cart.addressLatinic}"></p>

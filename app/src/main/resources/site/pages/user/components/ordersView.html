@@ -73,7 +73,7 @@
             </div>
             <div class="view_orders-address-item">
                 <span data-th-text="${order.city + ', '}" data-th-remove="tag"></span>
-                <span data-th-text="${portal.localize({'_key=countries.title.' + order.country, '_locale=ru'})}"
+                <span data-th-text="${portal.localize({'_key=countries.' + order.country, '_locale=ru'})}"
                     data-th-remove="tag"></span>
                 <span data-th-if="${order.novaPoshtaWarehouse}" data-th-text="${', ' + order.novaPoshtaWarehouse}"
                     data-th-remove="tag"></span>

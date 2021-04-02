@@ -112,6 +112,11 @@ function editUser(data) {
     node.data.lastName = data.lastName ? data.lastName : node.data.lastName;
     node.data.city = data.city ? data.city : node.data.city;
     node.data.phone = data.phone ? data.phone : node.data.phone;
+    node.data.address = data.address ? data.address : node.data.address;
+    node.data.country = data.country ? data.country : node.data.country;
+    node.data.postalCode = data.postalCode
+      ? data.postalCode
+      : node.data.postalCode;
     return node;
   }
   return true;

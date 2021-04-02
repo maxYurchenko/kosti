@@ -1,12 +1,13 @@
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
-var thymeleaf = require("/lib/thymeleaf");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
+const thymeleaf = require("/lib/thymeleaf");
 
-var libLocation = "/site/lib/";
-var helpers = require(libLocation + "helpers");
-var norseUtils = require(libLocation + "norseUtils");
-var cartLib = require(libLocation + "cartLib");
-var adminLib = require(libLocation + "adminLib");
+const libLocation = "/site/lib/";
+const helpers = require(libLocation + "helpers");
+const norseUtils = require(libLocation + "norseUtils");
+const cartLib = require(libLocation + "cartLib");
+const adminLib = require(libLocation + "adminLib");
+const countries = require(libLocation + "misc/countries");
 
 exports.get = function (req) {
   if (!adminLib.validateUserAdmin()) {
@@ -26,6 +27,7 @@ exports.get = function (req) {
       ),
       carts: carts.hits,
       params: req.params,
+      countries: countries,
       products: contentLib.query({
         start: 0,
         count: -1,

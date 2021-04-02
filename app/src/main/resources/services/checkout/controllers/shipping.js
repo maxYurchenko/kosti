@@ -7,6 +7,7 @@ const norseUtils = require(libLocation + "norseUtils");
 const cartLib = require(libLocation + "cartLib");
 const sharedLib = require(libLocation + "sharedLib");
 const checkoutLib = require(libLocation + "checkoutLib");
+const userLib = require(libLocation + "userLib");
 const shippingLib = require("../lib/shipping");
 
 exports.post = function (req) {
@@ -25,6 +26,19 @@ exports.post = function (req) {
       resolve("../templates/stepTwo.html"),
       createStepTwoModel(model.cart)
     );
+    const user = userLib.getCurrentUser();
+    if (user && req.params.saveUserData === "on") {
+      userLib.editUser({
+        postalCode: req.params.index,
+        address: req.params.address,
+        country: req.params.country,
+        city: req.params.city,
+        phone: req.params.phone,
+        lastName: req.params.surname,
+        firstName: req.params.name,
+        id: user._id
+      });
+    }
     model.shipping = "active";
     return model;
 
