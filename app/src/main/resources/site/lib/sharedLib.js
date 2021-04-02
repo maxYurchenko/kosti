@@ -15,6 +15,7 @@ exports.getShopUrl = getShopUrl;
 exports.transliterate = transliterate;
 exports.redirect = redirect;
 exports.transliterateToCyrillic = transliterateToCyrillic;
+exports.updateEntity = updateEntity;
 
 function getRepoConnection(id, branch) {
   let conn = null;
@@ -167,4 +168,42 @@ function redirect(params) {
       Location: params.url ? params.url : "/"
     }
   };
+}
+
+function updateEntity(entity, user) {
+  if (user) {
+    return contextLib.runAsAdminAsUser(user, function () {
+      entity = contentLib.modify({
+        key: entity._id,
+        editor: editor
+      });
+      function editor(c) {
+        c.data = entity.data;
+        return c;
+      }
+      contentLib.publish({
+        keys: [entity._id],
+        sourceBranch: "master",
+        targetBranch: "draft"
+      });
+      return entity;
+    });
+  } else {
+    return contextLib.runAsAdmin(function () {
+      entity = contentLib.modify({
+        key: entity._id,
+        editor: editor
+      });
+      function editor(c) {
+        c.data = entity.data;
+        return c;
+      }
+      contentLib.publish({
+        keys: [entity._id],
+        sourceBranch: "master",
+        targetBranch: "draft"
+      });
+      return entity;
+    });
+  }
 }

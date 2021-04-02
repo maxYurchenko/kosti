@@ -5,6 +5,7 @@ const hashLib = require("hashLib");
 const mailsLib = require("mailsLib");
 const authLib = require("/lib/xp/auth");
 const contextLib = require("contextLib");
+const sharedLib = require("sharedLib");
 const common = require("/lib/xp/common");
 const i18nLib = require("/lib/xp/i18n");
 const thymeleaf = require("/lib/thymeleaf");
@@ -220,8 +221,8 @@ function vkRegister(code) {
 }
 
 function discordRegister(code, redirect) {
-  var site = portal.getSite();
-  var data =
+  const site = portal.getSite();
+  let data =
     "&redirect_uri=" +
     portal.pageUrl({ _path: site._path, type: "absolute" }) +
     (redirect ? redirect : "user/auth/discord");
@@ -252,7 +253,10 @@ function discordRegister(code, redirect) {
     }
   });
   response = JSON.parse(request.body);
-  if (response && response.email && response.username) {
+  const user = getCurrentUser();
+  if (user && response && response.id) {
+    return updateUserSocial(user.data.email, { discord: response.id });
+  } else if (response && response.email && response.username) {
     return register(
       response.username,
       response.email,
@@ -671,35 +675,25 @@ function createUserImageObj(stream, user) {
 
 function updateUserSocial(email, data) {
   if (!email || !data) return null;
+
   let user = contentLib.query({
     query: "data.email = '" + email + "'",
     contentTypes: [app.name + ":user"]
   });
   if (user.total !== 1) return null;
   user = user.hits[0];
-  if (
-    data.discord ||
-    !user.data ||
-    !user.data.discord ||
-    user.discord.data !== data.discord
-  ) {
-    let userData = user.data;
-    userData.discord = data.discord;
-    user = contentLib.modify({
-      key: user._id,
-      editor: socialEditor
-    });
-    let publishResult = contentLib.publish({
-      keys: [user._id],
-      sourceBranch: "master",
-      targetBranch: "draft",
-      includeDependencies: false
-    });
-    function socialEditor(node) {
-      node.data = userData;
-      return node;
-    }
+  if (!user.data) {
+    user.data = {};
   }
+  const currUser = getCurrentUser();
+
+  if (
+    data.discord &&
+    (!user.data.discord || user.data.discord !== data.discord)
+  ) {
+    user.data.discord = data.discord;
+  }
+  return sharedLib.updateEntity(user, currUser);
 }
 
 function getDiscordData(id) {
