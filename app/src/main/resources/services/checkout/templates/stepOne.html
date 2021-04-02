@@ -68,7 +68,8 @@
         </div>
     </div>
     <div class="form-group">
-        <input required type="checkbox" name="agreement" id="agreement" hidden />
+        <input data-th-checked="${cart.checkoutRules}" name="checkoutRules" required type="checkbox" id="agreement"
+            hidden />
         <label for="agreement" class="label-checkbox">Я прочитал и принимаю
             <a data-th-href="${agreementPage}" target="_blank">условия пользования сайтом</a></label>
     </div>

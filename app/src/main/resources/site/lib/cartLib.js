@@ -384,6 +384,10 @@ function setUserDetails(cartId, params) {
     node.trackNum = params.trackNum ? params.trackNum : node.trackNum;
     node.price = params.price ? params.price : node.price;
     node.ik_inv_id = params.ik_inv_id ? params.ik_inv_id : node.ik_inv_id;
+    node.checkoutRules =
+      params.checkoutRules && params.checkoutRules === "on"
+        ? true
+        : node.checkoutRules;
     return node;
   }
   return getCart(cartId);
