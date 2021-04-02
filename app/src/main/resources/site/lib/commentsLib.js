@@ -71,9 +71,12 @@ function getCommentsByUser(id, page, pageSize, counterOnly) {
 }
 
 function getCommentsView(comments) {
-  return thymeleaf.render(resolve("../pages/user/commentsView.html"), {
-    comments: comments
-  });
+  return thymeleaf.render(
+    resolve("../pages/user/components/commentsView.html"),
+    {
+      comments: comments
+    }
+  );
 }
 
 function removeComment(id, reason) {

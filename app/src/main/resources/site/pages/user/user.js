@@ -68,7 +68,9 @@ function handleReq(req) {
     }
 
     var currUser = userLib.getCurrentUser();
-    content.data.bookmarks = norseUtils.forceArray(content.data.bookmarks);
+    content.data.bookmarks = content.data.bookmarks
+      ? norseUtils.forceArray(content.data.bookmarks)
+      : 0;
     var userSystemObj = userLib.getSystemUser(content.data.email);
     var currUserFlag = currUser.key == userSystemObj.key;
     content.votes = blogLib.countUserRating(content._id);
@@ -112,7 +114,7 @@ function handleReq(req) {
       active.comments = "active";
       var currTitle = "comments";
       var userComments = commentsLib.getCommentsByUser(content._id).hits;
-      var articles = thymeleaf.render(resolve("commentsView.html"), {
+      var articles = thymeleaf.render(resolve("components/commentsView.html"), {
         comments: userComments
       });
     } else if (up.action == "notifications" && currUserFlag) {
@@ -132,7 +134,7 @@ function handleReq(req) {
       active.games = "active";
       var currTitle = "games";
       let days = formSharedLib.getDays();
-      var articles = thymeleaf.render(resolve("gamesView.html"), {
+      var articles = thymeleaf.render(resolve("components/gamesView.html"), {
         currUser: currUser,
         userGames: userGames,
         currUserFlag: currUserFlag,
@@ -153,7 +155,7 @@ function handleReq(req) {
       totalArticles.curr = orders.total;
       active.orders = "active";
       var currTitle = "orders";
-      var articles = thymeleaf.render(resolve("ordersView.html"), {
+      var articles = thymeleaf.render(resolve("components/ordersView.html"), {
         orders: orders.hits
       });
     } else {
@@ -169,9 +171,12 @@ function handleReq(req) {
       totalArticles.curr
     );
     if (currUserFlag) {
-      var editUserModal = thymeleaf.render(resolve("userEditModal.html"), {
-        user: content
-      });
+      var editUserModal = thymeleaf.render(
+        resolve("components/userEditModal.html"),
+        {
+          user: content
+        }
+      );
     }
 
     var model = {

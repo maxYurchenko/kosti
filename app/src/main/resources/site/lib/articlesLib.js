@@ -2,7 +2,6 @@ var contentLib = require("/lib/xp/content");
 var portal = require("/lib/xp/portal");
 var thymeleaf = require("/lib/thymeleaf");
 var common = require("/lib/xp/common");
-var telegramLib = require("/lib/telegramLib");
 
 var norseUtils = require("norseUtils");
 var userLib = require("userLib");
