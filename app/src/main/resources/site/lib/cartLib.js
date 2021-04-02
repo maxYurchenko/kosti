@@ -356,7 +356,6 @@ function setUserDetails(cartId, params) {
     node.cartId = params.cartId ? params.cartId : node.cartId;
     node.step = params.step ? params.step : node.step;
     node.status = params.status ? params.status : node.status;
-    node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
     node.userId = node.userId ? node.userId : getNextId();
     node.index = params.index ? params.index : node.index;
     node.comment = params.comment ? params.comment : node.comment;

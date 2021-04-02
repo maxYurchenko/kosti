@@ -18,7 +18,7 @@ exports.get = function (req) {
   };
 
   function createModel() {
-    var model = checkoutLib.getCheckoutMainModel(req);
+    let model = checkoutLib.getCheckoutMainModel(req);
     model.stepView = thymeleaf.render(
       resolve("../templates/stepOne.html"),
       createStepOneModel(model.cart, req)

@@ -74,13 +74,11 @@ function beautifyUser(userObj, user) {
   );
   userObj.key = user.key;
   userObj.login = user.login;
-  //contextLib.runAsAdmin(function () {
   userObj.roles = {
     moderator: checkRole(["role:moderator", "role:system.admin"]),
     gameMaster: checkRole(["role:gameMaster", "role:system.admin"]),
     admin: checkRole(["role:system.admin"])
   };
-  //});
   userObj.notificationsCounter = notificationLib.getNotificationsForUser(
     userObj._id,
     null,

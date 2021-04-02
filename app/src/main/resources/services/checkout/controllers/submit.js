@@ -43,7 +43,7 @@ exports.post = function (req) {
     }
 
     function getInterkassaModel() {
-      if (model.cart && model.cart.ik_id) {
+      if (model.cart) {
         model.cart = cartLib.modifyCartWithParams(model.cart._id, {
           paymentMethod: "interkassa"
         });
