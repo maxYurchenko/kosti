@@ -1,13 +1,15 @@
-var norseUtils = require("norseUtils");
-var contentLib = require("/lib/xp/content");
-var portalLib = require("/lib/xp/portal");
-var cartLib = require("cartLib");
+const norseUtils = require("norseUtils");
+const contentLib = require("/lib/xp/content");
+const portalLib = require("/lib/xp/portal");
+const cartLib = require("cartLib");
+const moment = require("moment");
 
 exports.getCarts = getCarts;
 exports.calculateCartPrices = calculateCartPrices;
 exports.getStatisticsPerItem = getStatisticsPerItem;
 exports.getStatisticsPerCountry = getStatisticsPerCountry;
 exports.getUniqueBuyersAmount = getUniqueBuyersAmount;
+exports.getFirstAndLastDayOfMonth = getFirstAndLastDayOfMonth;
 
 function getCarts(params) {
   let carts = cartLib.getCreatedCarts({ status: "paid" });
@@ -89,4 +91,14 @@ function convertToArray(obj) {
     return 0;
   });
   return result;
+}
+
+function getFirstAndLastDayOfMonth(params) {
+  if (!params) params = {};
+  const date = new Date(),
+    y = date.getFullYear(),
+    m = date.getMonth();
+  params.start = moment(new Date(y, m, 1)).format("YYYY-MM-DD");
+  params.end = moment(new Date(y, m + 1, 0)).format("YYYY-MM-DD");
+  return params;
 }

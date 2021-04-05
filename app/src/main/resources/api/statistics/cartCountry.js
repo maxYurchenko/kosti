@@ -19,10 +19,16 @@ exports.get = function (req) {
     if (!adminLib.validateUserAdmin()) {
       return { success: false };
     }
+    if (!req.params) {
+      req.params = {};
+    }
+    if (!req.params.end || !req.params.start) {
+      req.params = statisticsLib.getFirstAndLastDayOfMonth(req.params);
+    }
     const paidCarts = cartLib.getCreatedCarts({
       status: ["paid", "shipped"],
-      start: req.params.start ? req.params.start : null,
-      end: req.params.end ? req.params.end : null,
+      start: req.params.start,
+      end: req.params.end,
       count: -1
     });
     return {

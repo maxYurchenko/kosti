@@ -13,6 +13,12 @@ exports.get = function (req) {
   if (!adminLib.validateUserAdmin()) {
     return false;
   }
+  if (!req.params) {
+    req.params = {};
+  }
+  if (!req.params.end || !req.params.start) {
+    req.params = statisticsLib.getFirstAndLastDayOfMonth(req.params);
+  }
   const paidCarts = cartLib.getCreatedCarts({
     status: ["paid", "shipped"],
     start: req.params.start,
