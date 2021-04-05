@@ -8,6 +8,7 @@ var votesLib = require(libLocation + "votesLib");
 var contextLib = require(libLocation + "contextLib");
 var blogLib = require(libLocation + "blogLib");
 var socNotLib = require(libLocation + "socialNotificationLib");
+var cronLib = require(libLocation + "cronLib");
 
 // catch events
 event.listener({
@@ -122,3 +123,8 @@ function pageUrl(object) {
   }
   return null;
 }
+
+log.info("Starting jobs");
+cronLib.startCrons();
+log.info("Jobs started");
+log.info("Application " + app.name + " started");
