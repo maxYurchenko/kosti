@@ -255,6 +255,15 @@
     <mapping controller="/api/cart/update.js">
       <pattern>/api/cart/update</pattern>
     </mapping>
+    <mapping controller="/api/novaposhta/getPrice.js">
+      <pattern>/api/novaposhta/price</pattern>
+    </mapping>
+    <mapping controller="/api/novaposhta/getCities.js">
+      <pattern>/api/novaposhta/cities</pattern>
+    </mapping>
+    <mapping controller="/api/novaposhta/getWarehouses.js">
+      <pattern>/api/novaposhta/warehouses</pattern>
+    </mapping>
     <!--
       Checkout
     -->

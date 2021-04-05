@@ -1,27 +1,16 @@
 function initNovaPoshta() {
-  var apiUrl = "https://api.novaposhta.ua/v2.0/json/";
-  var apiKey = "ecc4e836cab6d9c8356bd4ee46ff14a7";
   $(".delivery_np-input-city").on("input", function () {
     if ($(this).val().length > 1) {
-      var dataCity = {
-        apiKey: apiKey,
-        modelName: "Address",
-        calledMethod: "searchSettlements",
-        methodProperties: {
-          Limit: "10"
-        }
-      };
-      dataCity.methodProperties.CityName = $(".delivery_np-input-city").val();
-
+      const data = { query: $(".delivery_np-input-city").val() };
       $.ajax({
-        url: apiUrl,
+        url: "/api/novaposhta/cities",
         type: "POST",
         contentType: "application/json",
         dataType: "json",
-        data: JSON.stringify(dataCity),
+        data: JSON.stringify(data),
         success: function (response) {
           $("#suggestion-list").html("");
-          var dataIncome = response.data[0].Addresses;
+          var dataIncome = response.data;
           for (var i = 0; i < dataIncome.length; i++) {
             $("#suggestion-list").append(
               "<li data-ref='" +
@@ -39,19 +28,10 @@ function initNovaPoshta() {
     $(".delivery_np-input-city").val($(this).text());
     $(".delivery_np-input-city").data("ref", $(this).data("ref"));
     $("#suggestion-list").html("");
-    var dataCity = {
-      apiKey: apiKey,
-      modelName: "AddressGeneral",
-      calledMethod: "getWarehouses",
-      methodProperties: {
-        Language: "ru",
-        Limit: "99999",
-        CityRef: $(this).data("ref")
-      }
-    };
+    var dataCity = { cityRef: $(this).data("ref") };
 
     $.ajax({
-      url: apiUrl,
+      url: "/api/novaposhta/warehouses",
       type: "POST",
       contentType: "application/json",
       dataType: "json",
@@ -61,7 +41,6 @@ function initNovaPoshta() {
           '<option disabled="disabled" selected="selected">Выберите отделение</option>'
         );
         for (var i = 0; i < response.data.length; i++) {
-          console.log(response.data[i]);
           $("#delivery_np-warehouses").append(
             '<option data-warehouseid="' +
               response.data[i].Ref +
@@ -76,31 +55,18 @@ function initNovaPoshta() {
     });
   });
   $("#suggestion-list").on("click", "li", function () {
-    var dataCity = {
-      apiKey: apiKey,
-      modelName: "InternetDocument",
-      calledMethod: "getDocumentPrice",
-      methodProperties: {
-        CitySender: "e221d627-391c-11dd-90d9-001a92567626",
-        CityRecipient: $(".delivery_np-input-city").data("ref"),
-        Weight: $("#cartWeight").val(),
-        ServiceType: "WarehouseWarehouse",
-        Cost: "100",
-        CargoType: "Parcel",
-        SeatsAmount: "1"
-      }
-    };
+    const data = { cityRecipient: $(".delivery_np-input-city").data("ref") };
 
     $.ajax({
-      url: apiUrl,
+      url: "/api/novaposhta/price",
       type: "POST",
       contentType: "application/json",
       dataType: "json",
-      data: JSON.stringify(dataCity),
+      data: JSON.stringify(data),
       success: function (response) {
-        $(".js_shippingPricenovaposhta").text("UAH " + response.data[0].Cost);
-        $("input[name=shippingPrice]").val(response.data[0].Cost);
-        $("input#novaposhta").attr("data-price", response.data[0].Cost);
+        $(".js_shippingPricenovaposhta").text("UAH " + response.data.Cost);
+        $("input[name=shippingPrice]").val(response.data.Cost);
+        $("input#novaposhta").attr("data-price", response.data.Cost);
       }
     });
   });
