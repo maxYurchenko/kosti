@@ -122,6 +122,7 @@ function checkInterkassaOrderStatus() {
       }
     }).body
   );
+  norseUtils.log("got response from interkassa status " + response.code);
   if (response && response.code === 0) {
     processResponse();
   }
@@ -130,7 +131,11 @@ function checkInterkassaOrderStatus() {
     const orders = response.data;
     for (let order in orders) {
       const id = orders[order].paymentNo.replace("ID_", "");
+      norseUtils.log("checking cart id " + id);
       let carts = cartLib.getCartByUserId(id);
+      if (carts.length < 1) {
+        norseUtils.log("carts not found");
+      }
       for (let i = 0; i < carts.length; i++) {
         let cart = carts[i];
         if (cart.status == "paid" || cart.status == "failed") {
