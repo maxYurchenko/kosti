@@ -63,7 +63,7 @@ function getLiqpayStatusData(cart) {
 }
 
 function checkLiqpayOrderStatus() {
-  var carts = cartLib.getPendingCarts();
+  var carts = cartLib.getLiqpayPendingCarts();
   norseUtils.log(carts.length + " total liqpay pending carts found.");
   for (var i = 0; i < carts.length; i++) {
     let cart = carts[i];

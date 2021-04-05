@@ -27,7 +27,7 @@ exports.getNextId = getNextId;
 exports.savePrices = savePrices;
 exports.fixItemIds = fixItemIds;
 exports.getCartUtils = getCartUtils;
-exports.getPendingCarts = getPendingCarts;
+exports.getLiqpayPendingCarts = getLiqpayPendingCarts;
 exports.getCartByUserId = getCartByUserId;
 
 function getCart(cartId) {
@@ -72,15 +72,13 @@ function getCartsByUser(email, id, count) {
   return result;
 }
 
-function getPendingCarts(payment) {
-  if (!payment) {
-    payment = "liqpay";
-  }
+function getLiqpayPendingCarts() {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
     count: -1,
-    query: "paymentMethod = '" + payment + "' and status = 'pending'"
+    query:
+      "paymentMethod = 'liqpay' and status in ('pending', 'created') and _ts > '2021-04-01T00:00:00.000Z'"
   });
   var carts = [];
   for (var i = 0; i < result.hits.length; i++) {
