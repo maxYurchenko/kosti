@@ -10,6 +10,7 @@ const cartLib = require("cartLib");
 const mailsLib = require("mailsLib");
 const sharedLib = require("sharedLib");
 const promosLib = require("promosLib");
+const moment = require("moment");
 const storeLib = require("storeLib");
 const checkoutHelper = require("/services/checkout/lib/helper");
 const hashLib = require("hashLib");
@@ -66,19 +67,8 @@ function checkLiqpayOrderStatus() {
   norseUtils.log(carts.length + " total liqpay pending carts found.");
   for (var i = 0; i < carts.length; i++) {
     let cart = carts[i];
+    const result = getStatus(cart);
     norseUtils.log("fixing cart " + carts[i].userId);
-    var data = hashLib.generateLiqpayData(getLiqpayStatusData(carts[i]));
-    var signature = hashLib.generateLiqpaySignature(data);
-    var result = JSON.parse(
-      httpClientLib.request({
-        url: "https://www.liqpay.ua/api/request",
-        method: "POST",
-        connectionTimeout: 2000000,
-        readTimeout: 500000,
-        body: "data=" + data + "&signature=" + signature + "",
-        contentType: "application/x-www-form-urlencoded"
-      }).body
-    );
     norseUtils.log("cart status " + result.status);
     if (result && result.status && result.status === "success") {
       norseUtils.log("cart is paid");
@@ -94,47 +84,79 @@ function checkLiqpayOrderStatus() {
       cartLib.modifyCartWithParams(carts[i]._id, { status: "failed" });
     }
   }
+  function getStatus(cart) {
+    var data = hashLib.generateLiqpayData(getLiqpayStatusData(cart));
+    var signature = hashLib.generateLiqpaySignature(data);
+    return JSON.parse(
+      httpClientLib.request({
+        url: "https://www.liqpay.ua/api/request",
+        method: "POST",
+        body: "data=" + data + "&signature=" + signature + "",
+        contentType: "application/x-www-form-urlencoded"
+      }).body
+    );
+  }
 }
 
 function checkInterkassaOrderStatus() {
-  var carts = cartLib.getPendingCarts("interkassa");
-  norseUtils.log(carts.length + " total interkassa pending carts found.");
-  for (var i = 0; i < carts.length; i++) {
-    norseUtils.log("fixing cart " + carts[i].userId);
-    var result = getStatus();
-    if (result.code !== 0) continue;
-    let cart = carts[i];
-    result = result.data;
-    norseUtils.log("cart status " + result.state);
-    if (result && result.state && result.state == "7") {
-      cart.transactionDate = new Date();
-      cart.status = "paid";
-      cart = checkoutHelper.checkoutCart(cart);
-    } else if (
-      result &&
-      result.state &&
-      (result.state == "8" ||
-        result.state == "9" ||
-        result.state == "6" ||
-        result.state == "5")
-    ) {
-      cartLib.modifyCartWithParams(carts[i]._id, { status: "failed" });
-    }
+  let start = new Date();
+  start.setTime(start.getTime() - 3 * 24 * 60 * 60 * 1000);
+  let end = new Date();
+  end.setTime(end.getTime() + 2 * 24 * 60 * 60 * 1000);
+  start = moment(start).format("YYYY-MM-DD");
+  end = moment(end).format("YYYY-MM-DD");
+  const response = JSON.parse(
+    httpClientLib.request({
+      url:
+        "https://api.interkassa.com/v1/co-invoice?fromDate=" +
+        start +
+        "&toDate=" +
+        end,
+      method: "GET",
+      headers: {
+        "Ik-Api-Account-Id": "5c1cb5253d1eaf58328b456c"
+      },
+      auth: {
+        user: "5c1cb5073d1eafec2e8b456a",
+        password: "nAxatKVfIXH1fbaIuW9pLcbjaR6vPfvN"
+      }
+    }).body
+  );
+  if (response && response.code === 0) {
+    processResponse();
   }
 
-  function getStatus() {
-    return JSON.parse(
-      httpClientLib.request({
-        url: "https://api.interkassa.com/v1/co-invoice/" + cart.ik_inv_id,
-        method: "GET",
-        headers: {
-          "Ik-Api-Account-Id": "5c1cb5253d1eaf58328b456c"
-        },
-        auth: {
-          user: "5c1cb5073d1eafec2e8b456a",
-          password: "nAxatKVfIXH1fbaIuW9pLcbjaR6vPfvN"
+  function processResponse() {
+    const orders = response.data;
+    for (let order in orders) {
+      const id = orders[order].paymentNo.replace("ID_", "");
+      let carts = cartLib.getCartByUserId(id);
+      for (let i = 0; i < carts.length; i++) {
+        let cart = carts[i];
+        if (cart.status == "paid" || cart.status == "failed") {
+          continue;
         }
-      }).body
-    );
+        if ("ID_" + cart.userId != orders[order].paymentNo) {
+          norseUtils.log("cart id does not match " + cart._id);
+          continue;
+        }
+        if (orders[order].state == "7") {
+          norseUtils.log("cart is paid");
+          cart.transactionDate = new Date();
+          cart.status = "paid";
+          cart = checkoutHelper.checkoutCart(cart);
+        } else if (
+          orders[order].state == "8" ||
+          orders[order].state == "9" ||
+          orders[order].state == "6" ||
+          orders[order].state == "5"
+        ) {
+          norseUtils.log("cart is failed");
+          cartLib.modifyCartWithParams(carts[i]._id, { status: "failed" });
+        } else {
+          norseUtils.log("cart is still pending");
+        }
+      }
+    }
   }
 }

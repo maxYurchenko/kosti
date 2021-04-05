@@ -28,6 +28,7 @@ exports.savePrices = savePrices;
 exports.fixItemIds = fixItemIds;
 exports.getCartUtils = getCartUtils;
 exports.getPendingCarts = getPendingCarts;
+exports.getCartByUserId = getCartByUserId;
 
 function getCart(cartId) {
   var cart = {};
@@ -199,17 +200,34 @@ function getCreatedCarts(params) {
   if (params.paymentMethod) {
     query += " and paymentMethod = '" + params.paymentMethod + "'";
   }
+  if (params.userId) {
+    query += " and userId = '" + params.userId + "'";
+  }
   params.page = params.page ? parseInt(params.page) : 1;
   var carts = cartRepo.query({
     start: (params.page - 1) * 10,
     count: 30,
     query: query,
-    sort: "_ts desc"
+    sort: "_ts desc",
+    filters: params.filters ? params.filters : {}
   });
   for (var i = 0; i < carts.hits.length; i++) {
     result.push(getCart(carts.hits[i].id));
   }
   return { hits: result, total: carts.total };
+}
+
+function getCartByUserId(id) {
+  const cartRepo = connectCartRepo();
+  let result = [];
+  let cart = cartRepo.query({
+    query: "userId = '" + id + "'",
+    sort: "_ts desc"
+  });
+  for (var i = 0; i < cart.hits.length; i++) {
+    result.push(getCart(cart.hits[i].id));
+  }
+  return result;
 }
 
 function modifyCartWithParams(id, params) {
