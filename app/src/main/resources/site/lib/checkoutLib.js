@@ -117,8 +117,8 @@ function checkInterkassaOrderStatus() {
         "Ik-Api-Account-Id": "5c1cb5253d1eaf58328b456c"
       },
       auth: {
-        user: "5c1cb5073d1eafec2e8b456a",
-        password: "nAxatKVfIXH1fbaIuW9pLcbjaR6vPfvN"
+        user: app.config.interkassaAPIuser,
+        password: app.config.interkassaAPIpassword
       }
     }).body
   );
