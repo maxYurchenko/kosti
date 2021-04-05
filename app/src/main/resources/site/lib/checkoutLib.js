@@ -62,7 +62,7 @@ function getLiqpayStatusData(cart) {
 }
 
 function checkLiqpayOrderStatus() {
-  var carts = cartLib.getPendingLiqpayCarts();
+  var carts = cartLib.getPendingCarts();
   norseUtils.log(carts.length + " total liqpay pending carts found.");
   for (var i = 0; i < carts.length; i++) {
     let cart = carts[i];
@@ -97,29 +97,16 @@ function checkLiqpayOrderStatus() {
 }
 
 function checkInterkassaOrderStatus() {
-  var carts = cartLib.getPendingLiqpayCarts("interkassa");
+  var carts = cartLib.getPendingCarts("interkassa");
   norseUtils.log(carts.length + " total interkassa pending carts found.");
   for (var i = 0; i < carts.length; i++) {
     norseUtils.log("fixing cart " + carts[i].userId);
-    var result = JSON.parse(
-      httpClientLib.request({
-        url: "https://api.interkassa.com/v1/co-invoice/292835395",
-        method: "GET",
-        headers: {
-          "Ik-Api-Account-Id": "5c1cb5253d1eaf58328b456c"
-        },
-        auth: {
-          user: "5c1cb5073d1eafec2e8b456a",
-          password: "nAxatKVfIXH1fbaIuW9pLcbjaR6vPfvN"
-        }
-      }).body
-    );
+    var result = getStatus();
     if (result.code !== 0) continue;
     let cart = carts[i];
     result = result.data;
     norseUtils.log("cart status " + result.state);
     if (result && result.state && result.state == "7") {
-      norseUtils.log("cart is paid");
       cart.transactionDate = new Date();
       cart.status = "paid";
       cart = checkoutHelper.checkoutCart(cart);
@@ -131,8 +118,23 @@ function checkInterkassaOrderStatus() {
         result.state == "6" ||
         result.state == "5")
     ) {
-      norseUtils.log("updating status");
       cartLib.modifyCartWithParams(carts[i]._id, { status: "failed" });
     }
+  }
+
+  function getStatus() {
+    return JSON.parse(
+      httpClientLib.request({
+        url: "https://api.interkassa.com/v1/co-invoice/" + cart.ik_inv_id,
+        method: "GET",
+        headers: {
+          "Ik-Api-Account-Id": "5c1cb5253d1eaf58328b456c"
+        },
+        auth: {
+          user: "5c1cb5073d1eafec2e8b456a",
+          password: "nAxatKVfIXH1fbaIuW9pLcbjaR6vPfvN"
+        }
+      }).body
+    );
   }
 }
