@@ -23,7 +23,7 @@ exports.post = function (req) {
     const cart = cartLib.getCart(data.id);
     if (data.track) {
       trackNum = data.track;
-      cartLib.setUserDetails(data.id, { trackNum: data.track });
+      cart = cartLib.setUserDetails(data.id, { trackNum: data.track });
     } else {
       trackNum = cart.trackNum;
     }
