@@ -130,6 +130,9 @@ function checkInterkassaOrderStatus() {
   function processResponse() {
     const orders = response.data;
     for (let order in orders) {
+      if (orders[order].coId != app.config.interkassaID) {
+        continue;
+      }
       const id = orders[order].paymentNo.replace("ID_", "");
       norseUtils.log("checking cart id " + id);
       let carts = cartLib.getCartByUserId(id);
