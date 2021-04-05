@@ -31,7 +31,7 @@ exports.crons = [
         method: "POST",
         auth: {
           user: "cronuser",
-          password: "supersecurepass"
+          password: app.config["cronuserpass"]
         }
       }).body;
 
