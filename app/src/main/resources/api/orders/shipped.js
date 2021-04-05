@@ -20,7 +20,7 @@ exports.post = function (req) {
       return { success: false };
     }
     let trackNum = null;
-    const cart = cartLib.getCart(data.id);
+    let cart = cartLib.getCart(data.id);
     if (data.track) {
       trackNum = data.track;
       cart = cartLib.setUserDetails(data.id, { trackNum: data.track });
