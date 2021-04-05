@@ -39,7 +39,7 @@ function initStatisticsPage() {
       },
       plugins: {
         colorschemes: {
-          scheme: "tableau.Classic10"
+          scheme: "brewer.SetThree12"
         }
       }
     };

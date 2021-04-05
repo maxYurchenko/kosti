@@ -821,7 +821,9 @@ function fixCartDate() {
   );
   for (var i = 0; i < result.hits.length; i++) {
     result.hits[i] = cartRepo.get(result.hits[i].id);
-    setUserDetails(result.hits[i]._id, { transactionDate: result.hits[i]._ts });
+    setUserDetails(result.hits[i]._id, {
+      transactionDate: result.hits[i]._ts
+    });
   }
 }
 
