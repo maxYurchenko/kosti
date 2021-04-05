@@ -204,9 +204,9 @@ function getCreatedCarts(params) {
   params.page = params.page ? parseInt(params.page) : 1;
   var carts = cartRepo.query({
     start: (params.page - 1) * 10,
-    count: 30,
     query: query,
     sort: "_ts desc",
+    count: params.count ? params.count : 30,
     filters: params.filters ? params.filters : {}
   });
   for (var i = 0; i < carts.hits.length; i++) {

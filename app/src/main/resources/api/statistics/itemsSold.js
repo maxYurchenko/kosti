@@ -21,8 +21,9 @@ exports.get = function (req) {
     }
     const paidCarts = cartLib.getCreatedCarts({
       status: ["paid", "shipped"],
-      start: req.params.start,
-      end: req.params.end
+      start: req.params.start ? req.params.start : null,
+      end: req.params.end ? req.params.end : null,
+      count: -1
     });
     return {
       success: true,

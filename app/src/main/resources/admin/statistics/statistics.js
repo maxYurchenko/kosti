@@ -16,12 +16,14 @@ exports.get = function (req) {
   const paidCarts = cartLib.getCreatedCarts({
     status: ["paid", "shipped"],
     start: req.params.start,
-    end: req.params.end
+    end: req.params.end,
+    count: -1
   });
   const failedCarts = cartLib.getCreatedCarts({
     status: "failed",
     start: req.params.start,
-    end: req.params.end
+    end: req.params.end,
+    count: -1
   });
   const income = statisticsLib.calculateCartPrices(paidCarts.hits);
   const itemsStatistics = statisticsLib.getStatisticsPerItem(paidCarts.hits);

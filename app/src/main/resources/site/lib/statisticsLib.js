@@ -25,9 +25,9 @@ function calculateCartPrices(carts) {
       result.shipping += parseInt(cart.price.shipping);
     }
   });
-  result.averageTotal = result.total / carts.length;
-  result.averageShipping = result.shipping / carts.length;
-  result.averageItemsPrice = result.itemsPrice / carts.length;
+  result.averageTotal = Math.floor(result.total / carts.length);
+  result.averageShipping = Math.floor(result.shipping / carts.length);
+  result.averageItemsPrice = Math.floor(result.itemsPrice / carts.length);
   return result;
 }
 
