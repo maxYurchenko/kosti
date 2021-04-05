@@ -2,8 +2,28 @@
   <display-name>Attachment</display-name>
   <form>
     <input type="AttachmentUploader" name="ATTACHMENT">
-      <label>File</label>
-      <occurrences minimum="1" maximum="1"/>
+      <label>File upload</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="ATTACHMENT_RELATION" type="ContentSelector">
+      <label>File existing</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allowContentType>media:text</allowContentType>
+        <allowContentType>media:data</allowContentType>
+        <allowContentType>media:audio</allowContentType>
+        <allowContentType>media:video</allowContentType>
+        <allowContentType>media:image</allowContentType>
+        <allowContentType>media:vector</allowContentType>
+        <allowContentType>media:archive</allowContentType>
+        <allowContentType>media:document</allowContentType>
+        <allowContentType>media:spreadsheet</allowContentType>
+        <allowContentType>media:presentation</allowContentType>
+        <allowContentType>media:code</allowContentType>
+        <allowContentType>media:executable</allowContentType>
+        <allowContentType>media:unknown</allowContentType>
+        <allowPath>*</allowPath>
+      </config>
     </input>
     <input type="TextLine" name="ATTACHMENT_TITLE">
       <label>Title</label>

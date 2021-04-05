@@ -1,0 +1,21 @@
+<div data-th-if="${form}" data-th-attr="data-id=${id}"
+    data-th-class="${'create_article-attachment_editor js_attachment-editor js_single-part js_single-part-' + id}">
+    <input type="file" class="js_attachment-file-input">
+    <input type="text" class="js_attachment-title-input">
+    <button type="submit" class="js_attachment-submit">Загрузить файл</button>
+    <div class="create_article-editor_actions">
+        <div class="create_article-editor_actions-remove js_remove-part"></div>
+        <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
+        <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
+    </div>
+</div>
+<div data-th-unless="${form}" data-th-attr="data-id=${id}" data-th-remove="${addWrapper ? 'none' : 'tag'}"
+    data-th-class="${'create_article-attachment_editor js_attachment-editor js_single-part js_single-part-' + id}">
+    <a data-th-href="${portal.attachmentUrl({'_id='+attachment._id, '_name='+attachment._name})}"
+        data-th-text="${title}" data-th-attr="data-id=${attachment._id}"></a>
+    <div class="create_article-editor_actions">
+        <div class="create_article-editor_actions-remove js_remove-part"></div>
+        <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
+        <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
+    </div>
+</div>

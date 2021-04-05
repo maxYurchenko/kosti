@@ -33,6 +33,9 @@ function handlePut(req) {
       case "videoPart":
         result = articlesLib.getVideoComponent(data);
         break;
+      case "attachmentPart":
+        result = articlesLib.getAttachmentComponent(data);
+        break;
       case "blockquotePart":
         result = articlesLib.getQuoteComponent(data);
         break;

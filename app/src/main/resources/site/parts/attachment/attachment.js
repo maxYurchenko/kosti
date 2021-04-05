@@ -1,63 +1,72 @@
-var portal = require("/lib/xp/portal"); // Import the portal functions
-var thymeleaf = require("/lib/thymeleaf"); // Import the thymeleaf render function
-var contentLib = require("/lib/xp/content");
+const portal = require("/lib/xp/portal");
+const thymeleaf = require("/lib/thymeleaf");
+const contentLib = require("/lib/xp/content");
 
-// Handle GET requests
-exports.get = function(req) {
-  // Find the current component from request
-  var component = portal.getComponent();
+exports.get = function (req) {
+  const component = portal.getComponent();
+  const content = portal.getContent();
+  const allAttachments = contentLib.getAttachments(content._path);
+  const attachment = component.config || [];
 
-  // Get all data in order to get attachment size
-  var content = portal.getContent();
-
-  // Get all attachments
-  var allAttachments = contentLib.getAttachments(content._path);
-
-  // Find a config variable for the component
-  var attachment = component.config || [];
-
-  // Generate a URL for an attachment
-  var attachmentURL = portal.attachmentUrl({
-    name: attachment.ATTACHMENT
-  });
-
-  // Calculate attachment file type
-  if (attachment.ATTACHMENT && attachment.ATTACHMENT != "") {
-    var fileType = attachment.ATTACHMENT.split(".");
-    fileType = fileType[fileType.length - 1];
-  }
-  if (attachment.ATTACHMENT_TITLE && attachment.ATTACHMENT_TITLE != "") {
-    var title = attachment.ATTACHMENT_TITLE;
-  } else {
-    var title = attachment.ATTACHMENT;
-  }
-
-  if (allAttachments[attachment.ATTACHMENT]) {
-    var size = allAttachments[attachment.ATTACHMENT].size;
-  } else {
-    var size = 0;
-  }
-  // Define the model
-  var model = {
-    component: component,
-    content: content,
-    title: title,
-    attachmentURL: attachmentURL,
-    fileType: fileType,
-    attachmentSize:
-      (Math.round((size * 1000) / 1024 / 1024) / 1000).toString() + " MB",
-    attachment: attachment
-  };
-
-  // Resolve the view
-  var view = resolve("attachment.html");
-
-  // Render a thymeleaf template
-  var body = thymeleaf.render(view, model);
-
-  // Return the result
   return {
-    body: body,
+    body: thymeleaf.render(resolve("attachment.html"), getModel()),
     contentType: "text/html"
   };
+
+  function getModel() {
+    if (attachment.ATTACHMENT && attachment.ATTACHMENT != "") {
+      return getAttachemntFromContent();
+    } else if (
+      attachment.ATTACHMENT_RELATION &&
+      attachment.ATTACHMENT_RELATION != ""
+    ) {
+      return getAttachmentFromRelation();
+    }
+  }
+
+  function getAttachemntFromContent() {
+    let fileType = attachment.ATTACHMENT.split(".");
+    fileType = fileType[fileType.length - 1];
+
+    return {
+      title: attachment.ATTACHMENT_TITLE
+        ? attachment.ATTACHMENT_TITLE
+        : attachment.ATTACHMENT,
+      attachmentURL: portal.attachmentUrl({
+        name: attachment.ATTACHMENT
+      }),
+      fileType: fileType,
+      attachmentSize: allAttachments[attachment.ATTACHMENT].size
+        ? (
+            Math.round(
+              (allAttachments[attachment.ATTACHMENT].size * 1000) / 1024 / 1024
+            ) / 1000
+          ).toString() + " MB"
+        : 0
+    };
+  }
+
+  function getAttachmentFromRelation() {
+    const relatedContent = contentLib.get({
+      key: attachment.ATTACHMENT_RELATION
+    });
+    const relatedAttachment = relatedContent.attachments[relatedContent._name];
+    let fileType = relatedAttachment.mimeType.split("/");
+    fileType = fileType[fileType.length - 1];
+    return {
+      title: attachment.ATTACHMENT_TITLE
+        ? attachment.ATTACHMENT_TITLE
+        : relatedContent.displayName,
+      attachmentURL: portal.attachmentUrl({
+        name: relatedAttachment.name,
+        id: relatedContent._id
+      }),
+      fileType: fileType,
+      attachmentSize: relatedAttachment.size
+        ? (
+            Math.round((relatedAttachment.size * 1000) / 1024 / 1024) / 1000
+          ).toString() + " MB"
+        : 0
+    };
+  }
 };

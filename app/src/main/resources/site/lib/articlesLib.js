@@ -24,6 +24,7 @@ exports.renderSimilarArticle = renderSimilarArticle;
 exports.getYoutubeVideoId = getYoutubeVideoId;
 exports.getQuoteComponent = getQuoteComponent;
 exports.getImageComponent = getImageComponent;
+exports.getAttachmentComponent = getAttachmentComponent;
 exports.editArticle = editArticle;
 exports.deleteArticle = deleteArticle;
 
@@ -263,12 +264,41 @@ function getVideoComponent(data) {
   };
 }
 
-function createImageObj(stream, user) {
+function getAttachmentComponent(data) {
+  let attachment = data.attachment ? data.attachment : null;
+  if (data.form == "false" && data.skipCreate != "true") {
+    attachment = contextLib.runInDraftAsAdmin(function () {
+      var stream = portal.getMultipartStream("file");
+      var user = userLib.getCurrentUser();
+      return createImageObj(stream, user, { displayName: data.displayName });
+    });
+  }
+  return {
+    html: thymeleaf.render(
+      resolve("../../services/newArticle/components/attachment.html"),
+      {
+        attachment: attachment,
+        form: data.form,
+        id: data.id,
+        title: data.displayName,
+        addWrapper: data.addWrapper ? true : false
+      }
+    )
+  };
+}
+
+function createImageObj(stream, user, params) {
+  if (!params) {
+    params = {};
+  }
   var site = portal.getSiteConfig();
   var path = contentLib.get({ key: site.userImages })._path;
-  var date = new Date();
+  const date = new Date();
+  const name = hashLib.generateHash(user.displayName + date.toISOString());
   var image = contentLib.createMedia({
-    name: hashLib.generateHash(user.displayName + date.toISOString()),
+    name: params.displayName
+      ? common.sanitize(params.displayName) + date.getMilliseconds()
+      : name,
     parentPath: path,
     data: stream
   });

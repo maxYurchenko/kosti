@@ -73,6 +73,21 @@ $("#newArticleForm").on("submit", function (e) {
           config: { text: part.find("input").val() }
         });
       }
+    } else if (part.hasClass("js_attachment-editor")) {
+      if (
+        part.find("a").length &&
+        part.find("a").text() &&
+        part.find("a").text().trim() != ""
+      ) {
+        components.push({
+          type: "part",
+          descriptor: "attachment",
+          config: {
+            ATTACHMENT_TITLE: part.find("a").text(),
+            ATTACHMENT_RELATION: part.find("a").data().id
+          }
+        });
+      }
     }
   });
   var data = {
@@ -152,6 +167,31 @@ $(".js_parts-block").on("click", ".js_video-editor button", function (e) {
   form_data.append("form", "false");
   form_data.append("url", parent.find("input").val());
   addPart(form_data, null, parent, true);
+});
+
+$(".js_parts-block").on("click", ".js_attachment-submit", function (e) {
+  e.preventDefault();
+  var parent = $(this).parent();
+  var form_data = new FormData();
+  form_data.append("type", "attachmentPart");
+  form_data.append("form", "false");
+  form_data.append(
+    "displayName",
+    parent.find(".js_attachment-title-input").val()
+  );
+  form_data.append(
+    "file",
+    parent.find(".js_attachment-file-input").prop("files")[0]
+  );
+  addPart(form_data, null, parent, true);
+});
+
+$(".js_add-attachment").on("click", function () {
+  var id = getNextId();
+  var form_data = new FormData();
+  form_data.append("type", "attachmentPart");
+  form_data.append("form", "true");
+  addPart(form_data);
 });
 
 $(".js_add-image input").on("change", function (e) {

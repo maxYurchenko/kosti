@@ -2,7 +2,7 @@
   "editor.tabSize": 2,
   "workbench.iconTheme": "vscode-icons",
   "editor.renderWhitespace": "all",
-  "window.title": "${dirty}${activeEditorLong}${separator}${rootName}${separator}${appName}",
+  "window.title": "${dirty}${activeEditorLong}${separator}${rootName}${separator}",
   "extensions.autoUpdate": true,
   "projectManager.showProjectNameInStatusBar": true,
   "files.autoSave": "off",

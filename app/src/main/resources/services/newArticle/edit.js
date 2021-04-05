@@ -164,6 +164,26 @@ function handleGet(req) {
         ),
         caption: component.config["com-myurchenko-kostirpg"].image.caption
       });
+    } else if (component.descriptor === app.name + ":attachment") {
+      if (
+        !component.config["com-myurchenko-kostirpg"].attachment
+          .ATTACHMENT_RELATION
+      )
+        return {};
+      return articlesLib.getAttachmentComponent({
+        addWrapper: true,
+        id: id,
+        form: "false",
+        skipCreate: "true",
+        displayName:
+          component.config["com-myurchenko-kostirpg"].attachment
+            .ATTACHMENT_TITLE,
+        attachment: contentLib.get({
+          key:
+            component.config["com-myurchenko-kostirpg"].attachment
+              .ATTACHMENT_RELATION
+        })
+      });
     }
   }
 
