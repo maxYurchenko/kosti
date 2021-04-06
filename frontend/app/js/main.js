@@ -6,6 +6,9 @@ function initPDPFunctions() {
     $(this).data().size
       ? (selector += "[data-size=" + $(this).data().size + "]")
       : false;
+    $(this).data().price
+      ? (selector += "[data-price=" + $(this).data().price + "]")
+      : false;
     var input = $(selector);
     input.val(Math.max(parseInt(input.val()) - 1, 1));
     if ($(".cart-list").length > 0) {
@@ -26,6 +29,9 @@ function initPDPFunctions() {
     var selector = ".qty-input[data-id=" + $(this).data().id + "]";
     $(this).data().size
       ? (selector += "[data-size=" + $(this).data().size + "]")
+      : false;
+    $(this).data().price
+      ? (selector += "[data-price=" + $(this).data().price + "]")
       : false;
     var input = $(selector);
     input.val(Math.max(parseInt(input.val()) + 1, 1));
@@ -376,11 +382,10 @@ function initCartFunctions() {
       itemId: $(this).data().id,
       size: $(this).data().size,
       amount: 0,
-      cartId: $("#ordersAdminCartID").length
-        ? $("#ordersAdminCartID").val()
-        : getCookieValue("cartId"),
+      cartId: getCookieValue("cartId"),
       action: "modify",
-      force: true
+      force: true,
+      price: $(this).data().price
     };
     var data = addToCart(data);
     removeItemFromDOM(this);

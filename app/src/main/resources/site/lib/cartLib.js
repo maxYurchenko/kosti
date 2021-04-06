@@ -283,7 +283,8 @@ function modify(params) {
         if (
           node.items[i].id == params.itemId &&
           node.items[i].itemSize == params.size &&
-          node.items[i].price == params.price
+          (node.items[i].price == params.price ||
+            (!node.items[i].price && item.data.price == params.price))
         ) {
           if (params.force) {
             node.items[i].amount = params.amount;

@@ -31,12 +31,14 @@
                         </div>
                         <div class="cart-product_qty">
                             <div class="qty-field">
-                                <span data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"
+                                <span
+                                    data-th-attr="data-id=${item._id}, data-size=${item.itemSize}, data-price=${item.price}"
                                     class="qty-decrement"
                                     data-th-title="${portal.localize({'_key=shop.title.decrease', '_locale=ru'})}">-</span>
                                 <input name="quantity" type="text" class="qty-input" placeholder="1"
-                                    data-th-attr="value=${item.amount}, data-id=${item._id}, data-size=${item.itemSize}" />
-                                <span data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"
+                                    data-th-attr="value=${item.amount}, data-id=${item._id}, data-size=${item.itemSize}, data-price=${item.price}" />
+                                <span
+                                    data-th-attr="data-id=${item._id}, data-size=${item.itemSize}, data-price=${item.price}"
                                     class="qty-increment"
                                     data-th-title="${portal.localize({'_key=shop.title.increase', '_locale=ru'})}">+</span>
                             </div>
@@ -52,7 +54,7 @@
                                 data-th-text="${portal.localize({'_key=shop.title.outOfStock', '_locale=ru'})}"></div>
                         </div>
                         <span class="cart-remove_btn remove-btn js_cart-remove_btn"
-                            data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"></span>
+                            data-th-attr="data-id=${item._id}, data-size=${item.itemSize}, data-price=${item.price}"></span>
                     </div>
                 </div>
                 <div class="cart-total">

@@ -51,10 +51,7 @@ gulp.task("js", function (cb) {
   if (argv.dev) {
     pump([gulp.src("app/js/**/*"), gulp.dest("build/js")], cb);
   } else {
-    pump(
-      [gulp.src("app/js/**/*"), uglify(), gulp.dest("build/js")],
-      cb
-    );
+    pump([gulp.src("app/js/**/*"), uglify(), gulp.dest("build/js")], cb);
   }
 });
 

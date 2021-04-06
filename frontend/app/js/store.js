@@ -44,18 +44,18 @@ $(document).ready(function () {
 });
 
 function addToCart(data) {
-  var data = data;
   if (!data) {
     data = {
       action: "modify",
       cartId: getCookieValue("cartId"),
       itemId: $("input[name=productId]").val(),
       amount: $("input[name=quantity]").val(),
+      price: $("input[name=price]").val(),
       size: $("select[name=itemSize]").val()
     };
   }
   $(".minicart .minicart-qty").removeClass("animate");
-  var call = makeAjaxCall(updateCartUrl, "POST", data, true);
+  const call = makeAjaxCall(updateCartUrl, "POST", data, true);
   call.done(function (data) {
     var cart = data.data;
     setCookie(cart._id);
@@ -112,7 +112,8 @@ function addToCartOnclick(input) {
     amount: input.val(),
     cartId: getCookieValue("cartId"),
     action: "modify",
-    force: true
+    force: true,
+    price: input.data().price
   };
   addToCart(data);
 }
