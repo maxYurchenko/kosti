@@ -100,6 +100,10 @@
       <label>Discontinued</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="pwyw" type="CheckBox">
+      <label>Pay what you want</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="showSizeGrid" type="CheckBox">
       <label>Show size grid</label>
       <occurrences minimum="0" maximum="1"/>

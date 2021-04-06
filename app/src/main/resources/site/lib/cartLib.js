@@ -282,7 +282,8 @@ function modify(params) {
       for (var i = 0; i < node.items.length; i++) {
         if (
           node.items[i].id == params.itemId &&
-          node.items[i].itemSize == params.size
+          node.items[i].itemSize == params.size &&
+          node.items[i].price == params.price
         ) {
           if (params.force) {
             node.items[i].amount = params.amount;
@@ -303,7 +304,8 @@ function modify(params) {
         id: params.itemId,
         amount: params.amount,
         itemSize: params.size,
-        generateIds: generateIds ? generateIds : null
+        generateIds: generateIds ? generateIds : null,
+        price: params.price ? params.price : null
       });
       return node;
     } else {
@@ -312,7 +314,8 @@ function modify(params) {
           id: params.itemId,
           amount: params.amount,
           itemSize: params.size,
-          generateIds: generateIds ? generateIds : null
+          generateIds: generateIds ? generateIds : null,
+          price: params.price ? params.price : null
         }
       ];
       return node;
@@ -548,9 +551,13 @@ function calculateCart(cart) {
   }
   var result = 0;
   for (var i = 0; i < items.length; i++) {
-    var item = contentLib.get({ key: items[i]._id });
-    if (item && item.data && item.data.price) {
-      result += item.data.price * parseInt(items[i].amount);
+    if (items[i].price) {
+      result += items[i].price * parseInt(items[i].amount);
+    } else {
+      var item = contentLib.get({ key: items[i]._id });
+      if (item && item.data && item.data.price) {
+        result += item.data.price * parseInt(items[i].amount);
+      }
     }
   }
   if (cart.shippingPrice) {
@@ -621,7 +628,7 @@ function getCartItems(items) {
         displayName: item.displayName,
         stock: item.data.inventory >= parseInt(items[i].amount),
         preorder: item.data.preorder,
-        price: item.data.price,
+        price: items[i].price ? items[i].price : item.data.price,
         finalPrice: item.data.finalPrice,
         amount: parseInt(items[i].amount).toFixed(),
         itemSize: items[i].itemSize,

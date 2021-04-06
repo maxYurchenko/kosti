@@ -17,8 +17,11 @@ exports.beautifyProduct = beautifyProduct;
 exports.getProducts = getProducts;
 exports.getProductsByIds = getProductsByIds;
 
-function getPriceBlock(id, ip) {
-  let product = contentLib.get({ key: id });
+function getPriceBlock(item, ip) {
+  let product = contentLib.get({ key: item._id });
+  if (item.price) {
+    product.data.price = item.price;
+  }
   product = currencyLib.getLocalPriceForProduct(product, ip);
   return thymeleaf.render(resolve("../pages/components/store/price.html"), {
     product: product,
@@ -84,7 +87,7 @@ function beautifyProduct(product, ip) {
   };
   product.image = getMainImage(product.data);
   product.url = portal.pageUrl({ id: product._id });
-  product.priceBlock = getPriceBlock(product._id, ip);
+  product.priceBlock = getPriceBlock(product, ip);
   product = currencyLib.getLocalPriceForProduct(product, ip);
   return product;
 

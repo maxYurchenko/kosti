@@ -41,7 +41,7 @@ function handleReq(req) {
     var model = {
       content: content,
       app: app,
-      priceBlock: storeLib.getPriceBlock(content._id, req.remoteAddress),
+      priceBlock: storeLib.getPriceBlock(content, req.remoteAddress),
       cart: cartLib.getCart(req.cookies.cartId),
       mainImage: getMainImage(content.data),
       images: getImages(content.data),

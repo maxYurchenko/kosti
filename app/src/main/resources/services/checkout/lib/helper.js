@@ -73,7 +73,7 @@ function validateCartForCheckout(cart) {
 function getCheckoutMainModel(req) {
   let cart = cartLib.getCart(req.cookies.cartId);
   for (let i = 0; i < cart.items.length; i++) {
-    cart.items[i].priceBlock = storeLib.getPriceBlock(cart.items[i]._id);
+    cart.items[i].priceBlock = storeLib.getPriceBlock(cart.items[i]);
   }
   return {
     cart: cart,

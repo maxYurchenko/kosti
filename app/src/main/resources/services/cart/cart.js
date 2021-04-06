@@ -19,7 +19,7 @@ exports.get = function (req) {
   });
   var cart = cartLib.getCart(req.cookies.cartId);
   for (var i = 0; i < cart.items.length; i++) {
-    cart.items[i].priceBlock = storeLib.getPriceBlock(cart.items[i]._id);
+    cart.items[i].priceBlock = storeLib.getPriceBlock(cart.items[i]);
   }
   return {
     body: thymeleaf.render(view, {
