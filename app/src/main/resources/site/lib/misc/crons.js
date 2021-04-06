@@ -9,6 +9,11 @@ const context = {
   principals: ["role:system.admin"]
 };
 
+const auth = {
+  user: "cronuser",
+  password: app.config["cronuserpass"]
+};
+
 exports.crons = [
   {
     name: "updateSchedule",
@@ -29,10 +34,7 @@ exports.crons = [
       httpClientLib.request({
         url: app.config["base.url"] + "/api/cron/pendingcarts",
         method: "POST",
-        auth: {
-          user: "cronuser",
-          password: app.config["cronuserpass"]
-        }
+        auth: auth
       }).body;
 
       log.info("Finished updating orders");
@@ -44,7 +46,12 @@ exports.crons = [
     cron: "0 1 * * *",
     callback: function () {
       log.info("Regenerating cache");
-      homepageLib.updateCache();
+
+      httpClientLib.request({
+        url: app.config["base.url"] + "/api/cron/cache/regenerate",
+        method: "POST",
+        auth: auth
+      }).body;
       log.info("Finished updating cache");
     },
     context: context

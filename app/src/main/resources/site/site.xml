@@ -379,5 +379,8 @@
     <mapping controller="/api/crons/checkPendingCarts.js">
       <pattern>/api/cron/pendingcarts</pattern>
     </mapping>
+    <mapping controller="/api/crons/regenerateCache.js">
+      <pattern>/api/cron/cache/regenerate</pattern>
+    </mapping>
   </mappings>
 </site>
