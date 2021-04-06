@@ -140,7 +140,11 @@ function checkInterkassaOrderStatus() {
       }
       for (let i = 0; i < carts.length; i++) {
         let cart = carts[i];
-        if (cart.status == "paid" || cart.status == "failed") {
+        if (
+          cart.status == "paid" ||
+          cart.status == "failed" ||
+          cart.status == "shipped"
+        ) {
           continue;
         }
         norseUtils.log("checking cart id " + id);
