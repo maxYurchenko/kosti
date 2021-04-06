@@ -66,6 +66,7 @@ exports.get = function (req) {
   }
 
   function createPodcast(episodes) {
+    const site = portal.getSite();
     let year = new Date().getFullYear();
     var imageUrl = norseUtils.getImage(
       content.data.image,
@@ -75,7 +76,11 @@ exports.get = function (req) {
     ).url;
     return {
       title: content.displayName,
-      link: portal.pageUrl({ id: content._id, type: "absolute" }),
+      link: portal.pageUrl({
+        id: site._id,
+        type: "absolute",
+        params: { feed: "podcasts" }
+      }),
       language: content.language,
       copyright: "&#169; " + year + " Вечерние Кости",
       author: "Вечерние Кости",
