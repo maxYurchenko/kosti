@@ -134,7 +134,6 @@ function checkInterkassaOrderStatus() {
         continue;
       }
       const id = orders[order].paymentNo.replace("ID_", "");
-      norseUtils.log("checking cart id " + id);
       let carts = cartLib.getCartByUserId(id);
       if (carts.length < 1) {
         norseUtils.log("carts not found");
@@ -144,6 +143,7 @@ function checkInterkassaOrderStatus() {
         if (cart.status == "paid" || cart.status == "failed") {
           continue;
         }
+        norseUtils.log("checking cart id " + id);
         if ("ID_" + cart.userId != orders[order].paymentNo) {
           norseUtils.log("cart id does not match " + cart._id);
           continue;
