@@ -385,7 +385,7 @@ function setUserDetails(cartId, params) {
       ? params.userRelation
       : node.userRelation;
     node.transactionDate = params.transactionDate
-      ? params.transactionDate
+      ? new Date(params.transactionDate)
       : node.transactionDate;
     node.novaPoshtaСity = params.novaPoshtaСity
       ? params.novaPoshtaСity
@@ -809,22 +809,25 @@ function fixCartDate() {
   var result = cartRepo.query({
     start: 0,
     count: -1,
-    query: "status in ('failed', 'paid', 'pending', 'shipped')",
-    filters: {
-      notExists: {
-        field: "transactionDate"
-      }
-    }
+    query: "status in ('failed', 'paid', 'pending', 'shipped')"
   });
   norseUtils.log(
     "Fixing cart transaction date for " + result.total + " items."
   );
   for (var i = 0; i < result.hits.length; i++) {
-    result.hits[i] = cartRepo.get(result.hits[i].id);
-    setUserDetails(result.hits[i]._id, {
-      transactionDate: result.hits[i]._ts
+    const cart = cartRepo.get(result.hits[i].id);
+    norseUtils.log("Fixing cart id " + cart._id);
+    let transactionDate = null;
+    if (cart.transactionDate) {
+      transactionDate = new Date(cart.transactionDate);
+    } else {
+      transactionDate = new Date(cart._ts);
+    }
+    setUserDetails(cart._id, {
+      transactionDate: transactionDate
     });
   }
+  norseUtils.log("Finished");
 }
 
 function fixCartPrice(force) {
