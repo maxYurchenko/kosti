@@ -23,13 +23,15 @@ exports.get = function (req) {
     status: ["paid", "shipped"],
     start: req.params.start,
     end: req.params.end,
-    count: -1
+    count: -1,
+    statistics: true
   });
   const failedCarts = cartLib.getCreatedCarts({
     status: "failed",
     start: req.params.start,
     end: req.params.end,
-    count: -1
+    count: -1,
+    statistics: true
   });
   const income = statisticsLib.calculateCartPrices(paidCarts.hits);
   const itemsStatistics = statisticsLib.getStatisticsPerItem(paidCarts.hits);

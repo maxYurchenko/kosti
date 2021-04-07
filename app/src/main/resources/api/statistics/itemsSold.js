@@ -29,7 +29,8 @@ exports.get = function (req) {
       status: ["paid", "shipped"],
       start: req.params.start,
       end: req.params.end,
-      count: -1
+      count: -1,
+      statistics: true
     });
     return {
       success: true,

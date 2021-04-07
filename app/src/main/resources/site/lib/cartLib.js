@@ -201,6 +201,10 @@ function getCreatedCarts(params) {
   if (params.userId) {
     query += " and userId = '" + params.userId + "'";
   }
+  if (params.statistics) {
+    query +=
+      " and email NOT IN ('maxskywalker94@gmail.com', 'demura.vi@gmail.com', 'vecherniy.dnd@gmail.com', 'yarynaholod@gmail.com', 'y.holod@astoundcommerce.com')";
+  }
   params.page = params.page ? parseInt(params.page) : 1;
   var carts = cartRepo.query({
     start: (params.page - 1) * 10,
