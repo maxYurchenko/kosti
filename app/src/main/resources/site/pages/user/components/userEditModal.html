@@ -29,6 +29,18 @@
                             data-th-placeholder="${portal.localize({'_key=myGames.form.discord.placeholder', '_locale=ru'})}"
                             type="text" data-ignore="true" disabled />
                     </div>
+                    <div class="form-group" data-th-if="${vk}">
+                        <label class="label">VK</label>
+                        <input data-th-value="${vk.first_name + ' ' + vk.last_name}"
+                            data-th-placeholder="${portal.localize({'_key=myGames.form.vk.placeholder', '_locale=ru'})}"
+                            type="text" data-ignore="true" disabled />
+                    </div>
+                    <div class="form-group" data-th-if="${facebook}">
+                        <label class="label">Facebook</label>
+                        <input data-th-value="${facebook.first_name + ' ' + facebook.last_name}"
+                            data-th-placeholder="${portal.localize({'_key=myGames.form.facebook.placeholder', '_locale=ru'})}"
+                            type="text" data-ignore="true" disabled />
+                    </div>
                     <div class="form-group">
                         <label for="city-user-input" class="label">Город</label>
                         <input data-th-value="${user.data.city} ? ${user.data.city} : ''" name="city" type="text"

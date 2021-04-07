@@ -32,6 +32,8 @@ exports.fbRegister = fbRegister;
 exports.vkRegister = vkRegister;
 exports.addRole = addRole;
 exports.getDiscordData = getDiscordData;
+exports.getVkData = getVkData;
+exports.getFacebookData = getFacebookData;
 
 function addRole(roleId, userKey) {
   contextLib.runAsAdmin(function () {
@@ -206,8 +208,12 @@ function vkRegister(code) {
       connectionTimeout: 2000000,
       readTimeout: 500000
     }).body
-  ).response[0];
-  if (
+  ).response;
+  profileRequest = profileRequest[0];
+  const user = getCurrentUser();
+  if (user && profileRequest && profileRequest.id) {
+    return updateUserSocial(user.data.email, { vk: profileRequest.id });
+  } else if (
     emailRequest &&
     profileRequest &&
     emailRequest.email &&
@@ -218,7 +224,8 @@ function vkRegister(code) {
       emailRequest.email,
       null,
       true,
-      profileRequest.photo_max_orig
+      profileRequest.photo_max_orig,
+      { vk: profileRequest.id }
     );
   }
 }
@@ -313,18 +320,22 @@ function fbRegister(token, userId) {
       headers: {
         "X-Custom-Header": "header-value"
       },
-      connectionTimeout: 2000000,
-      readTimeout: 500000,
       contentType: "application/json"
     }).body
   );
-  if (response && response.email && response.name) {
+  const user = getCurrentUser();
+  if (user && response && response.id) {
+    return updateUserSocial(user.data.email, { facebook: response.id });
+  } else if (response && response.email && response.name) {
     return register(
       response.name,
       response.email,
       null,
       true,
-      "https://graph.facebook.com/" + userId + "/picture?width=1900&height=1900"
+      "https://graph.facebook.com/" +
+        userId +
+        "/picture?width=1900&height=1900",
+      { facebook: response.id }
     );
   }
   return false;
@@ -337,9 +348,11 @@ function register(name, mail, pass, tokenRegister, image, otherData) {
     return checkUserExists(name, mail);
   });
   if (exist.exist && exist.type === "mail" && tokenRegister) {
-    contextLib.runAsAdmin(function () {
-      if (otherData) updateUserSocial(mail, otherData);
-    });
+    if (otherData) {
+      contextLib.runAsAdmin(function () {
+        updateUserSocial(mail, otherData);
+      });
+    }
     return login(mail, pass, tokenRegister);
   } else if (exist.exist && exist.type === "name" && tokenRegister) {
     var date = new Date();
@@ -696,6 +709,18 @@ function updateUserSocial(email, data) {
   ) {
     user.data.discord = data.discord;
   }
+
+  if (data.vk && (!user.data.vk || user.data.vk !== data.vk)) {
+    user.data.vk = data.vk;
+  }
+
+  if (
+    data.facebook &&
+    (!user.data.facebook || user.data.facebook !== data.vk)
+  ) {
+    user.data.facebook = data.facebook;
+  }
+
   return sharedLib.updateEntity(user, currUser);
 }
 
@@ -714,6 +739,71 @@ function getDiscordData(id) {
     if (response.status === 200) {
       response = JSON.parse(response.body);
       if (response.id && response.username) return response;
+    }
+  }
+  return null;
+}
+
+function getVkData(id) {
+  let user = contentLib.get({ key: id });
+  if (user && user.data && user.data.vk) {
+    const url =
+      "https://api.vk.com/method/users.get?v=5.102&user_ids=" +
+      user.data.vk +
+      "&access_token=" +
+      app.config.vkservicekey;
+    let response = httpClientLib.request({
+      url: url,
+      method: "GET"
+    });
+    if (response.status === 200) {
+      let body = JSON.parse(response.body);
+      if (body.response && body.response[0]) body = body.response[0];
+      if (body.first_name && body.last_name) return body;
+    }
+  }
+  return null;
+}
+
+function facebookLogin() {
+  const url =
+    "https://graph.facebook.com/oauth/access_token?client_id=" +
+    app.config.facebookId +
+    "&client_secret=" +
+    app.config.facebookSecret +
+    "&grant_type=client_credentials";
+  let response = httpClientLib.request({
+    url: url,
+    method: "GET"
+  });
+  if (response.status === 200) {
+    const body = JSON.parse(response.body);
+    if (body.access_token) return body;
+  }
+
+  return null;
+}
+
+function getFacebookData(id) {
+  const token = facebookLogin();
+  if (!token) return null;
+  let user = contentLib.get({ key: id });
+  if (user && user.data && user.data.facebook) {
+    const url =
+      "https://graph.facebook.com/v10.0/" +
+      user.data.facebook +
+      "?access_token=" +
+      token.access_token +
+      "&fields=email,name,birthday,first_name,last_name";
+    let response = httpClientLib.request({
+      url: url,
+      method: "GET"
+    });
+    norseUtils.log(JSON.parse(response.body));
+    if (response.status === 200) {
+      let body = JSON.parse(response.body);
+      if (body.response && body.response[0]) body = body.response[0];
+      if (body.first_name && body.last_name) return body;
     }
   }
   return null;
