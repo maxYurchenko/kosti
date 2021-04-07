@@ -190,9 +190,7 @@ function vkRegister(code, redirect) {
   var emailRequest = JSON.parse(
     httpClientLib.request({
       url: url,
-      method: "GET",
-      connectionTimeout: 2000000,
-      readTimeout: 500000
+      method: "GET"
     }).body
   );
   var newUrl =
@@ -204,9 +202,7 @@ function vkRegister(code, redirect) {
   var profileRequest = JSON.parse(
     httpClientLib.request({
       url: newUrl,
-      method: "GET",
-      connectionTimeout: 2000000,
-      readTimeout: 500000
+      method: "GET"
     }).body
   ).response;
   profileRequest = profileRequest[0];
@@ -243,8 +239,6 @@ function discordRegister(code, redirect) {
     url: "https://discordapp.com/api/oauth2/token",
     method: "POST",
     body: data,
-    connectionTimeout: 2000000,
-    readTimeout: 500000,
     contentType: "application/x-www-form-urlencoded",
     auth: {
       user: "605493268326776853",
@@ -255,8 +249,6 @@ function discordRegister(code, redirect) {
   request = httpClientLib.request({
     url: "https://discordapp.com/api/users/@me",
     method: "GET",
-    connectionTimeout: 2000000,
-    readTimeout: 500000,
     contentType: "application/x-www-form-urlencoded",
     headers: {
       Authorization: response.token_type + " " + response.access_token
@@ -289,11 +281,6 @@ function jwtRegister(token) {
     httpClientLib.request({
       url: "https://oauth2.googleapis.com/tokeninfo?id_token=" + token,
       method: "GET",
-      headers: {
-        "X-Custom-Header": "header-value"
-      },
-      connectionTimeout: 2000000,
-      readTimeout: 500000,
       contentType: "application/json"
     }).body
   );
@@ -317,9 +304,6 @@ function fbRegister(token, userId) {
         "/?fields=email,name&access_token=" +
         token,
       method: "GET",
-      headers: {
-        "X-Custom-Header": "header-value"
-      },
       contentType: "application/json"
     }).body
   );
@@ -730,8 +714,6 @@ function getDiscordData(id) {
     let response = httpClientLib.request({
       url: "https://discordapp.com/api/users/" + user.data.discord,
       method: "GET",
-      connectionTimeout: 2000000,
-      readTimeout: 500000,
       headers: {
         Authorization: "Bot " + app.config.discordbottoken
       }
