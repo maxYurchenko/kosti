@@ -39,7 +39,7 @@ function initStatisticsPage() {
       },
       plugins: {
         colorschemes: {
-          scheme: "brewer.SetThree12"
+          scheme: "office.Kosti"
         }
       }
     };
