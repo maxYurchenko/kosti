@@ -13,7 +13,8 @@ exports.get = function (req) {
   if (!adminLib.validateUserAdmin()) {
     return false;
   }
-  const params = req.params;
+  let params = req.params;
+  params.sort = "transactionDate DESC, _ts DESC";
   const carts = cartLib.getCreatedCarts(req.params);
   return {
     body: thymeleaf.render(resolve("../templates/ordersList.html"), {
