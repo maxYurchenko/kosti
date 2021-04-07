@@ -373,6 +373,9 @@
     <mapping controller="/admin/crons/crons.js">
       <pattern>/crons</pattern>
     </mapping>
+    <mapping controller="services/general/general.js">
+      <pattern>/service/general</pattern>
+    </mapping>
     <!--
       Cron-specific
     -->

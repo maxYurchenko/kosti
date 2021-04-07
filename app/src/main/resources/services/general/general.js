@@ -9,9 +9,17 @@ const homepageLib = require(libLocation + "homepageLib");
 const newsletterLib = require(libLocation + "newsletterLib");
 const monsterLib = require(libLocation + "monsterLib");
 const mailsLib = require(libLocation + "mailsLib");
+const adminLib = require(libLocation + "adminLib");
+const storeLib = require(libLocation + "storeLib");
 const formPlayerLib = require(libLocation + "games/formPlayerLib");
 
 exports.get = function (req) {
+  if (!adminLib.validateUserAdmin()) {
+    return {
+      body: "not an admin",
+      contentType: "text/html"
+    };
+  }
   var params = req.params;
   switch (params.action) {
     case "fixPermissions":
@@ -61,9 +69,12 @@ exports.get = function (req) {
     case "fixgamedate":
       formPlayerLib.updateGameDate();
       break;
+    case "checkProductInventory":
+      storeLib.checkProductsStock();
+      break;
   }
   return {
-    body: "",
+    body: "ok",
     contentType: "text/html"
   };
 };
