@@ -60,9 +60,13 @@
                     <p class="label">Unique buyers amount:</p>
                     <p class="value" data-th-text="${uniqueBuyersAmount}"></p>
                 </div>
+                <div class="statics_grid-item m-chart m-blue">
+                    <canvas id="itemsChart"></canvas>
+                </div>
+                <div class="statics_grid-item m-chart m-red">
+                    <canvas id="countryChart"></canvas>
+                </div>
             </div>
-            <canvas id="itemsChart"></canvas>
-            <canvas id="countryChart"></canvas>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>

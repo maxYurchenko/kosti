@@ -1,0 +1,55 @@
+.statics_grid {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	grid-auto-flow: dense;
+	grid-gap: 20px;
+
+	&-item {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 25px;
+		text-align: center;
+		font-family: $font-main-regular;
+		color: $color-primary1;
+		aspect-ratio: 1;
+
+		&.m-chart {
+			grid-column: span 3;
+			grid-row: span 2;
+			aspect-ratio: auto;
+		}
+
+		.label {
+			font-size: 14px;
+			line-height: 1.5;
+		}
+
+		.value {
+			padding: 15px 0;
+			font-size: 24px;
+			line-height: 1.5;
+		}
+
+
+		$colors: (
+			"blue": $color-primary3, 
+			"orange": $color-primary19, 
+			"red": $color-primary24, 
+			"green": $color-primary40, 
+			"grey": $color-primary28 );
+
+		@each $color-name, $color in $colors {
+			&.m-#{$color-name} {
+				background-color: $color;
+				// background-color: mix($color, $color-primary1, $weight:40%);
+				// background-color: mix($color, $color-primary1, $weight:75%);
+			}
+			
+			&.m-chart.m-#{$color-name} {
+				background-color: transparent;
+				border: 3px solid $color;
+			}
+		}
+	}
+}
