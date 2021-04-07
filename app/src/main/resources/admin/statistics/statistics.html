@@ -23,48 +23,52 @@
                     </div>
                 </div>
             </form>
-            <div class="statics_grid">
-                <div class="statics_grid-item m-blue">
-                    <p class="label">Total paid carts:</p>
-                    <p class="value" data-th-text="${paidCarts.total}"></p>
+            <div class="statics-content">
+                <div class="statics_charts">
+                    <div class="statics_charts-item m-chart m-blue">
+                        <canvas id="itemsChart"></canvas>
+                    </div>
+                    <div class="statics_charts-item m-chart m-red">
+                        <canvas id="countryChart"></canvas>
+                    </div>
                 </div>
-                <div class="statics_grid-item m-orange">
-                    <p class="label">Total failed carts:</p>
-                    <p class="value" data-th-text="${failedCarts.total}"></p>
-                </div>
-                <div class="statics_grid-item m-red">
-                    <p class="label">Total income:</p>
-                    <p class="value" data-th-text="${income.total}"></p>
-                </div>
-                <div class="statics_grid-item m-green">
-                    <p class="label">Total items income:</p>
-                    <p class="value" data-th-text="${income.itemsPrice}"></p>
-                </div>
-                <div class="statics_grid-item m-grey">
-                    <p class="label">Total shipping income:</p>
-                    <p class="value" data-th-text="${income.shipping}"></p>
-                </div>
-                <div class="statics_grid-item m-blue">
-                    <p class="label">Average cart price:</p>
-                    <p class="value" data-th-text="${income.averageTotal}"></p>
-                </div>
-                <div class="statics_grid-item m-orange">
-                    <p class="label">Average shipping price:</p>
-                    <p class="value" data-th-text="${income.averageShipping}"></p>
-                </div>
-                <div class="statics_grid-item m-red">
-                    <p class="label">Average items price:</p>
-                    <p class="value" data-th-text="${income.averageItemsPrice}"></p>
-                </div>
-                <div class="statics_grid-item m-green">
-                    <p class="label">Unique buyers amount:</p>
-                    <p class="value" data-th-text="${uniqueBuyersAmount}"></p>
-                </div>
-                <div class="statics_grid-item m-chart m-blue">
-                    <canvas id="itemsChart"></canvas>
-                </div>
-                <div class="statics_grid-item m-chart m-red">
-                    <canvas id="countryChart"></canvas>
+                <div class="statics_grid">
+                    <div class="statics_grid-item m-blue">
+                        <p class="label">Total paid carts:</p>
+                        <p class="value" data-th-text="${paidCarts.total}"></p>
+                    </div>
+                    <div class="statics_grid-item m-orange">
+                        <p class="label">Total failed carts:</p>
+                        <p class="value" data-th-text="${failedCarts.total}"></p>
+                    </div>
+                    <div class="statics_grid-item m-red">
+                        <p class="label">Total income:</p>
+                        <p class="value" data-th-text="${income.total}"></p>
+                    </div>
+                    <div class="statics_grid-item m-green">
+                        <p class="label">Total items income:</p>
+                        <p class="value" data-th-text="${income.itemsPrice}"></p>
+                    </div>
+                    <div class="statics_grid-item m-grey">
+                        <p class="label">Total shipping income:</p>
+                        <p class="value" data-th-text="${income.shipping}"></p>
+                    </div>
+                    <div class="statics_grid-item m-blue">
+                        <p class="label">Average cart price:</p>
+                        <p class="value" data-th-text="${income.averageTotal}"></p>
+                    </div>
+                    <div class="statics_grid-item m-orange">
+                        <p class="label">Average shipping price:</p>
+                        <p class="value" data-th-text="${income.averageShipping}"></p>
+                    </div>
+                    <div class="statics_grid-item m-red">
+                        <p class="label">Average items price:</p>
+                        <p class="value" data-th-text="${income.averageItemsPrice}"></p>
+                    </div>
+                    <div class="statics_grid-item m-green">
+                        <p class="label">Unique buyers amount:</p>
+                        <p class="value" data-th-text="${uniqueBuyersAmount}"></p>
+                    </div>
                 </div>
             </div>
         </div>
