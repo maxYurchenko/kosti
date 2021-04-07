@@ -196,7 +196,9 @@ function handleReq(req) {
           countries: countries,
           user: content,
           discord: discord,
+          discordUrl: helpers.getDiscordUrl("me/discord"),
           vk: vk,
+          vkUrl: helpers.getVkUrl("me/vk"),
           facebook: facebook
         }
       );

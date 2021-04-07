@@ -4,6 +4,7 @@ var portal = require("/lib/xp/portal");
 var libLocation = "/site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var userLib = require(libLocation + "userLib");
+var helpers = require(libLocation + "helpers");
 
 exports.get = function (req) {
   var site = portal.getSite();
@@ -15,19 +16,15 @@ exports.get = function (req) {
     "user/auth/discord";
   discordUrl += "&response_type=code";
   discordUrl += "&scope=email%20identify";
-  var vkUrl =
-    "https://oauth.vk.com/authorize?" +
-    "client_id=7018935&scope=4194304&" +
-    "redirect_uri=" +
-    portal.pageUrl({ _path: site._path, type: "absolute" }) +
-    "user/auth/vk" +
-    "&v=5.102";
   var view = resolve(
     "/site/pages/components/user/" + req.params.type + ".html"
   );
   return {
     body: {
-      html: thymeleaf.render(view, { discordUrl: discordUrl, vkUrl: vkUrl }),
+      html: thymeleaf.render(view, {
+        discordUrl: discordUrl,
+        vkUrl: helpers.getVkUrl()
+      }),
       selector: ".js_" + req.params.type
     },
     contentType: "application/json"

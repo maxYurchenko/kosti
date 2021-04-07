@@ -322,6 +322,12 @@
     <mapping controller="/api/user/becomeGm.js">
       <pattern>/become-gm</pattern>
     </mapping>
+    <mapping controller="/api/user/connectDiscord.js">
+      <pattern>/me/discord</pattern>
+    </mapping>
+    <mapping controller="/api/user/connectVk.js">
+      <pattern>/me/vk</pattern>
+    </mapping>
     <!--
       Encounter builder
     -->

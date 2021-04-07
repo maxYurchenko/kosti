@@ -176,7 +176,7 @@ function getUserDataById(id) {
   };
 }
 
-function vkRegister(code) {
+function vkRegister(code, redirect) {
   var site = portal.getSite();
   var url =
     "https://oauth.vk.com/access_token?" +
@@ -186,7 +186,7 @@ function vkRegister(code) {
     "&" +
     "redirect_uri=" +
     portal.pageUrl({ _path: site._path, type: "absolute" }) +
-    "user/auth/vk";
+    (redirect ? redirect : "user/auth/vk");
   var emailRequest = JSON.parse(
     httpClientLib.request({
       url: url,
