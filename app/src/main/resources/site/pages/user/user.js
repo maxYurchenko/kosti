@@ -59,6 +59,24 @@ function handleReq(req) {
       1
     );
 
+    let vk = null;
+    if (content && content.data && content.data.vk) {
+      vk = cache.api.getOnly(content._id + "-vk");
+      if (!vk) {
+        vk = userLib.getVkData(content._id);
+        if (vk) cache.api.put(content._id + "-vk", vk);
+      }
+    }
+
+    let facebook = null;
+    if (content && content.data && content.data.facebook) {
+      facebook = cache.api.getOnly(content._id + "-facebook");
+      if (!facebook) {
+        facebook = userLib.getFacebookData(content._id);
+        if (facebook) cache.api.put(content._id + "-facebook", facebook);
+      }
+    }
+
     let discord = null;
     if (content && content.data && content.data.discord) {
       discord = cache.api.getOnly(content._id + "-discord");
@@ -177,7 +195,11 @@ function handleReq(req) {
         {
           countries: countries,
           user: content,
-          discord: discord
+          discord: discord,
+          discordUrl: helpers.getDiscordUrl("me/discord"),
+          vk: vk,
+          vkUrl: helpers.getVkUrl("me/vk"),
+          facebook: facebook
         }
       );
     }
@@ -200,7 +222,9 @@ function handleReq(req) {
       articlesView: articles,
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
       action: up.action,
-      discord: discord
+      discord: discord,
+      vk: vk,
+      facebook: facebook
     };
 
     function getGames(countOnly) {

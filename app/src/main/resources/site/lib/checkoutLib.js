@@ -125,6 +125,8 @@ function checkInterkassaOrderStatus() {
   norseUtils.log("got response from interkassa status " + response.code);
   if (response && response.code === 0) {
     processResponse();
+  } else {
+    norseUtils.log(response);
   }
 
   function processResponse() {

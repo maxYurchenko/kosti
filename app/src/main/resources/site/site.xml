@@ -96,14 +96,6 @@
       <label>Homepage video</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
-    <input name="ik_id" type="TextLine">
-      <label>Interkassa ID</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
-    <input name="gApiKey" type="TextLine">
-      <label>Google API key</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
     <item-set name="social">
       <label>Social networks</label>
       <items>
@@ -264,6 +256,9 @@
     <mapping controller="/api/novaposhta/getWarehouses.js">
       <pattern>/api/novaposhta/warehouses</pattern>
     </mapping>
+    <mapping controller="/api/donatepay/list.js">
+      <pattern>/api/donatepay/list</pattern>
+    </mapping>
     <!--
       Checkout
     -->
@@ -330,6 +325,12 @@
     <mapping controller="/api/user/becomeGm.js">
       <pattern>/become-gm</pattern>
     </mapping>
+    <mapping controller="/api/user/connectDiscord.js">
+      <pattern>/me/discord</pattern>
+    </mapping>
+    <mapping controller="/api/user/connectVk.js">
+      <pattern>/me/vk</pattern>
+    </mapping>
     <!--
       Encounter builder
     -->
@@ -372,6 +373,12 @@
     </mapping>
     <mapping controller="/admin/crons/crons.js">
       <pattern>/crons</pattern>
+    </mapping>
+    <mapping controller="services/general/general.js">
+      <pattern>/service/general</pattern>
+    </mapping>
+    <mapping controller="admin/donatepay/list.js">
+      <pattern>/donations</pattern>
     </mapping>
     <!--
       Cron-specific

@@ -16,6 +16,7 @@ exports.getPriceBlock = getPriceBlock;
 exports.beautifyProduct = beautifyProduct;
 exports.getProducts = getProducts;
 exports.getProductsByIds = getProductsByIds;
+exports.checkProductsStock = checkProductsStock;
 
 function getPriceBlock(id, ip) {
   let product = contentLib.get({ key: id });
@@ -210,5 +211,33 @@ function getProducts(params) {
       }
     }
     return result;
+  }
+}
+
+function checkProductsStock() {
+  const products = contentLib.query({
+    start: 0,
+    count: -1,
+    query: "data.inventory != '0'",
+    contentTypes: [app.name + ":product"]
+  });
+  for (let j = 0; j < products.hits.length; j++) {
+    let product = products.hits[j];
+    if (!product.data.sizes) {
+      continue;
+    }
+    let updateProduct = true;
+    const sizes = norseUtils.forceArray(product.data.sizes);
+    for (let i = 0; i < sizes.length; i++) {
+      if (sizes[i].amount > 0) {
+        updateProduct = false;
+      }
+    }
+    if (!updateProduct) {
+      continue;
+    }
+    norseUtils.log("Updating product " + product.displayName);
+    product.data.inventory = 0;
+    sharedLib.updateEntity(product);
   }
 }

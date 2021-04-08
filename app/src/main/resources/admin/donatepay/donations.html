@@ -1,0 +1,32 @@
+<div data-th-if="${donations.status == 'success'}" class="table-body_row js_donatepay-item" data-th-id="${donation.id}"
+    data-th-each="donation: ${donations.data}">
+    <div class="table-body_cell table-side_aligns">
+        <span class="label">
+            Имя
+        </span>
+        <span class="value" data-th-text="${donation.vars.name}">
+        </span>
+    </div>
+    <div class="table-body_cell table-side_aligns">
+        <span class="label">
+            Комментарий
+        </span>
+        <span class="value" data-th-text="${donation.vars.comment}">
+        </span>
+    </div>
+    <div class="table-body_cell table-side_aligns">
+        <span class="label">
+            Сумма
+        </span>
+        <span class="value" data-th-text="${donation.sum}">
+        </span>
+    </div>
+    <div class="table-body_cell table-side_aligns">
+        <span class="label">
+            Дата
+        </span>
+        <span class="value" data-th-text="${donation.date}">
+        </span>
+    </div>
+</div>
+<div data-th-unless="${donations.status == 'success'}" data-th-text="${donations.message}"></div>

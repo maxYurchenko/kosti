@@ -6,8 +6,13 @@ var norseUtils = require(libLocation + "norseUtils");
 var userLib = require(libLocation + "userLib");
 
 exports.post = function (req) {
+  let user = userLib.fbRegister(req.params.token, req.params.userId);
+  if (user) {
+    user.authenticated = true;
+    user.exist = true;
+  }
   return {
-    body: userLib.fbRegister(req.params.token, req.params.userId),
+    body: user,
     contentType: "application/json"
   };
 };

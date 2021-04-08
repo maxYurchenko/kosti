@@ -15,6 +15,7 @@ exports.getPageComponents = getPageComponents;
 exports.getLoadMore = getLoadMore;
 exports.getLoginRequest = getLoginRequest;
 exports.getDiscordUrl = getDiscordUrl;
+exports.getVkUrl = getVkUrl;
 
 function getPageComponents(req, footerType, activeEl, title) {
   var pageComponents = {};
@@ -56,16 +57,9 @@ function getPageComponents(req, footerType, activeEl, title) {
     }
   );
   let discordUrl = getDiscordUrl();
-  var vkUrl =
-    "https://oauth.vk.com/authorize?" +
-    "client_id=7018935&scope=4194304&" +
-    "redirect_uri=" +
-    portal.pageUrl({ _path: site._path, type: "absolute" }) +
-    "user/auth/vk" +
-    "&v=5.102";
   pageComponents["loginRegisterModal"] = thymeleaf.render(
     resolve("../pages/components/loginRegisterModal.html"),
-    { discordUrl: discordUrl, vkUrl: vkUrl, showForm: user ? false : true }
+    { discordUrl: discordUrl, vkUrl: getVkUrl(), showForm: user ? false : true }
   );
 
   pageComponents["header"] = thymeleaf.render(
@@ -346,7 +340,7 @@ exports.getPagination = function (
 };
 
 function getDiscordUrl(redirect) {
-  let site = sharedLib.getSite();
+  const site = sharedLib.getSite();
   let discordUrl = "https://discordapp.com/api/oauth2/authorize?";
   discordUrl += "client_id=605493268326776853";
   discordUrl +=
@@ -356,4 +350,15 @@ function getDiscordUrl(redirect) {
   discordUrl += "&response_type=code";
   discordUrl += "&scope=email%20identify";
   return discordUrl;
+}
+
+function getVkUrl(redirect) {
+  const site = sharedLib.getSite();
+  let url = "https://oauth.vk.com/authorize?";
+  url += "client_id=7018935&scope=4194304&";
+  url += "redirect_uri=";
+  url += portal.pageUrl({ path: site._path, type: "absolute" });
+  url += redirect ? redirect : "user/auth/vk";
+  url += "&v=5.102";
+  return url;
 }

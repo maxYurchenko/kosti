@@ -1,6 +1,7 @@
 const blogLib = require("/site/lib/blogLib");
 const checkoutLib = require("/site/lib/checkoutLib");
 const homepageLib = require("/site/lib/homepageLib");
+const storeLib = require("/site/lib/storeLib");
 const httpClientLib = require("/lib/http-client");
 
 const context = {
@@ -53,6 +54,16 @@ exports.crons = [
         auth: auth
       }).body;
       log.info("Finished updating cache");
+    },
+    context: context
+  },
+  {
+    name: "checkProductStock",
+    cron: "15 * * * *",
+    callback: function () {
+      log.info("Updating product stock");
+      storeLib.checkProductsStock();
+      log.info("Finished updating product stock");
     },
     context: context
   }

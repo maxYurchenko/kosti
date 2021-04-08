@@ -50,7 +50,7 @@ function getStatisticsPerItem(carts) {
       }
     });
   });
-  return convertToArray(resultObj);
+  return convertToArray(resultObj, true);
 }
 
 function getStatisticsPerCountry(carts) {
@@ -75,13 +75,14 @@ function getUniqueBuyersAmount(carts) {
   return result;
 }
 
-function convertToArray(obj) {
+function convertToArray(obj, firstValuesOnly) {
   let result = [];
+  let temp = [];
   for (let prop in obj) {
-    result.push(obj[prop]);
+    temp.push(obj[prop]);
   }
 
-  result.sort(function (a, b) {
+  temp.sort(function (a, b) {
     if (a.amount < b.amount) {
       return 1;
     }
@@ -90,6 +91,25 @@ function convertToArray(obj) {
     }
     return 0;
   });
+  if (!firstValuesOnly) {
+    return temp;
+  }
+
+  const size = 8;
+
+  temp.forEach((el) => {
+    if (result.length < size) {
+      result.push(el);
+    } else if (result.length === size) {
+      result.push({
+        displayName: "Other",
+        amount: el.amount
+      });
+    } else {
+      result[result.length - 1].amount += el.amount;
+    }
+  });
+
   return result;
 }
 

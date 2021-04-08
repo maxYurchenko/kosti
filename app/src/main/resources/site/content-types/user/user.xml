@@ -39,6 +39,14 @@
       <label>Discord</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="vk" type="TextLine">
+      <label>VK</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="facebook" type="TextLine">
+      <label>Facebook</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="kosticonnect2021" type="Long">
       <label>Kosticonnect 2021</label>
       <occurrences minimum="0" maximum="1"/>

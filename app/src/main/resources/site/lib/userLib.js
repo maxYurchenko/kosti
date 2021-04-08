@@ -32,6 +32,8 @@ exports.fbRegister = fbRegister;
 exports.vkRegister = vkRegister;
 exports.addRole = addRole;
 exports.getDiscordData = getDiscordData;
+exports.getVkData = getVkData;
+exports.getFacebookData = getFacebookData;
 
 function addRole(roleId, userKey) {
   contextLib.runAsAdmin(function () {
@@ -174,7 +176,7 @@ function getUserDataById(id) {
   };
 }
 
-function vkRegister(code) {
+function vkRegister(code, redirect) {
   var site = portal.getSite();
   var url =
     "https://oauth.vk.com/access_token?" +
@@ -184,13 +186,11 @@ function vkRegister(code) {
     "&" +
     "redirect_uri=" +
     portal.pageUrl({ _path: site._path, type: "absolute" }) +
-    "user/auth/vk";
+    (redirect ? redirect : "user/auth/vk");
   var emailRequest = JSON.parse(
     httpClientLib.request({
       url: url,
-      method: "GET",
-      connectionTimeout: 2000000,
-      readTimeout: 500000
+      method: "GET"
     }).body
   );
   var newUrl =
@@ -202,12 +202,26 @@ function vkRegister(code) {
   var profileRequest = JSON.parse(
     httpClientLib.request({
       url: newUrl,
-      method: "GET",
-      connectionTimeout: 2000000,
-      readTimeout: 500000
+      method: "GET"
     }).body
-  ).response[0];
-  if (
+  ).response;
+  profileRequest = profileRequest[0];
+  const user = getCurrentUser();
+  const socialUser = profileRequest.id
+    ? getUserBySocial({ vk: profileRequest.id })
+    : null;
+  if (user && profileRequest && profileRequest.id) {
+    return updateUserSocial(user.data.email, { vk: profileRequest.id });
+  } else if (socialUser && profileRequest && profileRequest.id) {
+    return register(
+      profileRequest.first_name + " " + profileRequest.last_name,
+      socialUser.data.email,
+      null,
+      true,
+      profileRequest.photo_max_orig,
+      { vk: profileRequest.id }
+    );
+  } else if (
     emailRequest &&
     profileRequest &&
     emailRequest.email &&
@@ -218,7 +232,8 @@ function vkRegister(code) {
       emailRequest.email,
       null,
       true,
-      profileRequest.photo_max_orig
+      profileRequest.photo_max_orig,
+      { vk: profileRequest.id }
     );
   }
 }
@@ -236,8 +251,6 @@ function discordRegister(code, redirect) {
     url: "https://discordapp.com/api/oauth2/token",
     method: "POST",
     body: data,
-    connectionTimeout: 2000000,
-    readTimeout: 500000,
     contentType: "application/x-www-form-urlencoded",
     auth: {
       user: "605493268326776853",
@@ -248,8 +261,6 @@ function discordRegister(code, redirect) {
   request = httpClientLib.request({
     url: "https://discordapp.com/api/users/@me",
     method: "GET",
-    connectionTimeout: 2000000,
-    readTimeout: 500000,
     contentType: "application/x-www-form-urlencoded",
     headers: {
       Authorization: response.token_type + " " + response.access_token
@@ -257,8 +268,25 @@ function discordRegister(code, redirect) {
   });
   response = JSON.parse(request.body);
   const user = getCurrentUser();
+  const socialUser = response.id
+    ? getUserBySocial({ discord: response.id })
+    : null;
   if (user && response && response.id) {
     return updateUserSocial(user.data.email, { discord: response.id });
+  } else if (socialUser && response && response.id) {
+    return register(
+      response.username,
+      socialUser.data.email,
+      null,
+      true,
+      response.avatar
+        ? "https://cdn.discordapp.com/avatars/" +
+            response.id +
+            "/" +
+            response.avatar
+        : null,
+      response.id ? { discord: response.id } : null
+    );
   } else if (response && response.email && response.username) {
     return register(
       response.username,
@@ -282,11 +310,6 @@ function jwtRegister(token) {
     httpClientLib.request({
       url: "https://oauth2.googleapis.com/tokeninfo?id_token=" + token,
       method: "GET",
-      headers: {
-        "X-Custom-Header": "header-value"
-      },
-      connectionTimeout: 2000000,
-      readTimeout: 500000,
       contentType: "application/json"
     }).body
   );
@@ -310,21 +333,36 @@ function fbRegister(token, userId) {
         "/?fields=email,name&access_token=" +
         token,
       method: "GET",
-      headers: {
-        "X-Custom-Header": "header-value"
-      },
-      connectionTimeout: 2000000,
-      readTimeout: 500000,
       contentType: "application/json"
     }).body
   );
-  if (response && response.email && response.name) {
+  const user = getCurrentUser();
+  const socialUser = response.id
+    ? getUserBySocial({ facebook: response.id })
+    : null;
+  if (user && response && response.id) {
+    return updateUserSocial(user.data.email, { facebook: response.id });
+  } else if (socialUser && response && response.id) {
+    return register(
+      response.name,
+      socialUser.data.email,
+      null,
+      true,
+      "https://graph.facebook.com/" +
+        userId +
+        "/picture?width=1900&height=1900",
+      { facebook: response.id }
+    );
+  } else if (response && response.email && response.name) {
     return register(
       response.name,
       response.email,
       null,
       true,
-      "https://graph.facebook.com/" + userId + "/picture?width=1900&height=1900"
+      "https://graph.facebook.com/" +
+        userId +
+        "/picture?width=1900&height=1900",
+      { facebook: response.id }
     );
   }
   return false;
@@ -337,9 +375,11 @@ function register(name, mail, pass, tokenRegister, image, otherData) {
     return checkUserExists(name, mail);
   });
   if (exist.exist && exist.type === "mail" && tokenRegister) {
-    contextLib.runAsAdmin(function () {
-      if (otherData) updateUserSocial(mail, otherData);
-    });
+    if (otherData) {
+      contextLib.runAsAdmin(function () {
+        updateUserSocial(mail, otherData);
+      });
+    }
     return login(mail, pass, tokenRegister);
   } else if (exist.exist && exist.type === "name" && tokenRegister) {
     var date = new Date();
@@ -647,6 +687,21 @@ function checkUserExists(name, mail) {
   };
 }
 
+function getUserBySocial(data) {
+  if (!data) {
+    return null;
+  }
+  let query = null;
+  if (data.facebook) {
+    query = "data.facebook = '" + data.facebook + "'";
+  }
+  if (data.discord) query = "data.discord = '" + data.discord + "'";
+  if (data.vk) query = "data.vk = '" + data.vk + "'";
+  let user = contentLib.query({ query: query });
+  if (user.total > 0) return user.hits[0];
+  return null;
+}
+
 function sendConfirmationMail(mail) {
   var hash = hashLib.saveHashForUser(mail, "registerHash");
 }
@@ -696,6 +751,18 @@ function updateUserSocial(email, data) {
   ) {
     user.data.discord = data.discord;
   }
+
+  if (data.vk && (!user.data.vk || user.data.vk !== data.vk)) {
+    user.data.vk = data.vk;
+  }
+
+  if (
+    data.facebook &&
+    (!user.data.facebook || user.data.facebook !== data.vk)
+  ) {
+    user.data.facebook = data.facebook;
+  }
+
   return sharedLib.updateEntity(user, currUser);
 }
 
@@ -705,8 +772,6 @@ function getDiscordData(id) {
     let response = httpClientLib.request({
       url: "https://discordapp.com/api/users/" + user.data.discord,
       method: "GET",
-      connectionTimeout: 2000000,
-      readTimeout: 500000,
       headers: {
         Authorization: "Bot " + app.config.discordbottoken
       }
@@ -714,6 +779,70 @@ function getDiscordData(id) {
     if (response.status === 200) {
       response = JSON.parse(response.body);
       if (response.id && response.username) return response;
+    }
+  }
+  return null;
+}
+
+function getVkData(id) {
+  let user = contentLib.get({ key: id });
+  if (user && user.data && user.data.vk) {
+    const url =
+      "https://api.vk.com/method/users.get?v=5.102&user_ids=" +
+      user.data.vk +
+      "&access_token=" +
+      app.config.vkservicekey;
+    let response = httpClientLib.request({
+      url: url,
+      method: "GET"
+    });
+    if (response.status === 200) {
+      let body = JSON.parse(response.body);
+      if (body.response && body.response[0]) body = body.response[0];
+      if (body.first_name && body.last_name) return body;
+    }
+  }
+  return null;
+}
+
+function facebookLogin() {
+  const url =
+    "https://graph.facebook.com/oauth/access_token?client_id=" +
+    app.config.facebookId +
+    "&client_secret=" +
+    app.config.facebookSecret +
+    "&grant_type=client_credentials";
+  let response = httpClientLib.request({
+    url: url,
+    method: "GET"
+  });
+  if (response.status === 200) {
+    const body = JSON.parse(response.body);
+    if (body.access_token) return body;
+  }
+
+  return null;
+}
+
+function getFacebookData(id) {
+  const token = facebookLogin();
+  if (!token) return null;
+  let user = contentLib.get({ key: id });
+  if (user && user.data && user.data.facebook) {
+    const url =
+      "https://graph.facebook.com/v10.0/" +
+      user.data.facebook +
+      "?access_token=" +
+      token.access_token +
+      "&fields=email,name,birthday,first_name,last_name";
+    let response = httpClientLib.request({
+      url: url,
+      method: "GET"
+    });
+    if (response.status === 200) {
+      let body = JSON.parse(response.body);
+      if (body.response && body.response[0]) body = body.response[0];
+      if (body.first_name && body.last_name) return body;
     }
   }
   return null;
