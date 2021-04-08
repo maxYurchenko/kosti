@@ -40,7 +40,7 @@ function getDonations(skip) {
     app.config.donatePayToken +
     "&skip=" +
     skip +
-    "&type=donation&status=user&limit=50";
+    "&type=donation&status=success&limit=50";
   let response = httpClientLib.request({
     url: url,
     method: "GET"
