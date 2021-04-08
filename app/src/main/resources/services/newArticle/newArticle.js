@@ -144,7 +144,15 @@ function handleGet(req) {
       author: userLib.getCurrentUser(),
       date: kostiUtils.getTimePassedSincePostCreation(new Date()),
       likes: blogLib.getArticleLikesView(null),
-      pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
+      pageComponents: helpers.getPageComponents(
+        req,
+        null,
+        null,
+        "Новая статья"
+      ),
+      firstComponents: thymeleaf.render(resolve("components/text.html"), {
+        id: 1
+      })
     };
 
     return model;
