@@ -781,7 +781,6 @@ function getFacebookData(id) {
       url: url,
       method: "GET"
     });
-    norseUtils.log(JSON.parse(response.body));
     if (response.status === 200) {
       let body = JSON.parse(response.body);
       if (body.response && body.response[0]) body = body.response[0];

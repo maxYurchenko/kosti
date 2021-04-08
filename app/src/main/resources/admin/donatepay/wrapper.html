@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main admin-wrap">
+        <div class="site_width">
+            <div class="table-wrap">
+                <div class="table-header_row">
+                    <div class="table-header_cell">
+                        <span class="label">Имя</span>
+                    </div>
+                    <div class="table-header_cell">
+                        <span class="label">Комментарий</span>
+                    </div>
+                    <div class="table-header_cell">
+                        <span class="label">Дата</span>
+                    </div>
+                </div>
+                <div class="js_donatepay-table" data-th-utext="${donations}">
+                </div>
+                <div class="h-mb-15">
+                    <button data-url="/api/donatepay/list" class="js_load-donate-pay button-light">
+                        Load more
+                    </button>
+                </div>
+            </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>

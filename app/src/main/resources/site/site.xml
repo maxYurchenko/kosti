@@ -256,6 +256,9 @@
     <mapping controller="/api/novaposhta/getWarehouses.js">
       <pattern>/api/novaposhta/warehouses</pattern>
     </mapping>
+    <mapping controller="/api/donatepay/list.js">
+      <pattern>/api/donatepay/list</pattern>
+    </mapping>
     <!--
       Checkout
     -->
@@ -373,6 +376,9 @@
     </mapping>
     <mapping controller="services/general/general.js">
       <pattern>/service/general</pattern>
+    </mapping>
+    <mapping controller="admin/donatepay/list.js">
+      <pattern>/donations</pattern>
     </mapping>
     <!--
       Cron-specific
