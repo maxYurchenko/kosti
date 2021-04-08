@@ -1,0 +1,34 @@
+.create_article {
+    &-video_editor {
+        margin-right: -15px;
+        margin-left: -15px;
+
+        @include tablet-all {
+            margin-right: -30px;
+            margin-left: -30px;
+        }
+
+        input {
+            width: calc(100% - 45px);
+            margin-left: 30px;
+
+            @include tablet-all {
+                width: calc(100% - 60px);
+                display: block;
+                margin: 0 auto;
+            }
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+
+        .editor_actions {
+            left: 0;
+        }
+
+        .create_article-action_btn {
+            margin-left: 30px;
+        }
+    }
+}

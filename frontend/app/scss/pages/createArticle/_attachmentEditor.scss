@@ -1,0 +1,53 @@
+.attachment_editor {
+    &-label {
+        width: 100%;
+        border-radius: 4px;
+        background-color: $color-primary1;
+        font-size: .875rem;
+        padding: 0 15px;
+        border: 1px solid $color-primary20;
+        display: block;
+        height: 56px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        text-transform: none;
+    }
+
+    &-file {
+        display: none;
+    }
+
+    &-input {
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    .form-group,
+    .create_article-action_btn {
+        @include mobile {
+            margin-left: 15px;
+        }
+    }
+
+    &-btn {
+        @include position(absolute, top -1px right 0);
+
+        background: $color-primary20;
+        height: 56px;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        border-radius: 0 4px 4px 0;
+        transition: transition(background);
+        transition-property: background color;
+
+        .attachment_editor-label:hover & {
+            background: $color-primary12;
+            color: $color-primary1;
+        }
+    }
+}

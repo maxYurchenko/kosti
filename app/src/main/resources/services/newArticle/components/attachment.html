@@ -1,21 +1,29 @@
 <div data-th-if="${form}" data-th-attr="data-id=${id}"
-    data-th-class="${'create_article-attachment_editor js_attachment-editor js_single-part js_single-part-' + id}">
-    <input type="file" class="js_attachment-file-input">
-    <input type="text" class="js_attachment-title-input">
-    <button type="submit" class="js_attachment-submit">Загрузить файл</button>
-    <div class="create_article-editor_actions">
-        <div class="create_article-editor_actions-remove js_remove-part"></div>
-        <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
-        <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
+    data-th-class="${'attachment_editor editor_actions-wrap js_attachment-editor js_single-part js_single-part-' + id}">
+    <div class="form-group">
+        <label for="upload-file" class="attachment_editor-label">
+            <span class="attachment_editor-name">Файл не выбран </span>
+            <span class="attachment_editor-btn">Выбрать файл</span>
+            <input id="upload-file" type="file" class="js_attachment-file-input attachment_editor-file">
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="text" class="js_attachment-title-input attachment_editor-input" placeholder="Отображаемый текст">
+    </div>
+    <button type="submit" class="create_article-action_btn js_attachment-submit button button-dark">Загрузить файл</button>
+    <div class="editor_actions">
+        <div class="editor_actions-remove js_remove-part"></div>
+        <div class="editor_actions-top js_move-part" data-type="top"></div>
+        <div class="editor_actions-bot js_move-part" data-type="bot"></div>
     </div>
 </div>
 <div data-th-unless="${form}" data-th-attr="data-id=${id}" data-th-remove="${addWrapper ? 'none' : 'tag'}"
-    data-th-class="${'create_article-attachment_editor js_attachment-editor js_single-part js_single-part-' + id}">
+    data-th-class="${'attachment_editor editor_actions-wrap js_attachment-editor js_single-part js_single-part-' + id}">
     <a data-th-href="${portal.attachmentUrl({'_id='+attachment._id, '_name='+attachment._name})}"
         data-th-text="${title}" data-th-attr="data-id=${attachment._id}"></a>
-    <div class="create_article-editor_actions">
-        <div class="create_article-editor_actions-remove js_remove-part"></div>
-        <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
-        <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
+    <div class="editor_actions">
+        <div class="editor_actions-remove js_remove-part"></div>
+        <div class="editor_actions-top js_move-part" data-type="top"></div>
+        <div class="editor_actions-bot js_move-part" data-type="bot"></div>
     </div>
 </div>
