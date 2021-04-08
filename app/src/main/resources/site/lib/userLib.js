@@ -207,8 +207,20 @@ function vkRegister(code, redirect) {
   ).response;
   profileRequest = profileRequest[0];
   const user = getCurrentUser();
+  const socialUser = profileRequest.id
+    ? getUserBySocial({ vk: profileRequest.id })
+    : null;
   if (user && profileRequest && profileRequest.id) {
     return updateUserSocial(user.data.email, { vk: profileRequest.id });
+  } else if (socialUser && profileRequest && profileRequest.id) {
+    return register(
+      profileRequest.first_name + " " + profileRequest.last_name,
+      socialUser.data.email,
+      null,
+      true,
+      profileRequest.photo_max_orig,
+      { vk: profileRequest.id }
+    );
   } else if (
     emailRequest &&
     profileRequest &&
@@ -256,8 +268,25 @@ function discordRegister(code, redirect) {
   });
   response = JSON.parse(request.body);
   const user = getCurrentUser();
+  const socialUser = response.id
+    ? getUserBySocial({ discord: response.id })
+    : null;
   if (user && response && response.id) {
     return updateUserSocial(user.data.email, { discord: response.id });
+  } else if (socialUser && response && response.id) {
+    return register(
+      response.username,
+      socialUser.data.email,
+      null,
+      true,
+      response.avatar
+        ? "https://cdn.discordapp.com/avatars/" +
+            response.id +
+            "/" +
+            response.avatar
+        : null,
+      response.id ? { discord: response.id } : null
+    );
   } else if (response && response.email && response.username) {
     return register(
       response.username,
@@ -308,8 +337,22 @@ function fbRegister(token, userId) {
     }).body
   );
   const user = getCurrentUser();
+  const socialUser = response.id
+    ? getUserBySocial({ facebook: response.id })
+    : null;
   if (user && response && response.id) {
     return updateUserSocial(user.data.email, { facebook: response.id });
+  } else if (socialUser && response && response.id) {
+    return register(
+      response.name,
+      socialUser.data.email,
+      null,
+      true,
+      "https://graph.facebook.com/" +
+        userId +
+        "/picture?width=1900&height=1900",
+      { facebook: response.id }
+    );
   } else if (response && response.email && response.name) {
     return register(
       response.name,
@@ -642,6 +685,21 @@ function checkUserExists(name, mail) {
   return {
     exist: false
   };
+}
+
+function getUserBySocial(data) {
+  if (!data) {
+    return null;
+  }
+  let query = null;
+  if (data.facebook) {
+    query = "data.facebook = '" + data.facebook + "'";
+  }
+  if (data.discord) query = "data.discord = '" + data.discord + "'";
+  if (data.vk) query = "data.vk = '" + data.vk + "'";
+  let user = contentLib.query({ query: query });
+  if (user.total > 0) return user.hits[0];
+  return null;
 }
 
 function sendConfirmationMail(mail) {
