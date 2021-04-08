@@ -54,15 +54,7 @@
                             </div>
                         </div>
                         <div class="js_parts-block">
-                            <div data-th-if="${!components or components.size < 1}"
-                                class="create_article-tinymce_editor editor_actions-wrap tinymce-editor js_tinymce-editor js_single-part js_single-part-1"
-                                data-tinymce="1" data-id="1">
-                                <textarea id="js_single-part-1"></textarea>
-                                <div class="editor_actions">
-                                    <div class="editor_actions-remove js_remove-part"></div>
-                                    <div class="editor_actions-top js_move-part" data-type="top"></div>
-                                    <div class="editor_actions-bot js_move-part" data-type="bot"></div>
-                                </div>
+                            <div data-th-if="${firstComponents}" data-th-utext="${firstComponents}" data-th-remove="tag">
                             </div>
                             <div data-th-each="component : ${components}" data-th-utext="${component.html}"
                                 data-th-remove="tag">
