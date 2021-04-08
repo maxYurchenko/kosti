@@ -32,116 +32,119 @@
     @if $filename == arrow {
         $char: "\F121";
     }
-    @if $filename == back-arrow {
+    @if $filename == attachment {
         $char: "\F122";
     }
-    @if $filename == bell-notification {
+    @if $filename == back-arrow {
         $char: "\F123";
     }
-    @if $filename == bookmark {
+    @if $filename == bell-notification {
         $char: "\F124";
     }
-    @if $filename == cart {
+    @if $filename == bookmark {
         $char: "\F125";
     }
-    @if $filename == comment {
+    @if $filename == cart {
         $char: "\F126";
     }
-    @if $filename == copy {
+    @if $filename == comment {
         $char: "\F127";
     }
-    @if $filename == delete {
+    @if $filename == copy {
         $char: "\F128";
     }
-    @if $filename == discord {
+    @if $filename == delete {
         $char: "\F129";
     }
-    @if $filename == edit {
+    @if $filename == discord {
         $char: "\F12A";
     }
-    @if $filename == fb {
+    @if $filename == edit {
         $char: "\F12B";
     }
-    @if $filename == fire {
+    @if $filename == fb {
         $char: "\F12C";
     }
-    @if $filename == gear {
+    @if $filename == fire {
         $char: "\F12D";
     }
-    @if $filename == google {
+    @if $filename == gear {
         $char: "\F12E";
     }
-    @if $filename == guest {
+    @if $filename == google {
         $char: "\F12F";
     }
-    @if $filename == hashtag {
+    @if $filename == guest {
         $char: "\F130";
     }
-    @if $filename == image {
+    @if $filename == hashtag {
         $char: "\F131";
     }
-    @if $filename == info {
+    @if $filename == image {
         $char: "\F132";
     }
-    @if $filename == instagram {
+    @if $filename == info {
         $char: "\F133";
     }
-    @if $filename == logout {
+    @if $filename == instagram {
         $char: "\F134";
     }
-    @if $filename == network {
+    @if $filename == logout {
         $char: "\F135";
     }
-    @if $filename == new_arrow {
+    @if $filename == network {
         $char: "\F136";
     }
-    @if $filename == pin-location {
+    @if $filename == new_arrow {
         $char: "\F137";
     }
-    @if $filename == podcast {
+    @if $filename == pin-location {
         $char: "\F138";
     }
-    @if $filename == quote {
+    @if $filename == podcast {
         $char: "\F139";
     }
-    @if $filename == rock {
+    @if $filename == quote {
         $char: "\F13A";
     }
-    @if $filename == search {
+    @if $filename == rock {
         $char: "\F13B";
     }
-    @if $filename == selected {
+    @if $filename == search {
         $char: "\F13C";
     }
-    @if $filename == share {
+    @if $filename == selected {
         $char: "\F13D";
     }
-    @if $filename == telegram {
+    @if $filename == share {
         $char: "\F13E";
     }
-    @if $filename == text {
+    @if $filename == telegram {
         $char: "\F13F";
     }
-    @if $filename == twitch {
+    @if $filename == text {
         $char: "\F140";
     }
-    @if $filename == twitter {
+    @if $filename == twitch {
         $char: "\F141";
     }
-    @if $filename == upload {
+    @if $filename == twitter {
         $char: "\F142";
     }
-    @if $filename == video {
+    @if $filename == upload {
         $char: "\F143";
     }
-    @if $filename == views {
+    @if $filename == video {
         $char: "\F144";
     }
-    @if $filename == vk {
+    @if $filename == views {
         $char: "\F145";
     }
-    @if $filename == youtube {
+    @if $filename == vk {
         $char: "\F146";
+    }
+    @if $filename == youtube {
+        $char: "\F147";
     }
 
     @return $char;
@@ -168,6 +171,7 @@ category: Basic
 ```html
     <div class="sg-icon icon-add" title="add"></div>
     <div class="sg-icon icon-arrow" title="arrow"></div>
+    <div class="sg-icon icon-attachment" title="attachment"></div>
     <div class="sg-icon icon-back-arrow" title="back-arrow"></div>
     <div class="sg-icon icon-bell-notification" title="bell-notification"></div>
     <div class="sg-icon icon-bookmark" title="bookmark"></div>
@@ -213,6 +217,9 @@ category: Basic
 }
 .icon-arrow {
     @include icon(arrow);
+}
+.icon-attachment {
+    @include icon(attachment);
 }
 .icon-back-arrow {
     @include icon(back-arrow);

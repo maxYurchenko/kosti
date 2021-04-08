@@ -55,13 +55,13 @@
                         </div>
                         <div class="js_parts-block">
                             <div data-th-if="${!components or components.size < 1}"
-                                class="create_article-tinymce_editor tinymce-editor js_tinymce-editor js_single-part js_single-part-1"
+                                class="create_article-tinymce_editor editor_actions-wrap tinymce-editor js_tinymce-editor js_single-part js_single-part-1"
                                 data-tinymce="1" data-id="1">
                                 <textarea id="js_single-part-1"></textarea>
-                                <div class="create_article-editor_actions">
-                                    <div class="create_article-editor_actions-remove js_remove-part"></div>
-                                    <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
-                                    <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
+                                <div class="editor_actions">
+                                    <div class="editor_actions-remove js_remove-part"></div>
+                                    <div class="editor_actions-top js_move-part" data-type="top"></div>
+                                    <div class="editor_actions-bot js_move-part" data-type="bot"></div>
                                 </div>
                             </div>
                             <div data-th-each="component : ${components}" data-th-utext="${component.html}"
@@ -89,7 +89,7 @@
                                         Цитату
                                     </div>
                                     <div
-                                        class="create_article-add_content-action icon-quote js_add-attachment js_new-part hidden">
+                                        class="create_article-add_content-action icon-attachment js_add-attachment js_new-part hidden">
                                         Файл
                                     </div>
                                 </div>

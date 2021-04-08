@@ -1,0 +1,51 @@
+.create_article {
+    .add-hashtag {
+        min-width: 20px;
+    }
+
+    &-post_text_wrap {
+        margin-bottom: 25px;
+
+        .post-text {
+            border-bottom: 1px solid $color-primary16;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    &-quote_editor {
+        min-height: 90px;
+
+        @include mobile {
+            padding-left: 15px;
+        }
+    }
+
+    &-tinymce_editor {
+        @include mobile {
+            padding-left: 15px;
+        }
+    }
+
+    &-hashtag_actions {
+        @include position(absolute, top 0 left -30px);
+
+        width: 30px;
+
+        &-remove {
+            @include icon(delete);
+
+            &:after {
+                font-size: 20px;
+            }
+        }
+    }
+
+    &-action_btn {
+        width: auto;
+        margin-top: 20px;
+        padding: 10px;
+    }
+}
