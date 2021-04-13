@@ -144,6 +144,11 @@
   </form>
   <x-data name="relatedLocale"/>
 
+
+  <processors>
+    <response-processor name="ckeckCookie"/>  
+  </processors>
+
   <mappings>
     <!--
       API
