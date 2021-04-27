@@ -5,6 +5,7 @@
       <label>Menu items</label>
       <occurrences minimum="0" maximum="0"/>
       <config>
+        <allowPath>*</allowPath>
       </config>
     </input>
     <input name="mailsLocation" type="ContentSelector">
