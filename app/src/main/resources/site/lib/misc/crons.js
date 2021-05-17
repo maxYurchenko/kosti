@@ -10,11 +10,6 @@ const context = {
   principals: ["role:system.admin"]
 };
 
-const auth = {
-  user: "cronuser",
-  password: app.config["cronuserpass"]
-};
-
 exports.crons = [
   {
     name: "updateSchedule",
@@ -35,7 +30,9 @@ exports.crons = [
       httpClientLib.request({
         url: app.config["base.url"] + "/api/cron/pendingcarts",
         method: "POST",
-        auth: auth
+        headers: {
+          "Cookie": "JSESSIONID=" + login()
+        }
       }).body;
 
       log.info("Finished updating orders");
@@ -51,7 +48,9 @@ exports.crons = [
       httpClientLib.request({
         url: app.config["base.url"] + "/api/cron/cache/regenerate",
         method: "POST",
-        auth: auth
+        headers: {
+          "Cookie": "JSESSIONID=" + login()
+        }
       }).body;
       log.info("Finished updating cache");
     },
@@ -68,3 +67,17 @@ exports.crons = [
     context: context
   }
 ];
+
+function login() {
+  const loginResult = httpClientLib.request({
+    url: app.config["base.url"] + "/admin/tool/_/idprovider/system",
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      "action": "login",
+      "user": "cronuser",
+      "password": app.config["cronuserpass"]
+    })
+  });
+  return loginResult.cookies[0].value;
+}
