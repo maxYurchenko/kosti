@@ -12,7 +12,7 @@ const cacheLib = require("cacheLib");
 const moment = require("moment");
 
 const apiUrl = "https://api.novaposhta.ua/v2.0/json/";
-const apiKey = "ecc4e836cab6d9c8356bd4ee46ff14a7";
+const apiKey = app.config.novaposhtakey;
 
 exports.makeRequest = makeRequest;
 exports.getCity = getCity;
