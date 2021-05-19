@@ -7,7 +7,7 @@ const libLocation = "../../lib/";
 const cartLib = require(libLocation + "cartLib");
 const norseUtils = require(libLocation + "norseUtils");
 const helpers = require(libLocation + "helpers");
-const userLib = require(libLocation + "userLib");
+const userLib = require("/lib/userLib");
 const sharedLib = require(libLocation + "sharedLib");
 const storeLib = require(libLocation + "storeLib");
 

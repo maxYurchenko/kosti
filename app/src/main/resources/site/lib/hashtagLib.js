@@ -6,7 +6,7 @@ var sharedLib = require("sharedLib");
 var norseUtils = require("norseUtils");
 var votesLib = require("votesLib");
 var contextLib = require("contextLib");
-var userLib = require("userLib");
+var userLib = require("/lib/userLib");
 
 exports.getHashtags = getHashtags;
 exports.hotHashtagCheck = hotHashtagCheck;
@@ -151,7 +151,7 @@ function createHashtag(name) {
   if (!name) return false;
   var site = portal.getSiteConfig();
   var hashtags = contentLib.get({ key: site.hashtagsLocation });
-  return contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
+  return contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
     var article = contentLib.create({
       parentPath: hashtags._path,
       displayName: name,

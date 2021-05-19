@@ -1,7 +1,7 @@
 var portal = require("/lib/xp/portal");
 
 var libLocation = "/site/lib/";
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 
 exports.get = function (req) {
   userLib.vkRegister(req.params.code);

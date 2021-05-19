@@ -5,7 +5,7 @@ var httpClientLib = require("/lib/http-client");
 
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 var helpers = require(libLocation + "helpers");
 var formPlayerLib = require(libLocation + "games/formPlayerLib");
 

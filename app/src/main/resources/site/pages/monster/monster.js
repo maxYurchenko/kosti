@@ -9,7 +9,7 @@ var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 var spellLib = require(libLocation + "spellsLib");
 var contextLib = require(libLocation + "contextLib");
 
@@ -34,7 +34,7 @@ function handleReq(req) {
 
   function createModel() {
     var up = req.params;
-    var content = contextLib.runInDraftAsAdmin(function() {
+    var content = contextLib.runInDraftAsAdmin(function () {
       return portal.getContent();
     });
     content.data.actions = norseUtils.forceArray(content.data.actions);

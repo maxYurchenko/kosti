@@ -7,7 +7,7 @@ var contentLib = require('/lib/xp/content');\
 var libLocation = '../../lib/';
 var norseUtils = require(libLocation + 'norseUtils');
 var helpers = require(libLocation + 'helpers');
-var userLib = require(libLocation + 'userLib');
+var userLib = require("/lib/userLib");
 var spellLib = require(libLocation + 'spellsLib');
 
 exports.get = handleReq;

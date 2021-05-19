@@ -91,7 +91,7 @@ function beautifyNotification(notification) {
     );
   }
   notification.article = blogLib.beautifyArticle(notification.article);
-  var userLib = require("userLib");
+  var userLib = require("/lib/userLib");
   notification.user = userLib.getUserDataById(notification.fromUser);
   notification.date = kostiUtils.getTimePassedSincePostCreation(
     notification.createdDate ? notification.createdDate : notification._ts
@@ -107,7 +107,7 @@ function getNotificationBody(notification) {
     article = commentsLib.getCommentParentArticle(notification.subjectId);
   }
   article = blogLib.beautifyArticle(article);
-  var userLib = require("userLib");
+  var userLib = require("/lib/userLib");
   return thymeleaf.render(
     resolve("../pages/components/user/notification.html"),
     {
@@ -125,7 +125,7 @@ function getNotificationBody(notification) {
 //types: bookmark, like, comment
 //subject: article, comment
 function addNotification(subject, type) {
-  var userLib = require("userLib");
+  var userLib = require("/lib/userLib");
   var user = userLib.getCurrentUser();
   subject = getSubject(subject);
   var forUser = getSubjectAuthor(subject);

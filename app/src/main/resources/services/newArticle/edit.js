@@ -7,7 +7,7 @@ var i18nLib = require("/lib/xp/i18n");
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 var kostiUtils = require(libLocation + "kostiUtils");
 var spellLib = require(libLocation + "spellsLib");
 var articlesLib = require(libLocation + "articlesLib");
@@ -179,9 +179,8 @@ function handleGet(req) {
           component.config["com-myurchenko-kostirpg"].attachment
             .ATTACHMENT_TITLE,
         attachment: contentLib.get({
-          key:
-            component.config["com-myurchenko-kostirpg"].attachment
-              .ATTACHMENT_RELATION
+          key: component.config["com-myurchenko-kostirpg"].attachment
+            .ATTACHMENT_RELATION
         })
       });
     }

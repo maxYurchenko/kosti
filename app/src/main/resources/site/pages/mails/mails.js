@@ -7,7 +7,7 @@ var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var sharedLib = require(libLocation + "sharedLib");
 var mailsLib = require(libLocation + "mailsLib");
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 
 exports.get = handleReq;
 

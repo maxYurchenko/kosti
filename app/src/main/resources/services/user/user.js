@@ -3,7 +3,7 @@ var thymeleaf = require("/lib/thymeleaf");
 var portal = require("/lib/xp/portal");
 
 var libLocation = "../../site/lib/";
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 var mailsLib = require(libLocation + "mailsLib");
 var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");

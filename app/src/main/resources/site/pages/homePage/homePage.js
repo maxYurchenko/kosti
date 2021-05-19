@@ -3,10 +3,11 @@ const portal = require("/lib/xp/portal");
 const contentLib = require("/lib/xp/content");
 const httpClientLib = require("/lib/http-client");
 
+const userLib = require("/lib/userLib");
+
 const libLocation = "../../lib/";
 const norseUtils = require(libLocation + "norseUtils");
 const helpers = require(libLocation + "helpers");
-const userLib = require(libLocation + "userLib");
 const blogLib = require(libLocation + "blogLib");
 const sharedLib = require(libLocation + "sharedLib");
 const storeLib = require(libLocation + "storeLib");

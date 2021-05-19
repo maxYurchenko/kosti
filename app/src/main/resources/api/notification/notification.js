@@ -3,7 +3,7 @@ var portal = require("/lib/xp/portal");
 
 var libLocation = "/site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 var notificationLib = require(libLocation + "notificationLib");
 
 exports.get = function (req) {

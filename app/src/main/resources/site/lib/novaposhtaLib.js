@@ -4,7 +4,7 @@ const portalLib = require("/lib/xp/portal");
 const i18nLib = require("/lib/xp/i18n");
 
 const norseUtils = require("norseUtils");
-const userLib = require("userLib");
+const userLib = require("/lib/userLib");
 const contextLib = require("contextLib");
 const cartLib = require("cartLib");
 const sharedLib = require("sharedLib");

@@ -5,7 +5,7 @@ const httpClientLib = require("/lib/http-client");
 
 const libLocation = "../../site/lib/";
 const norseUtils = require(libLocation + "norseUtils");
-const userLib = require(libLocation + "userLib");
+const userLib = require("/lib/userLib");
 const helpers = require(libLocation + "helpers");
 const cartLib = require(libLocation + "cartLib");
 const formPlayerLib = require(libLocation + "games/formPlayerLib");

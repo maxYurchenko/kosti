@@ -7,9 +7,9 @@ var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 
-exports.post = function(req) {
+exports.post = function (req) {
   var data = JSON.parse(req.params.data);
   editMonster(data);
   return true;
@@ -19,7 +19,7 @@ exports.post = function(req) {
     var id = data.id;
     delete data.name;
     delete data.id;
-    contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
+    contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
       var result = contentLib.modify({
         key: id,
         editor: editor
@@ -53,7 +53,7 @@ exports.post = function(req) {
   }
 };
 
-exports.get = function(req) {
+exports.get = function (req) {
   //doImport();
   doFix();
 
@@ -80,7 +80,7 @@ exports.get = function(req) {
       } else {
         return false;
       }
-      return contextLib.runInDraftAsAdmin(function() {
+      return contextLib.runInDraftAsAdmin(function () {
         var result = contentLib.modify({
           key: id,
           editor: editor
@@ -125,7 +125,7 @@ exports.get = function(req) {
       var name = data.slug;
       delete data.slug;
       delete data.name;
-      return contextLib.runInDraftAsAdmin(function() {
+      return contextLib.runInDraftAsAdmin(function () {
         var result = contentLib.create({
           name: name,
           parentPath: monstersLocation._path,

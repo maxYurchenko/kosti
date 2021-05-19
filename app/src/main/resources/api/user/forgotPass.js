@@ -1,7 +1,7 @@
 var thymeleaf = require("/lib/thymeleaf");
 
 var libLocation = "/site/lib/";
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 var helpers = require(libLocation + "helpers");
 var norseUtils = require(libLocation + "norseUtils");
 

@@ -3,10 +3,10 @@ var thymeleaf = require("/lib/thymeleaf");
 var portal = require("/lib/xp/portal");
 
 var libLocation = "../../site/lib/";
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 var norseUtils = require(libLocation + "norseUtils");
 
-exports.get = function(req) {
+exports.get = function (req) {
   var params = req.params;
   if (params.code) {
     userLib.vkRegister(params.code);

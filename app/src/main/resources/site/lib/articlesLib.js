@@ -4,7 +4,7 @@ var thymeleaf = require("/lib/thymeleaf");
 var common = require("/lib/xp/common");
 
 var norseUtils = require("norseUtils");
-var userLib = require("userLib");
+var userLib = require("/lib/userLib");
 var contextLib = require("contextLib");
 var hashLib = require("hashLib");
 var sharedLib = require("sharedLib");

@@ -3,7 +3,7 @@ var contentLib = require("/lib/xp/content");
 var portalLib = require("/lib/xp/portal");
 var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
-var userLib = require("userLib");
+var userLib = require("/lib/userLib");
 var kostiUtils = require("kostiUtils");
 var sharedLib = require("sharedLib");
 

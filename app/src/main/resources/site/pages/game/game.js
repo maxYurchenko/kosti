@@ -5,7 +5,7 @@ const contentLib = require("/lib/xp/content");
 const libLocation = "../../lib/";
 const norseUtils = require(libLocation + "norseUtils");
 const helpers = require(libLocation + "helpers");
-const userLib = require(libLocation + "userLib");
+const userLib = require("/lib/userLib");
 const formPlayerLib = require(libLocation + "games/formPlayerLib");
 
 exports.get = handleReq;

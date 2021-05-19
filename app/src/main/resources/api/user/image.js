@@ -1,5 +1,5 @@
 var libLocation = "/site/lib/";
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 
 exports.post = function (req) {
   return {

@@ -6,7 +6,7 @@ const i18nLib = require("/lib/xp/i18n");
 const norseUtils = require("norseUtils");
 const kostiUtils = require("kostiUtils");
 const votesLib = require("votesLib");
-const userLib = require("userLib");
+const userLib = require("/lib/userLib");
 const moment = require("moment");
 const commentsLib = require("commentsLib");
 const hashtagLib = require("hashtagLib");
@@ -30,7 +30,8 @@ exports.updateSchedule = updateSchedule;
 exports.getArticleStatus = getArticleStatus;
 exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
 exports.getArticleIntro = getArticleIntro;
-exports.generateTelegramNotificationMessage = generateTelegramNotificationMessage;
+exports.generateTelegramNotificationMessage =
+  generateTelegramNotificationMessage;
 exports.getArticleLikesView = getArticleLikesView;
 
 const cache = cacheLib.api.createGlobalCache({

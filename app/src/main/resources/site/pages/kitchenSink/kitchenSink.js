@@ -9,7 +9,7 @@ var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
-var userLib = require(libLocation + "userLib");
+var userLib = require("/lib/userLib");
 var spellLib = require(libLocation + "spellsLib");
 
 exports.get = handleReq;
