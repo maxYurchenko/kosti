@@ -65,7 +65,7 @@ function editArticleObject(data, user) {
   var articleData = data.params;
   if (data.updateMainImage == "true") {
     var stream = portal.getMultipartStream("image");
-    var image = createImageObj(stream, user);
+    var image = createImageObj(stream, user.content);
   }
   var result = contentLib.modify({
     key: data.id,
@@ -105,14 +105,14 @@ function createArticleObject(data, user, saveAsDraft) {
   }
   var blog = contentLib.get({ key: site.blogLocation });
   var stream = portal.getMultipartStream("image");
-  var image = createImageObj(stream, user);
+  var image = createImageObj(stream, user.content);
   var result = contentLib.create({
     name: common.sanitize(data.title),
     parentPath: blog._path,
     displayName: data.title,
     contentType: app.name + ":article",
     data: {
-      author: user._id,
+      author: user.content._id,
       image: image._id,
       hashtags: data.hashtags,
       similarArticles: data.similarArticles
@@ -123,7 +123,7 @@ function createArticleObject(data, user, saveAsDraft) {
     key: result._id,
     inheritPermissions: false,
     overwriteChildPermissions: true,
-    permissions: permissions.default(user.key)
+    permissions: permissions.default(user.user.key)
   });
   if (!saveAsDraft && result) {
     notify(result.displayName);
@@ -148,10 +148,10 @@ function checkIfArticleExist(title) {
 }
 
 function createImage(data) {
+  var user = userLib.getCurrentUser();
   return contextLib.runInDraftAsAdmin(function () {
     var stream = portal.getMultipartStream("file");
-    var user = userLib.getCurrentUser();
-    var image = createImageObj(stream, user);
+    var image = createImageObj(stream, user.content);
     image = norseUtils.getImage(image._id);
     if (data.json) return image;
     return getImageComponent({
@@ -270,7 +270,9 @@ function getAttachmentComponent(data) {
     attachment = contextLib.runInDraftAsAdmin(function () {
       var stream = portal.getMultipartStream("file");
       var user = userLib.getCurrentUser();
-      return createImageObj(stream, user, { displayName: data.displayName });
+      return createImageObj(stream, user.content, {
+        displayName: data.displayName
+      });
     });
   }
   return {

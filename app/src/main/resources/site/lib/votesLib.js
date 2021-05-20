@@ -69,11 +69,11 @@ function deleteVotes(id) {
 
 function vote(content) {
   var user = userLib.getCurrentUser();
-  if (!user || !user.key) {
+  if (!user || !user.user.key) {
     return false;
   }
   var result = contextLib.runAsAdmin(function () {
-    return doVote(user.key, content);
+    return doVote(user.user.key, content);
   });
 
   return result;
@@ -143,8 +143,8 @@ function doVote(user, content) {
 function checkIfVoted(content) {
   var user = userLib.getCurrentUser();
   var node = getNode(content);
-  if (user && user.key && content && node) {
-    return checkIfVoteExist(user.key, node);
+  if (user && user.user.key && content && node) {
+    return checkIfVoteExist(user.user.key, node);
   }
   return false;
 }

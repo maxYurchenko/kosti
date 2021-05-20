@@ -53,7 +53,7 @@ function handleReq(req) {
       {
         comments: comments,
         articleId: content._id,
-        moderator: user && user.roles && user.roles.moderator
+        moderator: user && user.data.roles.moderator
       }
     );
     if (user) {

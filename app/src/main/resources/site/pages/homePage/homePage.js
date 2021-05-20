@@ -26,12 +26,7 @@ exports.get = handleReq;
 
 function handleReq(req) {
   let user = userLib.getCurrentUser();
-  if (
-    user &&
-    user.roles &&
-    user.roles.moderator &&
-    req.params.cache === "clear"
-  ) {
+  if (user && user.data.roles.moderator && req.params.cache === "clear") {
     cache.api.clear();
   }
 

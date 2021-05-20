@@ -37,7 +37,7 @@ exports.post = function (req) {
         phone: req.params.phone,
         lastName: req.params.surname,
         firstName: req.params.name,
-        id: user._id
+        id: user.content._id
       });
     }
     model.shipping = "active";

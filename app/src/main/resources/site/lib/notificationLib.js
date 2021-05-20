@@ -133,10 +133,15 @@ function addNotification(subject, type) {
     return false;
   }
   if (
-    !checkIfNotificationExists(forUser._id, user._id, subject._id, type) ||
+    !checkIfNotificationExists(
+      forUser._id,
+      user.content._id,
+      subject._id,
+      type
+    ) ||
     type === "comment"
   ) {
-    createNotification(forUser._id, user._id, subject._id, type);
+    createNotification(forUser._id, user.content._id, subject._id, type);
   }
   return true;
 }

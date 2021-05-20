@@ -20,7 +20,8 @@ exports.get = function (req) {
       game = contentLib.get({ key: cart.gameId });
       game.data.players = norseUtils.forceArray(game.data.players);
       if (game.data.players.indexOf(cart._id) !== -1) {
-        game.data.players[game.data.players.indexOf(cart._id)] = user._id;
+        game.data.players[game.data.players.indexOf(cart._id)] =
+          user.content._id;
       }
       game = formPlayerLib.updateEntity(game);
       game.url = portal.pageUrl({ id: game._id });

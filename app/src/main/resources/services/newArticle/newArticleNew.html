@@ -17,11 +17,11 @@
         <form class="blog blog_width clearfix" form method="POST" enctype="multipart/form-data" id="newArticleForm">
             <div class="article-header">
                 <div data-th-if="${author}" class="post-info">
-                    <a data-th-href="${author.url}">
+                    <a data-th-href="${author.data.url}">
                         <span class="post-user_avatar">
-                            <img data-th-src="${author.image.url}" alt="" />
+                            <img data-th-src="${author.data.image.url}" alt="" />
                         </span>
-                        <span class="post-user_name" data-th-text="${author.displayName}"></span>
+                        <span class="post-user_name" data-th-text="${author.content.displayName}"></span>
                     </a>
                     <span class="post-date" data-th-text="${date}"></span>
                 </div>
@@ -54,7 +54,8 @@
                             </div>
                         </div>
                         <div class="js_parts-block">
-                            <div data-th-if="${firstComponents}" data-th-utext="${firstComponents}" data-th-remove="tag">
+                            <div data-th-if="${firstComponents}" data-th-utext="${firstComponents}"
+                                data-th-remove="tag">
                             </div>
                             <div data-th-each="component : ${components}" data-th-utext="${component.html}"
                                 data-th-remove="tag">

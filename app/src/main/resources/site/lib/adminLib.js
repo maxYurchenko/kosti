@@ -6,7 +6,7 @@ exports.validateUserAdmin = validateUserAdmin;
 
 function validateUserAdmin() {
   let user = userLib.getCurrentUser();
-  if (user && user.roles && user.roles.admin) {
+  if (user && user.data.roles.admin) {
     return true;
   }
   return false;

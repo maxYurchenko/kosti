@@ -53,8 +53,6 @@ function initLoginRegisterForm() {
     showLoader();
     call.done(function (data) {
       if (data.authenticated) {
-        $(".modal-registration .form-group-error").addClass("hidden");
-        $(".js_header-user-wrap").html(data.html);
         location.reload();
       } else if (data.exist) {
         $(".modal-registration .form-group-error").text(data.message);
@@ -114,8 +112,6 @@ function initFBLogin() {
         );
         call.done(function (data) {
           if (data.authenticated && data.exist) {
-            $(".js_header-user-wrap").html(data.html);
-            $(".modal-login .form-group-error").addClass("hidden");
             location.reload();
           } else {
             $(".modal-login .form-group-error").text(data.message);
@@ -158,8 +154,6 @@ function attachSignin(element) {
       );
       call.done(function (data) {
         if (data.authenticated && data.exist) {
-          $(".js_header-user-wrap").html(data.html);
-          $(".modal-login .form-group-error").addClass("hidden");
           location.reload();
         } else {
           $(".modal-login .form-group-error").text(data.message);

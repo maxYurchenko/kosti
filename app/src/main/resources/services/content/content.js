@@ -60,7 +60,7 @@ exports.get = function (req) {
     case "bookmarks":
       var user = userLib.getCurrentUser();
       if (user) {
-        var articlesObj = blogLib.getArticlesByIds(user.data.bookmarks, page);
+        var articlesObj = blogLib.getArticlesByIds(user.content.data.bookmarks, page);
       } else {
         var articlesObj = { total: 0, hits: [], count: 0 };
       }

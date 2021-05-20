@@ -45,7 +45,7 @@ function handlePost(req) {
     if (status.published) {
       return false;
     }
-    if (!(status.exists && (status.author || user.moderator))) {
+    if (!(status.exists && (status.author || user.data.moderator))) {
       return false;
     }
     return true;

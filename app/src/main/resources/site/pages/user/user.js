@@ -91,7 +91,7 @@ function handleReq(req) {
       ? norseUtils.forceArray(content.data.bookmarks)
       : 0;
     var userSystemObj = userLib.getSystemUser(content.data.email);
-    var currUserFlag = currUser.key == userSystemObj.key;
+    var currUserFlag = currUser.user.key == userSystemObj.key;
     content.votes = blogLib.countUserRating(content._id);
     var date = new Date(moment(content.publish.from.replace("Z", "")));
     content.date =

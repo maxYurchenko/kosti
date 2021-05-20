@@ -1,8 +1,8 @@
 <div data-th-if="${user}" class="js_header-user" data-th-classappend="${active}"
-    data-th-attr="data-userid=${user.key}, data-usercontentid=${user._id}">
+    data-th-attr="data-userid=${user.user.key}, data-usercontentid=${user.content._id}">
     <div class="user-avatar-img_wrap">
-        <a data-th-href="${portal.pageUrl({'_path=' + user._path})}" data-th-title="${'Личный кабинет'}">
-            <img src="#" data-th-src="${user.image.url}" data-th-alt="${'Аватар ' + user.displayName}" />
+        <a data-th-href="${portal.pageUrl({'_path=' + user.content._path})}" data-th-title="${'Личный кабинет'}">
+            <img src="#" data-th-src="${user.data.image.url}" data-th-alt="${'Аватар ' + user.content.displayName}" />
         </a>
     </div>
 </div>

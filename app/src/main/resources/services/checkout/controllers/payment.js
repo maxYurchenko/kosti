@@ -25,7 +25,7 @@ exports.post = function (req) {
     req.params.status = "created";
     var user = userLib.getCurrentUser();
     if (user) {
-      req.params.userRelation = user._id;
+      req.params.userRelation = user.content._id;
     }
     var shipping = shippingLib.getShipping(model.cart.country);
     shipping = shippingLib.getShippingById(shipping, req.params.shipping);

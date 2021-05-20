@@ -10,11 +10,14 @@ const contextLib = require(libLocation + "contextLib");
 
 exports.post = function (req) {
   return {
-    body: contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
-      return contextLib.runInDraft(function () {
-        return createImageObj();
-      });
-    }),
+    body: contextLib.runAsAdminAsUser(
+      userLib.getCurrentUser().user,
+      function () {
+        return contextLib.runInDraft(function () {
+          return createImageObj();
+        });
+      }
+    ),
     contentType: "application/json"
   };
 };

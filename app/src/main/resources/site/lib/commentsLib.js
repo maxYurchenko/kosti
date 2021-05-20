@@ -25,7 +25,7 @@ function addComment(parent, body, articleId) {
   var commentsRepo = connectCommentsRepo();
   var user = userLib.getCurrentUser();
   if (user) {
-    user = user._id;
+    user = user.content._id;
   } else {
     return false;
   }
@@ -81,7 +81,7 @@ function getCommentsView(comments) {
 
 function removeComment(id, reason) {
   var user = userLib.getCurrentUser();
-  if (!user.roles.moderator) {
+  if (!user || !user.data.roles.moderator) {
     return false;
   }
   var commentsRepo = connectCommentsRepo();
@@ -108,7 +108,7 @@ function reportComment(id, reason) {
     if (!node.report) node.report = [];
     var temp = norseUtils.forceArray(node.report);
     for (var i = 0; i < temp.length; i++) {
-      if (temp[i].userId === user.key) return node;
+      if (temp[i].userId === user.user.key) return node;
     }
     temp.push({ userId: user.key, reason: reason });
     node.report = temp;
@@ -120,20 +120,20 @@ function voteForComment(id) {
   var commentsRepo = connectCommentsRepo();
   var user = userLib.getCurrentUser();
   var comment = commentsRepo.get(id);
-  if (!comment || !comment._id || !user || !user.key) {
+  if (!comment || !comment._id || !user || !user.user.key) {
     return false;
   }
   if (
     !comment.votes ||
-    (comment.votes && comment.votes.indexOf(user.key) === -1)
+    (comment.votes && comment.votes.indexOf(user.user.key) === -1)
   ) {
-    comment = upvote(user.key, comment._id);
+    comment = upvote(user.user.key, comment._id);
   } else {
-    comment = downvote(user.key, comment._id);
+    comment = downvote(user.user.key, comment._id);
   }
   return {
     rate: comment.rate,
-    voted: comment.votes && comment.votes.indexOf(user.key) !== -1
+    voted: comment.votes && comment.votes.indexOf(user.user.key) !== -1
   };
 }
 
@@ -226,7 +226,8 @@ function beautifyComment(comment, counter, level) {
     }
     comment.date = kostiUtils.getTimePassedSincePostCreation(date);
     comment.author = userLib.getUserDataById(comment.user);
-    comment.voted = comment.votes && comment.votes.indexOf(user.key) !== -1;
+    comment.voted =
+      comment.votes && user && comment.votes.indexOf(user.user.key) !== -1;
     if (comment.articleId) {
       comment.url =
         portalLib.pageUrl({ id: comment.articleId }) + "#" + comment._id;

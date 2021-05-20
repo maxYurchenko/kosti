@@ -24,7 +24,8 @@ function createModel(params) {
   var content = portal.getContent();
   var user = userLib.getCurrentUser();
   var model = {
-    showSendButton: params && params.mode === "live" && user.roles.moderator,
+    showSendButton:
+      params && params.mode === "live" && user.data.roles.moderator,
     content: content,
     site: portal.getSite(),
     mailComponents: mailsLib.getMailComponents({ title: "Сброс пароля" })
@@ -39,7 +40,7 @@ function handleReq(req) {
     req &&
     req.params &&
     req.params.action === "sendMail" &&
-    user.roles.moderator
+    user.data.roles.moderator
   ) {
     var content = portal.getContent();
     mailsLib.sendMail("newsletter", null, {

@@ -19,7 +19,7 @@ exports.post = function (req) {
     var id = data.id;
     delete data.name;
     delete data.id;
-    contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
+    contextLib.runAsAdminAsUser(userLib.getCurrentUser().user, function () {
       var result = contentLib.modify({
         key: id,
         editor: editor

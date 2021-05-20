@@ -151,19 +151,22 @@ function createHashtag(name) {
   if (!name) return false;
   var site = portal.getSiteConfig();
   var hashtags = contentLib.get({ key: site.hashtagsLocation });
-  return contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
-    var article = contentLib.create({
-      parentPath: hashtags._path,
-      displayName: name,
-      name: common.sanitize(name),
-      contentType: app.name + ":hashtag",
-      data: {}
-    });
-    contentLib.publish({
-      keys: [article._id],
-      sourceBranch: "master",
-      targetBranch: "draft"
-    });
-    return article;
-  });
+  return contextLib.runAsAdminAsUser(
+    userLib.getCurrentUser().user,
+    function () {
+      var article = contentLib.create({
+        parentPath: hashtags._path,
+        displayName: name,
+        name: common.sanitize(name),
+        contentType: app.name + ":hashtag",
+        data: {}
+      });
+      contentLib.publish({
+        keys: [article._id],
+        sourceBranch: "master",
+        targetBranch: "draft"
+      });
+      return article;
+    }
+  );
 }
