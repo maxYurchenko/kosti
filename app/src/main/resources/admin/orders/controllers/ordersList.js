@@ -5,7 +5,7 @@ const thymeleaf = require("/lib/thymeleaf");
 const libLocation = "/site/lib/";
 const helpers = require(libLocation + "helpers");
 const norseUtils = require(libLocation + "norseUtils");
-const cartLib = require(libLocation + "cartLib");
+const cartLib = require("/lib/cartLib");
 const adminLib = require(libLocation + "adminLib");
 const countries = require(libLocation + "misc/countries");
 

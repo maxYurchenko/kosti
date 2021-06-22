@@ -70,6 +70,14 @@
         <allowContentType>gamesLocation</allowContentType>
       </config>
     </input>
+    <input name="block" type="ContentSelector">
+      <label>Block</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <allowPath>../../../*</allowPath>
+        <allowContentType>block</allowContentType>
+      </config>
+    </input>
     <input name="master" type="ContentSelector">
       <label>Master</label>
       <occurrences minimum="1" maximum="1"/>

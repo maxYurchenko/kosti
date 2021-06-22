@@ -1,11 +1,7 @@
-const portal = require("/lib/xp/portal");
-const contentLib = require("/lib/xp/content");
+const gmLib = require("/lib/festival/gmLib");
+const formLib = require("/lib/festival/formLib");
 const thymeleaf = require("/lib/thymeleaf");
-
-const libLocation = "../../site/lib/";
-const norseUtils = require(libLocation + "norseUtils");
-const formGMLib = require(libLocation + "games/formGMLib");
-const formSharedLib = require(libLocation + "games/formSharedLib");
+const utils = require("/lib/util");
 
 exports.post = function (req) {
   var result = {};
@@ -15,38 +11,12 @@ exports.post = function (req) {
   switch (action) {
     case "addGame":
       result = formGMLib.addGame(data);
-      /*
-        displayName: displayName and _name
-        blockId: parent, where data is created
-        description
-        maxPlayers
-        locationId
-        kidsGame: true || false
-        explicit: true || false
-        system: game system(dnd, vtm, etc.)
-        masterName
-        masterNickname
-      */
       break;
     case "editGame":
-      result = formGMLib.modifyGame(data);
-      /*
-        _id
-        displayName: displayName and _name
-        description
-        maxPlayers
-        kidsGame: true || false
-        explicit: true || false
-        system: game system(dnd, vtm, etc.)
-        masterName
-        masterNickname
-      */
+      result = gmLib.modifyGame(data);
       break;
     case "deleteGame":
-      result = formGMLib.deleteGame(data.id);
-      /*
-        id
-      */
+      result = gmLib.deleteGame(data.id);
       break;
     default:
       break;
@@ -58,16 +28,63 @@ exports.post = function (req) {
 };
 
 exports.get = function (req) {
-  var result = {};
-  switch (req.params.action) {
-    case "getView":
-      result.html = formSharedLib.getView(req.params.viewType, req.params.id);
+  let html, model, json;
+  let viewType = req.params.viewType;
+  switch (viewType) {
+    case "locationAndGameBlockComp":
+      json = formLib.getViewModel(viewType, req.params.id);
+      model = {
+        locations: thymeleaf.render(resolve(views["locationComp"]), {
+          locations: json.locations,
+          festival: json.festival
+        }),
+        gameBlocks: thymeleaf.render(resolve(views["gameBlocksComp"]), {
+          blocks: json.blocks,
+          festival: json.festival
+        }),
+        festival: json.festival
+      };
+      html = thymeleaf.render(resolve(views[viewType]), model);
       break;
+    case "gameBlocksComp":
+      model = formLib.getViewModel(viewType, req.params.id);
+      html = thymeleaf.render(resolve(views[viewType]), model);
+      break;
+    case "scheduleComp":
+    case "gmComp":
+      model = formLib.getViewModel(viewType, req.params.id);
+      model.days.forEach((day) => {
+        day.processed.available = thymeleaf.render(
+          resolve("/site/pages/user/games/shared/availableComp.html"),
+          {
+            games: day.processed.games,
+            festival: model.festival
+          }
+        );
+      });
+      html = thymeleaf.render(resolve(views[viewType]), model);
+      utils.log(views[viewType]);
+      break;
+    case "addGameForm":
+      model = formLib.getViewModel(viewType, req.params.id);
+      html = thymeleaf.render(resolve(views[viewType]), model);
     default:
       break;
   }
   return {
-    body: result,
+    body: { html: html },
     contentType: "application/json"
   };
+};
+
+const baseUrl = "/site/pages/user/games/";
+
+const views = {
+  gmComp: baseUrl + "shared/scheduleComp.html",
+  scheduleComp: baseUrl + "shared/scheduleComp.html",
+  locationAndGameBlockComp: baseUrl + "gm/locationBlocksWrapper.html",
+  availableComp: baseUrl + "shared/availableComp.html",
+  addGameForm: baseUrl + "gm/addGameForm.html",
+  locationComp: baseUrl + "shared/locationComp.html",
+  gameBlocksComp: baseUrl + "gm/gameBlocksComp.html"
 };

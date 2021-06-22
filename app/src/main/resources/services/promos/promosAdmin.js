@@ -5,7 +5,7 @@ var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var promosLib = require(libLocation + "promosLib");
-var cartLib = require(libLocation + "cartLib");
+var cartLib = require("/lib/cartLib");
 var sharedLib = require(libLocation + "sharedLib");
 var contextLib = require(libLocation + "contextLib");
 

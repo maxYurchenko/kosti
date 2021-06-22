@@ -25,8 +25,12 @@ function addNewGame(dataJson) {
   var data = {
     data: dataJson
   };
+  var url =
+    $("input[name='_id']").length > 0
+      ? "/api/festival/games/modify"
+      : "/api/festival/games/create";
   $.ajax({
-    url: "/_/service/com.myurchenko.kostirpg/formGM",
+    url: url,
     data: data,
     type: "POST",
     success: function (data) {

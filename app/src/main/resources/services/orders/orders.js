@@ -5,7 +5,7 @@ var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var userLib = require("/lib/userLib");
 var pdfLib = require(libLocation + "pdfLib");
-var cartLib = require(libLocation + "cartLib");
+var cartLib = require("/lib/cartLib");
 
 exports.get = function (req) {
   var params = req.params;

@@ -1,7 +1,7 @@
 const norseUtils = require("norseUtils");
 const contentLib = require("/lib/xp/content");
 const portalLib = require("/lib/xp/portal");
-const cartLib = require("cartLib");
+const cartLib = require("/lib/cartLib");
 const moment = require("moment");
 
 exports.getCarts = getCarts;

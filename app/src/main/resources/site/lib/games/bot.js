@@ -8,7 +8,7 @@ const festivalSharedLib = require("festivalSharedLib");
 const i18nLib = require("/lib/xp/i18n");
 const util = require("/lib/util");
 const contextLib = require("../contextLib");
-const cartLib = require("../cartLib");
+const cartLib = require("/lib/cartLib");
 const sharedLib = require("../sharedLib");
 const cacheLib = require("../cacheLib");
 

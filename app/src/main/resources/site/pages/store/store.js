@@ -5,7 +5,7 @@ var contentLib = require("/lib/xp/content");
 var util = require("/lib/util");
 
 var libLocation = "../../lib/";
-var cartLib = require(libLocation + "cartLib");
+var cartLib = require("/lib/cartLib");
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var sharedLib = require(libLocation + "sharedLib");

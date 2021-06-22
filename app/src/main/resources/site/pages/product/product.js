@@ -4,7 +4,7 @@ const portal = require("/lib/xp/portal");
 const contentLib = require("/lib/xp/content");
 
 const libLocation = "../../lib/";
-const cartLib = require(libLocation + "cartLib");
+const cartLib = require("/lib/cartLib");
 const norseUtils = require(libLocation + "norseUtils");
 const helpers = require(libLocation + "helpers");
 const userLib = require("/lib/userLib");

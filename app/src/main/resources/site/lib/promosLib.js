@@ -53,7 +53,7 @@ function activatePromo(code, cartId) {
   if (!promo || !promo.data.discount) {
     return false;
   }
-  var cartLib = require("cartLib");
+  var cartLib = require("/lib/cartLib");
   return cartLib.addPromo(code, cartId);
 }
 

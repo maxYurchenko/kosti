@@ -6,7 +6,7 @@ const libLocation = "/site/lib/";
 const helpers = require(libLocation + "helpers");
 const norseUtils = require(libLocation + "norseUtils");
 const statisticsLib = require(libLocation + "statisticsLib");
-const cartLib = require(libLocation + "cartLib");
+const cartLib = require("/lib/cartLib");
 const adminLib = require(libLocation + "adminLib");
 
 exports.get = function (req) {

@@ -1,30 +1,31 @@
 <div class="my_games-schedule-list">
     <div class="my_games-schedule-item js-my_games-step1-parent"
-        data-th-classappend="${day.expanded ? 'game_added' : ''}" data-th-each="day : ${days}"
-        data-th-attr="data-id=${day._id}">
+        data-th-classappend="${day.processed.expanded ? 'game_added' : ''}" data-th-each="day : ${days}"
+        data-th-attr="data-id=${day.content._id}">
         <div class="my_games-schedule-item-header  js-my_games-step1">
             <h4 class="my_games-day_slot-title">
-                <span data-th-text="${day.displayName}"></span>
-                <span data-th-text="${day.dayName + ', '}"></span>
-                <span data-th-text="${day.date}"></span>
-                <span data-th-text="${day.monthName}"></span>
+                <span data-th-text="${day.content.displayName}"></span>
+                <span data-th-text="${day.processed.dayName + ', '}"></span>
+                <span data-th-text="${day.processed.date}"></span>
+                <span data-th-text="${day.processed.monthName}"></span>
                 <span class="icon-arrow"></span>
             </h4>
             <div class="my_games-table_slot js-my_games-table_slot" data-th-unless="${festival.online}">
                 <span data-th-text="${portal.localize({'_key=myGames.slots.free', '_locale=ru'})}"></span>
-                <span data-th-text="${day.space.reserved}"></span>
+                <span data-th-text="${day.processed.space.reserved}"></span>
                 <span>/</span>
-                <span data-th-text="${day.space.total}"></span>
+                <span data-th-text="${day.processed.space.total}"></span>
             </div>
-            <div class="my_games-table_slot js-my_games-table_slot" data-th-if="${festival.online and day.space}">
+            <div class="my_games-table_slot js-my_games-table_slot"
+                data-th-if="${festival.online and day.processed.space}">
                 <span data-th-text="${portal.localize({'_key=myGames.slots.registered', '_locale=ru'})}"></span>
-                <span data-th-text="${day.space.reserved}"></span>
+                <span data-th-text="${day.processed.space.reserved}"></span>
             </div>
         </div>
 
         <div class="my_games-schedule-item-body">
-            <div class="my_games-available-wrapper js-my_games-available-wrapper" data-th-if="${day.available}"
-                data-th-utext="${day.available}">
+            <div class="my_games-available-wrapper js-my_games-available-wrapper"
+                data-th-if="${day.processed.available}" data-th-utext="${day.processed.available}">
             </div>
 
             <div class="my_games-action-block my_games-action-block-add_game js-my_games-add_game_btn-wrap">

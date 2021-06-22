@@ -9,11 +9,11 @@ const moment = require(libLocation + "moment");
 const votesLib = require(libLocation + "votesLib");
 const sharedLib = require(libLocation + "sharedLib");
 const blogLib = require(libLocation + "blogLib");
-const cartLib = require(libLocation + "cartLib");
+const cartLib = require("/lib/cartLib");
 const userLib = require("/lib/userLib");
 const helpers = require(libLocation + "helpers");
 const pdfLib = require(libLocation + "pdfLib");
-const formSharedLib = require(libLocation + "games/formSharedLib");
+const formLib = require("/lib/festival/formLib");
 const commentsLib = require(libLocation + "commentsLib");
 const notificationLib = require(libLocation + "notificationLib");
 const cacheLib = require(libLocation + "cacheLib");
@@ -91,7 +91,7 @@ function handleReq(req) {
       ? norseUtils.forceArray(content.data.bookmarks)
       : 0;
     var userSystemObj = userLib.getSystemUser(content.data.email);
-    var currUserFlag = currUser.user.key == userSystemObj.key;
+    var currUserFlag = currUser && currUser.user.key == userSystemObj.key;
     content.votes = blogLib.countUserRating(content._id);
     var date = new Date(moment(content.publish.from.replace("Z", "")));
     content.date =
@@ -152,22 +152,28 @@ function handleReq(req) {
       let userGames = formPlayerLib.getGamesByPlayer();
       active.games = "active";
       var currTitle = "games";
-      let days = formSharedLib.getDays();
+      let days = formLib.getDaysGM();
+      let festival = formLib.getFestivalByDays(days);
+      days.forEach((day) => {
+        day.processed.available = thymeleaf.render(
+          resolve("games/shared/availableComp.html"),
+          {
+            games: day.processed.games,
+            festival: festival
+          }
+        );
+      });
       var articles = thymeleaf.render(resolve("components/gamesView.html"), {
         currUser: currUser,
         userGames: userGames,
         currUserFlag: currUserFlag,
-        festival: formSharedLib.getFestivalByDays(days),
+        festival: festival,
         gameMasterForm: thymeleaf.render(resolve("games/gm/gmComp.html"), {
           days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
             days: days,
-            festival: formSharedLib.getFestivalByDays(days)
+            festival: formLib.getFestivalByDays(days)
           })
-        }),
-        playerForm: thymeleaf.render(
-          resolve("games/player/playerComp.html"),
-          {}
-        )
+        })
       });
     } else if (up.action == "orders" && currUserFlag) {
       var orders = cartLib.getCartsByUser(content.data.email, content._id);

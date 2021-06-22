@@ -4,11 +4,11 @@ var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var promosLib = require(libLocation + "promosLib");
-var cartLib = require(libLocation + "cartLib");
+var cartLib = require("/lib/cartLib");
 var sharedLib = require(libLocation + "sharedLib");
 var contextLib = require(libLocation + "contextLib");
 
-exports.post = function(req) {
+exports.post = function (req) {
   var params = req.params;
   var view = resolve("addPromo.html");
   var action = params.action;
@@ -22,7 +22,7 @@ exports.post = function(req) {
       };
     case "activatePromo":
       var view = resolve("../checkout/components/promos.html");
-      var cart = contextLib.runAsAdmin(function() {
+      var cart = contextLib.runAsAdmin(function () {
         return promosLib.activatePromo(params.promoCode, params.cartId);
       });
       if (!cart) {
@@ -42,7 +42,7 @@ exports.post = function(req) {
       };
     case "removePromo":
       var view = resolve("../checkout/components/promos.html");
-      var cart = contextLib.runAsAdmin(function() {
+      var cart = contextLib.runAsAdmin(function () {
         return cartLib.removePromo(params.code, params.cartId);
       });
       var markup = thymeleaf.render(view, {

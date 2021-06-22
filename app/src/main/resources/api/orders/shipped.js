@@ -5,7 +5,7 @@ const thymeleaf = require("/lib/thymeleaf");
 const libLocation = "/site/lib/";
 const norseUtils = require(libLocation + "norseUtils");
 const mailsLib = require(libLocation + "mailsLib");
-const cartLib = require(libLocation + "cartLib");
+const cartLib = require("/lib/cartLib");
 const adminLib = require(libLocation + "adminLib");
 
 exports.post = function (req) {

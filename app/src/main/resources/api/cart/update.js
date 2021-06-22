@@ -3,7 +3,7 @@ const contentLib = require("/lib/xp/content");
 
 const libLocation = "../../site/lib/";
 const contextLib = require(libLocation + "contextLib");
-const cartLib = require(libLocation + "cartLib");
+const cartLib = require("/lib/cartLib");
 const norseUtils = require(libLocation + "norseUtils");
 const adminLib = require(libLocation + "adminLib");
 

@@ -4,7 +4,7 @@ const thymeleaf = require("/lib/thymeleaf");
 
 const libLocation = "/site/lib/";
 const norseUtils = require(libLocation + "norseUtils");
-const cartLib = require(libLocation + "cartLib");
+const cartLib = require("/lib/cartLib");
 
 exports.getShipping = getShipping;
 exports.getShippingById = getShippingById;
