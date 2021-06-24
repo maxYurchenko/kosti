@@ -266,6 +266,7 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function (e) {
   addNewGameData["gameSystem"] = gameSystem;
   addNewGameData["virtualTable"] = virtualTable;
   addNewGameData["theme"] = $(".js-my_games-theme").val();
+  addNewGameData["maxPlayers"] = $(".js-my_games-maxPlayers").val();
 
   addNewGameData["image"] = addNewGameData["image"]
     ? addNewGameData["image"]

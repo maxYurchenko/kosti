@@ -129,30 +129,36 @@
                 data-th-text="${portal.localize({'_key=myGames.form.adventureDescription.caption', '_locale=ru'})}">
             </div>
         </div>
-        <div class="my_games-playears_qty-list form-group">
-            <h5 class="form-group-title"
-                data-th-text="${portal.localize({'_key=myGames.form.qtyOfPlayers', '_locale=ru'})}"></h5>
-            <input data-th-attr="checked=${game && game.content.data.maxPlayers == 4}" required type="radio"
-                name="maxPlayers" id="playears_qty_4" value="4" hidden>
-            <label for="playears_qty_4" class="my_games-playears_qty-item active label-radio">
-                <span>4</span>
-            </label>
 
-            <input data-th-attr="checked=${game && game.content.data.maxPlayers == 5}" required type="radio"
-                name="maxPlayers" id="playears_qty_5" value="5" hidden>
-            <label for="playears_qty_5" class="my_games-playears_qty-item label-radio">
-                <span>5</span>
-            </label>
-
-            <input data-th-attr="checked=${game && game.content.data.maxPlayers == 6}" required type="radio"
-                name="maxPlayers" id="playears_qty_6" value="6" hidden>
-            <label for="playears_qty_6" class="my_games-playears_qty-item label-radio">
-                <span>6</span>
-            </label>
+        <div class="form-group">
+            <label for="my_games_system"
+                data-th-text="${portal.localize({'_key=myGames.form.qtyOfPlayers', '_locale=ru'})}"></label>
+            <div class="my_games-system-select select-field">
+                <select required name="maxPlayers" id="my_games_max_players" class="select js-my_games-maxPlayers">
+                    <option data-th-text="${portal.localize({'_key=myGames.form.maxPlayers.choose', '_locale=ru'})}"
+                        disabled="disabled" selected>
+                    </option>
+                    <option data-th-selected="${game && game.content.data.maxPlayers == 4}" value="4">4
+                    </option>
+                    <option data-th-selected="${game && game.content.data.maxPlayers == 5}" value="5">5
+                    </option>
+                    <option data-th-selected="${game && game.content.data.maxPlayers == 6}" value="6">6
+                    </option>
+                    <option data-th-selected="${game && game.content.data.maxPlayers == 7}" value="7">7
+                    </option>
+                    <option data-th-selected="${game && game.content.data.maxPlayers == 8}" value="8">8
+                    </option>
+                </select>
+            </div>
         </div>
-        <div class="my_games-adventure_lang-list form-group">
+        <input name="language" data-th-if="${day.content.data.language}" type="hidden"
+            data-th-value="${day.content.data.language}">
+        <input name="language" data-th-if="${block.content.data.language}" type="hidden"
+            data-th-value="${block.content.data.language}">
+        <div data-th-unless="${hideSelectLanguage}" class="my_games-adventure_lang-list form-group">
             <h5 class="form-group-title"
-                data-th-text="${portal.localize({'_key=myGames.form.adventureLang', '_locale=ru'})}"></h5>
+                data-th-text="${portal.localize({'_key=myGames.form.adventureLang', '_locale=ru'})}">
+            </h5>
 
             <input data-th-attr="checked=${game && game.content.data.language == 'ua'}" required type="radio"
                 name="language" id="ukrainian" value="ua" hidden>
@@ -211,7 +217,8 @@
                 </div>
                 <input type="file" id="game-img" class="js_image-upload" hidden data-ignore="true">
                 <div class="form-caption"
-                    data-th-text="${portal.localize({'_key=myGames.form.image.caption', '_locale=ru'})}"></div>
+                    data-th-text="${portal.localize({'_key=myGames.form.image.caption', '_locale=ru'})}">
+                </div>
             </label>
             <input type="hidden" class="js_image-id" name="image"
                 data-th-value="${game && game.content.data.image != null ? game.content.data.image : '' }">
