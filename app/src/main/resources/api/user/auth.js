@@ -1,10 +1,10 @@
-var thymeleaf = require("/lib/thymeleaf");
-var portal = require("/lib/xp/portal");
+const thymeleaf = require("/lib/thymeleaf");
+const portal = require("/lib/xp/portal");
+const userLib = require("/lib/userLib");
 
-var libLocation = "/site/lib/";
-var norseUtils = require(libLocation + "norseUtils");
-var userLib = require("/lib/userLib");
-var helpers = require(libLocation + "helpers");
+const libLocation = "/site/lib/";
+const norseUtils = require(libLocation + "norseUtils");
+const helpers = require(libLocation + "helpers");
 
 exports.get = function (req) {
   var site = portal.getSite();

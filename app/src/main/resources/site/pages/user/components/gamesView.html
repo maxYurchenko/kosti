@@ -13,7 +13,10 @@
 </div>
 <div class="my_games-signed-wrapper">
     <div class="my_games-gm-header">
-        <h2 class="my_games-title">Мои игры на KostiCONnect</h2>
+        <h2 class="my_games-title">
+            Мои игры на 
+            <span data-th-text="${festival.displayName}" data-th-remove="tag"></span>
+        </h2>
     </div>
     <ul class="my_games-signed-list" data-th-if="${userGames.size > 0}">
         <li data-th-each="game : ${userGames}" class="my_games-signed-item">

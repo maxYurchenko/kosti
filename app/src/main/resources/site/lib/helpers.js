@@ -131,6 +131,7 @@ function getPageComponents(req, footerType, activeEl, title) {
       var items = norseUtils.forceArray(siteConfig.menuItems);
       for (var i = 0; i < items.length; i++) {
         var tempContent = contentLib.get({ key: items[i] });
+        if (!tempContent) continue;
         result.push({
           url: portal.pageUrl({ path: tempContent._path }),
           title: tempContent.displayName,

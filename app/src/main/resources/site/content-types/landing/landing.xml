@@ -71,5 +71,11 @@
         <alignment>right</alignment>
       </config>
     </input>
+    <input name="requireDiscord" type="CheckBox">
+      <label>Require discord</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
   </form>
 </content-type>
