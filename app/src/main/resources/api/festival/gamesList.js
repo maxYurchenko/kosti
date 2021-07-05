@@ -1,13 +1,5 @@
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
-var thymeleaf = require("/lib/thymeleaf");
-var httpClientLib = require("/lib/http-client");
-
-var libLocation = "../../site/lib/";
-var norseUtils = require(libLocation + "norseUtils");
-var userLib = require("/lib/userLib");
-var helpers = require(libLocation + "helpers");
-var formPlayerLib = require(libLocation + "games/formPlayerLib");
+const thymeleaf = require("/lib/thymeleaf");
+const playerLib = require("/lib/festival/playerLib");
 
 exports.get = function (req) {
   if (req.params && req.params["theme[]"]) {
@@ -19,7 +11,12 @@ exports.get = function (req) {
       html: thymeleaf.render(
         resolve("../../site/pages/games/gamesBlock.html"),
         {
-          days: formPlayerLib.getDays(req.params)
+          games: playerLib.getGames({
+            day: req.params.dayId,
+            system: req.params.system,
+            theme: req.params.theme,
+            gameSpace: req.params.gameSpace
+          })
         }
       )
     },

@@ -4,58 +4,25 @@
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
 <body class="kosticonnect-page landingPage">
-    <div class="modal js_loader">
-        <div class="lds-ring">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="kosticonnect-header">
         <div class="site_content">
             <div class="kosticonnect-header_inner">
                 <div class="kosticonnect-short_info">
-                    <div class="kosticonnect-left">
-                        <div class="kosticonnect-logo">
-                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/snake-logo.svg'})}"
-                                alt="kosticonnect " />
-                        </div>
-                        <div class="fest_date">
-                            <span class="fest_date-day">25 - 28</span>
-                            <span class="fest_date-month">февраля</span>
-                        </div>
-                    </div>
                     <div class="kosticonnect-headline">
                         <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
                             alt="kosticonnect " />
                     </div>
                 </div>
-                <div class="kosticonnect-where">
-                    <div class="kosticonnect-twitch">
-                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/twitch-logo.svg'})}"
-                            alt="kosticonnect " />
-                    </div>
-                    <div class="kosticonnect-discord">
-                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/discord-logo.svg'})}"
-                            alt="kosticonnect " />
-                    </div>
-                    <div class="kosticonnect-zoom">
-                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/zoom-logo.svg'})}"
-                            alt="kosticonnect " />
-                    </div>
-                </div>
-            </div>
-            <div class="kosticonnect-header_insert kosticonnect-header_insert-games">
-                <h2 class="kosticonnect-title" data-th-text="${content.displayName}">
-                </h2>
-                <a data-th-href="${mygamesLink}" class="kosticonnect-button primary">Мои Игры</a>
             </div>
         </div>
     </header>
     <main class="kosticonnect-wrap k_games-wrap">
         <div class="kosticonnect-content k_games">
             <div class="site_content">
+                <div data-th-if="${mygamesLink}" class="k_games-my_games_btn">
+                    <a data-th-href="${mygamesLink}" class="kosticonnect-button primary">Мои Игры</a>
+                </div>
                 <div class="k_games-filters">
                     <div class="k_games-filters-control">
                         <h5 class="k_games-filters-title">
@@ -71,6 +38,7 @@
                         </h5>
                     </div>
                     <div class="k_games-filters-list js-k_games-filters-list">
+                        <!--
                         <div class="k_games-filters-item day">
                             <label class="k_games-filters-label" for="k_games-day-select">День</label>
                             <div class="k_games-filters-select select-field">
@@ -80,6 +48,7 @@
                                 </select>
                             </div>
                         </div>
+                        -->
                         <div class="k_games-filters-item theme">
                             <label class="k_games-filters-label" for="k_games-theme-select">Темы</label>
                             <div class="js-custom_select custom_select">

@@ -18,12 +18,12 @@
             <span data-th-text="${festival.displayName}" data-th-remove="tag"></span>
         </h2>
     </div>
-    <ul class="my_games-signed-list" data-th-if="${userGames.size > 0}">
-        <li data-th-each="game : ${userGames}" class="my_games-signed-item">
-            <a class="my_games-signed-link" data-th-href="${game.url}" data-th-text="${game.displayName}">The Ballad of Buck Ravers></a>
+    <ul class="my_games-signed-list" data-th-if="${playerGames.size > 0}">
+        <li data-th-each="game : ${playerGames}" class="my_games-signed-item">
+            <a class="my_games-signed-link" data-th-href="${game.processed.url}" data-th-text="${game.content.displayName}"></a>
         </li>
     </ul>
-    <h4 class="my_games-signed-empty" data-th-unless="${userGames.size > 0}">
+    <h4 class="my_games-signed-empty" data-th-unless="${playerGames.size > 0}">
         Игр пока нет
     </h4>
 </div>

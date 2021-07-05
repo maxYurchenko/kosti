@@ -143,7 +143,7 @@
   &-info {
     display: inline-block;
     padding: 5px;
-    background-color: #ee1e5d;
+    background-color: #E2211C;
     font-size: rem(12);
     font-weight: bold;
     color: #ffffff;
@@ -251,7 +251,7 @@
 
   &-counter-value {
     font-weight: normal;
-    color: #ee1e5d;
+    color: #E2211C;
   }
 
   &-counter-label {
@@ -346,13 +346,13 @@
     display: flex;
     font-size: 20px;
     font-weight: bold;
-    color: #ee1e5d;
+    color: #E2211C;
     margin-bottom: 10px;
 
     &:after {
       content: '';
       flex: 1 1 auto;
-      background: #ee1e5d;
+      background: #E2211C;
       height: 1px;
       align-self: center;
       margin-left: 5px;
@@ -375,16 +375,16 @@
 
     &:hover {
       @include tablet-all {
-        color: #ee1e5d;
+        color: #E2211C;
 
         svg>g {
-          stroke: #ee1e5d;
+          stroke: #E2211C;
         }
       }
     }
 
     &:focus {
-      color: #ee1e5d;
+      color: #E2211C;
     }
   }
 
@@ -392,7 +392,7 @@
     border: solid 1px #3aa4e4;
     background-color: #101b21;
     border-radius: 0;
-    color: #ee1e5d;
+    color: #E2211C;
     height: 42px;
     padding-right: 60px;
 
@@ -437,12 +437,12 @@
 
     &:hover {
       @include tablet-all {
-        color: #ee1e5d;
+        color: #E2211C;
       }
     }
 
     &:focus {
-      color: #ee1e5d;
+      color: #E2211C;
     }
 
     .icon-selected {
@@ -525,7 +525,7 @@
       margin-bottom: 15px;
 
       &:hover {
-        background: #ee1e5d;
+        background: #E2211C;
       }
     }
 
@@ -551,7 +551,7 @@
       top: 0;
       left: 0;
       height: 16px;
-      background-color: #ee1e5d;
+      background-color: #E2211C;
       width: 20%;
     }
   }
@@ -575,7 +575,7 @@
     }
 
     a:hover {
-      color: #ee1e5d;
+      color: #E2211C;
     }
 
     &-title {
@@ -589,7 +589,7 @@
 
       &:hover {
         @include tablet-all {
-          color: #ee1e5d;
+          color: #E2211C;
         }
       }
     }
@@ -614,7 +614,7 @@
 
         .landing-faq-accordion-title:hover & {
           @include tablet-all {
-            border-color: #ee1e5d;
+            border-color: #E2211C;
           }
         }
       }
@@ -640,7 +640,7 @@
       color: white;
       font-weight: 300;
       padding: 0 15px;
-      border-left: 1px solid #ee1e5d;
+      border-left: 1px solid #E2211C;
 
       .active & {
         max-height: 2000px;
@@ -749,14 +749,14 @@
       text-transform: capitalize;
 
       &:hover {
-        color: #ee1e5d;
+        color: #E2211C;
       }
     }
   }
 
   &-attention {
     font-weight: 400;
-    color: #ee1e5d;
+    color: #E2211C;
     font-size: 16px;
 
     &+& {

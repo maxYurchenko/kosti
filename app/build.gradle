@@ -1,5 +1,5 @@
 plugins {
-  id 'com.enonic.xp.app' version '3.0.0'
+  id 'com.enonic.xp.app' version '2.0.0'
 }
 
 app {
@@ -32,9 +32,9 @@ dependencies {
   include 'openxp.lib:htmlexporter:1.0.0'
   include 'com.enonic.lib:lib-cache:2.1.1'
   include 'com.enonic.lib:lib-util:3.0.0'
-  include 'com.kostirpg.lib:user:0.1.0'
-  include 'com.kostirpg.lib:cart:0.1.1'
-  include 'com.kostirpg.lib:festival:1.0.0'
+  implementation 'com.github.maxYurchenko:kostirpg-users:-38adef652e-1'
+  implementation 'com.github.maxYurchenko:kostirpg-store:-a47f160008-1'
+  implementation 'com.github.maxYurchenko:kostirpg-festival:-2cb98c2f41-1'
 
   // https://mvnrepository.com/artifact/commons-codec/commons-codec
   compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
@@ -45,9 +45,11 @@ dependencies {
 }
 
 repositories {
-  mavenLocal()
   jcenter()
   xp.enonicRepo()
+  maven { 
+    url 'https://jitpack.io'
+  }
   maven {
     url 'http://repo.enonic.com/public'
   }

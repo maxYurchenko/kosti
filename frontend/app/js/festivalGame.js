@@ -20,8 +20,14 @@ function initKosticonnetcScripts() {
   });
 
   $(".js_sign-up-for-game").on("click", function (e) {
+    if (!checkUserLoggedIn()) {
+      showLogin(e);
+      return;
+    }
     showLoader();
     e.preventDefault();
+    signupForGame();
+    return;
 
     if (
       $(".js_game-sign-up-step-1").length > 0 &&

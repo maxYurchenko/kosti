@@ -2,11 +2,12 @@ const thymeleaf = require("/lib/thymeleaf");
 const portal = require("/lib/xp/portal");
 const contentLib = require("/lib/xp/content");
 
+const userLib = require("/lib/userLib");
+const festivalLib = require("/lib/festival/festivalLib");
+
 const libLocation = "../../lib/";
 const norseUtils = require(libLocation + "norseUtils");
 const helpers = require(libLocation + "helpers");
-const userLib = require("/lib/userLib");
-const formPlayerLib = require(libLocation + "games/formPlayerLib");
 
 exports.get = handleReq;
 
@@ -28,19 +29,21 @@ function handleReq(req) {
   function createModel() {
     let user = userLib.getCurrentUser();
     let game = portal.getContent();
-    game = formPlayerLib.beautifyGame(game);
+    game = festivalLib.beautifyGame(game);
     let discordUrl = null;
-    if (!(user && user.data && user.data.discord)) {
+    if (!(user && user.content.data && user.content.data.discord)) {
       discordUrl = helpers.getDiscordUrl("api/festival/discord");
     }
-    if (!game.data.players) game.data.players = [];
-    game.data.players = norseUtils.forceArray(game.data.players);
+    if (!game.content.data.players) game.content.data.players = [];
+    game.content.data.players = norseUtils.forceArray(
+      game.content.data.players
+    );
     let gameSigned =
       user &&
       game &&
-      game.data &&
-      game.data.players &&
-      game.data.players.indexOf(user._id) > -1;
+      game.content.data &&
+      game.content.data.players &&
+      game.content.data.players.indexOf(user.content._id) > -1;
 
     var model = {
       game: game,

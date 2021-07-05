@@ -87,6 +87,9 @@ function generateNiceServiceUrl(url, params, absolute) {
 }
 
 function getTranslationCounter(count) {
+  if (!count) {
+    count = 3;
+  }
   var stringCount = count.toString();
   if (
     stringCount === "11" ||

@@ -2,13 +2,14 @@ const thymeleaf = require("/lib/thymeleaf");
 const portal = require("/lib/xp/portal");
 const contentLib = require("/lib/xp/content");
 
+const festivalLib = require("/lib/festival/festivalLib");
+const playerLib = require("/lib/festival/playerLib");
+const userLib = require("/lib/userLib");
+
 const libLocation = "../../lib/";
 const norseUtils = require(libLocation + "norseUtils");
 const helpers = require(libLocation + "helpers");
-const userLib = require("/lib/userLib");
-const formSharedLib = require(libLocation + "games/formSharedLib");
 const cacheLib = require(libLocation + "cacheLib");
-const formPlayerLib = require(libLocation + "games/formPlayerLib");
 
 const cache = cacheLib.api.createGlobalCache({
   name: "festival",
@@ -52,10 +53,9 @@ function handleReq(req) {
   function createModel() {
     let user = userLib.getCurrentUser();
     let content = portal.getContent();
-    let festival = formSharedLib.getActiveFestival();
-    let days = formPlayerLib.getDays({
-      getBlocks: true,
-      dayId: req.params.dayId,
+    let festival = festivalLib.getActiveFestival();
+    let games = playerLib.getGames({
+      day: req.params.dayId,
       system: req.params.system,
       theme: req.params.theme
     });
@@ -67,7 +67,7 @@ function handleReq(req) {
     let mygamesLink = null;
     if (user)
       mygamesLink = portal.pageUrl({
-        id: user._id,
+        id: user.content._id,
         params: { action: "games" }
       });
 
@@ -75,9 +75,14 @@ function handleReq(req) {
       content: content,
       user: user,
       mygamesLink: mygamesLink,
-      days: formSharedLib.getDays({ skipBeautify: true }),
+      days: festivalLib.getItemsList({
+        parentId: festival._id,
+        type: "block",
+        parentPathLike: true,
+        additionalQuery: " and data.type='day'"
+      }),
       gamesView: thymeleaf.render(resolve("gamesBlock.html"), {
-        days: days
+        games: games
       }),
       festival: festival,
       filters: getFilters(),
@@ -89,8 +94,8 @@ function handleReq(req) {
 
   function getFilters() {
     let filters = { themes: [], system: [] };
-    let festival = formSharedLib.getActiveFestival();
-    let games = formSharedLib.getItemsList({
+    let festival = festivalLib.getActiveFestival();
+    let games = festivalLib.getItemsList({
       parentId: festival._id,
       type: "game",
       parentPathLike: true

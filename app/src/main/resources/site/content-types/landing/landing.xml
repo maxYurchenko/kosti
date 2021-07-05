@@ -30,7 +30,7 @@
         </input>
         <input name="products" type="ContentSelector">
           <label>Products</label>
-          <occurrences minimum="1" maximum="0"/>
+          <occurrences minimum="0" maximum="0"/>
           <config>
             <allowContentType>product</allowContentType>
           </config>

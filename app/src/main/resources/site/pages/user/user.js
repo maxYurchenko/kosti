@@ -17,7 +17,7 @@ const formLib = require("/lib/festival/formLib");
 const commentsLib = require(libLocation + "commentsLib");
 const notificationLib = require(libLocation + "notificationLib");
 const cacheLib = require(libLocation + "cacheLib");
-const formPlayerLib = require(libLocation + "games/formPlayerLib");
+const playerLib = require("/lib/festival/playerLib");
 const countries = require(libLocation + "misc/countries");
 
 const cache = cacheLib.api.createGlobalCache({
@@ -147,9 +147,9 @@ function handleReq(req) {
       );
       var articles = notifications.hits;
     } else if (up.action == "games" && currUserFlag) {
-      var games = getGames();
-      totalArticles.curr = games.total;
-      let userGames = formPlayerLib.getGamesByPlayer();
+      let playerGames = playerLib.getGamesByPlayer();
+      let userGames = playerLib.getGamesByUser();
+      totalArticles.curr = userGames.length;
       active.games = "active";
       var currTitle = "games";
       let days = formLib.getDaysGM();
@@ -168,6 +168,7 @@ function handleReq(req) {
         userGames: userGames,
         currUserFlag: currUserFlag,
         festival: festival,
+        playerGames: playerGames,
         gameMasterForm: thymeleaf.render(resolve("games/gm/gmComp.html"), {
           days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
             days: days,
@@ -177,11 +178,11 @@ function handleReq(req) {
       });
     } else if (up.action == "orders" && currUserFlag) {
       var orders = cartLib.getCartsByUser(content.data.email, content._id);
-      totalArticles.curr = orders.total;
+      totalArticles.curr = orders.length;
       active.orders = "active";
       var currTitle = "orders";
       var articles = thymeleaf.render(resolve("components/ordersView.html"), {
-        orders: orders.hits
+        orders: orders
       });
     } else {
       totalArticles.curr = totalArticles.articles;
@@ -237,8 +238,9 @@ function handleReq(req) {
       var games = contentLib.query({
         start: 0,
         count: -1,
-        query: "fulltext('data.*', '" + content._id + "', 'OR')",
-        contentTypes: [app.name + ":form"]
+        query:
+          "fulltext('data.master, data.players', '" + content._id + "', 'OR')",
+        contentTypes: [app.name + ":game"]
       });
       if (countOnly) {
         return games.total;
@@ -275,6 +277,7 @@ function handleReq(req) {
       }
       games.hits = result;
       games.total = count.toFixed();
+      norseUtils.log(games);
       return games;
     }
     return model;
