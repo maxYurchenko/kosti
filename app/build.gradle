@@ -53,4 +53,7 @@ repositories {
   maven {
     url 'https://openxp.jfrog.io/artifactory/public'
   }
+  maven {
+    url 'https://dl.bintray.com/openxp/public'
+  }
 }
