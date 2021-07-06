@@ -1,5 +1,5 @@
 plugins {
-  id 'com.enonic.xp.app' version '2.0.0'
+  id 'com.enonic.xp.app' version '3.0.0'
 }
 
 app {
@@ -32,16 +32,13 @@ dependencies {
   include 'openxp.lib:htmlexporter:1.0.0'
   include 'com.enonic.lib:lib-cache:2.1.1'
   include 'com.enonic.lib:lib-util:3.0.0'
-  include 'com.kostirpg.lib:user:0.1.0'
-  include 'com.kostirpg.lib:cart:0.1.1'
-  include 'com.kostirpg.lib:festival:1.0.0'
 
-  // https://mvnrepository.com/artifact/commons-codec/commons-codec
   compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
-
-  // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
   compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.1'
 
+  include 'com.github.maxYurchenko:kostirpg-store:0.1.0'
+  include 'com.github.maxYurchenko:kostirpg-festival:0.1.0'
+  include 'com.github.maxYurchenko:kostirpg-users:0.1.0'
 }
 
 repositories {
@@ -54,10 +51,6 @@ repositories {
     url 'http://repo.enonic.com/public'
   }
   maven {
-    url 'https://dl.bintray.com/openxp/public'
-  }
-  maven {
     url 'https://openxp.jfrog.io/artifactory/public'
   }
-  mavenLocal()
 }

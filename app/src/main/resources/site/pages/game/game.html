@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div class="js_header-user hidden" data-th-attr="data-userid=${user.content._id}"></div>
+        <div data-th-if="${user}" class="js_header-user hidden" data-th-attr="data-userid=${user.content._id}"></div>
     </header>
     <main data-th-attr="data-id=${game.content._id}" class="kosticonnect-wrap k_games-wrap js_game-id">
         <div class="kosticonnect-header_insert">
