@@ -36,9 +36,10 @@ dependencies {
   compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
   compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.1'
 
-  include 'com.github.maxYurchenko:kostirpg-store:0.1.0'
+  //include 'com.github.maxYurchenko:kostirpg-store:0.1.0'
   include 'com.github.maxYurchenko:kostirpg-festival:0.1.1'
   include 'com.github.maxYurchenko:kostirpg-users:0.1.0'
+  include 'com.kostirpg.lib:cart:0.1.1'
 }
 
 repositories {
@@ -56,4 +57,5 @@ repositories {
   maven {
     url 'https://dl.bintray.com/openxp/public'
   }
+  mavenLocal()
 }

@@ -72,6 +72,9 @@ exports.get = function (req) {
     case "checkProductInventory":
       storeLib.checkProductsStock();
       break;
+    case "clearOldCarts":
+      cartLib.clearOldCarts();
+      break;
   }
   return {
     body: "ok",
