@@ -232,12 +232,6 @@
             bottom: 0;
         }
 
-        img {
-            height: 85vh;
-            width: 100%;
-            object-fit: cover;
-        }
-
         video {
             width: 100%;
 
@@ -254,7 +248,7 @@
         bottom: 0;
         height: 100%;
         width: 100%;
-        padding: 20px 25px 48px;
+        padding: 20px 0 48px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -1256,7 +1250,7 @@
 
     .banner-img {
         width: 100%;
-        height: 400px;
+        height: 560px;
         object-fit: cover;
     }
 
