@@ -51,7 +51,7 @@ function getDonations(skip) {
 function beautifyDonations(donations) {
   if (!donations.data) return donations;
   donations.data.forEach((d) => {
-    d.date = moment(d.created_at.date).format("DD.MM.YYYY HH:mm:ss");
+    d.date = moment(d.created_at).format("DD.MM.YYYY HH:mm:ss");
   });
   return donations;
 }

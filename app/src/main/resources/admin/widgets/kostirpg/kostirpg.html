@@ -4,7 +4,7 @@
     <title>Attachments Cleanup</title>
     <form data-th-if="${showGenerateButton}">
         <input class="js_codes-amount" />
-        <div data-th-onclick="|generatePromos('${id}')|">button
+        <div data-th-attr="onclick=|generatePromos('${id}')|">button
         </div>
     </form>
     <script data-th-widget-id="${widgetId}" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
