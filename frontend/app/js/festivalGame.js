@@ -20,15 +20,18 @@ function initKosticonnetcScripts() {
   });
 
   $(".js_sign-up-for-game").on("click", function (e) {
-    if (!checkUserLoggedIn()) {
-      showLogin(e);
-      return;
+    if ($(this).data().step === "init") {
+      $(".js_game-sign-up-step-1").show("slow");
+      $(this).data().step = "form";
+      hideLoader();
+    } else if ($(this).data().step === "form") {
+      updateUserData();
+    } else {
+      signupForGame();
     }
-    showLoader();
-    e.preventDefault();
-    signupForGame();
-    return;
 
+    /*
+    KOSTICONNECT
     if (
       $(".js_game-sign-up-step-1").length > 0 &&
       $(this).data().step === "init"
@@ -49,6 +52,7 @@ function initKosticonnetcScripts() {
     } else {
       signupForGame();
     }
+    */
   });
 }
 
@@ -60,6 +64,7 @@ $(".js_game-sign-up-step-1").on("submit", function (e) {
 function signOutOfGame() {
   var data = { gameId: $(".js_game-id").data().id };
   $.ajax({
+    //url: gameSignOutUrl,
     url: gameSignOutUrl,
     data: data,
     type: "POST",
@@ -84,7 +89,8 @@ function updateUserData() {
     data[$(this).attr("name")] = $(this).val();
   });
   $.ajax({
-    url: updateUserDataUrl,
+    //url: updateUserDataUrl,
+    url: gameSignUpUrl,
     data: data,
     type: "POST",
     success: function (data) {

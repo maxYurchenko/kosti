@@ -95,32 +95,24 @@
                 </div>
             </div>
             <div class="k_gdp-sign_up">
-                <!--
                 <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1">
-                    <div class="form-group"
-                        data-th-unless="${user and user.content.data and user.content.data.firstName}">
-                        <input class="js_get-user-data" name="firstName" placeholder="Ваше имя" required>
+                    <div>
+                        Для записи на игру вам необходимо <a class="js_login-required">Войти</a>, или заполнить форму
+                        ниже.
                     </div>
-                    <div class="form-group"
-                        data-th-unless="${user and user.content.data and (user.content.data.kosticonnect2021 or user.data.roles.gameMaster)}">
-                        <input class="js_get-user-data" name="ticket" placeholder="Номер билета" required>
+                    <div class="form-group" data-th-unless="${user and user.content.displayName}">
+                        <input class="js_get-user-data" name="username" placeholder="Ваше имя" required>
                     </div>
-                    <div class="k_gdp-agreement form-group">
-                        <input required type="checkbox" name="agreement" id="fest-agreement" hidden />
-                        <label for="fest-agreement" class="label-checkbox">Я прочитал и принимаю
-                            <a href="/kosticonnect/pravila-kosticonnect" target="_blank">условия фестиваля</a></label>
+                    <div class="form-group" data-th-unless="${user and user.content.data.email}">
+                        <input class="js_get-user-data" name="email" placeholder="Электронная почта" required>
+                    </div>
+                    <div class="form-group" data-th-unless="${user and user.content.data.phone}">
+                        <input class="js_get-user-data" name="phone" placeholder="Номер телефона" required>
                     </div>
                 </form>
-                <div class="k_gdp-sign_up-step_2 js_game-sign-up-step-2" data-th-if="${discordUrl}"
-                    style="display:none">
-                    <a data-th-href="${discordUrl}" class="button social_login-discord" name="discord"
-                        placeholder="discord"> Залогиньтесь через Дискорд</a>
-                </div>
-                -->
                 <div class="k_gdp-signed" data-th-if="${gameSigned}">
                     <div class="k_games-time_title">Вы уже записаны на эту игру.</div>
-                    <button data-step="init"
-                        class="kosticonnect-button primary k_gdp-sign_out-btn js_sign-out-of-game">ОТПИСАТЬСЯ ОТ
+                    <button class="kosticonnect-button primary k_gdp-sign_out-btn js_sign-out-of-game">ОТПИСАТЬСЯ ОТ
                         ИГРЫ</button>
                 </div>
                 <div class="k_gdp-actions">
