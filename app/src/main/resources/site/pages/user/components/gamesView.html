@@ -3,7 +3,7 @@
 <script type="text/javascript" data-th-inline="javascript">
     var customEditorStyles = [[${portal.assetUrl({'_path=/css/tinymce.css'})}]];
 </script>
-<div class="my_games js-my_games" data-th-if="${currUserFlag && currUser.data.roles.moscowGM}">
+<div class="my_games js-my_games" data-th-if="${currUserFlag && currUser.data.roles.kyivGameMaster}">
     <div class="my_games-event_name-list">
         <div class="my_games-event_name-item active" data-th-text="${festival.displayName}"></div>
     </div>

@@ -13,19 +13,17 @@ exports.get = function (req) {
     userLib.discordRegister(req.params.code, "become-gm");
   }
   var user = userLib.getCurrentUser();
-  if (!(user && user.data && user.data.discord)) {
+  if (!user) {
     return helpers.getLoginRequest({
-      type: "kosticonnect",
-      showDiscord: true,
       redirect: "become-gm"
     });
   }
-  userLib.addRole("gameMaster", user.key);
+  userLib.addRole("kyivGameMaster", user.user.key);
   return {
     status: 302,
     headers: {
       Location: portal.pageUrl({
-        path: user._path,
+        path: user.content._path,
         params: { action: "games" }
       })
     }
