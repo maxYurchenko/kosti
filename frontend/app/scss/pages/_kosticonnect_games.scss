@@ -8,6 +8,11 @@
     }
 
     &-title {
+        &.kosticonnect-title {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
         @include mobile {
             font-size: 24px;
         }
@@ -33,24 +38,45 @@
 
     &-list {
         margin: -15px;
+        display: grid;
+        grid-template-areas:
+            'day'
+            'time'
+            '.';
+        grid-template-columns: 1fr;
 
-        @include tablet-all {
-            display: flex;
-            flex-wrap: wrap;
+        @include tablet {
+            grid-template-areas:
+                'day day'
+                'time time'
+                '. .';
+            grid-template-columns: 1fr 1fr;
         }
+
+        @include desktop {
+            grid-template-areas:
+                'day day day'
+                'time time time'
+                '. . .'
+                '. . .'
+                '. . .'
+                '. . .';
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+
+    &-day_block {
+        grid-area: day;
+    }
+
+    &-time_block {
+        grid-area: time;
+        padding: 0 15px;
     }
 
     &-item {
         margin-bottom: 35px;
         transition: box-shadow ease-out 0.2s;
-
-        @include tablet {
-            flex: 0 0 50%;
-        }
-
-        @include desktop {
-            flex: 0 0 33%;
-        }
 
         &:hover {
             box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.2);
@@ -478,6 +504,7 @@
             font-size: 15px;
             line-height: 1.6;
             color: $kosticonnect-primary2;
+            padding-bottom: 15px;
 
             .k_gdp-sign_up-cta {
                 color: $kosticonnect-primary1;
@@ -496,7 +523,6 @@
             display: none;
             border-top: 3px solid $kosticonnect-primary1;
             padding: 15px;
-            margin-bottom: 25px;
         }
 
         &-step_2 {

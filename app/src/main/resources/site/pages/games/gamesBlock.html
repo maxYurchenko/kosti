@@ -1,20 +1,4 @@
 <div class="k_games-day_block">
-    <!--
-        <div class="k_games-day_block" data-th-each="day : ${days}">
-        TODO: uncomment and make days correct
-        <h2 class="k_games-title kosticonnect-title"
-            data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}">
-        </h2>
-    -->
-    <!--<div class="k_games-time_block" data-th-each="block : ${day.blocks}" data-th-if="${block.games.size > 0}">-->
-    <!--
-            TODO: uncomment and make blocks correct
-            <h3 class="k_games-time_title">
-                <span data-th-if="${block.time.end}" data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
-                <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span>
-                <span>MSK</span>
-            </h3>
-        -->
     <ul class="k_games-list">
         <li class="k_games-item" data-th-each="game : ${games}">
             <a class="k_games-item_link" data-th-href="${game.processed.url}">
@@ -49,10 +33,26 @@
             </a>
             
             <div class="k_games-item_actions">
-                <button class="kosticonnect-button primary"> Список игроков</button>
-                <button class="kosticonnect-button inverted">Добавить игрока</button>
+                <button class="kosticonnect-button primary js_modal-show"> Список игроков</button>
+                <button class="kosticonnect-button inverted js_modal-show">Добавить игрока</button>
             </div>
         </li>
+
+        <li class="k_games-day_block">
+            <h2 class="k_games-title kosticonnect-title">
+            <!-- <h2 class="k_games-title kosticonnect-title"
+                data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}"> -->
+                Пятница 26,02 | День 1
+            </h2>
+        </li>
+
+        <li class="k_games-time_block">
+            <h3 class="k_games-time_title">
+                <span>08:00-11:30</span>
+                <!-- <span data-th-if="${block.time.end}" data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
+                <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span> -->
+                <span>MSK</span>
+            </h3>
+        </li>
     </ul>
-    <!--</div>-->
 </div>
