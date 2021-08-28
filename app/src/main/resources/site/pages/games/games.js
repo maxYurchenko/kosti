@@ -44,6 +44,9 @@ function handleReq(req) {
             "'></script>",
           "<script src='" +
             portal.assetUrl({ path: "js/festivalGame.js" }) +
+            "'></script>",
+          "<script src='" +
+            portal.assetUrl({ path: "js/gamesList.js" }) +
             "'></script>"
         ]
       }
@@ -57,7 +60,8 @@ function handleReq(req) {
     let games = playerLib.getGames({
       day: req.params.dayId,
       system: req.params.system,
-      theme: req.params.theme
+      theme: req.params.theme,
+      count: 9
     });
     let filters = cache.api.getOnly("festival-filters");
     if (!filters) {
