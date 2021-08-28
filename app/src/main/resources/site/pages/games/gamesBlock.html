@@ -49,12 +49,12 @@
                     <span class="k_games-game_actions">
                         <span class="k_games-link_more" data-th-href="${game.processed.url}">Узнать больше</span>
                     </span>
-                </a>
 
-                <div class="k_games-item_actions">
-                    <button class="kosticonnect-button primary js_modal-show"> Список игроков</button>
-                    <button class="kosticonnect-button inverted js_modal-show">Добавить игрока</button>
-                </div>
+                    <div class="k_games-item_actions" data-th-if="${user and user.data.roles.moderator}">
+                        <button class="kosticonnect-button primary js_modal-show"> Список игроков</button>
+                        <button class="kosticonnect-button inverted js_modal-show">Добавить игрока</button>
+                    </div>
+                </a>
             </li>
         </div>
     </ul>

@@ -47,6 +47,7 @@
 
     &-item {
         display: inline-block;
+        vertical-align: top;
         margin-bottom: 35px;
         transition: box-shadow ease-out 0.2s;
         width: 100%;
@@ -71,7 +72,7 @@
     
 
     &-item_actions {
-        padding: 0 15px 25px;
+        padding: 15px 0;
         display: flex;
         justify-content: space-between;
 
@@ -395,6 +396,26 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+        }
+    }
+
+    &-table-name {
+        @include tablet-all { 
+            max-width: 23%;
+        }
+    }
+
+    &-table-remove_btn {
+        @include mobile {
+            margin-top: 10px;
+        }
+
+        @include tablet-all { 
+            max-width: 20%;
+        }
+
+        .button {
+            margin-bottom: 0;
         }
     }
 }

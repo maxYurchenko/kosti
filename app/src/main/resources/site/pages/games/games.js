@@ -40,9 +40,6 @@ function handleReq(req) {
       pageContributions: {
         bodyEnd: [
           "<script src='" +
-            portal.assetUrl({ path: "js/games.js" }) +
-            "'></script>",
-          "<script src='" +
             portal.assetUrl({ path: "js/festivalGame.js" }) +
             "'></script>",
           "<script src='" +
@@ -83,10 +80,11 @@ function handleReq(req) {
         parentId: festival._id,
         type: "block",
         parentPathLike: true,
-        additionalQuery: " and data.type='day'"
+        additionalQuery: " and data.blockType='day'"
       }),
       gamesView: thymeleaf.render(resolve("gamesBlock.html"), {
-        games: games
+        games: games,
+        user: user
       }),
       festival: festival,
       filters: getFilters(),
@@ -94,7 +92,8 @@ function handleReq(req) {
     };
 
     model.pageComponents["modal"] = thymeleaf.render(
-      resolve("../components/modal.html"),{}
+      resolve("../components/modal.html"),
+      {}
     );
 
     return model;
