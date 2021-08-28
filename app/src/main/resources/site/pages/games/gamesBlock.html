@@ -1,5 +1,21 @@
 <div class="k_games-day_block">
     <ul class="k_games-list">
+        <li class="k_games-day_block">
+            <h2 class="k_games-title kosticonnect-title">
+            <!-- <h2 class="k_games-title kosticonnect-title"
+                data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}"> -->
+                Пятница 26,02 | День 1
+            </h2>
+        </li>
+
+        <li class="k_games-time_block">
+            <h3 class="k_games-time_title">
+                <span>08:00-11:30</span>
+                <!-- <span data-th-if="${block.time.end}" data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
+                <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span> -->
+                <span>MSK</span>
+            </h3>
+        </li>
         <li class="k_games-item" data-th-each="game : ${games}">
             <a class="k_games-item_link" data-th-href="${game.processed.url}">
                 <span class="k_games-img_wrap">
@@ -36,23 +52,6 @@
                 <button class="kosticonnect-button primary js_modal-show"> Список игроков</button>
                 <button class="kosticonnect-button inverted js_modal-show">Добавить игрока</button>
             </div>
-        </li>
-
-        <li class="k_games-day_block">
-            <h2 class="k_games-title kosticonnect-title">
-            <!-- <h2 class="k_games-title kosticonnect-title"
-                data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}"> -->
-                Пятница 26,02 | День 1
-            </h2>
-        </li>
-
-        <li class="k_games-time_block">
-            <h3 class="k_games-time_title">
-                <span>08:00-11:30</span>
-                <!-- <span data-th-if="${block.time.end}" data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
-                <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span> -->
-                <span>MSK</span>
-            </h3>
         </li>
     </ul>
 </div>

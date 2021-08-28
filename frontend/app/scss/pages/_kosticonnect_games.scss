@@ -38,45 +38,26 @@
 
     &-list {
         margin: -15px;
-        display: grid;
-        grid-template-areas:
-            'day'
-            'time'
-            '.';
-        grid-template-columns: 1fr;
-
-        @include tablet {
-            grid-template-areas:
-                'day day'
-                'time time'
-                '. .';
-            grid-template-columns: 1fr 1fr;
-        }
-
-        @include desktop {
-            grid-template-areas:
-                'day day day'
-                'time time time'
-                '. . .'
-                '. . .'
-                '. . .'
-                '. . .';
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-    }
-
-    &-day_block {
-        grid-area: day;
+        font-size: 0;
     }
 
     &-time_block {
-        grid-area: time;
         padding: 0 15px;
     }
 
     &-item {
+        display: inline-block;
         margin-bottom: 35px;
         transition: box-shadow ease-out 0.2s;
+        width: 100%;
+
+        @include tablet {
+            width: 50%;
+        }
+
+        @include desktop {
+            width: 33%;
+        }
 
         &:hover {
             box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.2);
