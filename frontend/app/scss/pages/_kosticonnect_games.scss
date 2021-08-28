@@ -8,6 +8,11 @@
     }
 
     &-title {
+        &.kosticonnect-title {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
         @include mobile {
             font-size: 24px;
         }
@@ -23,7 +28,7 @@
         font-size: 24px;
         line-height: 1.3;
         font-feature-settings: 'pnum'on, 'lnum'on;
-        color: #2C1A46;
+        color: $kosticonnect-primary3;
         padding-bottom: 24px;
 
         @include tablet-all {
@@ -33,24 +38,45 @@
 
     &-list {
         margin: -15px;
+        display: grid;
+        grid-template-areas:
+            'day'
+            'time'
+            '.';
+        grid-template-columns: 1fr;
 
-        @include tablet-all {
-            display: flex;
-            flex-wrap: wrap;
+        @include tablet {
+            grid-template-areas:
+                'day day'
+                'time time'
+                '. .';
+            grid-template-columns: 1fr 1fr;
         }
+
+        @include desktop {
+            grid-template-areas:
+                'day day day'
+                'time time time'
+                '. . .'
+                '. . .'
+                '. . .'
+                '. . .';
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+
+    &-day_block {
+        grid-area: day;
+    }
+
+    &-time_block {
+        grid-area: time;
+        padding: 0 15px;
     }
 
     &-item {
         margin-bottom: 35px;
         transition: box-shadow ease-out 0.2s;
-
-        @include tablet {
-            flex: 0 0 50%;
-        }
-
-        @include desktop {
-            flex: 0 0 33%;
-        }
 
         &:hover {
             box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.2);
@@ -61,6 +87,17 @@
         display: block;
         padding: 15px;
     }
+    
+
+    &-item_actions {
+        padding: 0 15px 25px;
+        display: flex;
+        justify-content: space-between;
+
+        .kosticonnect-button {
+            flex: 0 0 48%;
+        }
+    }
 
     &-seats {
         position: absolute;
@@ -68,9 +105,9 @@
         font-weight: bold;
         font-size: 16px;
         line-height: 1.8;
-        color: #FFFFFF;
+        color: $color-primary1;
         bottom: 8px;
-        background: #E2211C;
+        background: $kosticonnect-primary1;
         text-transform: uppercase;
     }
 
@@ -111,14 +148,14 @@
         font-weight: 900;
         font-size: 24px;
         line-height: 1.35;
-        color: #11090F;
+        color: $kosticonnect-primary2;
     }
 
     &-game_desc_wrap {
         display: block;
         font-size: 14px;
         line-height: 1.45;
-        color: #11090F;
+        color: $kosticonnect-primary2;
         padding: 8px 0;
     }
 
@@ -134,7 +171,7 @@
         font-weight: bold;
         font-size: 16px;
         line-height: 1.45;
-        color: #E2211C;
+        color: $kosticonnect-primary1;
 
         &:hover {
             opacity: 0.8;
@@ -159,7 +196,7 @@
         font-weight: bold;
         font-size: 16px;
         line-height: 1.45;
-        color: #2C1A46;
+        color: $kosticonnect-primary3;
         padding-top: 8px;
     }
 
@@ -169,7 +206,7 @@
         &-link {
             width: 58px;
             height: 52px;
-            background: #E2211C;
+            background: $kosticonnect-primary1;
             border-radius: 1px;
             text-align: center;
             display: inline-block;
@@ -178,7 +215,7 @@
             font-weight: 900;
             font-size: 16px;
             line-height: 1.2;
-            color: #FFFFFF;
+            color: $color-primary1;
         }
 
         &-item {
@@ -227,7 +264,7 @@
             font-weight: 900;
             font-size: 24px;
             line-height: 32px;
-            color: #11090f;
+            color: $kosticonnect-primary2;
 
             @include mobile {
                 display: flex;
@@ -254,7 +291,7 @@
                 position: absolute;
                 height: 4px;
                 width: 50%;
-                background: #E2211C;
+                background: $kosticonnect-primary1;
                 opacity: 1;
                 transform: rotate(0deg);
                 transition: .25s ease-in-out;
@@ -353,7 +390,7 @@
             font-weight: bold;
             font-size: 16px;
             line-height: 24px;
-            color: #11090F;
+            color: $kosticonnect-primary2;
             text-transform: none;
         }
 
@@ -364,7 +401,7 @@
             }
 
             &:after {
-                border-top-color: #E2211C;
+                border-top-color: $kosticonnect-primary1;
             }
         }
     }
@@ -387,7 +424,7 @@
         font-weight: 900;
         font-size: 20px;
         line-height: 1.6;
-        color: #E2211C;
+        color: $kosticonnect-primary1;
         padding-bottom: 8px;
     }
 
@@ -404,7 +441,7 @@
     }
 
     &-title {
-        color: #11090F;
+        color: $kosticonnect-primary2;
 
         @include tablet {
             font-size: 40px;
@@ -414,7 +451,7 @@
     &-desc {
         font-size: 16px;
         line-height: 1.5;
-        color: #11090F;
+        color: $kosticonnect-primary2;
     }
 
     &-right_col {
@@ -426,7 +463,7 @@
         font-weight: bold;
         font-size: 16px;
         line-height: 1.5;
-        color: #2C1A46;
+        color: $kosticonnect-primary3;
     }
 
     &-value {
@@ -434,7 +471,7 @@
         font-weight: 900;
         font-size: 20px;
         line-height: 1.6;
-        color: #11090F;
+        color: $kosticonnect-primary2;
     }
 
     &-info {
@@ -461,8 +498,31 @@
             width: calc(65% - 25px);
         }
 
+        &-subtitle {
+            font-family: Raleway;
+            font-weight: 900;
+            font-size: 15px;
+            line-height: 1.6;
+            color: $kosticonnect-primary2;
+            padding-bottom: 15px;
+
+            .k_gdp-sign_up-cta {
+                color: $kosticonnect-primary1;
+                border-bottom: 3px solid $kosticonnect-primary1;
+
+                @include hover-supported {
+                    &:hover {
+                        color: mix($kosticonnect-primary1, $color-primary1, 70%);
+                        border-bottom-color: mix($kosticonnect-primary1, $color-primary1, 70%);
+                    }
+                }
+            }
+        }
+
         &-step_1 {
             display: none;
+            border-top: 3px solid $kosticonnect-primary1;
+            padding: 15px;
         }
 
         &-step_2 {
@@ -525,7 +585,7 @@
 
         .label-checkbox:hover:before,
         [type=checkbox]:checked+.label-checkbox:before {
-            border-color: #2C1A46;
+            border-color: $kosticonnect-primary3;
         }
 
         .label-checkbox:after {
@@ -533,7 +593,7 @@
         }
 
         a {
-            color: #2C1A46;
+            color: $kosticonnect-primary3;
         }
     }
 
@@ -574,7 +634,7 @@
 
         &:after {
             border: 4px solid transparent;
-            border-top-color: #E2211C;
+            border-top-color: $kosticonnect-primary1;
             border-bottom-width: 0;
             border-top-width: 6px;
             position: absolute;
@@ -592,7 +652,7 @@
     }
 
     &-selected_item {
-        background: #E2211C;
+        background: $kosticonnect-primary1;
         color: #fff;
         padding: 4px;
         display: inline-block;
@@ -601,7 +661,7 @@
         margin-top: 10px;
 
         &:hover {
-            background-color: darken(#E2211C, 20%);
+            background-color: darken($kosticonnect-primary1, 20%);
         }
     }
 

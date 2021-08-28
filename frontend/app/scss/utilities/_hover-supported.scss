@@ -1,0 +1,37 @@
+/*md
+@no-stat
+
+# Hover-supported
+
+This mixin is designed to address iOS standard behavior of first tap - hover,
+second tap - click that is engaged when control has hover styles applied.
+
+This is critical for functionality like back-top-button. If we apply hover styles as is.
+It would be activated only after second tap.
+
+If rules are wrapped into this media it applied only in case if device have fine
+pointer mechanism. [See more info](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/pointer).
+
+Please note about mixed input devices - touch screen + mouse + touchpad,
+touchpad + trackpoint, touch screen + stylus ("apple pencil") etc. -
+sometimes browser do not report it properly, so logic should be builded around
+exclusions.
+
+## Usage
+
+```scss
+.component {
+	@include hover-supported {
+		&:hover {
+			// Hover styles that should not be applied to touch
+		}
+	};
+}
+```
+*/
+
+@mixin hover-supported {
+	@media not all and (pointer: coarse) {
+		@content;
+	}
+}
