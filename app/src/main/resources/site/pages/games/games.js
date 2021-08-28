@@ -89,6 +89,10 @@ function handleReq(req) {
       pageComponents: helpers.getPageComponents(req, "footerScripts")
     };
 
+    model.pageComponents["modal"] = thymeleaf.render(
+      resolve("../pages/components/modal.html"),{}
+    );
+
     return model;
   }
 
