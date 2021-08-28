@@ -26,6 +26,12 @@
         .show & {
             transform: scale(1);
         }
+
+        &.m-game_actions {
+            @include tablet-all() {
+                min-width: 768px;
+            }
+        }
     }
 
     &-title {
