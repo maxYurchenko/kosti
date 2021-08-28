@@ -60,6 +60,11 @@ function initGamesScripts() {
       el.removeClass("show");
     }
   });
+
+  $("body").on("click", ".js_modal-show", function (e) {
+      e.preventDefault();
+      showModal(e);
+  });
 }
 
 function getFilteredGames() {
@@ -96,6 +101,15 @@ function addSelectedOption(val, text) {
       "<i class='icon-delete'></i></span>"
   ).appendTo(".js-custom_select-button");
   getFilteredGames();
+}
+
+function showModal(e) {
+  if (e) {
+    e.stopPropagation();
+  }
+  hideAllModals();
+  removeScroll();
+  $(".js_modal").addClass("show");
 }
 
 $(document).ready(function () {
