@@ -328,6 +328,9 @@
     <mapping controller="/api/festival/admin/playersList.js">
       <pattern>/api/festival/admin/games/players/list</pattern>
     </mapping>
+    <mapping controller="/api/festival/admin/removePlayer.js">
+      <pattern>/api/festival/admin/games/players/delete</pattern>
+    </mapping>
     <!--
       Encounter builder
     -->

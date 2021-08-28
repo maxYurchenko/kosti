@@ -3,6 +3,7 @@ const libLocation = "../../../site/lib/";
 const gmLib = require("/lib/festival/gmLib");
 const adminLib = require(libLocation + "adminLib");
 const thymeleaf = require("/lib/thymeleaf");
+const norseUtils = require(libLocation + "norseUtils");
 
 exports.get = function (req) {
   if (!adminLib.validateUserAdmin()) {
@@ -16,9 +17,12 @@ exports.get = function (req) {
     };
   }
   return {
-    body: thymeleaf.render(resolve("./../templates/playersList.html"), {
-      players: players
-    }),
-    contentType: "text/html"
+    body: {
+      html: thymeleaf.render(resolve("./../templates/playersListModal.html"), {
+        players: players,
+        gameId: req.params.gameId
+      })
+    },
+    contentType: "application/json"
   };
 };

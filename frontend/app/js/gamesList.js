@@ -4,7 +4,20 @@ var noMoreGames = false;
 var gamesFetchUrl = "/api/festival/games/list";
 var wrapper = $(".js-k_games-wrapper");
 
+var playersListUrl = "/api/festival/admin/games/players/list";
+var removePlayerUrl = "/api/festival/admin/games/players/delete";
+
 function initGamesListScripts() {
+  $("body").on("click", ".js_modal-show", function (e) {
+    e.preventDefault();
+    showModal(e, $(this));
+  });
+
+  $("body").on("click", ".js_remove-player", function (e) {
+    e.preventDefault();
+    removePLayer($(this));
+  });
+
   $(document).on("click", function (e) {
     var el = $(".js-custom_select");
     if (!el.is(e.target) && el.has(e.target).length === 0) {
@@ -138,6 +151,41 @@ function getSelectedFilters() {
     data.theme.push($(this).data().value);
   });
   return data;
+}
+
+function showModal(e, el) {
+  if (e) {
+    e.stopPropagation();
+  }
+  $.ajax({
+    url: playersListUrl,
+    data: { gameId: el.data().gameid },
+    type: "GET",
+    success: function (data) {
+      $(".js_modal-content").html(data.html);
+      hideLoader();
+    },
+    error: function (data) {
+      hideLoader();
+    }
+  });
+  hideAllModals();
+  removeScroll();
+  $(".js_modal").addClass("show");
+}
+
+function removePLayer(el) {
+  $.ajax({
+    url: removePlayerUrl,
+    data: { gameId: el.data().gameid, playerId: el.data().playerid },
+    type: "GET",
+    success: function (data) {
+      hideLoader();
+    },
+    error: function (data) {
+      hideLoader();
+    }
+  });
 }
 
 $(document).ready(function () {

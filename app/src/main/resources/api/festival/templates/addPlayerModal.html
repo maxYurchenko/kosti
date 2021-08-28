@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h4 class="modal-title">
+        Добавить игрока
+    </h4>
+    <span class="icon-delete modal-close js_modal-close"></span>
+</div>
+<div class="modal-body">
+    <div class="form-group" data-th-unless="${user and user.content.displayName}">
+        <input class="js_get-user-data" name="username" placeholder="Имя" required>
+    </div>
+    <div class="form-group" data-th-unless="${user and user.content.data.email}">
+        <input class="js_get-user-data" name="email" placeholder="Электронная почта" required>
+    </div>
+    <div class="form-group" data-th-unless="${user and user.content.data.phone}">
+        <input class="js_get-user-data" name="phone" placeholder="Номер телефона" required>
+    </div>
+</div>
+<div class="modal-footer">
+    <button data-step="init" class="kosticonnect-button primary">ЗАПИСАТЬ НА
+        ИГРУ</button>
+</div>

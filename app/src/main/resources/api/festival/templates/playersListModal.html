@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h4 class="modal-title">
+        Список Игроков
+    </h4>
+    <span class="icon-delete modal-close js_modal-close"></span>
+</div>
+<div class="modal-body">
+    <div class="table-wrap">
+        <div class="table-header_row">
+            <div class="table-header_cell k_games-table-name">
+                <span class="label">Им'я</span>
+            </div>
+
+            <div class="table-header_cell">
+                <span class="label">номер телефона</span>
+            </div>
+
+            <div class="table-header_cell">
+                <span class="label">email</span>
+            </div>
+
+            <div class="table-header_cell">
+                <span class="label">Действия</span>
+            </div>
+        </div>
+
+        <div class="table-body_row" data-th-each="player : ${players}">
+            <div class="table-body_cell k_games-table-name">
+                <span class="value" data-th-text="${player.displayName}">
+                </span>
+            </div>
+
+            <div class="table-body_cell">
+                <span class="value" data-th-text="${player.data.phone}">
+                </span>
+            </div>
+
+            <div class="table-body_cell">
+                <span class="value" data-th-text="${player.data.email}">
+                </span>
+            </div>
+            <div class="table-body_cell k_games-table-remove_btn">
+                <button class="button js_remove-player"
+                    data-th-attr="data-playerid=${player._id}, data-gameid=${gameId}">Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+</div>
