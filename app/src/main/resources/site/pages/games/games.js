@@ -90,7 +90,7 @@ function handleReq(req) {
     };
 
     model.pageComponents["modal"] = thymeleaf.render(
-      resolve("../pages/components/modal.html"),{}
+      resolve("../components/modal.html"),{}
     );
 
     return model;
