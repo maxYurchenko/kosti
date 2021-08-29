@@ -30,7 +30,7 @@
                             data-th-src="${portal.assetUrl({'_path=images/gameSystems/default.jpg'})}">
                         <span class="k_games-seats">
                             <span>места</span>
-                            <span
+                            <span data-th-class="${'js_game-seats-' + game.content._id}"
                                 data-th-text="${game.processed.seatsReserved + '/' + game.content.data.maxPlayers}"></span>
                         </span>
                         <span data-th-if="${game.content.data.exclusive}" class="k_games-exclusive_game"><i

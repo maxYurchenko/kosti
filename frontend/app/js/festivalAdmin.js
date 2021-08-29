@@ -43,6 +43,10 @@ function removePLayer(el) {
       $(".js_modal-content").html(data.html);
       hideLoader();
       showSnackBar(data.message ? data.message : "Игрок удален.", "success");
+      var players = forceArray(data.game.data.players);
+      $(".js_game-seats-" + data.game._id).html(
+        players.length + "/" + data.game.data.maxPlayers
+      );
     },
     error: function (data) {
       hideLoader();
@@ -79,6 +83,10 @@ function addPlayer(el) {
     success: function (data) {
       hideAllModals();
       hideLoader();
+      var players = forceArray(data.game.data.players);
+      $(".js_game-seats-" + data.game._id).html(
+        players.length + "/" + data.game.data.maxPlayers
+      );
       showSnackBar(data.message ? data.message : "Игрок добавлен.", "success");
     },
     error: function (data) {
