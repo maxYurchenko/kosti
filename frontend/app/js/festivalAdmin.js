@@ -5,18 +5,18 @@ var addPlayerUrl = "/api/festival/admin/games/players/add";
 function initFestivalAdminScripts() {
   $("body").on("click", ".js_game-players-list", function (e) {
     showLoader();
-    loadPlayersList($(this));
-    showModal(e);
+    e.preventDefault();
+    loadPlayersList($(this), e);
   });
   $("body").on("click", ".js_game-add-player", function (e) {
     showLoader();
-    loadAddPlayerForm($(this));
-    showModal(e);
+    e.preventDefault();
+    loadAddPlayerForm($(this), e);
   });
   $("body").on("click", ".js_game-add-player-submit", function (e) {
     showLoader();
-    addPlayer($(this));
-    showModal(e);
+    e.preventDefault();
+    addPlayer($(this), e);
   });
 
   $("body").on("click", ".js_remove-player", function (e) {
@@ -27,7 +27,6 @@ function initFestivalAdminScripts() {
 }
 
 function showModal(e) {
-  e.preventDefault();
   e.stopPropagation();
   hideAllModals();
   removeScroll();
@@ -55,13 +54,14 @@ function removePLayer(el) {
   });
 }
 
-function loadAddPlayerForm(el) {
+function loadAddPlayerForm(el, event) {
   $.ajax({
     url: addPlayerUrl,
     data: { gameId: el.data().gameid },
     type: "GET",
     success: function (data) {
       $(".js_modal-content").html(data.html);
+      showModal(event);
       hideLoader();
     },
     error: function (data) {
@@ -101,13 +101,14 @@ function addPlayer(el) {
   });
 }
 
-function loadPlayersList(el) {
+function loadPlayersList(el, event) {
   $.ajax({
     url: playersListUrl,
     data: { gameId: el.data().gameid },
     type: "GET",
     success: function (data) {
       $(".js_modal-content").html(data.html);
+      showModal(event);
       hideLoader();
     },
     error: function (data) {
