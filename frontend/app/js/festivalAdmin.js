@@ -81,13 +81,13 @@ function addPlayer(el) {
     data: data,
     type: "POST",
     success: function (data) {
+      hideLoader();
       if (data.error) {
         showSnackBar(data.message ? data.message : "Игрок добавлен.", "error");
         return;
       }
 
       hideAllModals();
-      hideLoader();
       var players = forceArray(data.game.data.players);
       $(".js_game-seats-" + data.game._id).html(
         players.length + "/" + data.game.data.maxPlayers
