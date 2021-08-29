@@ -9,8 +9,7 @@
         <div class="site_content">
             <div class="kosticonnect-header_inner">
                 <div class="kosticonnect-short_info">
-                    <a 
-                        href="https://www.kostirpg.com/kosticon-mini/igry" title="KOSTICONMINI">
+                    <a href="https://www.kostirpg.com/kosticon-mini/igry" title="KOSTICONMINI">
                         <div class="kosticonnect-headline">
                             <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
                                 alt="kosticonnect " />
@@ -81,22 +80,20 @@
                             data-th-utext="${portal.localize({'_key=myGames.theme.' + game.content.data.theme, '_locale=ru'})}"></span>
                     </div>
                 </div>
-                <!--
                 <div class="k_gdp-info">
                     <div class="k_gdp-label">ЯЗЫК ПРОВЕДЕНИЯ</div>
                     <div class="k_gdp-value"
                         data-th-text="${portal.localize({'_key=myGames.form.adventureLang.' + game.content.data.language, '_locale=ru'})}">
                     </div>
                 </div>
-                -->
                 <div class="k_gdp-info" data-th-if="${game.processed.table != ''}">
                     <div class="k_gdp-label">НОМЕР ИГРЫ</div>
                     <div class="k_gdp-value" data-th-utext="${game.processed.table}"></div>
                 </div>
                 <div class="k_gdp-info">
                     <div class="k_gdp-label">МЕСТ</div>
-                    <!-- <div data-th-class="k_gdp-value ${'js_game-seats-' + game.content._id}"
-                    data-th-text="${game.processed.seatsReserved + '/' + game.content.data.maxPlayers}">0\5</div> -->
+                    <div class="k_gdp-value"
+                        data-th-text="${game.processed.seatsReserved + '/' + game.content.data.maxPlayers}">0\5</div>
                 </div>
                 <div class="k_gdp-info">
                     <div class="k_gdp-label">СОЗДАНИЕ ПЕРСОНАЖЕЙ</div>
