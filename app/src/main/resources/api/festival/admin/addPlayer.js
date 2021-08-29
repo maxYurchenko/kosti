@@ -7,7 +7,10 @@ const norseUtils = require(libLocation + "norseUtils");
 
 exports.post = function (req) {
   if (!adminLib.validateUserAdmin()) {
-    return { success: false };
+    return {
+      success: false,
+      message: "Вам нужно быть админом, чтоб выполнить это."
+    };
   }
   return {
     body: playerLib.signForGame(req.params, true),
@@ -17,7 +20,10 @@ exports.post = function (req) {
 
 exports.get = function (req) {
   if (!adminLib.validateUserAdmin()) {
-    return { success: false };
+    return {
+      success: false,
+      message: "Вам нужно быть админом, чтоб выполнить это."
+    };
   }
   return {
     body: {

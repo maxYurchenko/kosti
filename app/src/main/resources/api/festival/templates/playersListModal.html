@@ -5,7 +5,7 @@
     <span class="icon-delete modal-close js_modal-close"></span>
 </div>
 <div class="modal-body">
-    <div class="table-wrap">
+    <div class="table-wrap" data-th-if="${players.size > 0}">
         <div class="table-header_row">
             <div class="table-header_cell k_games-table-name">
                 <span class="label">Им'я</span>
@@ -44,6 +44,9 @@
                     data-th-attr="data-playerid=${player._id}, data-gameid=${gameId}">Удалить</button>
             </div>
         </div>
+    </div>
+    <div class="table-wrap" data-th-unless="${players.size > 0}">
+        Игроков пока нет.
     </div>
 </div>
 <div class="modal-footer">

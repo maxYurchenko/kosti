@@ -4,19 +4,23 @@ var addPlayerUrl = "/api/festival/admin/games/players/add";
 
 function initFestivalAdminScripts() {
   $("body").on("click", ".js_game-players-list", function (e) {
+    showLoader();
     loadPlayersList($(this));
     showModal(e);
   });
   $("body").on("click", ".js_game-add-player", function (e) {
+    showLoader();
     loadAddPlayerForm($(this));
     showModal(e);
   });
   $("body").on("click", ".js_game-add-player-submit", function (e) {
+    showLoader();
     addPlayer($(this));
     showModal(e);
   });
 
   $("body").on("click", ".js_remove-player", function (e) {
+    showLoader();
     e.preventDefault();
     removePLayer($(this));
   });
@@ -37,9 +41,11 @@ function removePLayer(el) {
     type: "GET",
     success: function (data) {
       hideLoader();
+      hideAllModals();
     },
     error: function (data) {
       hideLoader();
+      showSnackBar(data.message ? data.message : "Error", "error");
     }
   });
 }
@@ -55,6 +61,7 @@ function loadAddPlayerForm(el) {
     },
     error: function (data) {
       hideLoader();
+      showSnackBar(data.message ? data.message : "Error", "error");
     }
   });
 }
@@ -67,7 +74,15 @@ function addPlayer(el) {
   $.ajax({
     url: addPlayerUrl,
     data: data,
-    type: "POST"
+    type: "POST",
+    success: function (data) {
+      hideAllModals();
+      hideLoader();
+    },
+    error: function (data) {
+      hideLoader();
+      showSnackBar(data.message ? data.message : "Error", "error");
+    }
   });
 }
 
@@ -82,6 +97,7 @@ function loadPlayersList(el) {
     },
     error: function (data) {
       hideLoader();
+      showSnackBar(data.message ? data.message : "Error", "error");
     }
   });
 }
