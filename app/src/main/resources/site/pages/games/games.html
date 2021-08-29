@@ -3,7 +3,7 @@
 
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<body class="kosticonnect-page landingPage">
+<body class="kosticonnect-page landingPage js_games-list" data-th-attr="data-id=${content._id}">
     <div data-th-remove="tag" data-th-utext="${pageComponents.modal}"></div>
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="kosticonnect-header">
@@ -55,7 +55,7 @@
                             <label class="k_games-filters-label" for="k_games-day-select">День</label>
                             <div class="k_games-filters-select select-field">
                                 <select name="day" class="select js_festival-filter-select" id="k_games-day-select">
-                                    <option>Все дни</option>
+                                    <option value="">Все дни</option>
                                     <option data-th-each="day : ${days}" data-th-value="${day._id}"
                                         data-th-text="${day.displayName}"></option>
                                 </select>

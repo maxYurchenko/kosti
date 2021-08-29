@@ -61,7 +61,8 @@ function handleReq(req) {
       day: req.params.dayId,
       system: req.params.system,
       theme: req.params.theme,
-      count: 9
+      count: 9,
+      parent: content._id
     });
     let filters = cache.api.getOnly("festival-filters");
     if (!filters) {

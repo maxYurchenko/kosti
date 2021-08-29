@@ -97,7 +97,8 @@
             <div class="k_gdp-sign_up">
                 <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1">
                     <h5 data-th-unless="${user}" class="k_gdp-sign_up-subtitle">
-                        Для записи на игру вам необходимо <a class="js_login-required k_gdp-sign_up-cta">Войти</a>, или заполнить форму
+                        Для записи на игру вам необходимо <a class="js_login-required k_gdp-sign_up-cta">Войти</a>, или
+                        заполнить форму
                         ниже.
                     </h5>
                     <div class="form-group" data-th-unless="${user and user.content.displayName}">
@@ -110,18 +111,29 @@
                         <input class="js_get-user-data" name="phone" placeholder="Номер телефона" required>
                     </div>
                 </form>
-                <div class="k_gdp-signed" data-th-if="${gameSigned}">
+                <div class="k_gdp-signed js_signout-block" data-th-classappend="${gameSigned ? '' : 'hidden'}">
                     <div class="k_games-time_title">Вы уже записаны на эту игру.</div>
-                    <button class="kosticonnect-button primary k_gdp-sign_out-btn js_sign-out-of-game">ОТПИСАТЬСЯ ОТ
-                        ИГРЫ</button>
+                    <button class="kosticonnect-button primary k_gdp-sign_out-btn js_sign-out-of-game">
+                        ОТПИСАТЬСЯ ОТ ИГРЫ
+                    </button>
+                    <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow"
+                        href="https://www.kostirpg.com/kosticon-mini/igry">
+                        <span>
+                            Назад к списку
+                        </span>
+                    </a>
                 </div>
-                <div class="k_gdp-actions">
-                    <button data-step="init" data-th-unless="${gameSigned}"
+                <div class="k_gdp-actions js_signin-block" data-th-classappend="${gameSigned ? 'hidden' : ''}">
+                    <button data-th-attr="data-step=${user && user.content.data.phone != '' ? 'form' : 'init'}"
                         class="kosticonnect-button primary k_gdp-sign_up-btn js_sign-up-for-game">ЗАПИСАТЬСЯ НА
                         ИГРУ</button>
                     <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow"
-                        href="https://www.kostirpg.com/kostyashki-moskva/igry"><span>
-                            Назад к списку</span></a></div>
+                        href="https://www.kostirpg.com/kosticon-mini/igry">
+                        <span>
+                            Назад к списку
+                        </span>
+                    </a>
+                </div>
             </div>
         </div>
     </main>

@@ -71,6 +71,8 @@ function signOutOfGame() {
     success: function (data) {
       hideLoader();
       showSnackBar("Вы отписались.", "success");
+      $(".js_signin-block").removeClass("hidden");
+      $(".js_signout-block").addClass("hidden");
     },
     error: function (data) {
       hideLoader();
@@ -103,6 +105,12 @@ function updateUserData() {
         }
         if (data.message) {
           showSnackBar(data.message, "success");
+        } else {
+          showSnackBar("Вы записались.", "success");
+        }
+        $(".js_signin-block").addClass("hidden");
+        if (checkUserLoggedIn()) {
+          $(".js_signout-block").removeClass("hidden");
         }
       } else {
         showSnackBar(data.message, "error");
@@ -128,6 +136,10 @@ function signupForGame() {
       } else {
         if (data.message) showSnackBar(data.message, "success");
         else showSnackBar("Вы зарегистрированы.", "success");
+      }
+      $(".js_signin-block").addClass("hidden");
+      if (checkUserLoggedIn()) {
+        $(".js_signout-block").removeClass("hidden");
       }
     },
     error: function (data) {

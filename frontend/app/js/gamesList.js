@@ -113,6 +113,7 @@ function loadGames() {
 function getFilteredGames() {
   showLoader();
   checkGames(false);
+  wrapper.data("page", 1);
   $.ajax({
     url: gamesFetchUrl,
     data: getSelectedFilters(),
@@ -138,6 +139,7 @@ function getSelectedFilters() {
   $(".js_festival-filter-multiselect").each(function () {
     data.theme.push($(this).data().value);
   });
+  data.parent = $(".js_games-list").data().id;
   return data;
 }
 

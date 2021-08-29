@@ -8,12 +8,13 @@ exports.get = function (req) {
     delete req.params["theme[]"];
   }
   let games = playerLib.getGames({
-    day: req.params.dayId,
+    day: req.params.day,
     system: req.params.system,
     theme: req.params.theme,
     gameSpace: req.params.gameSpace,
     count: 9,
-    start: req.params.page ? parseInt(req.params.page) * 9 : 0
+    start: req.params.page ? parseInt(req.params.page) * 9 : 0,
+    parent: req.params.parent ? req.params.parent : undefined
   });
   return {
     body: {
