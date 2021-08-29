@@ -40,8 +40,9 @@ function removePLayer(el) {
     data: { gameId: el.data().gameid, playerId: el.data().playerid },
     type: "GET",
     success: function (data) {
+      $(".js_modal-content").html(data.html);
       hideLoader();
-      hideAllModals();
+      showSnackBar(data.message ? data.message : "Игрок удален.", "success");
     },
     error: function (data) {
       hideLoader();
@@ -78,6 +79,7 @@ function addPlayer(el) {
     success: function (data) {
       hideAllModals();
       hideLoader();
+      showSnackBar(data.message ? data.message : "Игрок добавлен.", "success");
     },
     error: function (data) {
       hideLoader();

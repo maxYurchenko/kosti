@@ -98,16 +98,20 @@ function updateUserData() {
     success: function (data) {
       hideLoader();
       if (!data.error) {
+        /*
+        KOSTICONNECT
         if ($(".js_game-sign-up-step-2").length > 0) {
           $(".js_game-sign-up-step-1").hide("slow");
           $(".js_game-sign-up-step-2").show("slow");
           $(".js_sign-up-for-game").hide();
         }
+        */
         if (data.message) {
           showSnackBar(data.message, "success");
         } else {
           showSnackBar("Вы записались.", "success");
         }
+        $(".js_game-sign-up-step-1").addClass("hidden");
         $(".js_signin-block").addClass("hidden");
         if (checkUserLoggedIn()) {
           $(".js_signout-block").removeClass("hidden");
