@@ -47,6 +47,8 @@ function handleReq(req) {
 
     var model = {
       game: game,
+      spaceAvailable:
+        game.processed.seatsReserved < game.content.data.maxPlayers,
       user: user,
       gameSigned: gameSigned,
       discordUrl: discordUrl,

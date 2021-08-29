@@ -136,9 +136,12 @@
                     </a>
                 </div>
                 <div class="k_gdp-actions js_signin-block" data-th-classappend="${gameSigned ? 'hidden' : ''}">
-                    <button data-th-attr="data-step=${user && user.content.data.phone != '' ? 'form' : 'init'}"
+                    <button data-th-if="${spaceAvailable}"
+                        data-th-attr="data-step=${user && user.content.data.phone != '' ? 'form' : 'init'}"
                         class="kosticonnect-button primary k_gdp-sign_up-btn js_sign-up-for-game">ЗАПИСАТЬСЯ НА
                         ИГРУ</button>
+                    <div data-th-unless="${spaceAvailable}" class="k_games-time_title">Мест больше нет.
+                    </div>
                     <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow"
                         href="https://www.kostirpg.com/kosticon-mini/igry">
                         <span>
