@@ -4,6 +4,7 @@ const playerLib = require("/lib/festival/playerLib");
 const adminLib = require(libLocation + "adminLib");
 const thymeleaf = require("/lib/thymeleaf");
 const norseUtils = require(libLocation + "norseUtils");
+const contentLib = require("/lib/xp/content");
 
 exports.post = function (req) {
   if (!adminLib.validateUserAdmin()) {
@@ -13,7 +14,10 @@ exports.post = function (req) {
     };
   }
   return {
-    body: playerLib.signForGame(req.params, true),
+    body: {
+      data: playerLib.signForGame(req.params, true),
+      game: contentLib.get({ key: req.params.gameId })
+    },
     contentType: "application/json"
   };
 };
