@@ -91,6 +91,13 @@ function handleReq(req) {
       }),
       festival: festival,
       filters: getFilters(),
+      site: portal.getSite(),
+      headerUser: thymeleaf.render(
+        resolve("../../pages/components/header/headerUser.html"),
+        {
+          user: user
+        }
+      ),
       pageComponents: helpers.getPageComponents(req, "footerScripts")
     };
 

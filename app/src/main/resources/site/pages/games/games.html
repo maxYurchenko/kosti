@@ -17,15 +17,15 @@
                     </div>
                     <!-- </a> -->
                 </div>
-                <!-- <div class="header-logo">
+                <div class="header-logo">
                     <a data-th-href="${portal.pageUrl({'_path=' + site._path})}" data-th-title="${'Главная'}">
                         <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_full.svg'})}"
                             alt="Логотип Вечерние Кости" class="header-logo-default" />
-                        <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_icon.svg'})}" alt="Логотип Вечерние Кости"
-                            class="header-logo-scroll" />
+                        <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_icon.svg'})}"
+                            alt="Логотип Вечерние Кости" class="header-logo-scroll" />
                     </a>
-                </div> -->
-                <!-- <div data-th-utext="${headerUser}" class="header-user js_header-user-wrap"></div> -->
+                </div>
+                <div data-th-utext="${headerUser}" class="header-user js_header-user-wrap"></div>
             </div>
         </div>
         <div data-th-if="${user}" class="js_header-user hidden" data-th-attr="data-userid=${user.content._id}"></div>
