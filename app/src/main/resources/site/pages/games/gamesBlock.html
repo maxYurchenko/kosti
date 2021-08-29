@@ -53,7 +53,9 @@
                     <div class="k_games-item_actions" data-th-if="${user and user.data.roles.moderator}">
                         <button class="kosticonnect-button primary js_modal-show js_game-players-list"
                             data-th-attr="data-gameId=${game.content._id}"> Список игроков</button>
-                        <button class="kosticonnect-button inverted js_modal-show">Добавить игрока</button>
+                        <button class="kosticonnect-button inverted js_modal-show js_game-add-player"
+                            data-th-attr="data-gameId=${game.content._id}">Добавить
+                            игрока</button>
                     </div>
                 </a>
             </li>

@@ -44,6 +44,9 @@ function handleReq(req) {
             "'></script>",
           "<script src='" +
             portal.assetUrl({ path: "js/gamesList.js" }) +
+            "'></script>",
+          "<script src='" +
+            portal.assetUrl({ path: "js/festivalAdmin.js" }) +
             "'></script>"
         ]
       }

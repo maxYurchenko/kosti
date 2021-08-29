@@ -1,21 +1,24 @@
-<div class="modal-header">
-    <h4 class="modal-title">
-        Добавить игрока
-    </h4>
-    <span class="icon-delete modal-close js_modal-close"></span>
-</div>
-<div class="modal-body">
-    <div class="form-group" data-th-unless="${user and user.content.displayName}">
-        <input class="js_get-user-data" name="username" placeholder="Имя" required>
+<form class="js_game-add-player-form">
+    <div class="modal-header">
+        <h4 class="modal-title">
+            Добавить игрока
+        </h4>
+        <span class="icon-delete modal-close js_modal-close"></span>
     </div>
-    <div class="form-group" data-th-unless="${user and user.content.data.email}">
-        <input class="js_get-user-data" name="email" placeholder="Электронная почта" required>
+    <div class="modal-body">
+        <div class="form-group">
+            <input class="js_get-user-data" name="username" placeholder="Имя" required>
+        </div>
+        <div class="form-group">
+            <input class="js_get-user-data" name="email" placeholder="Электронная почта" required>
+        </div>
+        <div class="form-group">
+            <input class="js_get-user-data" name="phone" placeholder="Номер телефона" required>
+        </div>
+        <input name="gameId" type="hidden" required data-th-value="${gameId}">
     </div>
-    <div class="form-group" data-th-unless="${user and user.content.data.phone}">
-        <input class="js_get-user-data" name="phone" placeholder="Номер телефона" required>
+    <div class="modal-footer">
+        <button class="kosticonnect-button primary js_game-add-player-submit">ЗАПИСАТЬ НА
+            ИГРУ</button>
     </div>
-</div>
-<div class="modal-footer">
-    <button data-step="init" class="kosticonnect-button primary">ЗАПИСАТЬ НА
-        ИГРУ</button>
-</div>
+</form>
