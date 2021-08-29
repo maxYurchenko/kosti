@@ -52,8 +52,21 @@ function handleReq(req) {
       user: user,
       gameSigned: gameSigned,
       discordUrl: discordUrl,
-      pageComponents: helpers.getPageComponents(req, "footerScripts")
+      pageComponents: helpers.getPageComponents(req, "festival")
     };
+
+    model.pageComponents["festivalHeader"] = thymeleaf.render(
+      resolve("../../pages/components/header/festivalHeader.html"),
+      {
+        headerUser: thymeleaf.render(
+          resolve("../../pages/components/header/headerUser.html"),
+          {
+            user: user
+          }
+        ),
+        site: portal.getSite()
+      }
+    );
 
     return model;
   }

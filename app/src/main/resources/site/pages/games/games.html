@@ -6,30 +6,7 @@
 <body class="kosticonnect-page landingPage js_games-list" data-th-attr="data-id=${content._id}">
     <div data-th-remove="tag" data-th-utext="${pageComponents.modal}"></div>
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
-    <header class="kosticonnect-header">
-        <div class="site_content">
-            <div class="kosticonnect-header_inner m-kostirpg">
-                <div class="kosticonnect-short_info">
-                    <!-- <a href="/kostyashki-moskva"> -->
-                    <div class="kosticonnect-headline">
-                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
-                            alt="kosticonnect " />
-                    </div>
-                    <!-- </a> -->
-                </div>
-                <div class="header-logo">
-                    <a data-th-href="${portal.pageUrl({'_path=' + site._path})}" data-th-title="${'Главная'}">
-                        <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_full.svg'})}"
-                            alt="Логотип Вечерние Кости" class="header-logo-default" />
-                        <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_icon.svg'})}"
-                            alt="Логотип Вечерние Кости" class="header-logo-scroll" />
-                    </a>
-                </div>
-                <div data-th-utext="${headerUser}" class="header-user js_header-user-wrap"></div>
-            </div>
-        </div>
-        <div data-th-if="${user}" class="js_header-user hidden" data-th-attr="data-userid=${user.content._id}"></div>
-    </header>
+    <div data-th-remove="tag" data-th-utext="${pageComponents.festivalHeader}"></div>
     <main class="kosticonnect-wrap k_games-wrap">
         <div class="kosticonnect-content k_games">
             <div class="site_content">
@@ -109,51 +86,9 @@
                     <div></div>
                 </div>
                 <div class="blog-list-empty js_games-list-empty hidden">Игр больше нет</div>
-                <!--
-                <ul class="k_games-pagination">
-                    <li class="k_games-pagination-item active">
-                        <a href="" class="k_games-pagination-link">1</a>
-                    </li>
-                    <li class="k_games-pagination-item">
-                        <a href="" class="k_games-pagination-link">2</a>
-                    </li>
-                    <li class="k_games-pagination-item">
-                        <span href="" class="k_games-pagination-text">...</span>
-                    </li>
-                </ul>
-                -->
             </div>
         </div>
     </main>
-    <footer class="fest_contacts">
-        <div class="back_to_top js_back_to_top hide"></div>
-        <div class="site_content">
-            <div class="k_social social">
-                <h2 class="k_social-title kosticonnect-title">
-                    СОЦСЕТИ ФЕСТИВАЛЯ
-                </h2>
-                <div class="social-list social-list__sides_align">
-                    <a href="https://www.facebook.com/vecherniyekosti" class="social-link facebook"
-                        title="Facebook"></a>
-                    <a href="https://vk.com/vecherniyekosti" class="social-link vk" title="VK"></a>
-                    <a href="https://twitter.com/vecherniyekosti" class="social-link twitter hidden"
-                        title="Twitter"></a>
-                    <a href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg" class="social-link youtube"
-                        title="Youtube"></a>
-                    <a href="https://www.instagram.com/vecherniye_kosti" class="social-link instagram"
-                        title="Instagram"></a>
-                    <a href="https://www.twitch.tv/vecherniyekosti" class="social-link twitch" title="Twitch"></a>
-                    <a href="https://discord.gg/VfDthGK" class="social-link discord" title="Discord"></a>
-                    <a href="https://t.me/vecherniyekosti" class="social-link telegram" title="Telegram"></a>
-                </div>
-            </div>
-            <div class="about_us">
-                <h3 class="about_us-title">ОБРАЩАЙТЕСЬ ПО ЛЮБЫМ ВОПРОСАМ:</h3>
-                <p><a class="about_us-link" href="mailto:info@kostirpg.com">info@kostirpg.com</a></p>
-                <p><a class="about_us-link" href="tel:+380662098750">+380662098750</a></p>
-            </div>
-        </div>
-    </footer>
     <div class="snackbar js_snackbar">
         <div class="snackbar-text">Some msg</div>
         <div class="snackbar-close icon-delete js_snackbar-close"></div>

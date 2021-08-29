@@ -93,18 +93,25 @@ function handleReq(req) {
       festival: festival,
       filters: getFilters(),
       site: portal.getSite(),
-      headerUser: thymeleaf.render(
-        resolve("../../pages/components/header/headerUser.html"),
-        {
-          user: user
-        }
-      ),
-      pageComponents: helpers.getPageComponents(req, "footerScripts")
+      pageComponents: helpers.getPageComponents(req, "festival")
     };
 
     model.pageComponents["modal"] = thymeleaf.render(
       resolve("../components/modal.html"),
       {}
+    );
+
+    model.pageComponents["festivalHeader"] = thymeleaf.render(
+      resolve("../../pages/components/header/festivalHeader.html"),
+      {
+        headerUser: thymeleaf.render(
+          resolve("../../pages/components/header/headerUser.html"),
+          {
+            user: user
+          }
+        ),
+        site: portal.getSite()
+      }
     );
 
     return model;
