@@ -26,6 +26,24 @@
             align-items: center;
             padding: 40px 0;
         }
+
+        &.m-kostirpg {
+            display: flex;
+            flex-wrap: wrap;
+
+            .kosticonnect-short_info {
+                @include mobile {
+                    flex: 1 1 100%;
+                }
+            }
+
+            .header-logo {
+                @include tablet-all {
+                    margin-left: auto;
+                }
+            }
+
+        }
     }
 
     &-header_insert {

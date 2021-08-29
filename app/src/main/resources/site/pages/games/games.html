@@ -8,15 +8,24 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="kosticonnect-header">
         <div class="site_content">
-            <div class="kosticonnect-header_inner">
+            <div class="kosticonnect-header_inner m-kostirpg">
                 <div class="kosticonnect-short_info">
-                    <a href="/kostyashki-moskva">
+                    <!-- <a href="/kostyashki-moskva"> -->
                         <div class="kosticonnect-headline">
                             <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
                                 alt="kosticonnect " />
                         </div>
-                    </a>
+                    <!-- </a> -->
                 </div>
+                <!-- <div class="header-logo">
+                    <a data-th-href="${portal.pageUrl({'_path=' + site._path})}" data-th-title="${'Главная'}">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_full.svg'})}"
+                            alt="Логотип Вечерние Кости" class="header-logo-default" />
+                        <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_icon.svg'})}" alt="Логотип Вечерние Кости"
+                            class="header-logo-scroll" />
+                    </a>
+                </div> -->
+                <!-- <div data-th-utext="${headerUser}" class="header-user js_header-user-wrap"></div> -->
             </div>
         </div>
         <div data-th-if="${user}" class="js_header-user hidden" data-th-attr="data-userid=${user.content._id}"></div>
@@ -110,6 +119,7 @@
         </div>
     </main>
     <footer class="fest_contacts">
+        <div class="back_to_top js_back_to_top hide"></div>
         <div class="site_content">
             <div class="k_social social">
                 <h2 class="k_social-title kosticonnect-title">

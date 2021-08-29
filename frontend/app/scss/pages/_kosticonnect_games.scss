@@ -352,12 +352,14 @@
                 flex: 1 1 auto;
                 display: flex;
                 justify-content: space-between;
+                margin: 0 -10px;
             }
         }
 
         &-item {
             @include tablet-all {
-                flex: 0 1 32%;
+                flex: 1 1 25%;
+                margin: 0 10px;
             }
 
             &+& {
