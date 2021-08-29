@@ -81,6 +81,11 @@ function addPlayer(el) {
     data: data,
     type: "POST",
     success: function (data) {
+      if (data.error) {
+        showSnackBar(data.message ? data.message : "Игрок добавлен.", "error");
+        return;
+      }
+
       hideAllModals();
       hideLoader();
       var players = forceArray(data.game.data.players);

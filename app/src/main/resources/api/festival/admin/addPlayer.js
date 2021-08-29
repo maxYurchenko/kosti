@@ -13,11 +13,10 @@ exports.post = function (req) {
       message: "Вам нужно быть админом, чтоб выполнить это."
     };
   }
+  let returnData = playerLib.signForGame(req.params, true);
+  returnData.game = contentLib.get({ key: req.params.gameId });
   return {
-    body: {
-      data: playerLib.signForGame(req.params, true),
-      game: contentLib.get({ key: req.params.gameId })
-    },
+    body: returnData,
     contentType: "application/json"
   };
 };
