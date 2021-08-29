@@ -106,13 +106,13 @@ function loadGames() {
       requestInProgress = false;
     }, 500);
     wrapper.data("page", page + 1);
-    noMoreGames = data.noMoreGames;
+    checkGames(data.noMoreGames);
   });
 }
 
 function getFilteredGames() {
   showLoader();
-  noMoreGames = false;
+  checkGames(false);
   $.ajax({
     url: gamesFetchUrl,
     data: getSelectedFilters(),
@@ -120,6 +120,7 @@ function getFilteredGames() {
     success: function (data) {
       hideLoader();
       $(".js-k_games-wrapper").html(data.html);
+      checkGames(data.noMoreGames);
     },
     error: function (data) {
       hideLoader();
@@ -138,6 +139,17 @@ function getSelectedFilters() {
     data.theme.push($(this).data().value);
   });
   return data;
+}
+
+function checkGames(noMoreGamesScoped) {
+  if (noMoreGamesScoped) {
+    $(".js_games-loader").addClass("hidden");
+    $(".js_games-list-empty").removeClass("hidden");
+  } else {
+    $(".js_games-loader").removeClass("hidden");
+    $(".js_games-list-empty").addClass("hidden");
+  }
+  noMoreGames = noMoreGamesScoped;
 }
 
 $(document).ready(function () {

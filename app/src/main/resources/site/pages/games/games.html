@@ -11,10 +11,10 @@
             <div class="kosticonnect-header_inner m-kostirpg">
                 <div class="kosticonnect-short_info">
                     <!-- <a href="/kostyashki-moskva"> -->
-                        <div class="kosticonnect-headline">
-                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
-                                alt="kosticonnect " />
-                        </div>
+                    <div class="kosticonnect-headline">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
                     <!-- </a> -->
                 </div>
                 <!-- <div class="header-logo">
@@ -102,6 +102,13 @@
                     </div>
                 </div>
                 <div class="js-k_games-wrapper" data-th-utext="${gamesView}"></div>
+                <div class="lds-ring js_games-loader">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="blog-list-empty js_games-list-empty hidden">Игр больше нет</div>
                 <!--
                 <ul class="k_games-pagination">
                     <li class="k_games-pagination-item active">
