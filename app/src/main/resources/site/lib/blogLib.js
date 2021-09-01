@@ -300,7 +300,7 @@ function getArticleStatus(id) {
     };
   }
   return {
-    author: user && article.data.author === user._id,
+    author: user && article.data.author === user.content._id,
     published:
       article.workflow.state === "READY" &&
       article.publish &&
@@ -311,7 +311,9 @@ function getArticleStatus(id) {
     draft:
       article.workflow.state === "IN_PROGRESS" && !contentLib.get({ key: id }),
     access:
-      article && user && (article.data.author === user._id || user.moderator),
+      article &&
+      user &&
+      (article.data.author === user.content._id || user.data.moderator),
     exists: article ? true : false
   };
 }
