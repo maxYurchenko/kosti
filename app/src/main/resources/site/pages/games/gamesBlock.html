@@ -1,64 +1,66 @@
-<div class="k_games-day_block">
-    <ul class="k_games-list">
-        <div data-th-remove="tag" data-th-each="game, iter : ${games}">
+<div data-th-remove="tag" data-th-each="game, iter : ${games}">
 
-            <li class="k_games-day_block"
-                data-th-if="${iter.index - 1 < 0 or (iter.index - 1 >= 0 and game.processed.day.content._id != games[iter.index - 1].processed.day.content._id)}">
-                <h2 class="k_games-title kosticonnect-title"
-                    data-th-text="${game.processed.day.processed.dayName + ' ' + game.processed.day.processed.date + ' ' + game.processed.day.processed.monthName + ' | ' + game.processed.day.content.displayName}">
-                </h2>
-            </li>
+    <li class="k_games-day_block" data-th-if="${
+            (iter.index - 1 < 0 and currentDay == null) or 
+            (iter.index - 1 >= 0 and game.processed.day.content._id != games[iter.index - 1].processed.day.content._id) or
+            (currentDay != null and currentDay != game.processed.day.content._id and iter.index < 1)
+        }">
+        <h2 class="k_games-title kosticonnect-title"
+            data-th-text="${game.processed.day.processed.dayName + ' ' + game.processed.day.processed.date + ' ' + game.processed.day.processed.monthName + ' | ' + game.processed.day.content.displayName}">
+        </h2>
+    </li>
 
-            <li class="k_games-time_block"
-                data-th-if="${iter.index - 1 < 0 or (iter.index - 1 >= 0 and game.processed.block.content._id != games[iter.index - 1].processed.block.content._id)}">
-                <h3 class="k_games-time_title">
-                    <span data-th-if="${game.processed.block.processed.time.end}"
-                        data-th-text="${game.processed.block.processed.time.start + ' - ' + game.processed.block.processed.time.end}"></span>
-                    <span data-th-unless="${game.processed.block.processed.time.end}"
-                        data-th-text="${game.processed.block.processed.time.start}"></span>
-                </h3>
-            </li>
+    <li class="k_games-time_block" data-th-if="${
+            (iter.index - 1 < 0 and currentBlock == null) or 
+            (iter.index - 1 >= 0 and game.processed.block.content._id != games[iter.index - 1].processed.block.content._id) or
+            (currentBlock != null and currentBlock != game.processed.block.content._id and iter.index < 1)
+        }">
+        <h3 class="k_games-time_title">
+            <span data-th-if="${game.processed.block.processed.time.end}"
+                data-th-text="${game.processed.block.processed.time.start + ' - ' + game.processed.block.processed.time.end}"></span>
+            <span data-th-unless="${game.processed.block.processed.time.end}"
+                data-th-text="${game.processed.block.processed.time.start}"></span>
+        </h3>
+    </li>
 
-            <li class="k_games-item">
-                <a class="k_games-item_link" data-th-href="${game.processed.url}">
-                    <span class="k_games-img_wrap">
-                        <img data-th-if="${game.processed.image and !game.processed.image.placeholder}"
-                            data-th-src="${game.processed.image.url}">
-                        <img data-th-if="${(!game.processed.image or game.processed.image.placeholder) and game.processed.system and game.processed.system.localizable}"
-                            data-th-src="${portal.assetUrl({'_path=images/gameSystems/' + game.processed.system.text + '.jpg'})}">
-                        <img data-th-if="${(!game.processed.image or game.processed.image.placeholder) and game.processed.system and !game.processed.system.localizable}"
-                            data-th-src="${portal.assetUrl({'_path=images/gameSystems/default.jpg'})}">
-                        <span class="k_games-seats">
-                            <span>места</span>
-                            <span data-th-class="${'js_game-seats-' + game.content._id}"
-                                data-th-text="${game.processed.seatsReserved + '/' + game.content.data.maxPlayers}"></span>
-                        </span>
-                        <span data-th-if="${game.content.data.exclusive}" class="k_games-exclusive_game"><i
-                                class="icon-rock"></i> Экслюзивная игра</span>
-                    </span>
-                    <h3 class="k_games-game_name" data-th-text="${game.content.displayName}"></h3>
-                    <h4 class="k_games-game_system" data-th-if="${game.processed.system.localizable}"
-                        data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.processed.system.text, '_locale=ru'})}">
-                    </h4>
-                    <h4 data-th-unless="${game.processed.system.localizable}" class="k_games-game_system"
-                        data-th-text="${game.processed.system.text}">
-                    </h4>
-                    <span class="k_games-game_desc_wrap">
-                        <span class="k_games-game_desc" data-th-utext="${game.processed.intro}"></span>
-                    </span>
-                    <span class="k_games-game_actions">
-                        <span class="k_games-link_more" data-th-href="${game.processed.url}">Узнать больше</span>
-                    </span>
+    <li class="k_games-item">
+        <a class="k_games-item_link" data-th-href="${game.processed.url}">
+            <span class="k_games-img_wrap">
+                <img data-th-if="${game.processed.image and !game.processed.image.placeholder}"
+                    data-th-src="${game.processed.image.url}">
+                <img data-th-if="${(!game.processed.image or game.processed.image.placeholder) and game.processed.system and game.processed.system.localizable}"
+                    data-th-src="${portal.assetUrl({'_path=images/gameSystems/' + game.processed.system.text + '.jpg'})}">
+                <img data-th-if="${(!game.processed.image or game.processed.image.placeholder) and game.processed.system and !game.processed.system.localizable}"
+                    data-th-src="${portal.assetUrl({'_path=images/gameSystems/default.jpg'})}">
+                <span class="k_games-seats">
+                    <span>места</span>
+                    <span data-th-class="${'js_game-seats-' + game.content._id}"
+                        data-th-text="${game.processed.seatsReserved + '/' + game.content.data.maxPlayers}"></span>
+                </span>
+                <span data-th-if="${game.content.data.exclusive}" class="k_games-exclusive_game"><i
+                        class="icon-rock"></i> Экслюзивная игра</span>
+            </span>
+            <h3 class="k_games-game_name" data-th-text="${game.content.displayName}"></h3>
+            <h4 class="k_games-game_system" data-th-if="${game.processed.system.localizable}"
+                data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.processed.system.text, '_locale=ru'})}">
+            </h4>
+            <h4 data-th-unless="${game.processed.system.localizable}" class="k_games-game_system"
+                data-th-text="${game.processed.system.text}">
+            </h4>
+            <span class="k_games-game_desc_wrap">
+                <span class="k_games-game_desc" data-th-utext="${game.processed.intro}"></span>
+            </span>
+            <span class="k_games-game_actions">
+                <span class="k_games-link_more" data-th-href="${game.processed.url}">Узнать больше</span>
+            </span>
 
-                    <div class="k_games-item_actions" data-th-if="${user and user.data.roles.moderator}">
-                        <button class="kosticonnect-button primary js_modal-show js_game-players-list"
-                            data-th-attr="data-gameId=${game.content._id}"> Список игроков</button>
-                        <button class="kosticonnect-button inverted js_modal-show js_game-add-player"
-                            data-th-attr="data-gameId=${game.content._id}">Добавить
-                            игрока</button>
-                    </div>
-                </a>
-            </li>
-        </div>
-    </ul>
+            <div class="k_games-item_actions" data-th-if="${user and user.data.roles.moderator}">
+                <button class="kosticonnect-button primary js_modal-show js_game-players-list"
+                    data-th-attr="data-gameId=${game.content._id}"> Список игроков</button>
+                <button class="kosticonnect-button inverted js_modal-show js_game-add-player"
+                    data-th-attr="data-gameId=${game.content._id}">Добавить
+                    игрока</button>
+            </div>
+        </a>
+    </li>
 </div>

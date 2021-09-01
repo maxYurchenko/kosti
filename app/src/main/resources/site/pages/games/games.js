@@ -75,6 +75,14 @@ function handleReq(req) {
         id: user.content._id,
         params: { action: "games" }
       });
+    let currentBlock =
+      games.length > 0
+        ? games[games.length - 1].processed.block.content._id
+        : null;
+    let currentDay =
+      games.length > 0
+        ? games[games.length - 1].processed.day.content._id
+        : null;
 
     var model = {
       content: content,
@@ -93,6 +101,8 @@ function handleReq(req) {
       festival: festival,
       filters: getFilters(),
       site: portal.getSite(),
+      currentDay: currentDay,
+      currentBlock: currentBlock,
       pageComponents: helpers.getPageComponents(req, "festival")
     };
 

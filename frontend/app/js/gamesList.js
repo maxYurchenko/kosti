@@ -1,10 +1,14 @@
 var requestInProgress = false;
 var noMoreGames = false;
+var currentBlock = null;
+var currentDay = null;
 
 var gamesFetchUrl = "/api/festival/games/list";
 var wrapper = $(".js-k_games-wrapper");
 
 function initGamesListScripts() {
+  currentBlock = wrapper.data().blockid;
+  currentDay = wrapper.data().dayid;
   $(document).on("click", function (e) {
     var el = $(".js-custom_select");
     if (!el.is(e.target) && el.has(e.target).length === 0) {
@@ -102,6 +106,8 @@ function loadGames() {
   var call = makeAjaxCall(gamesFetchUrl, "GET", filters);
   call.done(function (data) {
     $(".js-k_games-wrapper").append(data.html);
+    currentBlock = data.currentBlock;
+    currentDay = data.currentDay;
     setTimeout(function () {
       requestInProgress = false;
     }, 500);
@@ -119,6 +125,8 @@ function getFilteredGames() {
     data: getSelectedFilters(),
     type: "GET",
     success: function (data) {
+      currentBlock = null;
+      currentDay = null;
       hideLoader();
       $(".js-k_games-wrapper").html(data.html);
       checkGames(data.noMoreGames);
@@ -140,6 +148,8 @@ function getSelectedFilters() {
     data.theme.push($(this).data().value);
   });
   data.parent = $(".js_games-list").data().id;
+  data.currentBlock = currentBlock;
+  data.currentDay = currentDay;
   return data;
 }
 

@@ -78,7 +78,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="js-k_games-wrapper" data-th-utext="${gamesView}"></div>
+                <div class="k_games-day_block">
+                    <ul class="k_games-list js-k_games-wrapper" data-th-utext="${gamesView}"
+                        data-th-attr="data-dayid=${currentDay}, data-blockid=${currentBlock}">
+                    </ul>
+                </div>
                 <div class="lds-ring js_games-loader">
                     <div></div>
                     <div></div>

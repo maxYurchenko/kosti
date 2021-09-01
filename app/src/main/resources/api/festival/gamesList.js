@@ -2,6 +2,9 @@ const thymeleaf = require("/lib/thymeleaf");
 const playerLib = require("/lib/festival/playerLib");
 const userLib = require("/lib/userLib");
 
+const libLocation = "../../site/lib/";
+const norseUtils = require(libLocation + "norseUtils");
+
 exports.get = function (req) {
   if (req.params && req.params["theme[]"]) {
     req.params.theme = req.params["theme[]"];
@@ -22,10 +25,22 @@ exports.get = function (req) {
         resolve("../../site/pages/games/gamesBlock.html"),
         {
           games: games,
-          user: userLib.getCurrentUser()
+          user: userLib.getCurrentUser(),
+          currentBlock: req.params.currentBlock
+            ? req.params.currentBlock
+            : null,
+          currentDay: req.params.currentDay ? req.params.currentDay : null
         }
       ),
-      noMoreGames: games.length < 1
+      noMoreGames: games.length < 1,
+      currentBlock:
+        games.length > 0
+          ? games[games.length - 1].processed.block.content._id
+          : null,
+      currentDay:
+        games.length > 0
+          ? games[games.length - 1].processed.day.content._id
+          : null
     },
     contentType: "application/json"
   };
