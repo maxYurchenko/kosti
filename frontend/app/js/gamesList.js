@@ -33,19 +33,7 @@ function initGamesListScripts() {
   });
 
   $(document).on("scroll", function () {
-    var load =
-      $(document).height() -
-        ($(document).scrollTop() +
-          $(window).height() +
-          $("footer.fest_contacts").height() +
-          500) <
-        0 &&
-      window.innerWidth >= 768 &&
-      !requestInProgress &&
-      !noMoreGames;
-    if (load) {
-      loadGames();
-    }
+    checkScroll();
   });
 
   if ($(window).width() < 768) {
@@ -84,6 +72,21 @@ function initGamesListScripts() {
       getFilteredGames();
     }
   );
+}
+
+function checkScroll() {
+  var load =
+    $(document).height() -
+      ($(document).scrollTop() +
+        $(window).height() +
+        $("footer").height() +
+        500) <
+      0 &&
+    !requestInProgress &&
+    !noMoreGames;
+  if (load) {
+    loadGames();
+  }
 }
 
 function addSelectedOption(val, text) {
