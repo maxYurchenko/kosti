@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="kosticonnect-page landingPage">
+    <header class="kosticonnect-header">
+        <div class="site_content">
+            <div class="kosticonnect-header_inner">
+                <div class="kosticonnect-short_info">
+                    <a href="/kostyashki-moskva">
+                        <div class="kosticonnect-headline">
+                            <img data-th-src="${cityLogo.url}" alt="kosticonnect " />
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="kosticonnect-wrap" data-portal-region="main">
+        <div data-th-if="${mainRegion}" data-th-remove="tag">
+            <div data-th-each="component : ${mainRegion.components}" data-th-remove="tag">
+                <div data-portal-component="${component.path}" data-th-remove="tag"></div>
+            </div>
+        </div>
+    </main>
+    <div data-th-utext="${pageComponents.footer}" data-th-remove="tag"></div>
+</body>
+
+</html>

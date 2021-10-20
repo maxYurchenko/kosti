@@ -1,0 +1,29 @@
+<part>
+  <display-name>Hero</display-name>
+  <form>
+    <input type="TextLine" name="title">
+      <label>Title</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="background" type="ImageSelector">
+      <label>Background</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <item-set name="links">
+      <label>Link</label>
+      <occurrences minimum="0" maximum="3"/>
+      <items>
+        <input name="url" type="Long">
+          <label>URL</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="title" type="TextLine">
+          <label>Title</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+  </form>
+</part>

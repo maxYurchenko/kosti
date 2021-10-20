@@ -52,7 +52,7 @@
     </input>
     <input name="slider" type="ContentSelector">
       <label>Slider</label>
-      <occurrences minimum="1" maximum="3"/>
+      <occurrences minimum="0" maximum="3"/>
       <config>
         <allowContentType>article</allowContentType>
       </config>
@@ -61,6 +61,7 @@
       <label>Shipping</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
+        <allowPath>*</allowPath>
       </config>
     </input>
     <input name="shopLocation" type="ContentSelector">
@@ -95,7 +96,7 @@
     </input>
     <input name="video" type="TextLine">
       <label>Homepage video</label>
-      <occurrences minimum="1" maximum="1"/>
+      <occurrences minimum="0" maximum="1"/>
     </input>
     <item-set name="social">
       <label>Social networks</label>
@@ -140,6 +141,12 @@
       <occurrences minimum="0" maximum="5"/>
       <config>
         <allowContentType>hashtag</allowContentType>
+      </config>
+    </input>
+    <input name="cityLogo" type="ImageSelector">
+      <label>cityLogo</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
       </config>
     </input>
   </form>

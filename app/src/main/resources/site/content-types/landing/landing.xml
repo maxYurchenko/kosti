@@ -13,30 +13,6 @@
       <config>
       </config>
     </input>
-    <field-set>
-      <label>Tickets milestone</label>
-      <items>
-        <input name="prevMilestone" type="Long">
-          <label>Tickets previous milestone</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="milestone" type="Long">
-          <label>Tickets milestone</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="milestoneTitle" type="TextLine">
-          <label>Tickets milestone title</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="products" type="ContentSelector">
-          <label>Products</label>
-          <occurrences minimum="0" maximum="0"/>
-          <config>
-            <allowContentType>product</allowContentType>
-          </config>
-        </input>
-      </items>
-    </field-set>
     <item-set name="faq">
       <label>FAQ</label>
       <occurrences minimum="0" maximum="0"/>
@@ -53,6 +29,10 @@
         </input>
       </items>
     </item-set>
+    <input name="gmRole" type="TextLine">
+      <label>Required GM role</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="onlineFestival" type="CheckBox">
       <label>Online festival</label>
       <config>
@@ -75,6 +55,13 @@
       <label>Require discord</label>
       <config>
         <alignment>right</alignment>
+      </config>
+    </input>
+    <input name="players" type="ContentSelector">
+      <label>Players</label>
+      <occurrences minimum="0" maximum="0"/>
+      <config>
+        <allowContentType>com.myurchenko.kostirpg:user</allowContentType>
       </config>
     </input>
   </form>

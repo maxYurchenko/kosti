@@ -152,8 +152,8 @@ function handleReq(req) {
       totalArticles.curr = userGames.length;
       active.games = "active";
       var currTitle = "games";
-      let days = formLib.getDaysGM();
-      let festival = formLib.getFestivalByDays(days);
+      let festival = formLib.getFestivalForGM();
+      let days = festival ? formLib.getDaysGM(null, null, festival._id) : [];
       days.forEach((day) => {
         day.processed.available = thymeleaf.render(
           resolve("games/shared/availableComp.html"),

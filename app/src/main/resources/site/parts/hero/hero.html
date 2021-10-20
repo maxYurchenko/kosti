@@ -1,0 +1,21 @@
+<div class="kosticonnect-hero">
+    <div class="hero_banner kmg-hero-banner">
+        <div class="hero_banner-video_wrap">
+            <img data-th-src="${background}" class="hero_banner-video  banner-img" alt="">
+
+        </div>
+        <div class="hero_banner-content">
+            <div class="site_content">
+                <h2 class="hero_banner-title kosticonnect-title" data-th-text="${title}">
+
+                </h2>
+                <div class="hero_banner-actions" data-th-if="${links}">
+                    <a target="_blank" data-th-each="link : ${links}" data-th-href="${link.url}"
+                        class="hero_banner-tickets kosticonnect-button primary" data-th-text="${link.title}">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -4,7 +4,7 @@
     var customEditorStyles = [[${portal.assetUrl({'_path=/css/tinymce.css'})}]];
 </script>
 <div class="my_games js-my_games" data-th-if="${currUserFlag && currUser.data.roles.kyivGM}">
-    <div class="my_games-event_name-list">
+    <div data-th-if="${festival}" class="my_games-event_name-list">
         <div class="my_games-event_name-item active" data-th-text="${festival.displayName}"></div>
     </div>
     <div class="js-my_games-wrapper">
@@ -12,7 +12,7 @@
     </div>
 </div>
 <div class="my_games-signed-wrapper">
-    <div class="my_games-gm-header">
+    <div data-th-if="${festival}" class="my_games-gm-header">
         <h2 class="my_games-title">
             Мои игры на 
             <span data-th-text="${festival.displayName}" data-th-remove="tag"></span>

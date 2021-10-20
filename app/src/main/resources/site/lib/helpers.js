@@ -215,7 +215,10 @@ function getKeywords(content) {
   var hashtags = null;
   if (content.data && content.data.hashtags) {
     hashtags = norseUtils.forceArray(content.data.hashtags);
-  } else if (content.type === "portal:site") {
+  } else if (
+    content.type === "portal:site" &&
+    portal.getSiteConfig().hashtags
+  ) {
     hashtags = norseUtils.forceArray(portal.getSiteConfig().hashtags);
   } else {
     hashtags = [];

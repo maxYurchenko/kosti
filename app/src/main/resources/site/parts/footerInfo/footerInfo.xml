@@ -1,0 +1,72 @@
+<part>
+  <display-name>Footer info</display-name>
+  <form>
+    <input name="mirrored" type="CheckBox">
+      <label>Mirrored</label>
+    </input>
+    <item-set name="blockOne">
+      <label>Block 1</label>
+      <occurrences minimum="1" maximum="1"/>
+      <items>
+        <input name="image" type="ImageSelector">
+          <label>Image</label>
+          <occurrences minimum="1" maximum="1"/>
+          <config>
+          </config>
+        </input>
+        <input name="info" type="HtmlArea">
+          <label>Info</label>
+          <occurrences minimum="1" maximum="1"/>
+        </input>
+        <item-set name="links">
+          <label>Link</label>
+          <occurrences minimum="0" maximum="3"/>
+          <items>
+            <input name="url" type="Long">
+              <label>URL</label>
+              <occurrences minimum="0" maximum="1"/>
+            </input>
+            <input name="title" type="TextLine">
+              <label>Title</label>
+              <occurrences minimum="0" maximum="1"/>
+            </input>
+          </items>
+        </item-set>
+      </items>
+    </item-set>
+    <item-set name="blockTwo">
+      <label>Block 2</label>
+      <occurrences minimum="1" maximum="1"/>
+      <items>
+        <input name="info" type="HtmlArea">
+          <label>Info</label>
+          <occurrences minimum="1" maximum="1"/>
+        </input>
+        <item-set name="links">
+          <label>Link</label>
+          <occurrences minimum="0" maximum="3"/>
+          <items>
+            <input name="url" type="Long">
+              <label>URL</label>
+              <occurrences minimum="0" maximum="1"/>
+            </input>
+            <input name="title" type="TextLine">
+              <label>Title</label>
+              <occurrences minimum="0" maximum="1"/>
+            </input>
+          </items>
+        </item-set>
+      </items>
+    </item-set>
+    <item-set name="blockThree">
+      <label>Block 3</label>
+      <occurrences minimum="1" maximum="1"/>
+      <items>
+        <input name="url" type="TextLine">
+          <label>Telegram URL</label>
+          <occurrences minimum="1" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+  </form>
+</part>
