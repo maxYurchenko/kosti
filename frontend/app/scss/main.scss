@@ -2,6 +2,8 @@
 @import "base/iconfont";
 @import "base/fonts";
 
+@import "00-configuration/globals";
+
 @import "utilities/variables";
 @import "utilities/extends";
 @import "utilities/mixins";
@@ -23,7 +25,6 @@
 @import "base/loader";
 @import "base/back_to_top";
 @import "base/snackbar";
-@import "base/max";
 @import "base/player";
 
 @import "components/mobile_menu";
@@ -36,6 +37,8 @@
 @import "components/price";
 @import "components/login_modal";
 @import "components/pagination";
+
+@import "02-components/g-section_holder";
 
 @import "pages/homepage";
 @import "pages/comingSoon";

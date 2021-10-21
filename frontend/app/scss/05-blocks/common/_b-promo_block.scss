@@ -1,0 +1,95 @@
+.b-promo_block {
+    padding: 20px 0;
+
+    @include tablet-all {
+        padding: 40px 0;
+    }
+
+    &.m-indent_less {
+        padding: 0;
+    }
+
+    &.m-black {
+        background-color: $color-primary21;
+    }
+
+    &.m-white {
+        background-color: $color-primary1;
+    }
+
+    &.m-purple {
+        background-color: $kosticonnect-primary4;
+    }
+
+    &-holder {
+        @include g-section_holder;
+    }
+
+    &-container {
+        display: flex;
+
+        @include tablet-all {
+            position: relative;
+            align-items: center;
+        }
+
+        @include mobile {
+            flex-direction: column-reverse;
+        }
+
+        .b-promo_block:not(.m-alt).m-reverse & {
+            @include tablet-all {
+                flex-direction: row-reverse;
+            }
+        }
+    }
+
+    &-img_wrap {
+        img {
+            @include tablet-all {
+                max-width: 80%;
+            }
+
+            @include mobile {
+                height: 476px;
+                object-fit: cover;
+            }
+
+            .b-promo_block:not(.m-alt).m-reverse & {
+                @include tablet-all {
+                    max-width: 80%;
+                    margin-left: 20%;
+                }
+            }
+        }
+    }
+
+    &-content {
+        background: $color-primary1;
+        padding: 50px 26px 40px;
+
+        @include tablet-all {
+            position: absolute;
+            right: 0;
+            padding: 40px 26px 40px 40px;
+            width: 500px;
+        }
+
+        .b-promo_block:not(.m-alt).m-reverse & {
+            @include tablet-all {
+                left: 0;
+            }
+        }
+
+        .b-promo_block.m-alt & {
+            background: none;
+            flex: 0 0 50%;
+            margin-left: auto;
+            position: static;
+        }
+        .b-promo_block.m-alt.m-reverse & {
+            margin-right: auto;
+            margin-left: unset;
+        }
+    }
+}

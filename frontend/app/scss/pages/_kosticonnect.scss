@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+@import "05-blocks/common/b-promo_block";
+@import "05-blocks/common/b-text_block";
+
 .kosticonnect {
     &-page {
         display: flex;
@@ -465,7 +468,7 @@
         display: flex;
         flex-direction: column;
         margin-top: 87px;
-        background: #1D1A34;
+        background: $kosticonnect-primary4;
         background-repeat: no-repeat;
         background-position: 139% 87%;
         background-size: 76%;
@@ -594,7 +597,7 @@
         line-height: 1.4;
         color: $color-primary1;
         padding: 6px 8px;
-        background: #1D1A34;
+        background: $kosticonnect-primary4;
         display: inline-block;
         margin-bottom: 32px;
     }
@@ -979,7 +982,7 @@
         }
 
         &:after {
-            background: #1D1A34;
+            background: $kosticonnect-primary4;
             margin-top: 105px;
         }
     }
@@ -1054,7 +1057,7 @@
 }
 
 .follow_us {
-    background: #1D1A34;
+    background: $kosticonnect-primary4;
 
     .site_content {
         @include desktop {
@@ -1078,7 +1081,7 @@
         font-size: 48px;
         line-height: 1.2;
         text-transform: uppercase;
-        color: #1D1A34;
+        color: $kosticonnect-primary4;
         text-shadow: -1px 0 #FF5B35, 0 1px #FF5B35, 1px 0 #FF5B35, 0 -1px #FF5B35;
 
         &+& {

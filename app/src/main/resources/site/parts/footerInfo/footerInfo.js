@@ -31,6 +31,6 @@ exports.get = function (req) {
       url: config.blockThree.url
     };
     norseUtils.log(config.blockThree);
-    return { blockOne, blockTwo, blockThree };
+    return { blockOne, blockTwo, blockThree, mirrored:config.mirrored};
   }
 };

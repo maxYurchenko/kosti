@@ -1,28 +1,10 @@
-<div data-th-unless="${mirrored}" class="kosticonnect-top kmg-reverce kmg" data-th-classappend="${background}">
-    <div class="site_content">
-        <div class="attend js_attend-block">
-            <div class="attend-img_wrap">
+<div class="b-promo_block" data-th-classappend="${background + (mirrored ? ' m-reverse' : '')}">
+    <div class="b-promo_block-holder">
+        <div class=" js_attend-block b-promo_block-container">
+            <div class=" b-promo_block-img_wrap">
                 <img data-th-src="${image.url}" alt="kosticonnect backstage img">
             </div>
-            <div class="attend-content" data-th-utext="${info}">
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--
-    ######################
-    Mirrored
-    ######################
--->
-
-<div data-th-if="${mirrored}" class="kosticonnect-top kmg" data-th-classappend="${background}">
-    <div class="site_content">
-        <div class="attend js_attend-block">
-            <div class="attend-content" data-th-utext="${info}">
-            </div>
-            <div class="attend-img_wrap">
-                <img data-th-src="${image.url}" alt="kosticonnect backstage img">
+            <div class="b-promo_block-content b-text_block" data-th-utext="${info}">
             </div>
         </div>
     </div>

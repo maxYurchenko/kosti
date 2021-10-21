@@ -1,0 +1,29 @@
+/*md
+
+# g-section_holder
+
+This is global component designed to hold some standalone section of the site
+as it wrapped into main container.
+
+It could be used not only for standalone blocks, but also for page layouts.
+
+```scss
+.b-section {
+    background: green;
+
+    &-inner {
+        @include g-section_holder;
+    }
+}
+```
+*/
+
+@mixin g-section_holder {
+    margin: 0 auto;
+    max-width: $global-content-width-max-landing;
+    padding: 0 24px;
+
+    @include desktop {
+        padding: 0 59px;
+    }
+}

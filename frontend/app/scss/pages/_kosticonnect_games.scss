@@ -204,7 +204,7 @@
 
             &.active .k_games-pagination-link,
             &:hover .k_games-pagination-link {
-                background: #1D1A34;
+                background: $kosticonnect-primary4;
             }
 
             &+.k_games-pagination-item {
@@ -380,7 +380,7 @@
 
         &-select {
             select {
-                border: 1px solid #1D1A34;
+                border: 1px solid $kosticonnect-primary4;
                 border-radius: 0;
             }
 
@@ -538,7 +538,7 @@
         }
 
         input {
-            border: 1px solid #1D1A34;
+            border: 1px solid $kosticonnect-primary4;
             border-radius: 0;
             margin-bottom: 10px;
         }
@@ -628,7 +628,7 @@
     }
 
     &-selected {
-        border: 1px solid #1D1A34;
+        border: 1px solid $kosticonnect-primary4;
         min-height: 56px;
         padding: 4px 26px 14px 8px;
         position: relative;

@@ -1,0 +1,22 @@
+/*md
+@no-stat
+
+# Globals variables
+
+This variables are set of different global settings that is used across sets of components.
+
+It include:
+
+* globals
+* depth of components (box-shadow)
+* motion of components
+
+*/
+
+$global-content-width-max-landing: 1152px;
+$global-site-width-max: 100vw;
+
+// Motion
+$motion-fast: cubic-bezier(0.3, 0.46, 0.45, 0.94) 0.2s;
+$motion-ease: cubic-bezier(0.3, 0.46, 0.45, 0.94) 0.4s;
+$motion-ease-popups: cubic-bezier(0.3, 0.46, 0.45, 0.94) 0.5s;

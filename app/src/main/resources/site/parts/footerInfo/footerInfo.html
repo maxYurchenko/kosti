@@ -1,97 +1,39 @@
-<div data-th-unless="${mirrored}" data-th-remove="tag">
-    <div class="kosticonnect-mid kmg-add kmg">
-        <div class="site_content">
-            <div class="attend js_attend-block">
-                <div class="attend-img_wrap">
-                    <img data-th-src="${portal.assetUrl({'_path=images/moscow/bg002.jpg'})}"
-                        alt="kosticonnect backstage img">
-                </div>
-                <div class="attend-content">
-                    <div data-th-remove="tag" data-th-utext="${blockOne.info}"></div>
-                    <div class="attend-actions">
-                        <a target="_blank" data-th-each="link : ${blockOne.links}" data-th-href="${link.url}"
-                            class="hero_banner-tickets kosticonnect-button primary" data-th-text="${link.title}">
-                        </a>
-                    </div>
+<div class="b-promo_block m-white" data-th-classappend="${mirrored ? ' m-reverse' : ''}">
+    <div class="b-promo_block-holder">
+        <div class=" js_attend-block b-promo_block-container">
+            <div class=" b-promo_block-img_wrap">
+                <img data-th-src="${blockOne.image.url}" alt="kosticonnect backstage img">
+            </div>
+            <div class="b-promo_block-content b-text_block">
+                <div data-th-remove="tag" data-th-utext="${blockOne.info}"></div>
+                <div class="b-promo_block-actions">
+                    <a target="_blank" data-th-each="link : ${blockOne.links}" data-th-href="${link.url}"
+                        class="hero_banner-tickets kosticonnect-button primary" data-th-text="${link.title}">
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="kmg-location kmg-reverce kmg">
-        <div class="site_content">
-            <div class="attend js_attend-block">
-                <div class="attend-content">
-                    <div data-th-remove="tag" data-th-utext="${blockTwo.info}"></div>
-                    <div class="attend-actions">
-                        <a target="_blank" data-th-each="link : ${blockTwo.links}" data-th-href="${link.url}"
-                            class="hero_banner-tickets kosticonnect-button primary" data-th-text="${link.title}">
-                        </a>
-                    </div>
+</div>
+<div class="b-promo_block m-white m-indent_less" data-th-classappend="${mirrored ? '' : ' m-reverse'}">
+    <div class="b-promo_block-holder">
+        <div class=" js_attend-block b-promo_block-container">
+            <div class="b-promo_block-content">
+                <div data-th-remove="tag" data-th-utext="${blockTwo.info}"></div>
+                <div class="b-promo_block-actions">
+                    <a target="_blank" data-th-each="link : ${blockTwo.links}" data-th-href="${link.url}"
+                        class="hero_banner-tickets kosticonnect-button primary" data-th-text="${link.title}">
+                    </a>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="follow_us">
-        <div class="site_content">
-            <div class="hashtags">
-
-            </div>
-            <div class="telegram_chat">
-                <h2 class="kosticonnect-title">ТЕЛЕГРАМ-ЧАТ МИТАПА</h2>
-                <a data-th-href="${blockThree.url}" class="kosticonnect-button primary">ПРИСОЕДИНИТЬСЯ</a>
             </div>
         </div>
     </div>
 </div>
 
-
-<!--
-    ######################
-    Mirrored
-    ######################
--->
-
-<div data-th-if="${mirrored}" data-th-remove="tag">
-    <div class="kosticonnect-mid kmg-add kmg">
-        <div class="site_content">
-            <div class="attend js_attend-block">
-                <div class="attend-img_wrap">
-                    <img data-th-src="${portal.assetUrl({'_path=images/moscow/bg002.jpg'})}"
-                        alt="kosticonnect backstage img">
-                </div>
-                <div class="attend-content">
-                    <div data-th-remove="tag" data-th-utext="${blockOne.info}"></div>
-                    <div class="attend-actions">
-                        <a target="_blank" data-th-each="link : ${blockOne.links}" data-th-href="${link.url}"
-                            class="hero_banner-tickets kosticonnect-button primary" data-th-text="${link.title}">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="kmg-location kmg-reverce kmg">
-        <div class="site_content">
-            <div class="attend js_attend-block">
-                <div class="attend-content">
-                    <div data-th-remove="tag" data-th-utext="${blockTwo.info}"></div>
-                    <div class="attend-actions">
-                        <a target="_blank" data-th-each="link : ${blockTwo.links}" data-th-href="${link.url}"
-                            class="hero_banner-tickets kosticonnect-button primary" data-th-text="${link.title}">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="follow_us">
-        <div class="site_content">
-            <div class="hashtags">
-
-            </div>
-            <div class="telegram_chat">
+<div class="b-promo_block m-alt m-purple" data-th-classappend="${mirrored ? ' m-reverse' : ''}">
+    <div class="b-promo_block-holder">
+        <div class="b-promo_block-container">
+            <div class="b-promo_block-content">
                 <h2 class="kosticonnect-title">ТЕЛЕГРАМ-ЧАТ МИТАПА</h2>
                 <a data-th-href="${blockThree.url}" class="kosticonnect-button primary">ПРИСОЕДИНИТЬСЯ</a>
             </div>

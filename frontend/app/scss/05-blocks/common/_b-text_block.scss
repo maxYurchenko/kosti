@@ -1,6 +1,4 @@
-.content_page {
-    padding-top: 50px;
-
+.b-text_block {
     h1 {
         font-size: rem(24);
         font-weight: bold;
@@ -49,19 +47,19 @@
     }
 
     ol {
-        list-style: decimal;
+      list-style: decimal;
     }
 
     ul {
-        list-style: disc;
+      list-style: disc;
     }
 
     ol,
     ul {
-        padding-left: 40px;
+      padding-left: 40px;
 
-        li {
-            margin-bottom: 10px;
-        }
+      li {
+        margin-bottom: 10px;
+      }
     }
 }
