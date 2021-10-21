@@ -152,14 +152,16 @@ function handleReq(req) {
       totalArticles.curr = userGames.length;
       active.games = "active";
       var currTitle = "games";
-      let festival = formLib.getFestivalForGM();
-      let days = festival ? formLib.getDaysGM(null, null, festival._id) : [];
+      let festivals = formLib.getFestivalForGM(req.params.festId);
+      let days = festivals.length
+        ? formLib.getDaysGM(null, null, festivals[0]._id)
+        : [];
       days.forEach((day) => {
         day.processed.available = thymeleaf.render(
           resolve("games/shared/availableComp.html"),
           {
             games: day.processed.games,
-            festival: festival
+            festivals: festivals
           }
         );
       });
@@ -167,12 +169,13 @@ function handleReq(req) {
         currUser: currUser,
         userGames: userGames,
         currUserFlag: currUserFlag,
-        festival: festival,
+        festivals: festivals,
+        content: content,
         playerGames: playerGames,
         gameMasterForm: thymeleaf.render(resolve("games/gm/gmComp.html"), {
           days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
             days: days,
-            festival: formLib.getFestivalByDays(days)
+            festival: festivals[0]
           })
         })
       });
