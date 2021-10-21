@@ -3,16 +3,22 @@
 <script type="text/javascript" data-th-inline="javascript">
     var customEditorStyles = [[${portal.assetUrl({'_path=/css/tinymce.css'})}]];
 </script>
-<div class="my_games js-my_games" data-th-if="${currUserFlag && currUser.data.roles.kyivGM}">
-    <div data-th-if="${festival}" class="my_games-event_name-list">
-        <div class="my_games-event_name-item active" data-th-text="${festival.displayName}"></div>
+<div class="my_games js-my_games" data-th-if="${currUserFlag}">
+    <div class="my_games-event_name-list">
+        <a class="my_games-event_name-item" 
+            data-th-classappend="${festival.active ? 'active' : ''}"
+            data-th-each="festival : ${festivals}" 
+            data-th-text="${festival.displayName}"
+            data-th-href="${portal.pageUrl({'_path='+content._path,'action=games', 'festId='+festival._id})}"
+        ></a>
     </div>
     <div class="js-my_games-wrapper">
         <div data-th-utext="${gameMasterForm}" data-th-remove="tag"></div>
     </div>
 </div>
+<!--
 <div class="my_games-signed-wrapper">
-    <div data-th-if="${festival}" class="my_games-gm-header">
+    <div data-th-if="${festivals}" class="my_games-gm-header">
         <h2 class="my_games-title">
             Мои игры на 
             <span data-th-text="${festival.displayName}" data-th-remove="tag"></span>
@@ -27,3 +33,4 @@
         Игр пока нет
     </h4>
 </div>
+-->
