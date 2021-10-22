@@ -15,7 +15,7 @@
       <label>Link</label>
       <occurrences minimum="0" maximum="3"/>
       <items>
-        <input name="url" type="Long">
+        <input name="url" type="TextLine">
           <label>URL</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
