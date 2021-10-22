@@ -14,9 +14,8 @@ exports.get = function (req) {
   function getModel() {
     const component = portal.getComponent();
     const config = component.config;
-    const links = config.links ? norseUtils.forceArray(config.links) : null;
     return {
-      links: links ? config.links : null,
+      links: config.links ? norseUtils.forceArray(config.links) : null,
       background: norseUtils.getImage(config.background),
       title: config.title
     };

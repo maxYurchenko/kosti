@@ -22,15 +22,15 @@ exports.get = function (req) {
         : null
     };
     let blockTwo = {
-      info: config.blockOne.info,
-      links: config.blockOne.links
-        ? norseUtils.forceArray(config.blockOne.links)
+      info: config.blockTwo.info,
+      links: config.blockTwo.links
+        ? norseUtils.forceArray(config.blockTwo.links)
         : null
     };
     let blockThree = {
       url: config.blockThree.url
     };
     norseUtils.log(config.blockThree);
-    return { blockOne, blockTwo, blockThree, mirrored:config.mirrored};
+    return { blockOne, blockTwo, blockThree, mirrored: config.mirrored };
   }
 };

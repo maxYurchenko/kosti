@@ -161,7 +161,7 @@ function handleReq(req) {
           resolve("games/shared/availableComp.html"),
           {
             games: day.processed.games,
-            festivals: festivals
+            festivals: festivals[0]._id
           }
         );
       });
