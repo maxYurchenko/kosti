@@ -62,6 +62,7 @@
       <occurrences minimum="0" maximum="0"/>
       <config>
         <allowContentType>com.myurchenko.kostirpg:user</allowContentType>
+        <allowPath>*</allowPath>
       </config>
     </input>
   </form>

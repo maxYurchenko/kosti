@@ -8,7 +8,7 @@
                 <div data-th-if="${game.processed.block.processed.time.end}" class="my_games-short_info-time"
                     data-th-text="${game.processed.block.processed.time.start + ' - ' + game.processed.block.processed.time.end + ''}">
                 </div>
-                <div class="my_games-short_info-location" data-th-unless="${festival.online}">
+                <div class="my_games-short_info-location" data-th-if="${festival && !festival.online}">
                     <span data-th-text="${game.processed.location + ', '}"></span>
                     <span
                         data-th-text="${portal.localize({'_key=myGames.misc.table', '_locale=ru'}) + ' ' + game.processed.table}"></span>
