@@ -74,6 +74,7 @@
             padding: 40px 26px 40px 40px;
             width: 50%;
             max-width: 500px;
+            z-index: 1;
         }
 
         .b-promo_block:not(.m-alt).m-reverse & {
@@ -88,6 +89,7 @@
             margin-left: auto;
             position: static;
         }
+
         .b-promo_block.m-alt.m-reverse & {
             margin-right: auto;
             margin-left: unset;
