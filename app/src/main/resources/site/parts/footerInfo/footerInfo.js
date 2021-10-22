@@ -30,7 +30,6 @@ exports.get = function (req) {
     let blockThree = {
       url: config.blockThree.url
     };
-    norseUtils.log(config.blockThree);
     return { blockOne, blockTwo, blockThree, mirrored: config.mirrored };
   }
 };
