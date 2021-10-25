@@ -45,10 +45,13 @@ function handleReq(req) {
       game.content.data.players &&
       game.content.data.players.indexOf(user.content._id) > -1;
     let festival = festivalLib.getFestivalByChild(game._id);
-    let userPath = user.content._path;
-    userPath = userPath.split("/");
-    userPath.splice(0, 2);
-    userPath = "/" + userPath.join("/");
+    let userPath = null;
+    if (user) {
+      userPath = user.content._path;
+      userPath = userPath.split("/");
+      userPath.splice(0, 2);
+      userPath = "/" + userPath.join("/");
+    }
 
     var model = {
       game: game,

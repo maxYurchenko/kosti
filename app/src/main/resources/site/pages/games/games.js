@@ -111,10 +111,13 @@ function handleReq(req) {
       {}
     );
     let siteConfig = portal.getSiteConfig();
-    let userPath = user.content._path;
-    userPath = userPath.split("/");
-    userPath.splice(0, 2);
-    userPath = "/" + userPath.join("/");
+    let userPath = null;
+    if (user) {
+      userPath = user.content._path;
+      userPath = userPath.split("/");
+      userPath.splice(0, 2);
+      userPath = "/" + userPath.join("/");
+    }
 
     model.pageComponents["festivalHeader"] = thymeleaf.render(
       resolve("../../pages/components/header/festivalHeader.html"),
