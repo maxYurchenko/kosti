@@ -45,6 +45,10 @@ function handleReq(req) {
       game.content.data.players &&
       game.content.data.players.indexOf(user.content._id) > -1;
     let festival = festivalLib.getFestivalByChild(game._id);
+    let userPath = user.content._path;
+    userPath = userPath.split("/");
+    userPath.splice(0, 2);
+    userPath = "/" + userPath.join("/");
 
     var model = {
       game: game,
@@ -62,9 +66,11 @@ function handleReq(req) {
       resolve("../../pages/components/header/festivalHeader.html"),
       {
         headerUser: thymeleaf.render(
-          resolve("../../pages/components/header/headerUser.html"),
+          resolve("../../pages/components/header/festivalUser.html"),
           {
-            user: user
+            user: user,
+            kostirpgUrl: app.config["base.url"],
+            userPath: userPath
           }
         ),
         logo: siteConfig.cityLogo
