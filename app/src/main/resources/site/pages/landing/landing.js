@@ -12,6 +12,7 @@ const newsletterLib = require(libLocation + "newsletterLib");
 const contextLib = require(libLocation + "contextLib");
 const storeLib = require(libLocation + "storeLib");
 const sharedLib = require(libLocation + "sharedLib");
+const festivalLib = require("/lib/festival/festivalLib");
 
 exports.get = handleReq;
 
@@ -70,6 +71,24 @@ function handleReq(req) {
       relatedLocales: kostiUtils.getRelatedLocales(content),
       pageComponents: helpers.getPageComponents(req, "footerScripts")
     };
+
+    model.pageComponents["festivalHeader"] = thymeleaf.render(
+      resolve("../../pages/components/header/festivalHeader.html"),
+      {
+        headerUser: thymeleaf.render(
+          resolve("../../pages/components/header/headerUser.html"),
+          {
+            user: user
+          }
+        ),
+        logo: siteConfig.cityLogo
+          ? norseUtils.getImage(siteConfig.cityLogo).url
+          : portal.assetUrl({ path: "images/kosticonnect/headline.svg" }),
+        kostirpgUrl: app.config["base.url"],
+        site: portal.getSite(),
+        logoUrl: portal.pageUrl({ id: siteConfig.festivalLanding })
+      }
+    );
 
     return model;
   }

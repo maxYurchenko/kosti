@@ -2,15 +2,14 @@
     <div class="site_content">
         <div class="kosticonnect-header_inner m-kostirpg">
             <div class="kosticonnect-short_info">
-                <!-- <a href="/kostyashki-moskva"> -->
-                <div class="kosticonnect-headline">
-                    <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
-                        alt="kosticonnect " />
-                </div>
-                <!-- </a> -->
+                <a data-th-href="${logoUrl}">
+                    <div class="kosticonnect-headline">
+                        <img data-th-src="${logo}" alt="kosticonnect " />
+                    </div>
+                </a>
             </div>
             <div class="header-logo">
-                <a data-th-href="${portal.pageUrl({'_path=' + site._path})}" data-th-title="${'Главная'}">
+                <a data-th-href="${kostirpgUrl}" data-th-title="${'Главная'}">
                     <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_full.svg'})}"
                         alt="Логотип Вечерние Кости" class="header-logo-default" />
                     <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_icon.svg'})}"

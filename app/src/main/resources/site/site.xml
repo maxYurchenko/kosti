@@ -143,6 +143,10 @@
         <allowContentType>hashtag</allowContentType>
       </config>
     </input>
+    <input name="festivalLanding" type="ContentSelector">
+      <label>Festival landing page</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="cityLogo" type="ImageSelector">
       <label>cityLogo</label>
       <occurrences minimum="0" maximum="1"/>

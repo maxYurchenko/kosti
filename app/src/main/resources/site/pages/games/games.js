@@ -56,7 +56,7 @@ function handleReq(req) {
   function createModel() {
     let user = userLib.getCurrentUser();
     let content = portal.getContent();
-    let festival = festivalLib.getActiveFestival();
+    let festival = festivalLib.getFestivalByChild(content._id);
     let games = playerLib.getGames({
       day: req.params.dayId,
       system: req.params.system,
@@ -110,6 +110,7 @@ function handleReq(req) {
       resolve("../components/modal.html"),
       {}
     );
+    let siteConfig = portal.getSiteConfig();
 
     model.pageComponents["festivalHeader"] = thymeleaf.render(
       resolve("../../pages/components/header/festivalHeader.html"),
@@ -120,7 +121,12 @@ function handleReq(req) {
             user: user
           }
         ),
-        site: portal.getSite()
+        logo: siteConfig.cityLogo
+          ? norseUtils.getImage(siteConfig.cityLogo).url
+          : portal.assetUrl({ path: "images/kosticonnect/headline.svg" }),
+        site: portal.getSite(),
+        kostirpgUrl: app.config["base.url"],
+        logoUrl: portal.pageUrl({ id: siteConfig.festivalLanding })
       }
     );
 
@@ -128,8 +134,9 @@ function handleReq(req) {
   }
 
   function getFilters() {
+    let content = portal.getContent();
     let filters = { themes: [], system: [] };
-    let festival = festivalLib.getActiveFestival();
+    let festival = festivalLib.getFestivalByChild(content._id);
     let games = festivalLib.getItemsList({
       parentId: festival._id,
       type: "game",

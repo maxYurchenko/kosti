@@ -20,6 +20,13 @@ function initKosticonnetcScripts() {
   });
 
   $(".js_sign-up-for-game").on("click", function (e) {
+    if (checkUserLoggedIn()) {
+      signupForGame();
+    } else {
+      showLogin(e);
+    }
+    /*
+    KOSTICON MINI
     if ($(this).data().step === "init") {
       $(".js_game-sign-up-step-1").show("slow");
       $(this).data().step = "form";
@@ -29,7 +36,7 @@ function initKosticonnetcScripts() {
     } else {
       signupForGame();
     }
-
+    */
     /*
     KOSTICONNECT
     if (
@@ -140,10 +147,10 @@ function signupForGame() {
       } else {
         if (data.message) showSnackBar(data.message, "success");
         else showSnackBar("Вы зарегистрированы.", "success");
-      }
-      $(".js_signin-block").addClass("hidden");
-      if (checkUserLoggedIn()) {
-        $(".js_signout-block").removeClass("hidden");
+        $(".js_signin-block").addClass("hidden");
+        if (checkUserLoggedIn()) {
+          $(".js_signout-block").removeClass("hidden");
+        }
       }
     },
     error: function (data) {

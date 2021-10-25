@@ -65,5 +65,9 @@
         <allowPath>*</allowPath>
       </config>
     </input>
+    <input name="gamesListPage" type="ContentSelector">
+      <label>Games list page</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
   </form>
 </content-type>
