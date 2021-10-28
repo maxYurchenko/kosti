@@ -33,6 +33,10 @@
       <label>Required GM role</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="bossRole" type="TextLine">
+      <label>Boss role</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="onlineFestival" type="CheckBox">
       <label>Online festival</label>
       <config>
@@ -53,6 +57,12 @@
     </input>
     <input name="requireDiscord" type="CheckBox">
       <label>Require discord</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
+    <input name="freeGames" type="CheckBox">
+      <label>Free games</label>
       <config>
         <alignment>right</alignment>
       </config>

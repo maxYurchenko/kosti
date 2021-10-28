@@ -1,17 +1,18 @@
 const libLocation = "../../../site/lib/";
 
-const playerLib = require("/lib/festival/playerLib");
-const adminLib = require(libLocation + "adminLib");
-const thymeleaf = require("/lib/thymeleaf");
 const norseUtils = require(libLocation + "norseUtils");
+
+const playerLib = require("/lib/festival/playerLib");
+const thymeleaf = require("/lib/thymeleaf");
 const contentLib = require("/lib/xp/content");
+const festivalLib = require("/lib/festival/festivalLib");
+const userLib = require("/lib/userLib");
 
 exports.post = function (req) {
-  if (!adminLib.validateUserAdmin()) {
-    return {
-      success: false,
-      message: "Вам нужно быть админом, чтоб выполнить это."
-    };
+  let game = contentLib.get({ key: req.params.gameId });
+  let festival = festivalLib.getFestivalByChild(game._id);
+  if (!userLib.checkCurrentUserCityBoss(festival.data.bossRole)) {
+    return { success: false };
   }
   let returnData = playerLib.signForGame(req.params, true);
   returnData.game = contentLib.get({ key: req.params.gameId });
@@ -22,11 +23,10 @@ exports.post = function (req) {
 };
 
 exports.get = function (req) {
-  if (!adminLib.validateUserAdmin()) {
-    return {
-      success: false,
-      message: "Вам нужно быть админом, чтоб выполнить это."
-    };
+  let game = contentLib.get({ key: req.params.gameId });
+  let festival = festivalLib.getFestivalByChild(game._id);
+  if (!userLib.checkCurrentUserCityBoss(festival.data.bossRole)) {
+    return { success: false };
   }
   return {
     body: {

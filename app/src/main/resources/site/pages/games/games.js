@@ -64,17 +64,20 @@ function handleReq(req) {
       count: 9,
       parent: content._id
     });
+    let userPath = null;
+    let mygamesLink = null;
+    if (user) {
+      userPath = user.content._path;
+      userPath = userPath.split("/");
+      userPath.splice(0, 2);
+      userPath = "/" + userPath.join("/");
+      mygamesLink = userPath + "?action=games";
+    }
     let filters = cache.api.getOnly("festival-filters");
     if (!filters) {
       filters = getFilters();
       cache.api.put("festival-filters", filters);
     }
-    let mygamesLink = null;
-    if (user)
-      mygamesLink = portal.pageUrl({
-        id: user.content._id,
-        params: { action: "games" }
-      });
     let currentBlock =
       games.length > 0
         ? games[games.length - 1].processed.block.content._id
@@ -96,7 +99,8 @@ function handleReq(req) {
       }),
       gamesView: thymeleaf.render(resolve("gamesBlock.html"), {
         games: games,
-        user: user
+        user: user,
+        cityBoss: userLib.checkCurrentUserCityBoss(festival.data.bossRole)
       }),
       festival: festival,
       filters: getFilters(),
@@ -111,13 +115,6 @@ function handleReq(req) {
       {}
     );
     let siteConfig = portal.getSiteConfig();
-    let userPath = null;
-    if (user) {
-      userPath = user.content._path;
-      userPath = userPath.split("/");
-      userPath.splice(0, 2);
-      userPath = "/" + userPath.join("/");
-    }
 
     model.pageComponents["festivalHeader"] = thymeleaf.render(
       resolve("../../pages/components/header/festivalHeader.html"),
