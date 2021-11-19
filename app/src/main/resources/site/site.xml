@@ -252,6 +252,12 @@
     <mapping controller="/api/donatepay/list.js">
       <pattern>/api/donatepay/list</pattern>
     </mapping>
+    <mapping controller="/api/donatepay/charge.js">
+      <pattern>/api/donatepay/charge</pattern>
+    </mapping>
+    <mapping controller="/api/donatepay/allCharges.js">
+      <pattern>/api/donatepay/charge/all</pattern>
+    </mapping>
     <!--
       Checkout
     -->

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Donate target</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="url" type="TextLine">
+      <label>Widget URL</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="chargePrice" type="Long">
+      <label>Charge price</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="deleteChargeStrategy" type="ComboBox">
+      <label>How to delete charge</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="vitya">Use Vitya</option>
+        <option value="config">Use config</option>
+      </config>
+    </input>
+    <input name="widgetId" type="Long">
+      <label>Widget ID</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="widgetConfig" type="TextArea">
+      <label>Widget config JSON</label>
+    </input>
+    <input name="donateSettings" type="ContentSelector">
+      <label>Donate settings</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allowContentType>donateSettings</allowContentType>
+      </config>
+    </input>
+  </form>
+</content-type>
