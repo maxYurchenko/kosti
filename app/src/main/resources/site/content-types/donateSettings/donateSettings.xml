@@ -3,10 +3,6 @@
   <display-name>Donate settings</display-name>
   <super-type>base:structured</super-type>
   <form>
-    <input name="token" type="TextLine">
-      <label>Token</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
     <input name="laravelSession" type="TextLine">
       <label>Laravel session</label>
       <occurrences minimum="1" maximum="1"/>
