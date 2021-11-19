@@ -7,6 +7,7 @@ const norseUtils = require(libLocation + "norseUtils");
 exports.prepareResponse = prepareResponse;
 exports.getCharge = getCharge;
 exports.updateWidget = updateWidget;
+exports.getToken = getToken;
 
 function prepareResponse(charge, donateTarget) {
   return {
@@ -46,6 +47,9 @@ function getCharge(id) {
 function updateWidget(donateTarget) {
   let charge = getCharge(donateTarget._id);
   let config = JSON.parse(donateTarget.data.widgetConfig);
+  let donateSettings = contentLib.get({
+    key: donateTarget.data.donateSettings
+  });
   config.setting_4 = (
     parseInt(charge.start) - donateTarget.data.chargePrice
   ).toFixed();
@@ -54,11 +58,12 @@ function updateWidget(donateTarget) {
     url: "https://donatepay.ru/widgets/settings/save",
     method: "POST",
     headers: {
-      "Cookie": "laravel_session=uRt3wGqA4xFRA8YXuVP7FTOmvi4Zp0p43gdPNfvh"
+      "Cookie": "laravel_session=" + donateSettings.data.laravelSession
     },
     contentType: "application/x-www-form-urlencoded",
     body:
-      "_token=3kUVfpFl5OidPaEm33UwjP89i18Ko3zGAlHOSIRW" +
+      "_token=" +
+      getToken(donateTarget._id) +
       "&widget_id=" +
       donateTarget.data.widgetId +
       "&data=" +
@@ -68,4 +73,23 @@ function updateWidget(donateTarget) {
     return { success: false };
   }
   return { success: true, data: { charge: charge } };
+}
+
+function getToken(id) {
+  let donateTarget = contentLib.get({ key: id });
+  let donateSettings = contentLib.get({
+    key: donateTarget.data.donateSettings
+  });
+  let response = httpClientLib.request({
+    url: "https://donatepay.ru/donation/fundraiser",
+    method: "GET",
+    headers: {
+      "Cookie": "laravel_session=" + donateSettings.data.laravelSession
+    }
+  });
+  let regex = new RegExp('name=.*?_token.+?.+?".+?"', "gim");
+  let data = response.body.match(regex)[0];
+  data = data.substring(21);
+  data = data.substring(0, data.length - 1);
+  return data;
 }

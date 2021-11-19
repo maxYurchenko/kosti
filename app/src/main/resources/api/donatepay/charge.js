@@ -9,9 +9,8 @@ const moment = require(libLocation + "moment");
 const socNotLib = require(libLocation + "socialNotificationLib");
 const donatePayLib = require("donatePayLib");
 
-const donateSettings = "86772271-8360-4055-9e66-286f1370484a";
-
 exports.get = function (req) {
+  donatePayLib.getToken(req.params.id);
   return {
     body: createModel(),
     contentType: "application/json"
