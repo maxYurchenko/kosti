@@ -50,6 +50,10 @@ function updateWidget(donateTarget) {
   let donateSettings = contentLib.get({
     key: donateTarget.data.donateSettings
   });
+  let token = getToken(donateTarget._id);
+  if (!token) {
+    return { success: false };
+  }
   config.setting_4 = (
     parseInt(charge.start) - donateTarget.data.chargePrice
   ).toFixed();
@@ -87,6 +91,9 @@ function getToken(id) {
       "Cookie": "laravel_session=" + donateSettings.data.laravelSession
     }
   });
+  if (response.status != 200) {
+    return null;
+  }
   let regex = new RegExp('name=.*?_token.+?.+?".+?"', "gim");
   let data = response.body.match(regex)[0];
   data = data.substring(21);

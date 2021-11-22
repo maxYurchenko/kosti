@@ -10,7 +10,6 @@ const socNotLib = require(libLocation + "socialNotificationLib");
 const donatePayLib = require("donatePayLib");
 
 exports.get = function (req) {
-  donatePayLib.getToken(req.params.id);
   return {
     body: createModel(),
     contentType: "application/json"
