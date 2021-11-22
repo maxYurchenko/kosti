@@ -18,7 +18,7 @@ function prepareResponse(charge, donateTarget) {
     start: charge.start,
     current: {
       float: charge.start / donateTarget.data.chargePrice,
-      int: (charge.start / donateTarget.data.chargePrice).toFixed()
+      int: Math.floor(charge.start / donateTarget.data.chargePrice).toFixed()
     }
   };
 }
@@ -67,7 +67,7 @@ function updateWidget(donateTarget) {
     contentType: "application/x-www-form-urlencoded",
     body:
       "_token=" +
-      getToken(donateTarget._id) +
+      token +
       "&widget_id=" +
       donateTarget.data.widgetId +
       "&data=" +
