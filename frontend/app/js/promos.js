@@ -1,12 +1,10 @@
 var promoForm = $(".js_promo-form");
 
 function initPromos() {
-  $(".js_promo_code-title").on("click", function() {
-    $(this)
-      .parent()
-      .toggleClass("show");
+  $(".js_promo_code-title").on("click", function () {
+    $(this).parent().toggleClass("show");
   });
-  promoForm.on("click", ".js_promo-remove", function(e) {
+  promoForm.on("click", ".js_promo-remove", function (e) {
     if (!promoForm.valid()) {
       return false;
     }
@@ -22,24 +20,24 @@ function initPromos() {
       },
       true
     );
-    call.done(function(data) {
+    call.done(function (data) {
       $(".js_promo_code-used_list").html(data.promos);
       $(".js_summary-discount .value span").text(
-        data.cart.price.discount.discount
+        data.cart.price.discount.discount.total
       );
       $(".js_summary-total .value span").text(data.cart.price.totalDiscount);
     });
   });
-  promoForm.on("submit", function(e) {
+  promoForm.on("submit", function (e) {
     e.preventDefault();
     var formData = getFormData(this);
     formData.cartId = getCookieValue("cartId");
     var call = makeAjaxCall("/promos", "POST", formData, true);
-    call.done(function(data) {
+    call.done(function (data) {
       if (data) {
         $(".js_promo_code-used_list").html(data.promos);
         $(".js_summary-discount .value span").text(
-          data.cart.price.discount.discount
+          data.cart.price.discount.discount.total
         );
         $(".js_summary-total .value span").text(data.cart.price.totalDiscount);
       } else {
@@ -52,6 +50,6 @@ function initPromos() {
   });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   initPromos();
 });

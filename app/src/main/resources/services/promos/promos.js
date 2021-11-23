@@ -21,7 +21,7 @@ exports.post = function (req) {
         contentType: "application/json"
       };
     case "activatePromo":
-      var view = resolve("../checkout/components/promos.html");
+      var view = resolve("../checkout/templates/promos.html");
       var cart = contextLib.runAsAdmin(function () {
         return promosLib.activatePromo(params.promoCode, params.cartId);
       });
@@ -41,7 +41,7 @@ exports.post = function (req) {
         contentType: "application/json"
       };
     case "removePromo":
-      var view = resolve("../checkout/components/promos.html");
+      var view = resolve("../checkout/templates/promos.html");
       var cart = contextLib.runAsAdmin(function () {
         return cartLib.removePromo(params.code, params.cartId);
       });
