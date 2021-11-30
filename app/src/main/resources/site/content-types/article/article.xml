@@ -33,5 +33,14 @@
       <config>
       </config>
     </input>
+    <input name="notification" type="ComboBox">
+      <label>Notification strategy</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="default">Default</option>
+        <option value="skip">Skip</option>
+      </config>
+      <default>default</default>
+    </input>
   </form>
 </content-type>

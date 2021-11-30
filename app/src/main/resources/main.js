@@ -45,33 +45,32 @@ event.listener({
         }
         votesLib.setVoteDate(vote._id, node.publish.from);
         if (node && node.type && node.type == app.name + ":article") {
-          if (!vote.notified) {
-            node.url = pageUrl(node);
-            if (app.config.discordKotirpgChannel) {
-              var discordMessage = blogLib.generateDiscordNotificationMessage(
-                node
-              );
-              socNotLib.sendDiscordMessage({
-                webhookUrl: app.config.discordKotirpgChannel,
-                body: discordMessage
-              });
-            }
-            if (
-              app.config.telegramNotificationChat &&
-              app.config.telegramBotToken
-            ) {
-              var telegramMessage = blogLib.generateTelegramNotificationMessage(
-                node
-              );
-              socNotLib.sendTelegramMessage({
-                body: telegramMessage,
-                chatId: app.config.telegramNotificationChat,
-                botId: app.config.telegramBotToken,
-                hidePreview: true
-              });
-            }
-            votesLib.markVoteAsNotified(node._id);
+          if (vote.notified) continue;
+          if (node.data.notification && node.data.notification === "skip")
+            continue;
+          node.url = pageUrl(node);
+          if (app.config.discordKotirpgChannel) {
+            var discordMessage =
+              blogLib.generateDiscordNotificationMessage(node);
+            socNotLib.sendDiscordMessage({
+              webhookUrl: app.config.discordKotirpgChannel,
+              body: discordMessage
+            });
           }
+          if (
+            app.config.telegramNotificationChat &&
+            app.config.telegramBotToken
+          ) {
+            var telegramMessage =
+              blogLib.generateTelegramNotificationMessage(node);
+            socNotLib.sendTelegramMessage({
+              body: telegramMessage,
+              chatId: app.config.telegramNotificationChat,
+              botId: app.config.telegramBotToken,
+              hidePreview: true
+            });
+          }
+          votesLib.markVoteAsNotified(node._id);
         }
       }
     }
