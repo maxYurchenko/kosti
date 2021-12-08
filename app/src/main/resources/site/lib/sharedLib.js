@@ -54,7 +54,9 @@ function getShopUrl(params) {
 function getSite() {
   var site = portal.getSite();
   if (!site) {
-    site = contentLib.query({ query: "_path = '/content/kosti'" }).hits[0];
+    site = contentLib.query({
+      query: "_path = '/content/vechernie-kosti/kosti'"
+    }).hits[0];
   }
   return site;
 }
@@ -62,7 +64,9 @@ function getSite() {
 function getSiteConfig() {
   var site = portal.getSiteConfig();
   if (!site) {
-    site = contentLib.query({ query: "_path = '/content/kosti'" }).hits[0].data;
+    site = contentLib.query({
+      query: "_path = '/content/vechernie-kosti/kosti'"
+    }).hits[0].data;
     for (var key in site.siteConfig) {
       if (site.siteConfig[key].applicationKey == app.name) {
         site = site.siteConfig[key].config;
