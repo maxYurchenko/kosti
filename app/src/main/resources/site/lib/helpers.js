@@ -87,6 +87,7 @@ function getPageComponents(req, footerType, activeEl, title) {
   );
 
   if (!footerType) footerType = "footer";
+  let cart = cartLib.getCart(req && req.cookies ? req.cookies.cartId : null);
   pageComponents["footer"] =
     thymeleaf.render(
       resolve("../pages/components/footers/" + footerType + ".html"),
@@ -102,8 +103,9 @@ function getPageComponents(req, footerType, activeEl, title) {
         updateCartUrl: "/api/cart/update",
         commentsServiceUrl: commentsServiceUrl,
         monsterServiceUrl: monsterServiceUrl,
-        cartId: cartLib.getCart(req && req.cookies ? req.cookies.cartId : null)
-          ._id
+        cartId: cart._id,
+        baseUrl: app.config["base.url"],
+        host: app.config["baseHost"]
       }
     );
 

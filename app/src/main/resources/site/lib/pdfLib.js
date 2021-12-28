@@ -34,7 +34,7 @@ function generateTicket(params) {
   var html = thymeleaf.render(resolve(templates[params.template]), {
     qrcode: qr.createTableTag(9, 0),
     id: params.qrData,
-    friendlyId: params.friendlyId.toFixed(),
+    friendlyId: params.friendlyId,
     legendary: params.template === "legendaryTicket2020"
   });
 

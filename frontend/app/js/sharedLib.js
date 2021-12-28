@@ -22,7 +22,9 @@ function setCookie(cartId) {
     cartId +
     "; path=/; expires=" +
     expire.toGMTString() +
-    " GMT; SameSite=None; Secure;";
+    " GMT; SameSite=None; Secure;" +
+    "Domain=" +
+    host;
 }
 
 function deleteCookie(name) {

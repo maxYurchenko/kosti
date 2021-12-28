@@ -4,4 +4,14 @@
   <config />
   <regions>
   </regions>
+  <form>
+    <input name="tickets" type="ContentSelector">
+      <label>Tickets</label>
+      <occurrences minimum="0" maximum="2"/>
+      <config>
+        <allowContentType>com.myurchenko.kostirpg:product</allowContentType>
+        <allowPath>*</allowPath>
+      </config>
+    </input>
+  </form>
 </page>

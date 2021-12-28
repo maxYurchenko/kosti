@@ -218,8 +218,9 @@
                         НУ КАК, РЕШИЛИСЬ?
                     </h2>
                     <ul class="shop_block-list">
+                        <!-- use "sold-out" class on <li> item if ticket is sold out -->
                         <li class="shop_block-item"
-                            data-th-classappend="${product.data.ticketType == 'kostiConnectOnline'} ? 'regular' : 'turbo sold-out'"
+                            data-th-classappend="${product.data.ticketType == 'kostiConnectOnline'} ? 'regular' : 'turbo'"
                             data-th-each="product: ${products}">
                             <div class="shop_block-item-inner">
                                 <div class="shop_block-img_wrap">
@@ -246,9 +247,9 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="shop_block-msg_wrap">
+                            <!--<div class="shop_block-msg_wrap">
                                 <span class="shop_block-msg">SOLD OUT!</span>
-                            </div>
+                            </div>-->
                         </li>
                         <li class="shop_block-item shop_block-support">
                             Подключайся к самой крутой настольной ролевой движухе этого года. Добро пожаловать в

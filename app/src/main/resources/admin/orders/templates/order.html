@@ -87,10 +87,10 @@
                                                 <span class="value" data-th-text="${item.itemSize}"></span>
                                             </div>
                                             <span class="label">Количество: </span>
-                                            <span class="value" data-th-text="${item.amount}"></span>
-                                            <div data-th-if="${item.itemsIds.size > 0}" class="cart-product_size">
+                                            <span class="value" data-th-text="${item.amountString}"></span>
+                                            <div class="cart-product_size">
                                                 <span class="label">Ids: </span>
-                                                <div data-th-each="itemId: ${item.itemsIds}" class="value"
+                                                <div data-th-each="itemId: ${item.itemsIdsProcessed}" class="value"
                                                     data-th-text="${itemId.id}"></div>
                                             </div>
                                             <div data-th-text="${item._id}" hidden></div>

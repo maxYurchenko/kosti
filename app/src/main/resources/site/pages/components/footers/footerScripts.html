@@ -23,6 +23,12 @@
 <script type="text/javascript" data-th-inline="javascript" data-th-if="${cartId}">
     var cartId = [[${cartId}]];
 </script>
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${cartId}">
+    var baseUrl = [[${baseUrl}]];
+</script>
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${cartId}">
+    var host = [[${host}]];
+</script>
 <script data-th-src="${portal.assetUrl({'_path=js/main.js'})}"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/store.js'})}"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/sharedLib.js'})}"></script>

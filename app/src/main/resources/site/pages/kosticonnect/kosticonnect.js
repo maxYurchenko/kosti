@@ -42,9 +42,9 @@ function handleReq(req) {
     var up = req.params;
     var content = portal.getContent();
     let products = null;
-    if (content.data.products) {
+    if (content.page && content.page.config && content.page.config.tickets) {
       products = storeLib.getProductsByIds(
-        content.data.products,
+        content.page.config.tickets,
         req.remoteAddress
       );
     }

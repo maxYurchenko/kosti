@@ -32,9 +32,13 @@ function addTocart(e, element) {
   }
   let call = makeAjaxCall(updateCartUrl, "POST", data, true);
   call.done(function (data) {
-    var cart = data.data;
-    setCookie(cart._id);
-    window.location.href = "/cart";
+    if (data.success) {
+      var cart = data.data;
+      setCookie(cart._id);
+      window.location.href = baseUrl + "/cart";
+    } else {
+      showSnackBar("Не удалось добавить билет", "error");
+    }
   });
 }
 

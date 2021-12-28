@@ -23,14 +23,14 @@
                         <span class="label">Размер:</span>
                         <span class="value" data-th-text="${product.itemSize}"></span>
                     </div>
-                    <div data-th-if="${product.itemsIds and product.productType == 'ticket' && order.status == 'paid'}"
-                        class="cart-product_size" data-th-each="downloadable: ${product.itemsIds}">
+                    <div data-th-if="${product.itemsIdsProcessed and product.productType == 'ticket' && order.status == 'paid'}"
+                        class="cart-product_size" data-th-each="downloadable: ${product.itemsIdsProcessed}">
                         <div><span>Номер билета: </span><span data-th-text="${downloadable.id}"></span></div>
                         <a data-th-if="${product.ticketType != 'kostiConnectTurbo' && product.ticketType != 'kostiConnectOnline'}"
                             data-th-href="${portal.serviceUrl({'_service=orders', 'id=' + downloadable.id, 'action=ticketPdf'})}">Скачать</a>
                     </div>
                 </div>
-                <div class="view_orders-product-qty" data-th-text="${product.amount}"></div>
+                <div class="view_orders-product-qty" data-th-text="${product.amountString}"></div>
                 <div class="cart-product_price">
                     <span class="price-curency">UAH</span>
                     <span data-th-text="${product.transactionPrice}"></span>
@@ -51,7 +51,7 @@
             </div>
             <div class="summary-discount js_summary-discount">
                 <span class="label">Скидка</span>
-                <span class="value">UAH <span data-th-text="${order.price.discount.discount}"></span></span>
+                <span class="value">UAH <span data-th-text="${order.price.discount.discount.total}"></span></span>
             </div>
             <div class="summary-total js_summary-total">
                 <span class="label">Всего</span>
