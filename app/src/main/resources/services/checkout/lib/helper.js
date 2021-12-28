@@ -31,12 +31,13 @@ function checkoutCart(cart) {
       promosLib.reduceUsePromos(cart.promos);
     }
     cart = cartLib.getCart(cart._id);
-    sendConfirmationMail(cart);
     if (cart.status === "pending") {
-      return cartLib.getCart(cart._id);
+      cart = cartLib.getCart(cart._id);
     } else {
-      return cartLib.generateItemsIds(cart._id);
+      cart = cartLib.generateItemsIds(cart._id);
     }
+    sendConfirmationMail(cart);
+    return cart;
   });
 }
 

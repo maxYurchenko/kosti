@@ -39,10 +39,10 @@
                                 <span style="color: #707070; font-weight: bold;">Количество:</span>
                                 <span style="color: #505050;" data-th-text="${item.amountString}">1</span>
                             </div>
-                            <div data-th-if="${item.itemsIds}">
+                            <div data-th-if="${item.itemsIdsProcessed}">
                                 <span style="color: #707070; font-weight: bold;">Коды, которые позволят вам попасть на
                                     дискорд сервер фестиваля в день фестиваля*:</span>
-                                <div data-th-remove="tag" data-th-each="id: ${item.itemsIds}">
+                                <div data-th-remove="tag" data-th-each="id: ${item.itemsIdsProcessed}">
                                     <br />
                                     <span style="color: #505050;" data-th-text="${id.id}">1</span>
                                 </div>
