@@ -29,24 +29,6 @@
             align-items: center;
             padding: 40px 0;
         }
-
-        &.m-kostirpg {
-            display: flex;
-            flex-wrap: wrap;
-
-            .kosticonnect-short_info {
-                @include mobile {
-                    flex: 1 1 100%;
-                }
-            }
-
-            .header-logo {
-                @include tablet-all {
-                    margin-left: auto;
-                }
-            }
-
-        }
     }
 
     &-header_insert {
@@ -91,9 +73,12 @@
         }
     }
 
-    &-headline {
-        width: 320px;
+    &-logo {
+        margin-right: 8px;
+    }
 
+    &-headline {
+        margin-right: 12px;
         @include mobile-xs {
             flex: 1 1 50%;
         }
@@ -148,24 +133,21 @@
             background: $kosticonnect-primary1;
             border: 1px solid $kosticonnect-primary1;
 
-            &:hover {
-                @include tablet-all {
-                    background: #C30941;
-                    border-color: #C30941;
+            @include hover-supported {
+                &:hover {
+                    background: darken($kosticonnect-primary1, 5%);
+                    border-color: darken($kosticonnect-primary1, 5%);
                 }
             }
 
             &:focus {
-                @include tablet-all {
-                    background: #C30941;
-                    outline: 2px solid #960330;
-                }
+                background: darken($kosticonnect-primary1, 5%);
+                border-color: darken($kosticonnect-primary1, 10%);
             }
 
             &:active {
-                @include tablet-all {
-                    background: #960330;
-                }
+                background: darken($kosticonnect-primary1, 5%);
+                border-color: darken($kosticonnect-primary1, 5%);
             }
         }
 
@@ -230,14 +212,77 @@
 
 // END of .kosticonnect
 
+.fest_date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Roboto;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $color-primary1;
+    background: $kosticonnect-primary5;
+    height: 55px;
+    padding: 10px;
+    letter-spacing: 0.03em;
+
+    @include mobile-xs {
+        padding: 0;
+        min-width: 65px;
+    }
+
+    &-day {
+        font-size: 17.4415px;
+        line-height: 21px;
+        white-space: nowrap;
+
+        @include mobile-xs {
+            font-size: 16px;
+        }
+    }
+    
+    &-month {
+        font-size: 10.4649px;
+        line-height: 14px;
+    }
+}
+
 .hero_banner {
     position: relative;
-    // padding-bottom: 25px;
     background-color: $kosticonnect-primary3;
     overflow: hidden;
 
-    @include mobile {
-        // margin: 0 -24px;
+    &.m-kostirpg {
+        margin-bottom: 25px;
+
+        @include mobile {
+            margin: 0 -24px;
+        }
+
+        @include tablet-all {
+            padding-left: 10px;
+            padding-bottom: 10px;
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: calc(100% - 10px);
+                background: $kosticonnect-primary5;
+                width: 10px;
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 10px;
+                background: $kosticonnect-primary5;
+                width: calc(100% - 10px);
+            }
+        }
     }
 
     &-video_wrap {
@@ -281,6 +326,12 @@
             justify-content: center;
             flex-wrap: wrap;
         }
+
+        .hero_banner.m-kostirpg & {
+            @include mobile {
+                padding: 20px 25px 48px;
+            }
+        }
     }
 
     &-title {
@@ -295,10 +346,26 @@
         }
     }
 
+    &-actions {
+        .hero_banner.m-kostirpg &{
+            @include mobile {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+        }
+    }
+
     &-tickets,
     &-participate {
         margin-right: 20px;
         margin-top: 10px;
+
+        .hero_banner.m-kostirpg & {
+            @include mobile {
+                margin-right: 0;
+            }
+        }
     }
 
     &-list {
@@ -308,7 +375,29 @@
 
 .hightlights {
     position: relative;
-    padding-top: 82px;
+    padding-top: 102px;
+
+    &:before {
+        position: absolute;
+        background-image: url(../images/kosticonnect/KOSTICONNECT.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 113%;
+        content: '';
+        left: -24px;
+        right: -24px;
+        top: 18px;
+        height: 117px;
+
+        @include tablet-all {
+            background-image: url("../images/kosticonnect/KOSTICONNECT.svg");
+            background-position: 24px 48px;
+            background-size: auto;
+            height: 158px;
+            left: 0;
+            top: 0;
+        }
+    }
 
     @include tablet-all {
         padding-top: 136px;
@@ -344,7 +433,7 @@
             content: '';
             height: 2px;
             margin-top: 8px;
-            background: #FF5B35;
+            background: $kosticonnect-primary6;
             width: 100%;
             display: block;
         }
@@ -388,12 +477,12 @@
         font-weight: 900;
         font-size: 20px;
         line-height: 1.55;
-        color: $color-primary1;
+        color: $kosticonnect-primary2;
         position: relative;
         padding-top: 48px;
         padding-bottom: 48px;
         padding-right: 15px;
-        background-color: #3D2B57;
+        background-color: $color-primary1;
         display: inline-block;
 
         @include tablet-all {
@@ -408,7 +497,7 @@
             width: 100%;
             top: 0;
             z-index: 1;
-            background: #3D2B57;
+            background: $color-primary1;
             right: 100%;
         }
 
@@ -424,7 +513,7 @@
 
         // &:after {
         //   content: "";
-        //   background: #FF5B35;
+        //   background: $kosticonnect-primary6;
         //   height: 2px;
 
         //   @include mobile {
@@ -468,7 +557,7 @@
         display: flex;
         flex-direction: column;
         margin-top: 87px;
-        background: $kosticonnect-primary4;
+        // background: $kosticonnect-primary4;
         background-repeat: no-repeat;
         background-position: 139% 87%;
         background-size: 76%;
@@ -519,7 +608,7 @@
 
         &.sold-out {
             position: relative;
-            background: $color-primary1;
+            background: $kosticonnect-primary5;
         }
     }
 
@@ -553,14 +642,15 @@
             bottom: 0;
             height: calc(100% - 10px);
             width: 10px;
+            background: $kosticonnect-primary2;
 
-            .regular & {
-                background: $kosticonnect-primary3;
-            }
+            // .regular & {
+            //     background: $kosticonnect-primary3;
+            // }
 
-            .turbo & {
-                background: $kosticonnect-primary1;
-            }
+            // .turbo & {
+            //     background: $kosticonnect-primary1;
+            // }
         }
 
         &:after {
@@ -570,14 +660,15 @@
             bottom: 0;
             height: 10px;
             width: calc(100% - 10px);
+            background: $kosticonnect-primary2;
 
-            .regular & {
-                background: $kosticonnect-primary3;
-            }
+            // .regular & {
+            //     background: $kosticonnect-primary3;
+            // }
 
-            .turbo & {
-                background: $kosticonnect-primary1;
-            }
+            // .turbo & {
+            //     background: $kosticonnect-primary1;
+            // }
         }
     }
 
@@ -615,7 +706,7 @@
                 content: '';
                 width: 8px;
                 height: 8px;
-                background: #FF5B35;
+                background: $kosticonnect-primary6;
                 position: absolute;
                 left: 0;
                 margin-top: 6px;
@@ -716,7 +807,7 @@
         font-weight: 900;
         font-size: 32px;
         line-height: 1.35;
-        color: #FF5B35;
+        color: $kosticonnect-primary6;
         padding-bottom: 24px;
 
         @include mobile-xs {
@@ -948,7 +1039,7 @@
 }
 
 .k_faq {
-    background: $kosticonnect-primary3;
+    background: $kosticonnect-primary5;
     color: $color-primary1;
     overflow: hidden;
 
@@ -1013,14 +1104,14 @@
             padding-right: 8px;
 
             .active & {
-                border-color: #FF5B35;
+                border-color: $kosticonnect-primary6;
             }
 
             &:hover {
-                color: #FF5B35;
+                color: $kosticonnect-primary6;
 
                 &:after {
-                    border-top-color: #FF5B35;
+                    border-top-color: $kosticonnect-primary6;
                 }
             }
 
@@ -1057,7 +1148,7 @@
 }
 
 .follow_us {
-    background: $kosticonnect-primary4;
+    background: $kosticonnect-primary2;
 
     .site_content {
         @include desktop {
@@ -1082,7 +1173,7 @@
         line-height: 1.2;
         text-transform: uppercase;
         color: $kosticonnect-primary4;
-        text-shadow: -1px 0 #FF5B35, 0 1px #FF5B35, 1px 0 #FF5B35, 0 -1px #FF5B35;
+        text-shadow: -1px 0 $kosticonnect-primary6, 0 1px $kosticonnect-primary6, 1px 0 $kosticonnect-primary6, 0 -1px $kosticonnect-primary6;
 
         &+& {
             @include mobile {
@@ -1105,7 +1196,7 @@
 }
 
 .fest_contacts {
-    background-color: $kosticonnect-primary3;
+    background-color: $kosticonnect-primary2;
     flex: 0 0 auto;
 
     .site_content {
@@ -1170,7 +1261,7 @@
     }
 
     &-link {
-        color: #FF5B35;
+        color: $kosticonnect-primary6;
 
         &:hover {
             text-decoration: underline;

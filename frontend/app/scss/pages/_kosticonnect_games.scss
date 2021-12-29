@@ -113,7 +113,7 @@
         font-weight: bold;
         font-size: 16px;
         line-height: 1.5;
-        background: #FF5B35;
+        background: $kosticonnect-primary6;
         padding: 8px;
         display: flex;
         align-items: center;
@@ -166,7 +166,7 @@
         &:after {
             content: "";
             height: 2px;
-            background: #FF5B35;
+            background: $kosticonnect-primary6;
             display: block;
             margin-top: 8px;
             width: 64%;

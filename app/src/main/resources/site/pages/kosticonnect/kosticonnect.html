@@ -8,33 +8,31 @@
         <div class="site_content">
             <div class="kosticonnect-header_inner">
                 <div class="kosticonnect-short_info">
-                    <div class="kosticonnect-left">
-                        <div class="kosticonnect-logo">
-                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/snake-logo.svg'})}"
-                                alt="kosticonnect " />
-                        </div>
-                        <div class="fest_date">
-                            <span class="fest_date-day">25 - 28</span>
-                            <span class="fest_date-month">февраля</span>
-                        </div>
+                    <div class="kosticonnect-logo">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/snake-logo.svg'})}"
+                            alt="kosticonnect " />
                     </div>
                     <div class="kosticonnect-headline">
                         <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
                             alt="kosticonnect " />
                     </div>
+                    <div class="fest_date">
+                        <span class="fest_date-day">26 - 28</span>
+                        <span class="fest_date-month">февраля</span>
+                    </div>
                 </div>
                 <div class="kosticonnect-where">
                     <div class="kosticonnect-twitch">
                         <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/twitch-logo.svg'})}"
-                            alt="kosticonnect " />
+                            alt="kosticonnect twitch" />
                     </div>
                     <div class="kosticonnect-discord">
                         <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/discord-logo.svg'})}"
-                            alt="kosticonnect " />
+                            alt="kosticonnect discord" />
                     </div>
                     <div class="kosticonnect-zoom">
                         <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/zoom-logo.svg'})}"
-                            alt="kosticonnect " />
+                            alt="kosticonnect zoom" />
                     </div>
                 </div>
             </div>
@@ -43,7 +41,7 @@
     <main class="kosticonnect-wrap">
         <div class="kosticonnect-top">
             <div class="site_content">
-                <div class="hero_banner">
+                <div class="hero_banner m-kostirpg">
                     <div class="hero_banner-video_wrap">
                         <video autoplay muted loop class="hero_banner-video">
                             <source
@@ -57,7 +55,7 @@
                                 data-type-delay="100" data-remove-speed="50" data-remove-delay="1000"
                                 data-cursor-speed="200">
                                 лекции|игры|движ|презентации|новости|музыка|друзья|истории|фестиваль|снейксити</div>
-                            У ТЕБЯ ДОМА
+                            У ТЕБЯ В БУНКЕРЕ
                         </h2>
                         <div class="hero_banner-actions">
                             <a target="_blank" class="hero_banner-tickets kosticonnect-button primary js_scroll"
@@ -72,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="hightlights">
+                <!-- <div class="hightlights">
                     <ul class="hightlights-list">
                         <li class="hightlights-item">
                             <div class="hightlights-img_wrap">
@@ -144,9 +142,9 @@
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
-            <div data-th-if="${programUrl}" class="fest_program">
+            <!-- <div data-th-if="${programUrl}" class="fest_program">
                 <div class="site_content">
                     <h2 class="fest_program-title">
                         <a target="_blank" data-th-href="${programUrl}" class="link">СКАЧАТЬ</a> ПОЛНУЮ ПРОГРАММУ
@@ -211,7 +209,7 @@
                         <a target="_blank" href="/kosticonnect/games" class="link">ЗАПИШИСЬ</a> НА ИГРУ!
                     </h2>
                 </div>
-            </div>
+            </div> -->
             <div class="site_content">
                 <div class="shop_block">
                     <h2 class="shop_block-title kosticonnect-title js_tickets-block">
@@ -247,7 +245,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <!--<div class="shop_block-msg_wrap">
+                            <!-- <div class="shop_block-msg_wrap">
                                 <span class="shop_block-msg">SOLD OUT!</span>
                             </div>-->
                         </li>
@@ -256,7 +254,7 @@
                             SnakeCity.
                         </li>
                     </ul>
-                    <div class="agenda">
+                    <!-- <div class="agenda">
                         <h2 class="agenda-title kosticonnect-title">ЧТО ВНУТРИ?</h2>
                         <ul class="agenda-list">
                             <li class="agenda-item">
@@ -288,7 +286,7 @@
                                     фестиваля!</p>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -317,7 +315,7 @@
                 </div>
             </div>
         </div>
-        <div class="kosticonnect-mid2">
+        <!-- <div class="kosticonnect-mid2">
             <div class="site_content">
                 <div class="participants">
                     <h2 class="participants-title kosticonnect-title">КТО УЖЕ С НАМИ?</h2>
@@ -445,7 +443,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="k_faq" data-th-if="${content.data.faq}">
             <div class="site_content">
                 <h2 class="k_faq-title kosticonnect-title">ОСТАЛИСЬ ВОПРОСЫ?</h2>

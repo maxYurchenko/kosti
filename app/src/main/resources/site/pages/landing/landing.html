@@ -3,9 +3,9 @@
 
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<body class="kosticonnect-page landingPage">
+<body class="b-meet_up-page landingPage">
     <div data-th-remove="tag" data-th-utext="${pageComponents.festivalHeader}"></div>
-    <main class="kosticonnect-wrap" data-portal-region="main">
+    <main class="b-meet_up-wrap" data-portal-region="main">
         <div data-th-if="${mainRegion}" data-th-remove="tag">
             <div data-th-each="component : ${mainRegion.components}" data-th-remove="tag">
                 <div data-portal-component="${component.path}" data-th-remove="tag"></div>
