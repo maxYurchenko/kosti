@@ -10,7 +10,8 @@ const festivalBotLib = require(libLocation + "games/bot");
 
 exports.post = function (req) {
   return {
-    body: festivalBotLib.checkUser(JSON.parse(req.body)),
+    //body: festivalBotLib.checkUser(JSON.parse(req.body)),
+    body: { success: false, message: "Билет не найден." },
     contentType: "application/json"
   };
 };
