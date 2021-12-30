@@ -48,7 +48,8 @@ function getCookieValueOld(a) {
 function getCookieValue(name) {
   var value = "; " + document.cookie;
   var parts = value.split("; " + name + "=");
-  if (parts.length === 2) return parts.pop().split(";").shift();
+  if (parts.length === 2 || parts.length === 3)
+    return parts.pop().split(";").shift();
 }
 
 function makeAjaxCall(url, method, data, async) {
