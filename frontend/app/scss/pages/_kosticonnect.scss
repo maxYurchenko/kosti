@@ -79,6 +79,7 @@
 
     &-headline {
         margin-right: 12px;
+
         @include mobile-xs {
             flex: 1 1 50%;
         }
@@ -240,7 +241,7 @@
             font-size: 16px;
         }
     }
-    
+
     &-month {
         font-size: 10.4649px;
         line-height: 14px;
@@ -347,7 +348,7 @@
     }
 
     &-actions {
-        .hero_banner.m-kostirpg &{
+        .hero_banner.m-kostirpg & {
             @include mobile {
                 display: flex;
                 justify-content: space-between;
@@ -698,7 +699,7 @@
             font-family: "Roboto";
             font-size: 14px;
             line-height: 1.45;
-            color: $kosticonnect-primary2;
+            color: $color-primary1;
             position: relative;
             padding-left: 16px;
 
