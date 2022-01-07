@@ -299,7 +299,7 @@
             bottom: 0;
         }
 
-        video {
+        video, img {
             width: 100%;
 
             @include mobile {
@@ -345,6 +345,13 @@
         @include tablet-all {
             margin-top: 40px;
         }
+
+        .hero_banner.m-kostirpg & {
+            @include mobile {
+                font-size: 39px;
+            }
+        }
+        
     }
 
     &-actions {
