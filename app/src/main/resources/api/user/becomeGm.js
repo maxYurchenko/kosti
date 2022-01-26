@@ -18,7 +18,7 @@ exports.get = function (req) {
       redirect: "become-gm"
     });
   }
-  userLib.addRole("kyivgm", user.user.key);
+  userLib.addRole("gamemaster", user.user.key);
   return {
     status: 302,
     headers: {

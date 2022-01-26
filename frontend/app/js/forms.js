@@ -34,13 +34,14 @@ function addNewGame(dataJson) {
     data: data,
     type: "POST",
     success: function (data) {
+      destroyEditor();
       if (data.error == true) {
         showSnackBar(data.message, "error");
       } else {
         showSnackBar(data.message, "success");
         $(".js-my_games-wrapper").html(data.html);
+        appendStep("scheduleComp", $(".js-my_games-wrapper"));
       }
-      destroyEditor();
       hideLoader();
     },
     error: function (data) {

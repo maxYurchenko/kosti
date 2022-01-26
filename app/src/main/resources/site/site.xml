@@ -373,6 +373,9 @@
       <pattern>/api/user/auth/forgotpass</pattern>
       <pattern>/user/auth/forgotpass</pattern>
     </mapping>
+    <mapping controller="/api/user/me.js">
+      <pattern>/me</pattern>
+    </mapping>
     <mapping controller="/services/form/form.js">
       <pattern>/form</pattern>
     </mapping>

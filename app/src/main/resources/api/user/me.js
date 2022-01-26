@@ -12,7 +12,8 @@ exports.get = function (req) {
     status: 302,
     headers: {
       Location: portal.pageUrl({
-        path: user._path
+        path: user.content._path,
+        params: req.params
       })
     }
   };
