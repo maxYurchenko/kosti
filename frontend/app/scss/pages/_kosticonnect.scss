@@ -999,6 +999,19 @@
     &-title {
         color: $color-primary1;
     }
+
+    &-item.m-text {
+        color: $color-primary1;
+        font-family: Raleway;
+        font-weight: 900;
+        font-size: 14px;
+        text-align: center;
+
+        
+        @include tablet-all {
+            font-size: 18px;
+        }
+    }
 }
 
 
