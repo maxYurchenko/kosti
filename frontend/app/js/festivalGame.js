@@ -1,6 +1,7 @@
 var updateUserDataUrl = "/api/festival/userdata";
 var gameSignUpUrl = "/api/festival/gamesignup";
 var gameSignOutUrl = "/api/festival/gamesignout";
+var checkTicketUrl = "/api/festival/ticket";
 
 function initKosticonnetcScripts() {
   $(".js_game-sign-up-step-1").validate({
@@ -20,13 +21,20 @@ function initKosticonnetcScripts() {
   });
 
   $(".js_sign-up-for-game").on("click", function (e) {
+    /*
+    !MEETUP
+    */
+    /*
     if (checkUserLoggedIn()) {
       signupForGame();
     } else {
       showLogin(e);
     }
+    */
     /*
-    KOSTICON MINI
+    !KOSTICON MINI
+    */
+    /*
     if ($(this).data().step === "init") {
       $(".js_game-sign-up-step-1").show("slow");
       $(this).data().step = "form";
@@ -38,7 +46,10 @@ function initKosticonnetcScripts() {
     }
     */
     /*
-    KOSTICONNECT
+    !KOSTICONNECT
+    */
+    e.preventDefault();
+
     if (
       $(".js_game-sign-up-step-1").length > 0 &&
       $(this).data().step === "init"
@@ -50,16 +61,22 @@ function initKosticonnetcScripts() {
       $(".js_game-sign-up-step-2").length > 0 &&
       $(this).data().step === "discord"
     ) {
-      updateUserData();
+      if ($(".js_festival-ticket-id").length > 0) {
+        showLoader();
+        checkTicket($(".js_festival-ticket-id").val(), this);
+      }
     } else if (
-      $(".js_game-sign-up-step-2").length === 0 &&
+      $(".js_game-sign-up-step-2").length > 0 &&
       $(this).data().step === "discord"
     ) {
+      var userData = { gameId: $(".js_game-id").data().id };
+      $(".js_get-user-data").each(function () {
+        userData[$(this).attr("name")] = $(this).val();
+      });
       updateUserData();
     } else {
       signupForGame();
     }
-    */
   });
 }
 
@@ -67,6 +84,32 @@ $(".js_game-sign-up-step-1").on("submit", function (e) {
   e.preventDefault();
   updateUserData();
 });
+
+function checkTicket(ticketId, el) {
+  if (!$(".js_game-sign-up-step-1").valid()) {
+    hideLoader();
+    return false;
+  }
+  $.ajax({
+    url: checkTicketUrl,
+    data: { ticketId: ticketId, gameId: $(".js_game-id").data().id },
+    type: "POST",
+    success: function (data) {
+      hideLoader();
+      if (data.success && data.data.valid) {
+        updateUserData();
+        $(this).data().step = "login";
+        $(".js_game-sign-up-step-2").show("slow");
+      } else {
+        showSnackBar("Билет не действителен.", "error");
+      }
+    },
+    error: function (data) {
+      hideLoader();
+      showSnackBar("Произошла ошибка.", "error");
+    }
+  });
+}
 
 function signOutOfGame() {
   var data = { gameId: $(".js_game-id").data().id };
@@ -93,26 +136,23 @@ function updateUserData() {
     hideLoader();
     return false;
   }
-  var data = { gameId: $(".js_game-id").data().id };
-  $(".js_get-user-data").each(function () {
-    data[$(this).attr("name")] = $(this).val();
-  });
+  var userData = getUserData();
   $.ajax({
-    //url: updateUserDataUrl,
-    url: gameSignUpUrl,
-    data: data,
+    url: updateUserDataUrl,
+    //url: gameSignUpUrl,
+    data: userData,
     type: "POST",
     success: function (data) {
       hideLoader();
       if (!data.error) {
         /*
-        KOSTICONNECT
+        !KOSTICONNECT
+        */
         if ($(".js_game-sign-up-step-2").length > 0) {
           $(".js_game-sign-up-step-1").hide("slow");
           $(".js_game-sign-up-step-2").show("slow");
           $(".js_sign-up-for-game").hide();
         }
-        */
         if (data.message) {
           showSnackBar(data.message, "success");
         } else {
@@ -157,6 +197,14 @@ function signupForGame() {
       hideLoader();
     }
   });
+}
+
+function getUserData() {
+  var userData = { gameId: $(".js_game-id").data().id };
+  $(".js_get-user-data").each(function () {
+    userData[$(this).attr("name")] = $(this).val();
+  });
+  return userData;
 }
 
 $(document).ready(function () {

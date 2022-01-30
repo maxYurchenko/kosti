@@ -12,25 +12,25 @@ const formPlayerLib = require(libLocation + "games/formPlayerLib");
 
 exports.get = function (req) {
   userLib.discordRegister(req.params.code, "api/festival/discord");
-  let user = userLib.getCurrentUser();
-  let cart = cartLib.getCart(req.cookies.cartId);
-  let game = null;
+  const user = userLib.getCurrentUser();
+  const cart = cartLib.getCart(req.cookies.cartId);
+  let redirectUrl = null;
   if (cart.gameId) {
-    if (formPlayerLib.updateUser(cart)) {
-      game = contentLib.get({ key: cart.gameId });
+    if (formPlayerLib.updateUser(cart.ticketId, cart.firstName)) {
+      const game = contentLib.get({ key: cart.gameId });
       game.data.players = norseUtils.forceArray(game.data.players);
       if (game.data.players.indexOf(cart._id) !== -1) {
         game.data.players[game.data.players.indexOf(cart._id)] =
           user.content._id;
       }
-      game = formPlayerLib.updateEntity(game);
-      game.url = portal.pageUrl({ id: game._id });
+      formPlayerLib.updateEntity(game);
+      redirectUrl = portal.pageUrl({ id: game._id });
     }
   }
   return {
     status: 302,
     headers: {
-      Location: game.url
+      Location: redirectUrl
     }
   };
 };

@@ -7,20 +7,16 @@ const libLocation = "../../site/lib/";
 const norseUtils = require(libLocation + "norseUtils");
 const userLib = require("/lib/userLib");
 const helpers = require(libLocation + "helpers");
+const cartLib = require("/lib/cartLib");
 const formPlayerLib = require("/lib/festival/playerLib");
 
 exports.post = function (req) {
+  const ticketData = formPlayerLib.checkTicket(
+    parseInt(req.params.ticketId),
+    req.params.gameId
+  );
   return {
-    /*body: formPlayerLib.checkTicket({
-      ticket: req.params.ticket,
-      cartId: req.cookies.cartId
-    }),*/
-    body: formPlayerLib.bookSpace(
-      req.params.gameId,
-      req.params.ticket,
-      req.params.firstName,
-      req.cookies.cartId
-    ),
+    body: { success: true, data: { valid: ticketData } },
     contentType: "application/json"
   };
 };

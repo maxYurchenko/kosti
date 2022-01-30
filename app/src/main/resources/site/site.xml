@@ -351,6 +351,15 @@
     <mapping controller="/api/festival/bot/checkUser.js">
       <pattern>/api/festival/bot/checkuser</pattern>
     </mapping>
+    <mapping controller="/api/festival/discord.js">
+      <pattern>/api/festival/discord</pattern>
+    </mapping>
+    <mapping controller="/api/festival/checkTicket.js">
+      <pattern>/api/festival/ticket</pattern>
+    </mapping>
+    <mapping controller="/api/festival/updateUserData.js">
+      <pattern>/api/festival/userdata</pattern>
+    </mapping>
     <!--
       Encounter builder
     -->

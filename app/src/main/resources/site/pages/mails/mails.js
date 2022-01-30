@@ -25,7 +25,7 @@ function createModel(params) {
   var user = userLib.getCurrentUser();
   var model = {
     showSendButton:
-      params && params.mode === "live" && user.data.roles.moderator,
+      params && params.mode === "live" && user && user.data.roles.moderator,
     content: content,
     site: portal.getSite(),
     mailComponents: mailsLib.getMailComponents({ title: "Сброс пароля" })

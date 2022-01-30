@@ -79,5 +79,9 @@
       <label>Games list page</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="gmRules" type="ContentSelector">
+      <label>GM rules</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
   </form>
 </content-type>

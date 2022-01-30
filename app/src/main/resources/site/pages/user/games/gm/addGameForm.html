@@ -252,7 +252,13 @@
             <button class="my_games-action-secondary button js-my_games-step3-discard"
                 data-th-text="${portal.localize({'_key=myGames.discard', '_locale=ru'})}"></button>
         </div>
-        <!-- <p class="my_games-action-agreement form-caption">Регистрируя игру соглашаюсь с <a href="#"  target="_blank">правилами ГМ-ов</a> и обязываю себя провести игру</p> -->
+
+        <p data-th-if="${gmRulesUrl}" class="my_games-action-agreement form-caption">
+            Регистрируя игру соглашаюсь с
+            <a data-th-href="${gmRulesUrl}" target="_blank">правилами ГМ-ов</a>
+            и обязываю себя провести игру
+        </p>
+
         <input type="hidden" data-th-value="${location._id}" name="location" />
         <input type="hidden" data-th-value="${block.content._id}" name="block" />
         <input type="hidden" data-th-value="${day.content._id}" name="day" />
