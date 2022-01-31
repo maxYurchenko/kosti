@@ -43,8 +43,14 @@
         <alignment>right</alignment>
       </config>
     </input>
-    <input name="gameRegisterOpen" type="CheckBox">
-      <label>Game register open</label>
+    <input name="gameRegisterStart" type="DateTime">
+      <label>Game register start</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
+    <input name="gameRegisterTurboStart" type="DateTime">
+      <label>Turbo game register start</label>
       <config>
         <alignment>right</alignment>
       </config>

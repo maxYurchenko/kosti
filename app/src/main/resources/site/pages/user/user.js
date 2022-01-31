@@ -86,12 +86,12 @@ function handleReq(req) {
       }
     }
 
-    var currUser = userLib.getCurrentUser();
+    const currUser = userLib.getCurrentUser();
     content.data.bookmarks = content.data.bookmarks
       ? norseUtils.forceArray(content.data.bookmarks)
       : 0;
-    var userSystemObj = userLib.getSystemUser(content.data.email);
-    var currUserFlag = currUser && currUser.user.key == userSystemObj.key;
+    const userSystemObj = userLib.getSystemUser(content.data.email);
+    const currUserFlag = currUser && currUser.user.key == userSystemObj.key;
     content.votes = blogLib.countUserRating(content._id);
     var date = new Date(moment(content.publish.from.replace("Z", "")));
     content.date =
@@ -165,6 +165,12 @@ function handleReq(req) {
           }
         );
       });
+      const hideDiscordRequiredText =
+        currUser &&
+        currUser.content.data.discord &&
+        festivals[0].data.requireDiscord
+          ? currUser.content.data.discord
+          : null;
       var articles = thymeleaf.render(resolve("components/gamesView.html"), {
         currUser: currUser,
         userGames: userGames,
@@ -176,7 +182,8 @@ function handleReq(req) {
           days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
             days: days,
             festival: festivals[0]
-          })
+          }),
+          hideDiscordRequiredText: hideDiscordRequiredText
         })
       });
     } else if (up.action == "orders" && currUserFlag) {

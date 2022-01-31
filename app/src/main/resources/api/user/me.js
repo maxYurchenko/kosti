@@ -8,6 +8,9 @@ const helpers = require(libLocation + "helpers");
 
 exports.get = function (req) {
   const user = userLib.getCurrentUser();
+  if (!user) {
+    return helpers.getLoginRequest();
+  }
   return {
     status: 302,
     headers: {

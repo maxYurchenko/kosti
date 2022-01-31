@@ -2,6 +2,10 @@
     <div class="my_games-gm-header">
         <h2 class="my_games-title" data-th-text="${portal.localize({'_key=myGames.forGM', '_locale=ru'})}"></h2>
         <p class="my_games-caption" data-th-text="${portal.localize({'_key=myGames.forGM.caption', '_locale=ru'})}"></p>
+        <p class="my_games-caption" data-th-if="${!hideDiscordRequiredText}">
+            Для участия в этом событии необходимо подключить Discord.
+            Пожалуйста, авторизируйте его в настройках профиля.
+        </p>
     </div>
-    <div class="my_games-schedule-wapper" data-th-utext="${days}"></div>
+    <div data-th-if="${hideDiscordRequiredText}" class="my_games-schedule-wapper" data-th-utext="${days}"></div>
 </div>
