@@ -51,9 +51,11 @@
                                                 <td style="vertical-align: top; padding-right: 5px;">
                                                     <span style=" font-weight: bold; color: #F07300">Код(ы) билета*:</span>
                                                 </td>
-                                                <td style="vertical-align: top;" data-th-each="id: ${item.itemsIdsProcessed}">
+                                                <td style="vertical-align: top;" >
+                                                    <div data-th-remove="tag" data-th-each="id: ${item.itemsIdsProcessed}">
                                                     <span style=" color: #F07300" data-th-text="${id.id}">1</span>
                                                     <br />
+                                                </div>
                                                 </td>
                                             </tr>
                                         </table>
