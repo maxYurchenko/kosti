@@ -63,6 +63,12 @@ exports.get = function (req) {
         cart: cart
       });
       break;
+    case "checkConfirmationMail":
+      var cart = cartLib.getCart(params.id);
+      return{body:mailsLib.getorderCreatedMail( {
+        cart: cart
+      }).body,contentType: "text/html"};
+      break;
     case "fixgamesplayers":
       formPlayerLib.checkPlayersCartsBooking();
       break;

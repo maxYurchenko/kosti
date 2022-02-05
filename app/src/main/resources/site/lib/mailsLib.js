@@ -36,6 +36,7 @@ const adminMails = [
 exports.sendMail = sendMail;
 exports.unsubscribe = unsubscribe;
 exports.getMailComponents = getMailComponents;
+exports.getorderCreatedMail = getorderCreatedMail;
 
 function getMailComponents(params) {
   if (!params) {
@@ -200,9 +201,20 @@ function getorderCreatedMail(params) {
     d.getHours() +
     ":" +
     d.getMinutes();
+    let showTicketNote = false;
+    if(params.cart && params.cart.items){
+      for(let i=0;i<params.cart.items.length;i++){
+        const item = params.cart.items[i];
+        if(item.itemsIds){
+          showTicketNote = true;
+          break;
+        }
+      }
+    }
   return {
     body: thymeleaf.render(resolve(mailsTemplates.orderCreated), {
       order: params.order,
+      showTicketNote:showTicketNote,
       site: sharedLib.getSite(),
       dateString: dateString,
       cart: params.cart,

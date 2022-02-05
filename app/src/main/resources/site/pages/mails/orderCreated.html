@@ -3,151 +3,170 @@
 
 <div data-th-utext="${mailComponents.head}" data-th-remove="tag"></div>
 
-<body style="margin: 0px; padding: 0px">
+<body style="margin: 0px; padding: 0px; background-image: linear-gradient(#11090f, #11090f)">
     <table border="0" cellpadding="0" cellspacing="0" align="center" width="570"
-        style="max-width: 570px; background: white;">
+    style="max-width: 570px;  background-image: linear-gradient(#11090f, #11090f); padding: 32px; line-height: 1.5;">
         <div data-th-utext="${mailComponents.header}" data-th-remove="tag"></div>
         <tr>
-            <td
-                style="font-size: 24px; font-family: Roboto; font-weight: bold; line-height: 1.33; color: #1d1f24; padding: 0 0 15px;">
-                Привет, <span data-th-remove="tag" data-th-text="${cart.name}"></span>
-            </td>
-        </tr>
-        <tr>
-            <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;">
-                Спасибо за ваш заказ! Гоблины и гномы-инженеры хаотично мечутся по
-                нашей мастерской в попытке его обработать. Вы можете уточнить детали
-                вашего заказа в любой момент.
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 0 0 10px;">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%"
-                    style="border: 1px solid #dedede; border-bottom: 0;">
-                    <tr data-th-each="item: ${cart.items}">
-                        <td width="30%" style="padding: 20px 15px 20px 8%; border-bottom: 1px solid #dedede;">
-                            <img data-th-src="${item.imageCart.urlAbsolute}" alt="Product image" width="100px" />
-                        </td>
-                        <td width="70%"
-                            style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
-                            <div style="color: #505050;" data-th-text="${item.displayName}"></div>
-                            <div data-th-if="${item.itemSize}">
-                                <span style="color: #707070; font-weight: bold;">Размер:</span>
-                                <span style="color: #505050;" data-th-text="${item.itemSize}">XS</span>
-                            </div>
-                            <div>
-                                <span style="color: #707070; font-weight: bold;">Количество:</span>
-                                <span style="color: #505050;" data-th-text="${item.amountString}">1</span>
-                            </div>
-                            <div data-th-if="${item.itemsIdsProcessed}">
-                                <span style="color: #707070; font-weight: bold;">Коды, которые позволят вам попасть на
-                                    дискорд сервер фестиваля в день фестиваля*:</span>
-                                <div data-th-remove="tag" data-th-each="id: ${item.itemsIdsProcessed}">
-                                    <br />
-                                    <span style="color: #505050;" data-th-text="${id.id}">1</span>
-                                </div>
-                            </div>
-                            <div style="color: #707070; font-weight: bold;" data-th-text="${'UAH ' + item.price}"></div>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 0 0;">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%"
-                    style="border: 1px solid #dedede; padding: 25px 8%; line-height: 1.71; color: #505050;">
+            <td style="background: #fff; color: #11090F; padding: 32px; border-radius: 4px 4px 0px 0px; font-family: Arial; font-size: 16px; ">
+                <table border="0" cellpadding="0" cellspacing="0" align="center" width="506" style="color:#11090F; font-family: Arial; font-size: 16px;">
                     <tr>
-                        <td width="50%"
-                            style="padding: 0 5px 25px 0; font-family: Roboto; font-size: 14px; vertical-align: top;">
-                            <div style="font-weight: bold; color: #707070;">
-                                Номер заказа
-                            </div>
-                            <div data-th-text="${cart.userId}"></div>
-                        </td>
-                        <td width="50%"
-                            style="padding: 0 0 25px 5px; font-family: Roboto; font-size: 14px; vertical-align: top;">
-                            <div style="font-weight: bold; color: #707070;">
-                                Время заказа
-                            </div>
-                            <div data-th-text="${dateString}">5 Марта, 2019, 12:58</div>
+                        <td
+                            style="font-size: 24px;  font-weight: bold; line-height: 1.33; color: #1d1f24; padding: 0 0 15px;">
+                            Привет, <span data-th-remove="tag" data-th-text="${cart.name}"></span>
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%"
-                            style="font-family: Roboto; font-size: 14px; vertical-align: top; padding-right: 5px;">
-                            <div style="font-weight: bold; color: #707070;">
-                                Адресс доставки
-                            </div>
-                            <div style="color: #707070;" data-th-text="${cart.name + ' ' + cart.surname}"></div>
-                            <div style="color: #707070;" data-th-text="${cart.address}"></div>
-                            <div style="color: #707070;" data-th-text="${cart.city}"></div>
-                            <div style="color: #707070;" data-th-text="${'Tel: ' + cart.phone}"></div>
-                        </td>
-                        <td width="50%"
-                            style="font-family: Roboto; font-size: 14px; vertical-align: top; padding-left: 5px;">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;">
-                                <tr>
-                                    <td colspan="2" style="font-family: Roboto; font-size: 14px;">
-                                        <div style="font-weight: bold; color: #707070;">
-                                            Способ оплаты
-                                        </div>
-                                        <div style="padding-bottom: 40px;"
-                                            data-th-text="${portal.localize({'_key=store.payment.'+cart.paymentMethod, '_locale=ru'})}">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td
-                                        style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
-                                        Товар
-                                    </td>
-                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;"
-                                        data-th-text="${'UAH ' + cart.price.items}">
-                                        ₽ 1500
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td tyle="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
-                                        Доставка
-                                    </td>
-                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;"
-                                        data-th-text="${'UAH ' + cart.price.shipping}"></td>
-                                </tr>
-                                <tr>
-                                    <td
-                                        style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
-                                        Скидка
-                                    </td>
-                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;">
-                                        UAH 0
-                                    </td>
-                                </tr>
-                            </table>
+                        <td style="font-size: 14px;  line-height: 1.71;  padding: 0 0 25px;">
+                            Спасибо за ваш заказ! Гоблины и гномы-инженеры хаотично мечутся по
+                            нашей мастерской в попытке его обработать. Вы можете уточнить детали
+                            вашего заказа в любой момент.
                         </td>
                     </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 0 0 20px;">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%"
-                    style="border: 1px solid #dedede; padding: 20px 8% 25px; border-top: 0; min-width: 100%;">
                     <tr>
-                        <td width="50%" style="padding-right: 5px;">&nbsp;</td>
-                        <td width="50%" style="padding-left: 5px;">
+                        <td style="padding: 0 0 10px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%"
-                                style="font-weight: bold; min-width: 100%;">
-                                <tr>
-                                    <td style="color: #333333; font-family: Roboto; font-size: 14px;">
-                                        Всего
+                                style="border-top: 1px solid #dedede;">
+                                <tr data-th-each="item: ${cart.items}">
+                                    <td width="20%" style="padding: 20px 15px 20px 0; border-bottom: 1px solid #dedede; vertical-align: top;">
+                                        <img data-th-src="${item.imageCart.urlAbsolute}" alt="Product image" width="100px" />
                                     </td>
-                                    <td style="text-align: right; color: #1b2125; font-family: Roboto; font-size: 14px;"
-                                        data-th-text="${'UAH ' + cart.price.total}">
-                                        ₽ 1300
+                                    <td width="80%"
+                                        style="padding: 20px 0 20px 0;  font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede; vertical-align: top;">
+                                        <div data-th-text="${item.displayName}"></div>
+                                        <div data-th-if="${item.itemSize}">
+                                            <span style=" font-weight: bold;">Размер:</span>
+                                            <span data-th-text="${item.itemSize}">XS</span>
+                                        </div>
+                                        <div>
+                                            <span style=" font-weight: bold;">Количество:</span>
+                                            <span data-th-text="${item.amountString}">1</span>
+                                        </div>
+                                        <div>
+                                            <span style=" font-weight: bold;">Цена:</span>
+                                            <span  data-th-text="${'UAH ' + item.price}">UAH 150</span>
+                                        </div>
+                                        <table border="0" cellpadding="0" cellspacing="0" data-th-if="${item.itemsIdsProcessed}">
+                                            <tr>
+                                                <td style="vertical-align: top; padding-right: 5px;">
+                                                    <span style=" font-weight: bold; color: #F07300">Код(ы) билета*:</span>
+                                                </td>
+                                                <td style="vertical-align: top;" data-th-each="id: ${item.itemsIdsProcessed}">
+                                                    <span style=" color: #F07300" data-th-text="${id.id}">1</span>
+                                                    <br />
+                                                    <span style=" color: #F07300" data-th-text="${id.id}">1</span>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
                             </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0 0;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                style="border-bottom: 1px solid #dedede; padding: 0 0 20px 0; line-height: 1.71; ">
+                                <tr>
+                                    <td width="50%"
+                                        style="padding: 0 5px 20px 0;  font-size: 14px; vertical-align: top;">
+                                        <div style="font-weight: bold; ">
+                                            Номер заказа
+                                        </div>
+                                        <div data-th-text="${cart.userId}"></div>
+                                    </td>
+                                    <td width="50%"
+                                        style="padding: 0 0 20px 5px;  font-size: 14px; vertical-align: top;">
+                                        <div style="font-weight: bold; ">
+                                            Время заказа
+                                        </div>
+                                        <div data-th-text="${dateString}">5 Марта, 2019, 12:58</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%"
+                                        style=" font-size: 14px; vertical-align: top; padding-right: 5px;">
+                                        <div style="font-weight: bold; ">
+                                            Адресс доставки
+                                        </div>
+                                        <div data-th-text="${cart.name + ' ' + cart.surname}"></div>
+                                        <div data-th-text="${cart.address}"></div>
+                                        <div data-th-text="${cart.city}"></div>
+                                        <div data-th-text="${'Tel: ' + cart.phone}"></div>
+                                    </td>
+                                    <td width="50%"
+                                        style=" font-size: 14px; vertical-align: top; padding-left: 5px;">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;">
+                                            <tr>
+                                                <td colspan="2" style=" font-size: 14px;">
+                                                    <div style="font-weight: bold; ">
+                                                        Способ оплаты
+                                                    </div>
+                                                    <div style="padding-bottom: 40px;"
+                                                        data-th-text="${portal.localize({'_key=store.payment.'+cart.paymentMethod, '_locale=ru'})}">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="font-weight: bold; font-size: 14px;">
+                                                    Товар
+                                                </td>
+                                                <td style="text-align: right; font-size: 14px;"
+                                                    data-th-text="${'UAH ' + cart.price.items}">
+                                                    ₽ 1500
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td tyle="font-weight: bold; font-size: 14px;">
+                                                    Доставка
+                                                </td>
+                                                <td style="text-align: right; font-size: 14px;"
+                                                    data-th-text="${'UAH ' + cart.price.shipping}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="font-weight: bold; font-size: 14px;">
+                                                    Скидка
+                                                </td>
+                                                <td style="text-align: right; font-size: 14px;">
+                                                    UAH 0
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0 0 20px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                style="border-top: 1px solid #dedede; border-bottom: 1px solid #dedede; padding: 20px 0; border-top: 0; min-width: 100%;">
+                                <tr>
+                                    <td width="50%" style="padding-right: 5px;">&nbsp;</td>
+                                    <td width="50%" style="padding-left: 5px;">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                            style="font-weight: bold; min-width: 100%;">
+                                            <tr>
+                                                <td style="color: #333333;  font-size: 14px;">
+                                                    Всего
+                                                </td>
+                                                <td style="text-align: right; color: #1b2125;  font-size: 14px;"
+                                                    data-th-text="${'UAH ' + cart.price.total}">
+                                                    ₽ 1300
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr data-th-if="${showTicketNote}">
+                        <td style="font-size: 12px;">
+                            *Коды, которые позволят вам попасть на
+                            дискорд сервер фестиваля в день фестиваля
                         </td>
                     </tr>
                 </table>
