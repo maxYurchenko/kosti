@@ -360,6 +360,9 @@
     <mapping controller="/api/festival/updateUserData.js">
       <pattern>/api/festival/userdata</pattern>
     </mapping>
+    <mapping controller="/api/festival/bot/listMasters.js">
+      <pattern>/api/festival/listmasters</pattern>
+    </mapping>
     <!--
       Encounter builder
     -->

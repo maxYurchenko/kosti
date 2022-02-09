@@ -13,9 +13,10 @@ exports.get = function (req) {
     userLib.discordRegister(req.params.code, "become-gm");
   }
   var user = userLib.getCurrentUser();
-  if (!user) {
+  if (!user || !user.content.data.discord) {
     return helpers.getLoginRequest({
-      redirect: "become-gm"
+      redirect: "become-gm",
+      showDiscord: true
     });
   }
   userLib.addRole("gamemaster", user.user.key);

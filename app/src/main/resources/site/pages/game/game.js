@@ -45,15 +45,15 @@ function handleReq(req) {
       game.content.data.players &&
       game.content.data.players.indexOf(user.content._id) > -1;
     let festival = festivalLib.getFestivalByChild(game._id);
-    let userPath = null;
-    if (user) {
-      userPath = user.content._path;
-      userPath = userPath.split("/");
-      userPath.splice(0, 2);
-      userPath = "/" + userPath.join("/");
-    }
+    let userPath = helpers.getFestivalUserUrl(user);
+
+    const formData = getFormData(user, festival);
 
     var model = {
+      formData: formData,
+      gamesListPage: festival.data
+        ? contentLib.get({ key: festival.data.gamesListPage })
+        : null,
       game: game,
       spaceAvailable:
         game.processed.seatsReserved < game.content.data.maxPlayers,
@@ -61,6 +61,9 @@ function handleReq(req) {
       gameSigned: gameSigned,
       discordUrl: discordUrl,
       gamesListPage: portal.pageUrl({ id: festival.data.gamesListPage }),
+      formDataVariables: thymeleaf.render(resolve("formData.html"), {
+        formData: formData
+      }),
       pageComponents: helpers.getPageComponents(req, "festival")
     };
     let siteConfig = portal.getSiteConfig();
@@ -86,6 +89,34 @@ function handleReq(req) {
     );
 
     return model;
+  }
+
+  function getFormData(user, festival) {
+    const userLoggedIn = !!(user && user.content && user.content.data);
+    const festivalIsMeetUp = festival && festival.data.meetUp ? true : false;
+    const userHasTicket = !!(
+      userLoggedIn &&
+      !!(user.data.roles.gameMaster || user.content.data.kosticonnect2022)
+    );
+    const requireDiscord = !!(
+      (userLoggedIn &&
+        !user.content.data.discord &&
+        festival &&
+        festival.data.requireDiscord) ||
+      !userLoggedIn
+    );
+    return {
+      userLoggedIn: userLoggedIn,
+      requireDiscord: requireDiscord,
+      userHasValidTicket: !!(
+        userLoggedIn &&
+        (user.content.data.kosticonnect2022 || user.data.roles.gameMaster)
+      ),
+      userNameRequired:
+        !festivalIsMeetUp && (!userLoggedIn || !user.content.data.firstName),
+      ticketRequired: !festivalIsMeetUp && (!userLoggedIn || !userHasTicket),
+      festivalIsMeetUp: festivalIsMeetUp
+    };
   }
 
   return renderView();

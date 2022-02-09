@@ -16,6 +16,7 @@ exports.getLoadMore = getLoadMore;
 exports.getLoginRequest = getLoginRequest;
 exports.getDiscordUrl = getDiscordUrl;
 exports.getVkUrl = getVkUrl;
+exports.getFestivalUserUrl = getFestivalUserUrl;
 
 function getPageComponents(req, footerType, activeEl, title) {
   var pageComponents = {};
@@ -351,7 +352,8 @@ function getDiscordUrl(redirect) {
   discordUrl += "client_id=605493268326776853";
   discordUrl +=
     "&redirect_uri=" +
-    portal.pageUrl({ path: site._path, type: "absolute" }) +
+    app.config["base.url"] +
+    "/" +
     (redirect ? redirect : "user/auth/discord");
   discordUrl += "&response_type=code";
   discordUrl += "&scope=email%20identify";
@@ -367,4 +369,13 @@ function getVkUrl(redirect) {
   url += redirect ? redirect : "user/auth/vk";
   url += "&v=5.102";
   return url;
+}
+
+function getFestivalUserUrl(user) {
+  if (!user) return null;
+  let userPath = user.content._path;
+  userPath = userPath.split("/");
+  userPath.splice(0, 3);
+  userPath = "/" + userPath.join("/");
+  return userPath;
 }

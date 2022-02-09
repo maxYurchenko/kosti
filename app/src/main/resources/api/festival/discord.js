@@ -8,7 +8,7 @@ const norseUtils = require(libLocation + "norseUtils");
 const userLib = require("/lib/userLib");
 const helpers = require(libLocation + "helpers");
 const cartLib = require("/lib/cartLib");
-const formPlayerLib = require(libLocation + "games/formPlayerLib");
+const formPlayerLib = require("/lib/festival/playerLib");
 
 exports.get = function (req) {
   userLib.discordRegister(req.params.code, "api/festival/discord");
@@ -16,14 +16,12 @@ exports.get = function (req) {
   const cart = cartLib.getCart(req.cookies.cartId);
   let redirectUrl = null;
   if (cart.gameId) {
-    if (formPlayerLib.updateUser(cart.ticketId, cart.firstName)) {
+    const updated = formPlayerLib.updateUser(cart.ticketId, cart.firstName);
+    if (updated) {
       const game = contentLib.get({ key: cart.gameId });
-      game.data.players = norseUtils.forceArray(game.data.players);
-      if (game.data.players.indexOf(cart._id) !== -1) {
-        game.data.players[game.data.players.indexOf(cart._id)] =
-          user.content._id;
-      }
-      formPlayerLib.updateEntity(game);
+      const register = formPlayerLib.signForGame({
+        gameId: game._id
+      });
       redirectUrl = portal.pageUrl({ id: game._id });
     }
   }

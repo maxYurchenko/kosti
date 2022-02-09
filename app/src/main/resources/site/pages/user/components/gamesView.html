@@ -1,36 +1,32 @@
 <script src="https://cdn.tiny.cloud/1/bjocqei8sx4e4qom6muuy7eugbpc20u5bim7tu2zg8veawoj/tinymce/5/tinymce.min.js">
 </script>
-<script type="text/javascript" data-th-inline="javascript">
-    var customEditorStyles = [[${portal.assetUrl({'_path=/css/tinymce.css'})}]];
-</script>
-<div class="my_games js-my_games" data-th-if="${currUserFlag}">
+<div data-th-utext="${tinymceStyles}" data-th-remove="tag"></div>
+<div class="my_games js-my_games" data-th-if="${currUserFlag and showGmComponents}">
     <div class="my_games-event_name-list">
-        <a class="my_games-event_name-item" 
-            data-th-classappend="${festival.active ? 'active' : ''}"
-            data-th-each="festival : ${festivals}" 
-            data-th-text="${festival.displayName}"
-            data-th-href="${portal.pageUrl({'_path='+content._path,'action=games', 'festId='+festival._id})}"
-        ></a>
+        <a class="my_games-event_name-item" data-th-classappend="${festival.active ? 'active' : ''}"
+            data-th-each="festival : ${festivals}" data-th-text="${festival.displayName}"
+            data-th-href="${portal.pageUrl({'_path='+content._path,'action=games', 'festId='+festival._id})}"></a>
     </div>
     <div class="js-my_games-wrapper">
         <div data-th-utext="${gameMasterForm}" data-th-remove="tag"></div>
     </div>
 </div>
-<!--
-<div class="my_games-signed-wrapper">
-    <div data-th-if="${festivals}" class="my_games-gm-header">
-        <h2 class="my_games-title">
-            Мои игры на 
-            <span data-th-text="${festival.displayName}" data-th-remove="tag"></span>
-        </h2>
+<div class="my_games-signed-wrapper" data-th-if="${festivals and festivals.size > 0}">
+    <div data-th-each="fest : ${festivals}" class="my_games-gm-header">
+        <div data-th-if="${fest.games.size > 0}">
+            <h2 class="my_games-title">
+                Мои игры на
+                <span data-th-text="${fest.displayName}" data-th-remove="tag"></span>
+            </h2>
+            <ul class="my_games-signed-list">
+                <li data-th-each="game : ${fest.games}" class="my_games-signed-item">
+                    <a class="my_games-signed-link" data-th-href="${game.processed.url}"
+                        data-th-text="${game.content.displayName}"></a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <ul class="my_games-signed-list" data-th-if="${playerGames.size > 0}">
-        <li data-th-each="game : ${playerGames}" class="my_games-signed-item">
-            <a class="my_games-signed-link" data-th-href="${game.processed.url}" data-th-text="${game.content.displayName}"></a>
-        </li>
-    </ul>
-    <h4 class="my_games-signed-empty" data-th-unless="${playerGames.size > 0}">
-        Игр пока нет
-    </h4>
 </div>
--->
+<div class="blog-list-empty js_blog-list-empty" data-th-unless="${festivals and festivals.size > 0}">Игр пока нет.</div>
+<div class="blog-list-empty js_blog-list-empty" data-th-unless="${currUserFlag and showGmComponents}">Игр пока нет.
+</div>

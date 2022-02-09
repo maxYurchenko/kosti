@@ -64,13 +64,9 @@ function handleReq(req) {
       count: 9,
       parent: content._id
     });
-    let userPath = null;
     let mygamesLink = null;
-    if (user) {
-      userPath = user.content._path;
-      userPath = userPath.split("/");
-      userPath.splice(0, 2);
-      userPath = "/" + userPath.join("/");
+    let userPath = helpers.getFestivalUserUrl(user);
+    if (userPath) {
       mygamesLink = userPath + "?action=games";
     }
     let filters = cache.api.getOnly("festival-filters");
@@ -89,6 +85,7 @@ function handleReq(req) {
 
     var model = {
       content: content,
+      kostirpgUrl: app.config["base.url"],
       user: user,
       mygamesLink: mygamesLink,
       days: festivalLib.getItemsList({

@@ -73,6 +73,12 @@
         <alignment>right</alignment>
       </config>
     </input>
+    <input name="meetUp" type="CheckBox">
+      <label>Meetup</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
     <input name="players" type="ContentSelector">
       <label>Players</label>
       <occurrences minimum="0" maximum="0"/>

@@ -49,7 +49,7 @@
                                 data-th-attr="data-update=${mainImage ? 'false' : 'true'}, required=${mainImage ? 'false' : 'true'}"
                                 hidden />
                             <div class="form-caption">
-                                Рекоммендуемый размер изображения 1920х560 пикселей, или
+                                Рекомендуемый размер изображения 1920х560 пикселей, или
                                 больше.
                             </div>
                         </div>
@@ -156,7 +156,13 @@
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
     <script type="text/javascript" data-th-inline="javascript">
-        var customEditorStyles = [[${portal.assetUrl({'_path=/css/tinymce.css'})}]];
+        var customEditorStyles = [
+            [$ {
+                portal.assetUrl({
+                    '_path=/css/tinymce.css'
+                })
+            }]
+        ];
     </script>
     <script data-th-src="${portal.assetUrl({'_path=js/newArticle.js'})}"></script>
 </body>

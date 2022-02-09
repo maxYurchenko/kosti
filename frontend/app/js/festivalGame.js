@@ -21,69 +21,26 @@ function initKosticonnetcScripts() {
   });
 
   $(".js_sign-up-for-game").on("click", function (e) {
-    /*
-    !MEETUP
-    */
-    /*
-    if (checkUserLoggedIn()) {
-      signupForGame();
-    } else {
-      showLogin(e);
-    }
-    */
-    /*
-    !KOSTICON MINI
-    */
-    /*
-    if ($(this).data().step === "init") {
-      $(".js_game-sign-up-step-1").show("slow");
-      $(this).data().step = "form";
-      hideLoader();
-    } else if ($(this).data().step === "form") {
-      updateUserData();
-    } else {
-      signupForGame();
-    }
-    */
-    /*
-    !KOSTICONNECT
-    */
     e.preventDefault();
 
-    if (
-      $(".js_game-sign-up-step-1").length > 0 &&
-      $(this).data().step === "init"
-    ) {
-      $(".js_game-sign-up-step-1").show("slow");
-      $(this).data().step = "discord";
-      hideLoader();
-    } else if (
-      $(".js_game-sign-up-step-2").length > 0 &&
-      $(this).data().step === "discord"
-    ) {
-      if ($(".js_festival-ticket-id").length > 0) {
-        showLoader();
-        checkTicket($(".js_festival-ticket-id").val(), this);
-      }
-    } else if (
-      $(".js_game-sign-up-step-2").length > 0 &&
-      $(this).data().step === "discord"
-    ) {
-      var userData = { gameId: $(".js_game-id").data().id };
-      $(".js_get-user-data").each(function () {
-        userData[$(this).attr("name")] = $(this).val();
-      });
+    if (formData.festivalIsMeetUp) {
+      signupForGame();
+      return;
+    }
+
+    if (formData.formShowed) {
       updateUserData();
+    } else if (formData.ticketRequired || formData.userNameRequired) {
+      $(".js_game-sign-up-step-1").show("slow");
+      formData.formShowed = true;
+    } else if (formData.requireDiscord) {
+      $(".js_game-sign-up-step-2").show("slow");
+      $(".js_sign-up-for-game").hide();
     } else {
       signupForGame();
     }
   });
 }
-
-$(".js_game-sign-up-step-1").on("submit", function (e) {
-  e.preventDefault();
-  updateUserData();
-});
 
 function checkTicket(ticketId, el) {
   if (!$(".js_game-sign-up-step-1").valid()) {
@@ -121,8 +78,8 @@ function signOutOfGame() {
     success: function (data) {
       hideLoader();
       showSnackBar("Вы отписались.", "success");
-      $(".js_signin-block").removeClass("hidden");
-      $(".js_signout-block").addClass("hidden");
+      $(".js_game-signin-block").removeClass("hidden");
+      $(".js_game-signout-block").addClass("hidden");
     },
     error: function (data) {
       hideLoader();
@@ -187,10 +144,8 @@ function signupForGame() {
       } else {
         if (data.message) showSnackBar(data.message, "success");
         else showSnackBar("Вы зарегистрированы.", "success");
-        $(".js_signin-block").addClass("hidden");
-        if (checkUserLoggedIn()) {
-          $(".js_signout-block").removeClass("hidden");
-        }
+        $(".js_game-signin-block").addClass("hidden");
+        $(".js_game-signout-block").removeClass("hidden");
       }
     },
     error: function (data) {

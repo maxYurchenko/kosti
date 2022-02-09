@@ -54,3 +54,14 @@ exports.handle403 = function (err) {
     body: body
   };
 };
+
+exports.handle405 = function (err) {
+  var body = thymeleaf.render(viewGeneric, {
+    pageComponents: helpers.getPageComponents(err),
+    homeUrl: sharedLib.generateNiceServiceUrl("")
+  });
+  return {
+    contentType: "text/html",
+    body: body
+  };
+};

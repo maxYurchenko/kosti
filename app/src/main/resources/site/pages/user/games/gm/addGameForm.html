@@ -40,6 +40,7 @@
                 data-th-text="${portal.localize({'_key=myGames.form.gameSystem', '_locale=ru'})}"></label>
             <div class="my_games-system-select select-field">
                 <select required name="gameSystem" id="my_games_system"
+                    data-th-disabled="${block and block.content.data && block.content.data.system != null}"
                     class="select js-my_games-select-with-other js-my_games-system">
                     <div data-th-unless="${block and block.content.data && block.content.data.system != null}"
                         data-th-remove="tag">
@@ -67,7 +68,6 @@
                 data-th-classappend="${game && game.content.data.gameSystem.text && game.content.data.gameSystem.text.system != '' && game.content.data.gameSystem._selected == 'text' ? '' : 'my_games-hidden-input'}"
                 class="js-my_games-system-input my_games-system-input" data-ignore="true" />
         </div>
-        <!--
         <div data-th-if="${festival.online}" class="form-group">
             <label for="my_games_virtual_table"
                 data-th-text="${portal.localize({'_key=myGames.form.virtualTable', '_locale=ru'})}"></label>
@@ -91,7 +91,6 @@
                 data-th-classappend="${game && game.content.data.virtualTable.text && game.content.data.virtualTable.text.virtualTable != '' && game.content.data.virtualTable._selected == 'text' ? '' : 'my_games-hidden-input'}"
                 class="js-my_games-virtual-table-input my_games-system-input" data-ignore="true" />
         </div>
-        -->
         <div class="form-group">
             <label for="my_games_theme"
                 data-th-text="${portal.localize({'_key=myGames.form.theme', '_locale=ru'})}"></label>

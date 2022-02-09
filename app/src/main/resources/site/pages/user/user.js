@@ -156,6 +156,9 @@ function handleReq(req) {
       let days = festivals.length
         ? formLib.getDaysGM(null, null, festivals[0]._id)
         : [];
+      festivals.forEach((fest) => {
+        fest.games = playerLib.getGamesByPlayer(fest._id);
+      });
       days.forEach((day) => {
         day.processed.available = thymeleaf.render(
           resolve("games/shared/availableComp.html"),
@@ -165,12 +168,14 @@ function handleReq(req) {
           }
         );
       });
+      const showGmComponents = festivals.length > 0;
       const hideDiscordRequiredText =
         currUser &&
-        currUser.content.data.discord &&
-        festivals[0].data.requireDiscord
-          ? currUser.content.data.discord
-          : null;
+        ((currUser.content &&
+          currUser.content.data.discord &&
+          festivals[0] &&
+          festivals[0].data.requireDiscord) ||
+          (festivals[0] && !festivals[0].data.requireDiscord));
       var articles = thymeleaf.render(resolve("components/gamesView.html"), {
         currUser: currUser,
         userGames: userGames,
@@ -178,13 +183,19 @@ function handleReq(req) {
         festivals: festivals,
         content: content,
         playerGames: playerGames,
+        showGmComponents: showGmComponents,
         gameMasterForm: thymeleaf.render(resolve("games/gm/gmComp.html"), {
           days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
             days: days,
             festival: festivals[0]
           }),
+          showGmComponents: showGmComponents,
           hideDiscordRequiredText: hideDiscordRequiredText
-        })
+        }),
+        tinymceStyles: thymeleaf.render(
+          resolve("components/tinymceStyles.html"),
+          {}
+        )
       });
     } else if (up.action == "orders" && currUserFlag) {
       var orders = cartLib.getCartsByUser(content.data.email, content._id);
@@ -287,7 +298,6 @@ function handleReq(req) {
       }
       games.hits = result;
       games.total = count.toFixed();
-      norseUtils.log(games);
       return games;
     }
     return model;
