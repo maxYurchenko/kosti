@@ -3,14 +3,17 @@ const contentLib = require("/lib/xp/content");
 const thymeleaf = require("/lib/thymeleaf");
 
 const libLocation = "../../../../site/lib/";
+const contextLib = require(libLocation + "contextLib");
 const norseUtils = require(libLocation + "norseUtils");
 const gmLib = require("/lib/festival/gmLib");
-const festivalBotLib = require(libLocation + "games/bot");
 
 exports.get = function (req) {
   const withGamesOnly = req.params.withGamesOnly;
+  const masters = contextLib.runAsAdmin(function () {
+    return gmLib.listMasters(withGamesOnly);
+  });
   return {
-    body: gmLib.listMasters(withGamesOnly),
+    body: masters,
     contentType: "application/json"
   };
 };

@@ -3,21 +3,22 @@ const portal = require("/lib/xp/portal");
 const contentLib = require("/lib/xp/content");
 const valueLib = require("/lib/xp/value");
 
+const playerLib = require("/lib/festival/playerLib");
+const formLib = require("/lib/festival/formLib");
+const cartLib = require("/lib/cartLib");
+const userLib = require("/lib/userLib");
+
 const libLocation = "../../lib/";
 const norseUtils = require(libLocation + "norseUtils");
 const moment = require(libLocation + "moment");
 const votesLib = require(libLocation + "votesLib");
 const sharedLib = require(libLocation + "sharedLib");
 const blogLib = require(libLocation + "blogLib");
-const cartLib = require("/lib/cartLib");
-const userLib = require("/lib/userLib");
 const helpers = require(libLocation + "helpers");
 const pdfLib = require(libLocation + "pdfLib");
-const formLib = require("/lib/festival/formLib");
 const commentsLib = require(libLocation + "commentsLib");
 const notificationLib = require(libLocation + "notificationLib");
 const cacheLib = require(libLocation + "cacheLib");
-const playerLib = require("/lib/festival/playerLib");
 const countries = require(libLocation + "misc/countries");
 
 const cache = cacheLib.api.createGlobalCache({
@@ -147,8 +148,7 @@ function handleReq(req) {
       );
       var articles = notifications.hits;
     } else if (up.action == "games" && currUserFlag) {
-      let playerGames = playerLib.getGamesByPlayer();
-      let userGames = playerLib.getGamesByUser();
+      const userGames = playerLib.getGamesByUser(undefined, false, true);
       totalArticles.curr = userGames.length;
       active.games = "active";
       var currTitle = "games";
@@ -156,7 +156,8 @@ function handleReq(req) {
       let days = festivals.length
         ? formLib.getDaysGM(null, null, festivals[0]._id)
         : [];
-      festivals.forEach((fest) => {
+      const playerFestivals = playerLib.getFestivalsForPlayer();
+      playerFestivals.forEach((fest) => {
         fest.games = playerLib.getGamesByPlayer(fest._id);
       });
       days.forEach((day) => {
@@ -178,11 +179,10 @@ function handleReq(req) {
           (festivals[0] && !festivals[0].data.requireDiscord));
       var articles = thymeleaf.render(resolve("components/gamesView.html"), {
         currUser: currUser,
-        userGames: userGames,
+        playerFestivals: playerFestivals,
         currUserFlag: currUserFlag,
         festivals: festivals,
         content: content,
-        playerGames: playerGames,
         showGmComponents: showGmComponents,
         gameMasterForm: thymeleaf.render(resolve("games/gm/gmComp.html"), {
           days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {

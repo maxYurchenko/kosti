@@ -115,6 +115,9 @@ function getCustomersMailingList(type) {
   } else if (type && type === "kosticonnect2021") {
     query =
       "items.id in ('9cb3a53e-ee79-412e-b111-abc879bf1282', 'cb1c7af5-283a-492e-ada7-b6ad32c22c2f') and status = 'paid'";
+  } else if (type && type === "kosticonnect2022Turbo") {
+    query =
+      "items.id in ('64a21f80-60ad-446f-9296-aaf321bc169f') and status = 'paid'";
   }
   var emails = repo.query({
     query: query,
@@ -201,20 +204,20 @@ function getorderCreatedMail(params) {
     d.getHours() +
     ":" +
     d.getMinutes();
-    let showTicketNote = false;
-    if(params.cart && params.cart.items){
-      for(let i=0;i<params.cart.items.length;i++){
-        const item = params.cart.items[i];
-        if(item.itemsIds){
-          showTicketNote = true;
-          break;
-        }
+  let showTicketNote = false;
+  if (params.cart && params.cart.items) {
+    for (let i = 0; i < params.cart.items.length; i++) {
+      const item = params.cart.items[i];
+      if (item.itemsIds) {
+        showTicketNote = true;
+        break;
       }
     }
+  }
   return {
     body: thymeleaf.render(resolve(mailsTemplates.orderCreated), {
       order: params.order,
-      showTicketNote:showTicketNote,
+      showTicketNote: showTicketNote,
       site: sharedLib.getSite(),
       dateString: dateString,
       cart: params.cart,

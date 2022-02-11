@@ -38,7 +38,7 @@
                         data-th-text="${game.processed.seatsReserved + '/' + game.content.data.maxPlayers}"></span>
                 </span>
                 <span data-th-if="${game.content.data.exclusive}" class="k_games-exclusive_game"><i
-                        class="icon-rock"></i> Экслюзивная игра</span>
+                        class="icon-rock"></i> Турбо игра</span>
             </span>
             <h3 class="k_games-game_name" data-th-text="${game.content.displayName}"></h3>
             <h4 class="k_games-game_system" data-th-if="${game.processed.system.localizable}"
@@ -53,6 +53,10 @@
             <span class="k_games-game_actions">
                 <span class="k_games-link_more" data-th-href="${game.processed.url}">Узнать больше</span>
             </span>
+            <h3 class="k_games-game_name" data-th-if="${game.processed.currUserPlays}">Ты тут играешь</h3>
+            <h3 class="k_games-game_name"
+                data-th-text="${game.processed.block.processed.time.start + ' - ' + game.processed.block.processed.time.end + (game.processed.master ?  (' | '  + game.processed.master.displayName) : '')}">
+            </h3>
 
             <div class="k_games-item_actions" data-th-if="${cityBoss}">
                 <button class="kosticonnect-button primary js_modal-show js_game-players-list"

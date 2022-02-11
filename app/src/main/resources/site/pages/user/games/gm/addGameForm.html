@@ -138,6 +138,8 @@
                     <option data-th-text="${portal.localize({'_key=myGames.form.maxPlayers.choose', '_locale=ru'})}"
                         disabled="disabled" selected>
                     </option>
+                    <option data-th-selected="${game && game.content.data.maxPlayers == 3}" value="3">3
+                    </option>
                     <option data-th-selected="${game && game.content.data.maxPlayers == 4}" value="4">4
                     </option>
                     <option data-th-selected="${game && game.content.data.maxPlayers == 5}" value="5">5

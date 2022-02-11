@@ -46,14 +46,16 @@ function handleReq(req) {
       game.content.data.players.indexOf(user.content._id) > -1;
     let festival = festivalLib.getFestivalByChild(game._id);
     let userPath = helpers.getFestivalUserUrl(user);
+    const gamesListPage =
+      festival && festival.data.gamesListPage
+        ? contentLib.get({ key: festival.data.gamesListPage })
+        : null;
 
     const formData = getFormData(user, festival);
 
     var model = {
       formData: formData,
-      gamesListPage: festival.data
-        ? contentLib.get({ key: festival.data.gamesListPage })
-        : null,
+      gamesListPage: gamesListPage,
       game: game,
       spaceAvailable:
         game.processed.seatsReserved < game.content.data.maxPlayers,

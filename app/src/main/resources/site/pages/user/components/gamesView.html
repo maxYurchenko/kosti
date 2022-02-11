@@ -11,8 +11,8 @@
         <div data-th-utext="${gameMasterForm}" data-th-remove="tag"></div>
     </div>
 </div>
-<div class="my_games-signed-wrapper" data-th-if="${festivals and festivals.size > 0}">
-    <div data-th-each="fest : ${festivals}" class="my_games-gm-header">
+<div class="my_games-signed-wrapper" data-th-if="${playerFestivals and playerFestivals.size > 0}">
+    <div data-th-each="fest : ${playerFestivals}" class="my_games-gm-header">
         <div data-th-if="${fest.games.size > 0}">
             <h2 class="my_games-title">
                 Мои игры на
@@ -22,11 +22,17 @@
                 <li data-th-each="game : ${fest.games}" class="my_games-signed-item">
                     <a class="my_games-signed-link" data-th-href="${game.processed.url}"
                         data-th-text="${game.content.displayName}"></a>
+                    <span data-th-if="${game.content.data.exclusive}"><b>TURBO GAME</b></span>
+                    <span data-th-text="${game.processed.block.processed.dayName}"></span> <span
+                        data-th-text="${game.processed.block.content.displayName}"></span>
+                    <span data-th-text="${game.processed.block.processed.time.start}"></span>
+                    <span data-th-text="${game.processed.block.processed.time.end}"></span>
+                    <span data-th-text="${game.processed.master.data.firstName}"></span>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<div class="blog-list-empty js_blog-list-empty" data-th-unless="${festivals and festivals.size > 0}">Игр пока нет.</div>
-<div class="blog-list-empty js_blog-list-empty" data-th-unless="${currUserFlag and showGmComponents}">Игр пока нет.
+<div class="blog-list-empty js_blog-list-empty" data-th-unless="${playerFestivals and playerFestivals.size > 0}">Игр
+    пока нет.</div>
 </div>
