@@ -11,7 +11,7 @@
         <div data-th-utext="${gameMasterForm}" data-th-remove="tag"></div>
     </div>
 </div>
-<div class="my_games-signed-wrapper" data-th-if="${playerFestivals and playerFestivals.size > 0}">
+<div class="my_games-signed-wrapper" data-th-if="${hasGames}">
     <div data-th-each="fest : ${playerFestivals}" data-th-remove="tag">
         <div data-th-if="${fest.games.size > 0}" data-th-remove="tag">
             <div class="my_games-gm-header">
@@ -36,8 +36,7 @@
                                 data-th-text="${game.content.displayName}"></a>
                             <div>
                                 <span>Ведущий</span>
-                                <span data-th-if="${game.processed.master}"
-                                    data-th-text="${game.processed.master.data.firstName}"></span>
+                                <span data-th-text="${game.processed.master.data.firstName}"></span>
                                 <span data-th-if="${game.content.data.exclusive}"
                                     class="my_games-signed-exclusive_game"><i class="icon-rock"></i> Турбо игра</span>
                             </div>
@@ -48,6 +47,6 @@
         </div>
     </div>
 </div>
-<div class="blog-list-empty js_blog-list-empty" data-th-unless="${playerFestivals and playerFestivals.size > 0}">Игр
-    пока нет.</div>
+<div class="blog-list-empty js_blog-list-empty" data-th-unless="${hasGames}">
+    Игр пока нет.
 </div>

@@ -157,8 +157,10 @@ function handleReq(req) {
         ? formLib.getDaysGM(null, null, festivals[0]._id)
         : [];
       const playerFestivals = playerLib.getFestivalsForPlayer();
+      let hasGames = false;
       playerFestivals.forEach((fest) => {
         fest.games = playerLib.getGamesByPlayer(fest._id);
+        if (fest.games.length > 0) hasGames = true;
       });
       days.forEach((day) => {
         day.processed.available = thymeleaf.render(
@@ -179,6 +181,7 @@ function handleReq(req) {
           (festivals[0] && !festivals[0].data.requireDiscord));
       var articles = thymeleaf.render(resolve("components/gamesView.html"), {
         currUser: currUser,
+        hasGames: hasGames,
         playerFestivals: playerFestivals,
         currUserFlag: currUserFlag,
         festivals: festivals,
