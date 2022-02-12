@@ -17,9 +17,9 @@
         }">
         <h3 class="k_games-time_title">
             <span data-th-if="${game.processed.block.processed.time.end}"
-                data-th-text="${game.processed.block.processed.time.start + ' - ' + game.processed.block.processed.time.end}"></span>
+                data-th-text="${game.processed.block.processed.time.start + ' MSK - ' + game.processed.block.processed.time.end + ' MSK'}"></span>
             <span data-th-unless="${game.processed.block.processed.time.end}"
-                data-th-text="${game.processed.block.processed.time.start}"></span>
+                data-th-text="${game.processed.block.processed.time.start+ ' MSK'}"></span>
         </h3>
     </li>
 
@@ -47,8 +47,13 @@
             <h4 class="k_games-game_system" data-th-if="${game.processed.system.localizable}"
                 data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.processed.system.text, '_locale=ru'})}">
             </h4>
-            <h3 class="k_games-game_short_info"
-                data-th-text="${ (game.processed.master ?  (' | '  + game.processed.master.displayName) + ' | ' : '') + game.processed.block.processed.time.start + ' - ' + game.processed.block.processed.time.end}">
+            <h3 class="k_games-game_short_info">
+                <span data-th-text="${ (game.processed.master ?  (' | '  + game.processed.master.displayName) + ' | ' : '')}"></span>
+                <span data-th-unless="${game.processed.block.processed.time.end}"
+                    data-th-text="${game.processed.block.processed.time.start + ' MSK'}"></span>
+                <span data-th-if="${game.processed.block.processed.time.end}"
+                    data-th-text="${game.processed.block.processed.time.start + ' MSK - ' + game.processed.block.processed.time.end + ' MSK'}">
+                </span>
             </h3>
             <h4 data-th-unless="${game.processed.system.localizable}" class="k_games-game_system"
                 data-th-text="${game.processed.system.text}">

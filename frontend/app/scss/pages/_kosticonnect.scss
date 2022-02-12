@@ -32,12 +32,12 @@
     }
 
     &-header_insert {
-        padding: 24px 0 0;
+        // padding: 24px 0 0;
         background-color: $kosticonnect-primary3;
 
-        @include tablet-all {
-            padding: 24px 0 0;
-        }
+        // @include tablet-all {
+        //     padding: 24px 0 0;
+        // }
 
         .kosticonnect-title {
             padding: 0;
