@@ -22,6 +22,7 @@
             </div>
             <ul class="my_games-game_block-list m-player_profile">
                 <li data-th-each="game : ${fest.games}" class="my_games-available-item">
+                    <!-- ADD class .m-is_gm to .my_games-available-item if user is GM of game -->
                     <div class=" my_games-short_info">
                         <div class="my_games-short_info-left">
                             <span data-th-text="${game.processed.block.processed.dayName}"></span> <span
@@ -34,11 +35,17 @@
                         <div class="my_games-short_info-right">
                             <a class="my_games-signed-link" data-th-href="${game.processed.url}"
                                 data-th-text="${game.content.displayName}"></a>
-                            <div>
-                                <span>Ведущий</span>
-                                <span data-th-text="${game.processed.master.data.firstName}"></span>
-                                <span data-th-if="${game.content.data.exclusive}"
-                                    class="my_games-signed-exclusive_game"><i class="icon-rock"></i> Турбо игра</span>
+                            <div class="my_games-action-block">
+                                <div>
+                                    <span data-th-remove="tag">
+                                        <span>Ведущий</span>
+                                        <span data-th-text="${game.processed.master.data.firstName}"></span>
+                                    </span>
+                                    <!-- Show next span if user is GM of game
+                                    <span class="my_games-action-text">Ты ведущий игры!</span> -->
+                                    <span data-th-if="${game.content.data.exclusive}"
+                                        class="my_games-signed-exclusive_game"><i class="icon-rock"></i> Турбо игра</span>
+                                </div>
                             </div>
                         </div>
                     </div>

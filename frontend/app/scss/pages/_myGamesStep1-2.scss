@@ -177,9 +177,8 @@
                     padding: 15px 40px 0;
                 }
 
-                .my_games-available-item {
+                .my_games-available-item:not(.m-is_gm) {
                     border-left-color: #0095f8;
-                    position: relative;
                 }
 
                 .my_games-short_info {
@@ -199,6 +198,19 @@
                         border: 0;
                         border-bottom: 1px solid #ddd;
                     }
+                }
+
+                .my_games-short_info-right {
+                    flex: 1 1 auto;
+                }
+
+                .my_games-action-block {
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .my_games-action-text {
+                    color: #ed1f2e;
                 }
             }
         }
@@ -270,6 +282,8 @@
             &-add_game {
                 display: none;
             }
+
+            
         }
 
         &-primary {
