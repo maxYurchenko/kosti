@@ -161,6 +161,17 @@ label {
     }
   }
 
+  &-2_up {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+      .form-group {
+        width: calc(50% - 20px);
+        margin: 0 10px 15px;
+      }
+  }
+
   &.is-invalid {
     input,
     select,
