@@ -269,7 +269,7 @@ function bookSpace(params) {
     if (parseInt(params.kosticonnect2021) === NaN) {
       return {
         error: true,
-        message: "Не правильный номер билета."
+        message: "Не правильный код билета."
       };
     }
     if (!checkTicket(params)) {
@@ -364,7 +364,7 @@ function updateUser(params) {
     if (parseInt(params.kosticonnect2021) === NaN) {
       return {
         error: true,
-        message: "Не правильный номер билета."
+        message: "Не правильный код билета."
       };
     }
     if (checkTicket({ kosticonnect2021: params.kosticonnect2021 })) {

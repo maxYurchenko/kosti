@@ -25,7 +25,7 @@
                     </div>
                     <div data-th-if="${product.itemsIdsProcessed and product.productType == 'ticket' && order.status == 'paid'}"
                         class="cart-product_size" data-th-each="downloadable: ${product.itemsIdsProcessed}">
-                        <div><span>Номер билета: </span><span data-th-text="${downloadable.id}"></span></div>
+                        <div><span>Код(ы) билета(ов)*: </span><span data-th-text="${downloadable.id}"></span></div>
                         <a data-th-if="${product.ticketType != 'kostiConnectTurbo' && product.ticketType != 'kostiConnectOnline'}"
                             data-th-href="${portal.serviceUrl({'_service=orders', 'id=' + downloadable.id, 'action=ticketPdf'})}">Скачать</a>
                     </div>
@@ -84,4 +84,5 @@
             </div>
         </div>
     </div>
+    <div class="view_orders-further_info" data-th-if="${product.itemsIdsProcessed and product.productType == 'ticket' && order.status == 'paid'}">*Коды, которые позволят вам записаться на игру на сайте и попасть на дискорд сервер в день фестиваля. </div>
 </div>

@@ -49,7 +49,7 @@
                                         <table border="0" cellpadding="0" cellspacing="0" data-th-if="${item.itemsIdsProcessed}">
                                             <tr>
                                                 <td style="vertical-align: top; padding-right: 5px;">
-                                                    <span style=" font-weight: bold; color: #F07300">Код(ы) билета*:</span>
+                                                    <span style=" font-weight: bold; color: #F07300">Код(ы) билета(ов)*:</span>
                                                 </td>
                                                 <td style="vertical-align: top;" >
                                                     <div data-th-remove="tag" data-th-each="id: ${item.itemsIdsProcessed}">
@@ -166,8 +166,7 @@
                     </tr>
                     <tr data-th-if="${showTicketNote}">
                         <td style="font-size: 12px;">
-                            *Коды, которые позволят вам попасть на
-                            дискорд сервер фестиваля в день фестиваля
+                            *Коды, которые позволят вам записаться на игру на сайте и попасть на дискорд сервер в день фестиваля.
                         </td>
                     </tr>
                 </table>
