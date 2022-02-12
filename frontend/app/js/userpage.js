@@ -51,6 +51,9 @@ function initUserPageFunctions() {
   $(".user_page-wrap .profile .profile-avatar").on("click", function () {
     $("#userImageUpload input").click();
   });
+  if (findGetParameter("action") === "settings") {
+    $(".modal-edit_user").addClass("show");
+  }
 }
 
 $(document).ready(function () {
