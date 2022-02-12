@@ -32,6 +32,12 @@
                 min-width: 768px;
             }
         }
+
+        .modal.m-edit_user & {
+            @include tablet-all() {
+                min-width: 768px;
+            }
+        }
     }
 
     &-title {

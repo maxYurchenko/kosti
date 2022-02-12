@@ -34,7 +34,7 @@ function initUserPageFunctions() {
   $(".js_profile-settings").on("click", function (e) {
     e.preventDefault();
     e.stopPropagation();
-    $(".modal-edit_user").addClass("show");
+    $(".js_edit_user-modal").addClass("show");
     removeScroll();
   });
   $(".js_edit_user-form").on("submit", function (e) {
@@ -63,7 +63,7 @@ $(document).ready(function () {
 function editUserData(formData) {
   var call = makeAjaxCall(userApi, "POST", formData, true);
   call.done(function (data) {
-    $(".modal-edit_user").removeClass("show");
+    $(".js_edit_user-modal").removeClass("show");
     hideLoader();
   });
 }
