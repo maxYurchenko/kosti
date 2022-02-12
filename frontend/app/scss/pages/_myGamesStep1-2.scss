@@ -169,6 +169,40 @@
     }
 
     &-game_block {
+        &-list {
+            &.m-player_profile {
+                padding: 15px 20px 0;
+    
+                @include tablet-all {
+                    padding: 15px 40px 0;
+                }
+
+                .my_games-available-item {
+                    border-left-color: #0095f8;
+                    position: relative;
+                }
+
+                .my_games-short_info {
+                    @include mobile {
+                        flex-direction: column;
+                    }
+                }
+                .my_games-short_info-left {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+                    min-width: 150px;
+
+                    @include mobile {
+                        padding: 0 0 15px;
+                        margin: 0 0 15px;
+                        border: 0;
+                        border-bottom: 1px solid #ddd;
+                    }
+                }
+            }
+        }
+
         &-item {
             display: block;
             margin: 10px 0 0;
@@ -303,40 +337,6 @@
     &-step2 {
         &-data {
             display: none;
-        }
-    }
-
-    &-signed {
-        &-wrapper {
-            background-color: $color-primary1;
-            padding: 40px 0;
-            box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
-        }
-
-        &-list,
-        &-empty {
-            padding: 15px 20px 0;
-
-            @include tablet-all {
-                padding: 15px 40px 0;
-            }
-        }
-
-        &-item+&-item {
-            margin-top: 15px;
-        }
-
-        &-link {
-            font-family: Raleway;
-            font-weight: bold;
-            font-size: 16px;
-            line-height: 1.45;
-            color: $kosticonnect-primary3;
-            padding-top: 8px;
-
-            &:hover {
-                color: lighten($kosticonnect-primary3, 20)
-            }
         }
     }
 }

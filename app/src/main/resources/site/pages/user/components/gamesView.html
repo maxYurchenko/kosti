@@ -12,22 +12,35 @@
     </div>
 </div>
 <div class="my_games-signed-wrapper" data-th-if="${playerFestivals and playerFestivals.size > 0}">
-    <div data-th-each="fest : ${playerFestivals}" class="my_games-gm-header">
-        <div data-th-if="${fest.games.size > 0}">
-            <h2 class="my_games-title">
-                Мои игры на
-                <span data-th-text="${fest.displayName}" data-th-remove="tag"></span>
-            </h2>
-            <ul class="my_games-signed-list">
-                <li data-th-each="game : ${fest.games}" class="my_games-signed-item">
-                    <a class="my_games-signed-link" data-th-href="${game.processed.url}"
-                        data-th-text="${game.content.displayName}"></a>
-                    <span data-th-if="${game.content.data.exclusive}"><b>TURBO GAME</b></span>
-                    <span data-th-text="${game.processed.block.processed.dayName}"></span> <span
-                        data-th-text="${game.processed.block.content.displayName}"></span>
-                    <span data-th-text="${game.processed.block.processed.time.start}"></span>
-                    <span data-th-text="${game.processed.block.processed.time.end}"></span>
-                    <span data-th-text="${game.processed.master.data.firstName}"></span>
+    <div data-th-each="fest : ${playerFestivals}" data-th-remove="tag">
+        <div data-th-if="${fest.games.size > 0}" data-th-remove="tag">
+            <div class="my_games-gm-header">
+                <h2 class="my_games-title">
+                    Мои игры на
+                    <span data-th-text="${fest.displayName}" data-th-remove="tag"></span>
+                </h2>
+            </div>
+            <ul class="my_games-game_block-list m-player_profile">
+                <li data-th-each="game : ${fest.games}" class="my_games-available-item">
+                    <div class=" my_games-short_info">
+                        <div class="my_games-short_info-left">
+                        <span data-th-text="${game.processed.block.processed.dayName}"></span> <span
+                            data-th-text="${game.processed.block.content.displayName}"></span>
+                            <span>
+                                <span data-th-text="${game.processed.block.processed.time.start}"></span> -
+                                <span data-th-text="${game.processed.block.processed.time.end}"></span>
+                            </span>
+                        </div>
+                        <div class="my_games-short_info-right">
+                            <a class="my_games-signed-link" data-th-href="${game.processed.url}"
+                                data-th-text="${game.content.displayName}"></a>
+                            <div>
+                                <span>Ведущий</span>
+                                <span data-th-text="${game.processed.master.data.firstName}"></span>
+                                <span data-th-if="${game.content.data.exclusive}" class="my_games-signed-exclusive_game"><i class="icon-rock"></i> Турбо игра</span>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>

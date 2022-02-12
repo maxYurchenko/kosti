@@ -68,8 +68,13 @@
     &-item_link {
         display: block;
         padding: 15px;
+
+        &.m-user_plays {
+            .k_games-seats {
+                background: #11090f;
+            }
+        }
     }
-    
 
     &-item_actions {
         padding: 15px 0;
@@ -131,6 +136,13 @@
         font-size: 24px;
         line-height: 1.35;
         color: $kosticonnect-primary2;
+    }
+
+    &-game_short_info {
+        color: #d76700;
+        font-size: 14px;
+        font-family: Raleway;
+        padding-top: 8px;
     }
 
     &-game_desc_wrap {
