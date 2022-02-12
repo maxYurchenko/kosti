@@ -108,6 +108,12 @@ function handleReq(req) {
       !userLoggedIn
     );
     return {
+      registerStarted:
+        festival &&
+        (new Date(festival.data.gameRegisterTurboStart) < new Date() ||
+          new Date(festival.data.gameRegisterStart) < new Date())
+          ? true
+          : false,
       userLoggedIn: userLoggedIn,
       requireDiscord: requireDiscord,
       userHasValidTicket: !!(

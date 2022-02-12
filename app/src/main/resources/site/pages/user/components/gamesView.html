@@ -24,8 +24,8 @@
                 <li data-th-each="game : ${fest.games}" class="my_games-available-item">
                     <div class=" my_games-short_info">
                         <div class="my_games-short_info-left">
-                        <span data-th-text="${game.processed.block.processed.dayName}"></span> <span
-                            data-th-text="${game.processed.block.content.displayName}"></span>
+                            <span data-th-text="${game.processed.block.processed.dayName}"></span> <span
+                                data-th-text="${game.processed.block.content.displayName}"></span>
                             <span>
                                 <span data-th-text="${game.processed.block.processed.time.start}"></span> -
                                 <span data-th-text="${game.processed.block.processed.time.end}"></span>
@@ -36,8 +36,10 @@
                                 data-th-text="${game.content.displayName}"></a>
                             <div>
                                 <span>Ведущий</span>
-                                <span data-th-text="${game.processed.master.data.firstName}"></span>
-                                <span data-th-if="${game.content.data.exclusive}" class="my_games-signed-exclusive_game"><i class="icon-rock"></i> Турбо игра</span>
+                                <span data-th-if="${game.processed.master}"
+                                    data-th-text="${game.processed.master.data.firstName}"></span>
+                                <span data-th-if="${game.content.data.exclusive}"
+                                    class="my_games-signed-exclusive_game"><i class="icon-rock"></i> Турбо игра</span>
                             </div>
                         </div>
                     </div>

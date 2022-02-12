@@ -31,9 +31,6 @@ function handleReq(req) {
   }
 
   function renderView() {
-    var view = resolve("games.html");
-    var model = createModel();
-    var body = thymeleaf.render(view, model);
     return {
       body: thymeleaf.render(resolve("games.html"), createModel()),
       contentType: "text/html",
@@ -156,6 +153,7 @@ function handleReq(req) {
       )
         filters.system.push(game.data.gameSystem.select.system);
     });
+    filters.system.sort();
     return filters;
   }
 
