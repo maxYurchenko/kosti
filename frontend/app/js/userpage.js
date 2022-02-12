@@ -52,7 +52,7 @@ function initUserPageFunctions() {
     $("#userImageUpload input").click();
   });
   if (findGetParameter("action") === "settings") {
-    $(".modal-edit_user").addClass("show");
+    $(".js_edit_user-modal").addClass("show");
   }
 }
 

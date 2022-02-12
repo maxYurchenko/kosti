@@ -93,6 +93,9 @@ function handleReq(req) {
       : 0;
     const userSystemObj = userLib.getSystemUser(content.data.email);
     const currUserFlag = currUser && currUser.user.key == userSystemObj.key;
+    if (currUserFlag && currUser.content.data.kosticonnect2022) {
+      norseUtils.log("test");
+    }
     content.votes = blogLib.countUserRating(content._id);
     var date = new Date(moment(content.publish.from.replace("Z", "")));
     content.date =
