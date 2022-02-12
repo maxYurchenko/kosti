@@ -21,7 +21,7 @@
                 </h2>
             </div>
             <ul class="my_games-game_block-list m-player_profile">
-                <li data-th-each="game : ${fest.games}" class="my_games-available-item"
+                <li data-th-each="game : ${fest.games}" class="my_games-available-item js_games-my-game-item"
                     data-th-classappend="${game.processed.currUserMaster ? 'm-is_gm' : ''}">
                     <div class="my_games-short_info">
                         <div class="my_games-short_info-left">
@@ -41,15 +41,21 @@
                                 <div>
                                     <span data-th-unless="${game.processed.currUserMaster}" data-th-remove="tag">
                                         <span>Ведущий</span>
-                                        <span data-th-text="${game.processed.master.data.firstName}"></span>
+                                        <span data-th-text="${game.processed.master.displayName}"></span>
                                     </span>
                                     <span data-th-if="${game.processed.currUserMaster}" class="my_games-action-text">
                                         Ты ведущий игры!
                                     </span>
                                     <span data-th-if="${game.content.data.exclusive}"
-                                        class="my_games-signed-exclusive_game"><i class="icon-rock"></i> Турбо
-                                        игра</span>
-                                    <button class="my_games-action-secondary button">Отписаться</button>
+                                        class="my_games-signed-exclusive_game">
+                                        <i class="icon-rock"></i>
+                                        Турбо игра
+                                    </span>
+                                    <button class="my_games-action-secondary button js_user-game-signout"
+                                        data-th-attr="data-gameid=${game.content._id}"
+                                        data-th-unless="${game.processed.currUserMaster}">
+                                        Отписаться
+                                    </button>
                                 </div>
                             </div>
                         </div>
