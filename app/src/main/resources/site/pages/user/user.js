@@ -93,8 +93,14 @@ function handleReq(req) {
       : 0;
     const userSystemObj = userLib.getSystemUser(content.data.email);
     const currUserFlag = currUser && currUser.user.key == userSystemObj.key;
+
+    let userHasTicket =
+      currUserFlag && currUser.content.data.kosticonnect2022 ? true : false;
+    let turboTicket = false;
     if (currUserFlag && currUser.content.data.kosticonnect2022) {
-      norseUtils.log("test");
+      const cart = cartLib.getCartByQr(currUser.content.data.kosticonnect2022);
+      if (cart) turboTicket = cart.legendary;
+      if (!cart) userHasTicket = false;
     }
     content.votes = blogLib.countUserRating(content._id);
     var date = new Date(moment(content.publish.from.replace("Z", "")));
@@ -227,6 +233,8 @@ function handleReq(req) {
       var editUserModal = thymeleaf.render(
         resolve("components/userEditModal.html"),
         {
+          userHasTicket: userHasTicket,
+          turboTicket: turboTicket,
           countries: countries,
           user: content,
           discord: discord,

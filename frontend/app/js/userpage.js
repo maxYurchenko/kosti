@@ -63,7 +63,11 @@ $(document).ready(function () {
 function editUserData(formData) {
   var call = makeAjaxCall(userApi, "POST", formData, true);
   call.done(function (data) {
-    $(".js_edit_user-modal").removeClass("show");
     hideLoader();
+    if (data.error) {
+      showSnackBar(data.message, "error");
+    } else {
+      $(".js_edit_user-modal").removeClass("show");
+    }
   });
 }
