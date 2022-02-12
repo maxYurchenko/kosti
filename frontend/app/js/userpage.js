@@ -1,5 +1,6 @@
 var imageApi = "/api/user/image";
 var userApi = "/api/user";
+var gameSignOutUrl = "/api/festival/gamesignout";
 
 function initUserPageFunctions() {
   $("#userImageUpload").on("submit", function (e) {
@@ -51,6 +52,13 @@ function initUserPageFunctions() {
   $(".user_page-wrap .profile .profile-avatar").on("click", function () {
     $("#userImageUpload input").click();
   });
+
+  $(".js_user-game-signout").on("click", function (e) {
+    e.preventDefault();
+    showLoader();
+    signOutOfGame(this);
+  });
+
   if (findGetParameter("action") === "settings") {
     $(".js_edit_user-modal").addClass("show");
   }
@@ -68,6 +76,23 @@ function editUserData(formData) {
       showSnackBar(data.message, "error");
     } else {
       $(".js_edit_user-modal").removeClass("show");
+    }
+  });
+}
+
+function signOutOfGame(el) {
+  var data = { gameId: $(el).data().gameid };
+  $.ajax({
+    url: gameSignOutUrl,
+    data: data,
+    type: "POST",
+    success: function (data) {
+      hideLoader();
+      $(el).closest(".js_games-my-game-item").remove();
+    },
+    error: function (data) {
+      hideLoader();
+      showSnackBar("Произошла ошибка.", "error");
     }
   });
 }

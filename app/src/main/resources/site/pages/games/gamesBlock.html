@@ -24,7 +24,8 @@
     </li>
 
     <li class="k_games-item">
-        <a class="k_games-item_link" data-th-href="${game.processed.url}" data-th-classappend="${game.processed.currUserPlays ? 'm-user_plays' : ''}">
+        <a class="k_games-item_link" data-th-href="${game.processed.url}"
+            data-th-classappend="${game.processed.currUserPlays ? 'm-user_plays' : ''}">
             <span class="k_games-img_wrap">
                 <img data-th-if="${game.processed.image and !game.processed.image.placeholder}"
                     data-th-src="${game.processed.image.url}">
@@ -48,7 +49,9 @@
                 data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.processed.system.text, '_locale=ru'})}">
             </h4>
             <h3 class="k_games-game_short_info">
-                <span data-th-text="${ (game.processed.master ?  (' | '  + game.processed.master.displayName) + ' | ' : '')}"></span>
+                <!--
+                    <span data-th-text="${ (game.processed.master ?  (game.processed.master.displayName) + ' | ' : '')}"></span>
+                -->
                 <span data-th-unless="${game.processed.block.processed.time.end}"
                     data-th-text="${game.processed.block.processed.time.start + ' MSK'}"></span>
                 <span data-th-if="${game.processed.block.processed.time.end}"
