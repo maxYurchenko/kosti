@@ -4,9 +4,9 @@
         <div class="my_games-short_info js-my_games-available-short_info">
             <div class="my_games-short_info-left">
                 <div data-th-unless="${game.processed.block.processed.time.end}" class="my_games-short_info-time"
-                    data-th-text="${game.processed.block.processed.time.start}"></div>
+                    data-th-text="${game.processed.block.processed.time.start + ' MSK'}"></div>
                 <div data-th-if="${game.processed.block.processed.time.end}" class="my_games-short_info-time"
-                    data-th-text="${game.processed.block.processed.time.start + ' - ' + game.processed.block.processed.time.end + ''}">
+                    data-th-text="${game.processed.block.processed.time.start + ' MSK - ' + game.processed.block.processed.time.end + ' MSK'}">
                 </div>
                 <div class="my_games-short_info-location" data-th-if="${festival && !festival.online}">
                     <span data-th-text="${game.processed.location + ', '}"></span>

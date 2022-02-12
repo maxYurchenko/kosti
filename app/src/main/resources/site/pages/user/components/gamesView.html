@@ -27,10 +27,12 @@
                         <div class="my_games-short_info-left">
                             <span data-th-text="${game.processed.block.processed.dayName}"></span> <span
                                 data-th-text="${game.processed.block.content.displayName}"></span>
-                            <span>
-                                <span data-th-text="${game.processed.block.processed.time.start}"></span> -
-                                <span data-th-text="${game.processed.block.processed.time.end}"></span>
+                            <span data-th-if="${game.processed.block.processed.time.end}">
+                                <span data-th-text="${game.processed.block.processed.time.start + ' MSK'}"></span> -
+                                <span data-th-text="${game.processed.block.processed.time.end+ ' MSK'}"></span>
                             </span>
+                            <span data-th-unless="${game.processed.block.processed.time.end}"
+                                data-th-text="${game.processed.block.processed.time.start + ' MSK'}"></span>
                         </div>
                         <div class="my_games-short_info-right">
                             <a class="my_games-signed-link" data-th-href="${game.processed.url}"
@@ -47,6 +49,7 @@
                                     <span data-th-if="${game.content.data.exclusive}"
                                         class="my_games-signed-exclusive_game"><i class="icon-rock"></i> Турбо
                                         игра</span>
+                                    <button class="my_games-action-secondary button">Отписаться</button>
                                 </div>
                             </div>
                         </div>

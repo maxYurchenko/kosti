@@ -44,17 +44,17 @@
                     <div class="k_gdp-value">
                         <span data-th-text="${game.processed.block.processed.dayName + ', '}"></span>
                         <span data-th-text="${game.processed.block.processed.date}"></span>
-                        <span data-th-text="${game.processed.block.processed.monthName}"></span>
+                        <span data-th-text="${game.processed.block.processed.monthName}"></span></br>
                         <span data-th-if="${game.processed.block.processed.time.end}"
-                            data-th-text="${game.processed.block.processed.time.start + ' - ' + game.processed.block.processed.time.end}">
+                            data-th-text="${game.processed.block.processed.time.start  + ' MSK - ' + game.processed.block.processed.time.end + ' MSK'}">
                         </span>
+                        <span data-th-unless="${game.processed.block.processed.time.end}"
+                            data-th-text="${game.processed.block.processed.time.start + ' MSK'}"></span>
                     </div>
                 </div>
                 <div class="k_gdp-info">
                     <div class="k_gdp-label">ТЕМА</div>
                     <div class="k_gdp-value">
-                        <span data-th-unless="${game.processed.block.processed.time.end}"
-                            data-th-text="${game.processed.block.processed.time.start}"></span>
                         <span
                             data-th-utext="${portal.localize({'_key=myGames.theme.' + game.content.data.theme, '_locale=ru'})}"></span>
                     </div>
