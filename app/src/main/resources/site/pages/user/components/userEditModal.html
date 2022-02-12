@@ -88,10 +88,13 @@
                             type="text" class="input-text" id="address-user-input" />
                     </div>
                     <div class="form-group">
-                        <label for="address-user-input" class="label">Билет Костиконнект2022</label>
-                        <input data-th-disabled="${user.data.kosticonnect2022 ? true : false}"
-                            data-th-value="${user.data.kosticonnect2022} ? ${user.data.kosticonnect2022} : ''"
-                            name="kosticonnect2022" type="text" class="input-text" id="kosticonnect2022-input" />
+                        <label for="address-user-input" class="label">Билет
+                            Костиконнект2022</label>
+                        <input data-th-if="${userHasTicket}" data-th-disabled="${userHasTicket}"
+                            data-th-value="${turboTicket} ? 'Турбо билет' : 'Обычный билет'" name="kosticonnect2022"
+                            type="text" class="input-text" id="kosticonnect2022-input" />
+                        <input data-th-unless="${userHasTicket}" name="kosticonnect2022" type="text" class="input-text"
+                            id="kosticonnect2022-input" />
                     </div>
                     <input name="id" type="hidden" data-th-value="${user._id}" />
                     <input name="action" type="hidden" value="edit" />
