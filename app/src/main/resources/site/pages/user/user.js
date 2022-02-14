@@ -214,8 +214,23 @@ function handleReq(req) {
       totalArticles.curr = orders.length;
       active.orders = "active";
       var currTitle = "orders";
+      let asterisk = false;
+      orders.forEach((order) => {
+        order.items.forEach((item) => {
+          if (
+            item.itemsIdsProcessed &&
+            item.productType == "ticket" &&
+            order.status == "paid"
+          ) {
+            order.asterisk = true;
+            return;
+          }
+        });
+        if (order.asterisk) return;
+      });
       var articles = thymeleaf.render(resolve("components/ordersView.html"), {
-        orders: orders
+        orders: orders,
+        asterisk: asterisk
       });
     } else {
       totalArticles.curr = totalArticles.articles;

@@ -73,8 +73,13 @@ function editUserData(formData) {
   call.done(function (data) {
     hideLoader();
     if (data.error) {
-      showSnackBar(data.message, "error");
+      showSnackBar(data.message, "Произошла ошибка при редактировании данных.");
     } else {
+      if (data.message) {
+        showSnackBar(data.message, "success");
+      } else {
+        showSnackBar("Данные обновлены.", "success");
+      }
       $(".js_edit_user-modal").removeClass("show");
     }
   });

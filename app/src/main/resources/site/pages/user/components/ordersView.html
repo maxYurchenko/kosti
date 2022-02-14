@@ -84,5 +84,8 @@
             </div>
         </div>
     </div>
-    <div class="view_orders-further_info" data-th-if="${product.itemsIdsProcessed and product.productType == 'ticket' && order.status == 'paid'}">*Коды, которые позволят вам записаться на игру на сайте и попасть на дискорд сервер в день фестиваля. </div>
+    <div class="view_orders-further_info" data-th-if="${order.asterisk}">
+        *Коды, которые позволят вам записаться на игру на
+        сайте и попасть на дискорд сервер в день фестиваля.
+    </div>
 </div>

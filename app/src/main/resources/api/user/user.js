@@ -3,6 +3,7 @@ const playerLib = require("/lib/festival/playerLib");
 const norseUtils = require("../../site/lib/norseUtils");
 
 exports.post = function (req) {
+  let message = null;
   if (req.params.kosticonnect2022) {
     if (!parseInt(req.params.kosticonnect2022)) {
       return {
@@ -17,9 +18,14 @@ exports.post = function (req) {
         contentType: "application/json"
       };
     }
+    message = assingnedTicket.message;
   }
   return {
-    body: { error: false, data: userLib.editUser(req.params) },
+    body: {
+      error: false,
+      data: userLib.editUser(req.params),
+      message: message
+    },
     contentType: "application/json"
   };
 };
