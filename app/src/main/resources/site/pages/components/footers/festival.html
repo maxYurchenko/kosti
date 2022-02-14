@@ -2,9 +2,7 @@
     <div class="back_to_top js_back_to_top hide"></div>
     <div class="site_content">
         <div class="k_social social">
-            <h2 class="k_social-title kosticonnect-title">
-                СОЦСЕТИ ФЕСТИВАЛЯ
-            </h2>
+            <h2 class="k_social-title kosticonnect-title" data-th-text="${portal.localize({'_key=kosticonnect.footer.socMedia', '_locale=ru'})}"></h2>
             <div class="social-list social-list__sides_align">
                 <a href="https://www.facebook.com/vecherniyekosti" class="social-link facebook" title="Facebook"></a>
                 <a href="https://vk.com/vecherniyekosti" class="social-link vk" title="VK"></a>
@@ -19,9 +17,9 @@
             </div>
         </div>
         <div class="about_us">
-            <h3 class="about_us-title">ОБРАЩАЙТЕСЬ ПО ЛЮБЫМ ВОПРОСАМ:</h3>
-            <p><a class="about_us-link" href="mailto:info@kostirpg.com">info@kostirpg.com</a></p>
-            <p><a class="about_us-link" href="tel:+380662098750">+380662098750</a></p>
+            <h3 class="about_us-title" data-th-text="${portal.localize({'_key=kosticonnect.footer.contactUsLabel', '_locale=ru'})}"></h3>
+            <p><a class="about_us-link" href="mailto:info@kostirpg.com" data-th-text="${portal.localize({'_key=kosticonnect.footer.contactUsMail', '_locale=ru'})}"></a></p>
+            <p><a class="about_us-link" href="tel:+380662098750" data-th-text="${portal.localize({'_key=kosticonnect.footer.phone', '_locale=ru'})}"></a></p>
         </div>
     </div>
 </footer>

@@ -17,7 +17,8 @@
                     <img data-th-if="${(!game.processed.bigImage or game.processed.bigImage.placeholder) and game.processed.system and !game.processed.system.localizable}"
                         data-th-src="${portal.assetUrl({'_path=images/gameSystems/default.jpg'})}">
                     <span data-th-if="${game.content.data.exclusive}" class="k_games-exclusive_game"><i
-                            class="icon-rock"></i> Турбо игра</span>
+                            class="icon-rock"></i><span 
+                            data-th-text="${portal.localize({'_key=myGames.gameDetails.turboGame', '_locale=ru'})}"></span> </span>
                 </div>
             </div>
         </div>
@@ -34,11 +35,11 @@
             </div>
             <div class="k_gdp-right_col">
                 <div class="k_gdp-info" data-th-if="${game.processed.master}">
-                    <div class="k_gdp-label">ВЕДУЩИЙ</div>
+                    <div class="k_gdp-label" data-th-text="${portal.localize({'_key=myGames.gameDetails.gm', '_locale=ru'})}"></div>
                     <div class="k_gdp-value" data-th-utext="${game.processed.master.displayName}"></div>
                 </div>
                 <div class="k_gdp-info">
-                    <div class="k_gdp-label">ВРЕМЯ</div>
+                    <div class="k_gdp-label" data-th-text="${portal.localize({'_key=myGames.gameDetails.time', '_locale=ru'})}"></div>
                     <div class="k_gdp-value">
                         <span data-th-text="${game.processed.block.processed.dayName + ', '}"></span>
                         <span data-th-text="${game.processed.block.processed.date}"></span>
@@ -51,47 +52,46 @@
                     </div>
                 </div>
                 <div class="k_gdp-info">
-                    <div class="k_gdp-label">ТЕМА</div>
+                    <div class="k_gdp-label" data-th-text="${portal.localize({'_key=myGames.gameDetails.theme', '_locale=ru'})}"></div>
                     <div class="k_gdp-value">
                         <span
                             data-th-utext="${portal.localize({'_key=myGames.theme.' + game.content.data.theme, '_locale=ru'})}"></span>
                     </div>
                 </div>
                 <div class="k_gdp-info">
-                    <div class="k_gdp-label">ЯЗЫК ПРОВЕДЕНИЯ</div>
+                    <div class="k_gdp-label" data-th-text="${portal.localize({'_key=myGames.gameDetails.language', '_locale=ru'})}"></div>
                     <div class="k_gdp-value"
                         data-th-text="${portal.localize({'_key=myGames.form.adventureLang.' + game.content.data.language, '_locale=ru'})}">
                     </div>
                 </div>
                 <div class="k_gdp-info" data-th-if="${game.processed.table != ''}">
-                    <div class="k_gdp-label">НОМЕР ИГРЫ</div>
+                    <div class="k_gdp-label" data-th-text="${portal.localize({'_key=myGames.gameDetails.gameNumber', '_locale=ru'})}"></div>
                     <div class="k_gdp-value" data-th-utext="${game.processed.table}"></div>
                 </div>
                 <div class="k_gdp-info">
-                    <div class="k_gdp-label">МЕСТ</div>
+                    <div class="k_gdp-label" data-th-text="${portal.localize({'_key=myGames.gameDetails.seats', '_locale=ru'})}"></div>
                     <div class="k_gdp-value"
                         data-th-text="${game.processed.seatsReserved + '/' + game.content.data.maxPlayers}">0\5</div>
                 </div>
                 <div class="k_gdp-info">
-                    <div class="k_gdp-label">СОЗДАНИЕ ПЕРСОНАЖЕЙ</div>
+                    <div class="k_gdp-label" data-th-text="${portal.localize({'_key=myGames.gameDetails.charCreation', '_locale=ru'})}"></div>
                     <div class="k_gdp-value"
                         data-th-text="${portal.localize({'_key=myGames.form.pregens.' + game.content.data.pregens, '_locale=ru'})}">
                     </div>
                 </div>
                 <div class="k_gdp-info" data-th-if="${game.processed.additionalInfo != ''}">
-                    <div class="k_gdp-label">ДОПОЛНИТЕЛЬНО</div>
+                    <div class="k_gdp-label" data-th-text="${portal.localize({'_key=myGames.gameDetails.additional', '_locale=ru'})}"></div>
                     <div class="k_gdp-value" data-th-utext="${game.processed.additionalInfo}"></div>
                 </div>
             </div>
             <div class="k_gdp-early_access" data-th-unless="${formData.registerStarted}">
-                <h3 class="k_gdp-early_access-title">Регистрация еще не началась.</h3>
-                <h4 class="k_gdp-early_access-subtitle">Но вы можете подключить билет и дискорд заранее в <a
-                        href="/me?action=settings">настройках профиля</a>.</h4>
+                <h3 class="k_gdp-early_access-title" data-th-text="${portal.localize({'_key=myGames.earlyAccess.title', '_locale=ru'})}"></h3>
+                <h4 class="k_gdp-early_access-subtitle">
+                    <span data-th-text="${portal.localize({'_key=myGames.earlyAccess.subtitle', '_locale=ru'})}"></span>
+                    <a href="/me?action=settings" data-th-text="${portal.localize({'_key=myGames.earlyAccess.subtitleLink', '_locale=ru'})}"></a></h4>
                 <div class="k_gdp-actions">
                     <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow" data-th-href="${gamesListPage}">
-                        <span>
-                            Назад к списку
-                        </span>
+                        <span data-th-text="${portal.localize({'_key=myGames.gameDetails.backToList', '_locale=ru'})}"></span>
                     </a>
                 </div>
             </div>
@@ -99,41 +99,34 @@
                 <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1"
                     data-th-if="${!formData.festivalIsMeetUp and (formData.userNameRequired or formData.ticketRequired)}">
                     <div class="form-group" data-th-if="${formData.userNameRequired}">
-                        <input class="js_get-user-data" name="firstName" placeholder="Ваше имя" required>
+                        <input class="js_get-user-data" name="firstName" data-th-placeholder="${portal.localize({'_key=myGames.gameDetails.name', '_locale=ru'})}" required>
                     </div>
                     <div class="form-group" data-th-if="${formData.ticketRequired}">
-                        <input class="js_get-user-data js_festival-ticket-id" name="ticket" placeholder="Код билета"
+                        <input class="js_get-user-data js_festival-ticket-id" name="ticket" data-th-placeholder="${portal.localize({'_key=myGames.gameDetails.ticketNum', '_locale=ru'})}"
                             required>
                     </div>
                 </form>
                 <div data-th-if="${formData.requireDiscord && discordUrl}"
                     class="k_gdp-sign_up-step_2 js_game-sign-up-step-2" style="display:none">
                     <a data-th-href="${discordUrl}" class="button social_login-discord" name="discord"
-                        placeholder="discord"> Залогиньтесь через Дискорд</a>
+                        placeholder="discord" data-th-text="${portal.localize({'_key=myGames.gameDetails.discordLogin', '_locale=ru'})}"></a>
                 </div>
                 <div class="k_gdp-actions js_game-signout-block" data-th-classappend="${gameSigned ? '' : 'hidden'}">
-                    <div class="k_games-time_title">Вы уже записаны на эту игру.</div>
-                    <button class="kosticonnect-button primary k_gdp-main-cta js_sign-out-of-game">
-                        ОТПИСАТЬСЯ ОТ ИГРЫ
-                    </button>
+                    <div class="k_games-time_title" data-th-text="${portal.localize({'_key=myGames.gameDetails.alreadySigned', '_locale=ru'})}"></div>
+                    <button class="kosticonnect-button primary k_gdp-main-cta js_sign-out-of-game"
+                        data-th-text="${portal.localize({'_key=myGames.gameDetails.unsubscribe', '_locale=ru'})}"></button>
                     <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow" data-th-href="${gamesListPage}">
-                        <span>
-                            Назад к списку
-                        </span>
+                        <span data-th-text="${portal.localize({'_key=myGames.gameDetails.backToList', '_locale=ru'})}"></span>
                     </a>
                 </div>
                 <div class="k_gdp-actions js_game-signin-block" data-th-classappend="${gameSigned ? 'hidden' : ''}">
-                    <button class="kosticonnect-button primary k_gdp-main-cta js_sign-up-for-game">
-                        ЗАПИСАТЬСЯ НА ИГРУ
-                    </button>
+                    <button class="kosticonnect-button primary k_gdp-main-cta js_sign-up-for-game" data-th-text="${portal.localize({'_key=myGames.gameDetails.subscribe', '_locale=ru'})}"></button>
                     <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow" data-th-href="${gamesListPage}">
-                        <span>
-                            Назад к списку
-                        </span>
+                        <span data-th-text="${portal.localize({'_key=myGames.gameDetails.backToList', '_locale=ru'})}"></span>
                     </a>
                     <div class="k_gdp-agreement form-group" style="margin-top: 8px;">
-                        <label for="fest-agreement" class="label">Записываясь на игру я соглашаюсь с 
-                            <a href="/kosticonnect/pravila-kosticonnect" target="_blank">условиями фестиваля.</a></label>
+                        <label for="fest-agreement" class="label"> <span data-th-text="${portal.localize({'_key=myGames.gameDetails.agreement', '_locale=ru'})}"></span>
+                            <a href="/kosticonnect/pravila-kosticonnect" target="_blank" data-th-text="${portal.localize({'_key=myGames.gameDetails.agreementLink', '_locale=ru'})}"></a></label>
                     </div>
                 </div>
             </div>
