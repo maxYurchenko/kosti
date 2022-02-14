@@ -9,6 +9,7 @@ var userLib = require("/lib/userLib");
 var helpers = require(libLocation + "helpers");
 
 exports.get = function (req) {
+  return null;
   if (req.params.code) {
     userLib.discordRegister(req.params.code, "become-gm");
   }
