@@ -25,14 +25,14 @@
             padding: 40px 0;
         }
 
-        .kosticonnect-short_info {
-            @include mobile {
-                flex: 1 1 100%;
+        .header-logo {
+            @include tablet-all {
+                margin-left: auto;
             }
         }
 
-        .header-logo {
-            @include tablet-all {
+        .header-user {
+            @include mobile {
                 margin-left: auto;
             }
         }
@@ -45,14 +45,18 @@
         @include mobile {
             justify-content: space-between;
             padding-bottom: 25px;
+            flex: 1 1 100%;
         }
     }
 
     &-headline {
         width: 320px;
+    }
 
-        @include mobile-xs {
-            flex: 1 1 50%;
+    &-headline,
+    &-headline img {
+        @include mobile {
+            width: 100%;
         }
     }
 

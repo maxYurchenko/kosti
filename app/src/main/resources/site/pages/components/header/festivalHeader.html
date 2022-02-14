@@ -2,7 +2,7 @@
     <div class="site_content">
         <div class="b-meet_up-header_inner">
             <div class="b-meet_up-short_info">
-                <a data-th-href="${logoUrl}" class="b-meet_up-headline">
+                <a class="b-meet_up-headline" data-th-href="${logoUrl}">
                     <img data-th-src="${logo}" alt="Kostyashky team " />
                 </a>
             </div>
@@ -10,8 +10,6 @@
                 <a data-th-href="${kostirpgUrl}" data-th-title="${'Главная'}">
                     <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_full.svg'})}"
                         alt="Логотип Вечерние Кости" class="header-logo-default" />
-                    <img data-th-src="${portal.assetUrl({'_path=images/kostirpg_logo_new_logo_icon.svg'})}"
-                        alt="Логотип Вечерние Кости" class="header-logo-scroll" />
                 </a>
             </div>
             <div data-th-utext="${headerUser}" class="header-user js_header-user-wrap"></div>
