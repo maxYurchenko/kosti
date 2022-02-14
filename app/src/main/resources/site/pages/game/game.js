@@ -54,6 +54,7 @@ function handleReq(req) {
     const formData = getFormData(user, festival);
 
     var model = {
+      lang: getLang(game.content.data.language),
       formData: formData,
       gamesListPage: gamesListPage,
       game: game,
@@ -91,6 +92,10 @@ function handleReq(req) {
     );
 
     return model;
+  }
+
+  function getLang(lang) {
+    return lang === "ua" ? "uk" : lang;
   }
 
   function getFormData(user, festival) {

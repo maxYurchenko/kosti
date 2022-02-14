@@ -363,6 +363,9 @@
     <mapping controller="/api/festival/bot/listMasters.js">
       <pattern>/api/festival/listmasters</pattern>
     </mapping>
+    <mapping controller="/api/festival/saveRedirect.js">
+      <pattern>/api/festival/saveredirect</pattern>
+    </mapping>
     <!--
       Encounter builder
     -->
@@ -387,6 +390,9 @@
     </mapping>
     <mapping controller="/api/user/me.js">
       <pattern>/me</pattern>
+    </mapping>
+    <mapping controller="/api/user/logout.js">
+      <pattern>/logout</pattern>
     </mapping>
     <mapping controller="/services/form/form.js">
       <pattern>/form</pattern>

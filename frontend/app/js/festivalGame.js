@@ -2,6 +2,7 @@ var updateUserDataUrl = "/api/festival/userdata";
 var gameSignUpUrl = "/api/festival/gamesignup";
 var gameSignOutUrl = "/api/festival/gamesignout";
 var checkTicketUrl = "/api/festival/ticket";
+var saveRedirectUrl = "/api/festival/saveredirect";
 
 function initKosticonnetcScripts() {
   $(".js_game-sign-up-step-1").validate({
@@ -27,6 +28,7 @@ function initKosticonnetcScripts() {
       signupForGame();
       return;
     }
+    saveRedirect();
 
     if (formData.formShowed) {
       updateUserData();
@@ -39,6 +41,14 @@ function initKosticonnetcScripts() {
     } else {
       signupForGame();
     }
+  });
+}
+
+function saveRedirect() {
+  $.ajax({
+    url: saveRedirectUrl,
+    data: { gameId: $(".js_game-id").data().id },
+    type: "POST"
   });
 }
 
