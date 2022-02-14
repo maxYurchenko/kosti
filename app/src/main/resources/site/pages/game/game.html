@@ -105,11 +105,6 @@
                         <input class="js_get-user-data js_festival-ticket-id" name="ticket" placeholder="Код билета"
                             required>
                     </div>
-                    <div class="k_gdp-agreement form-group">
-                        <input required type="checkbox" name="agreement" id="fest-agreement" hidden />
-                        <label for="fest-agreement" class="label-checkbox">Я прочитал и принимаю
-                            <a href="/kosticonnect/pravila-kosticonnect" target="_blank">условия фестиваля</a></label>
-                    </div>
                 </form>
                 <div data-th-if="${formData.requireDiscord && discordUrl}"
                     class="k_gdp-sign_up-step_2 js_game-sign-up-step-2" style="display:none">
@@ -136,6 +131,10 @@
                             Назад к списку
                         </span>
                     </a>
+                    <div class="k_gdp-agreement form-group" style="margin-top: 8px;">
+                        <label for="fest-agreement" class="label">Записываясь на игру я соглашаюсь с 
+                            <a href="/kosticonnect/pravila-kosticonnect" target="_blank">условиями фестиваля.</a></label>
+                    </div>
                 </div>
             </div>
         </div>
