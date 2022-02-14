@@ -111,9 +111,9 @@
                     <a data-th-href="${discordUrl}" class="button social_login-discord" name="discord"
                         placeholder="discord"> Залогиньтесь через Дискорд</a>
                 </div>
-                <div class="k_gdp-signed js_game-signout-block" data-th-classappend="${gameSigned ? '' : 'hidden'}">
+                <div class="k_gdp-actions js_game-signout-block" data-th-classappend="${gameSigned ? '' : 'hidden'}">
                     <div class="k_games-time_title">Вы уже записаны на эту игру.</div>
-                    <button class="kosticonnect-button primary k_gdp-sign_out-btn js_sign-out-of-game">
+                    <button class="kosticonnect-button primary k_gdp-main-cta js_sign-out-of-game">
                         ОТПИСАТЬСЯ ОТ ИГРЫ
                     </button>
                     <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow" data-th-href="${gamesListPage}">
@@ -123,7 +123,7 @@
                     </a>
                 </div>
                 <div class="k_gdp-actions js_game-signin-block" data-th-classappend="${gameSigned ? 'hidden' : ''}">
-                    <button class="kosticonnect-button primary k_gdp-sign_up-btn js_sign-up-for-game">
+                    <button class="kosticonnect-button primary k_gdp-main-cta js_sign-up-for-game">
                         ЗАПИСАТЬСЯ НА ИГРУ
                     </button>
                     <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow" data-th-href="${gamesListPage}">

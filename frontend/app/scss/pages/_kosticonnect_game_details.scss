@@ -85,18 +85,6 @@
             line-height: 1.6;
             color: $kosticonnect-primary2;
             padding-bottom: 15px;
-
-            .k_gdp-sign_up-cta {
-                color: $kosticonnect-primary1;
-                border-bottom: 3px solid $kosticonnect-primary1;
-
-                @include hover-supported {
-                    &:hover {
-                        color: mix($kosticonnect-primary1, $color-primary1, 70%);
-                        border-bottom-color: mix($kosticonnect-primary1, $color-primary1, 70%);
-                    }
-                }
-            }
         }
 
         &-step_1 {
@@ -118,12 +106,6 @@
             border-radius: 0;
             margin-bottom: 10px;
         }
-
-        &-btn {
-            @include tablet-all {
-                margin-right: 15px;
-            }
-        }
     }
 
     &-signed {
@@ -138,12 +120,6 @@
     }
 
     &-back {
-        .k_gdp-sign_up-btn+& {
-            @include mobile {
-                margin-top: 25px;
-            }
-        }
-
         span {
             display: inline-block;
             vertical-align: middle;
@@ -154,9 +130,16 @@
         }
     }
 
-    &-sign_out-btn {
-        @include mobile {
-            width: 100%;
+    &-main {
+        &-cta {
+            @include tablet-all {
+                margin-right: 15px;
+            }
+
+            @include mobile {
+                width: 100%;
+                margin-bottom: 15px;
+            }
         }
     }
 
