@@ -117,7 +117,7 @@ function getCustomersMailingList(type) {
       "items.id in ('9cb3a53e-ee79-412e-b111-abc879bf1282', 'cb1c7af5-283a-492e-ada7-b6ad32c22c2f') and status = 'paid'";
   } else if (type && type === "kosticonnect2022Turbo") {
     query =
-      "items.id in ('64a21f80-60ad-446f-9296-aaf321bc169f') and status = 'paid'";
+      "items.id = '64a21f80-60ad-446f-9296-aaf321bc169f' and status = 'paid'";
   }
   var emails = repo.query({
     query: query,
@@ -159,9 +159,18 @@ function getNewsletter(params) {
   var kosticonnect2021 = params.mailLists.kosticonnect2021
     ? getCustomersMailingList("kosticonnect2021")
     : [];
+  var kosticonnect2022Turbo = params.mailLists.kosticonnect2022Turbo
+    ? getCustomersMailingList("kosticonnect2022Turbo")
+    : [];
   var admins = params.mailLists.admins ? adminMails : [];
   var mails = norseUtils.uniqueArray(
-    customers.concat(subscribers, kosticon2020, admins, kosticonnect2021)
+    customers.concat(
+      subscribers,
+      kosticon2020,
+      admins,
+      kosticonnect2021,
+      kosticonnect2022Turbo
+    )
   );
   return {
     to: mails,
