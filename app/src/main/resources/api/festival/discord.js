@@ -16,13 +16,13 @@ exports.get = function (req) {
   const cart = cartLib.getCart(req.cookies.cartId);
   let redirectUrl = null;
   if (cart.gameId) {
+    const game = contentLib.get({ key: cart.gameId });
+    redirectUrl = portal.pageUrl({ id: game._id });
     const updated = formPlayerLib.updateUser(cart.ticketId, cart.firstName);
-    if (updated) {
-      const game = contentLib.get({ key: cart.gameId });
+    if (updated && !updated.error) {
       const register = formPlayerLib.signForGame({
         gameId: game._id
       });
-      redirectUrl = portal.pageUrl({ id: game._id });
     }
   }
   return {
