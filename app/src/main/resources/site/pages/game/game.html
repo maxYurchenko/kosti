@@ -44,7 +44,7 @@
                     <div class="k_gdp-label"
                         data-th-text="${portal.localize({'_key=myGames.gameDetails.time', '_locale=' + lang})}"></div>
                     <div class="k_gdp-value">
-                        <span data-th-text="${game.processed.block.processed.dayName + ', '}"></span>
+                        <span data-th-utext="${game.processed.block.processed.dayName + ', '}"></span>
                         <span data-th-text="${game.processed.block.processed.date}"></span>
                         <span data-th-text="${game.processed.block.processed.monthName}"></span></br>
                         <span data-th-if="${game.processed.block.processed.time.end}"
