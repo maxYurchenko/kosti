@@ -366,6 +366,10 @@
                 justify-content: space-between;
                 margin: 0 -10px;
             }
+
+            @include  tablet-portrait {
+                flex-wrap: wrap;
+            }
         }
 
         &-item {
@@ -377,6 +381,26 @@
             &+& {
                 @include mobile {
                     margin-top: 16px;
+                }
+            }
+
+            &.day {
+                @include tablet-landscape-all {
+                    max-width: 130px;
+                }
+            }
+
+            &.system {
+                @include  tablet-portrait {
+                    order: 3;
+                    margin-top: 15px;
+                }
+            }
+
+            &.theme {
+                @include  tablet-portrait {
+                    order: 4;
+                    margin-top: 15px;
                 }
             }
         }
