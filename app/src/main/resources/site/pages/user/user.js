@@ -99,7 +99,6 @@ function handleReq(req) {
     let ticket = null;
     if (currUserFlag && currUser.content.data.kosticonnect2022) {
       const cart = cartLib.getCartByQr(currUser.content.data.kosticonnect2022);
-      norseUtils.log(cart);
       if (cart)
         ticket = {
           turbo: cart.legendary,
