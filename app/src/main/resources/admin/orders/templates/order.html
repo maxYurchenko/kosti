@@ -90,8 +90,13 @@
                                             <span class="value" data-th-text="${item.amountString}"></span>
                                             <div class="cart-product_size">
                                                 <span class="label">Ids: </span>
-                                                <div data-th-each="itemId: ${item.itemsIdsProcessed}" class="value"
-                                                    data-th-text="${itemId.id}"></div>
+                                                <div data-th-each="itemId: ${item.itemsIdsProcessed}" class="value">
+                                                    <span data-th-text="${itemId.id}"></span>
+                                                    <span>Активировано:
+                                                        <span data-th-if="${itemId.activated}"> да</span>
+                                                        <span data-th-unless="${itemId.activated}"> нєт</span>
+                                                    </span>
+                                                </div>
                                             </div>
                                             <div data-th-text="${item._id}" hidden></div>
                                         </div>
