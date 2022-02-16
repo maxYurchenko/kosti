@@ -17,6 +17,7 @@ exports.get = function (req) {
     theme: req.params.theme,
     gameSpace: req.params.gameSpace,
     count: 9,
+    language: req.params.language,
     start: req.params.page ? parseInt(req.params.page) * 9 : 0,
     parent: req.params.parent ? req.params.parent : undefined
   });
