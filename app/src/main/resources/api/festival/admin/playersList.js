@@ -14,7 +14,7 @@ exports.get = function (req) {
   if (!userLib.checkCurrentUserCityBoss(festival.data.bossRole)) {
     return { success: false };
   }
-  let players = gmLib.listPlayers(req.params.gameId);
+  let players = gmLib.listPlayers(req.params.gameId).data;
   if (req.params.format === "json") {
     return {
       body: players,
