@@ -3,6 +3,7 @@ const checkoutLib = require("/site/lib/checkoutLib");
 const homepageLib = require("/site/lib/homepageLib");
 const storeLib = require("/site/lib/storeLib");
 const httpClientLib = require("/lib/http-client");
+const festivalLib = require("/lib/festival/festivalLib");
 
 const context = {
   repository: "com.enonic.cms.default",
@@ -63,6 +64,16 @@ exports.crons = [
       log.info("Updating product stock");
       storeLib.checkProductsStock();
       log.info("Finished updating product stock");
+    },
+    context: context
+  },
+  {
+    name: "fixGamesPlayers",
+    cron: "*/10 * * * *",
+    callback: function () {
+      log.info("Starting booking fix cron");
+      festivalLib.checkPlayersCartsBooking();
+      log.info("Finished booking fix cron");
     },
     context: context
   }
