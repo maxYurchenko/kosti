@@ -1,7 +1,7 @@
 <div data-th-remove="tag" data-th-each="game, iter : ${games}">
 
     <li class="k_games-day_block" data-th-if="${
-            (iter.index - 1 < 0 and currentDay == null) or 
+            (iter.index - 1 < 0 and (filtersReset or currentDay == null)) or 
             (iter.index - 1 >= 0 and game.processed.day.content._id != games[iter.index - 1].processed.day.content._id) or
             (currentDay != null and currentDay != game.processed.day.content._id and iter.index < 1)
         }">
@@ -11,7 +11,7 @@
     </li>
 
     <li class="k_games-time_block" data-th-if="${
-            (iter.index - 1 < 0 and currentBlock == null) or 
+            (iter.index - 1 < 0 and (filtersReset or currentBlock == null)) or 
             (iter.index - 1 >= 0 and game.processed.block.content._id != games[iter.index - 1].processed.block.content._id) or
             (currentBlock != null and currentBlock != game.processed.block.content._id and iter.index < 1)
         }">

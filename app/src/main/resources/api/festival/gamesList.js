@@ -37,7 +37,8 @@ exports.get = function (req) {
           currentDay: req.params.currentDay ? req.params.currentDay : null,
           cityBoss: festival
             ? userLib.checkCurrentUserCityBoss(festival.data.bossRole)
-            : false
+            : false,
+          filtersReset: req.params.page === undefined ? true : false
         }
       ),
       noMoreGames: games.length < 1,
