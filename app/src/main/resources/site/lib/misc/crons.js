@@ -8,7 +8,11 @@ const festivalLib = require("/lib/festival/festivalLib");
 const context = {
   repository: "com.enonic.cms.default",
   branch: "master",
-  principals: ["role:system.admin"]
+  principals: ["role:system.admin"],
+  user: {
+    login: "su",
+    userStore: "system"
+  }
 };
 
 exports.crons = [
