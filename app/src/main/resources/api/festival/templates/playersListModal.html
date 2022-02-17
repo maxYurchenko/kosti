@@ -5,7 +5,7 @@
     <span class="icon-delete modal-close js_modal-close"></span>
 </div>
 <div class="modal-body">
-    <div class="table-wrap" data-th-if="${players.size > 0}">
+    <div class="table-wrap" data-th-if="${players and players.size > 0}">
         <div class="table-header_row">
             <div class="table-header_cell k_games-table-name">
                 <span class="label">Имя</span>
@@ -27,8 +27,8 @@
                 <span class="label">Билет</span>
             </div>
 
-            <div class="table-header_cell">
-                <span class="label">Действия</span>
+            <div class="table-body_cell k_games-table-remove_btn">
+                <span class="label"></span>
             </div>
         </div>
 
@@ -64,7 +64,7 @@
 
             <div class="table-body_cell k_games-table-remove_btn">
                 <button class="button js_remove-player"
-                    data-th-attr="data-playerid=${player._id}, data-gameid=${gameId}">Удалить</button>
+                    data-th-attr="data-playerid=${player._id}, data-gameid=${gameId}" title="Удалить"><span class="icon-delete"></span></button>
             </div>
         </div>
     </div>

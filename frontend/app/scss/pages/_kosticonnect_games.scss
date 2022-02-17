@@ -449,11 +449,13 @@
         }
 
         @include tablet-all { 
-            max-width: 20%;
+            max-width: 7%;
         }
 
         .button {
             margin-bottom: 0;
+            padding: 0;
+            height: 28px;
         }
     }
 }
