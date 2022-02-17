@@ -128,8 +128,8 @@ function getFilteredGames() {
     data: getSelectedFilters(),
     type: "GET",
     success: function (data) {
-      currentBlock = null;
-      currentDay = null;
+      currentBlock = data.currentBlock;
+      currentDay = data.currentDay;
       hideLoader();
       $(".js-k_games-wrapper").html(data.html);
       checkGames(data.noMoreGames);

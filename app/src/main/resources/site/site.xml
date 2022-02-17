@@ -366,6 +366,9 @@
     <mapping controller="/api/festival/saveRedirect.js">
       <pattern>/api/festival/saveredirect</pattern>
     </mapping>
+    <mapping controller="/api/festival/bot/games/now.js">
+      <pattern>/api/festival/bot/games/now</pattern>
+    </mapping>
     <!--
       Encounter builder
     -->

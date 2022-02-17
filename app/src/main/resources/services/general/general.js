@@ -12,6 +12,7 @@ const mailsLib = require(libLocation + "mailsLib");
 const adminLib = require(libLocation + "adminLib");
 const storeLib = require(libLocation + "storeLib");
 const formPlayerLib = require(libLocation + "games/formPlayerLib");
+const festivalLib = require("/lib/festival/festivalLib");
 
 exports.get = function (req) {
   if (!adminLib.validateUserAdmin()) {
@@ -65,12 +66,18 @@ exports.get = function (req) {
       break;
     case "checkConfirmationMail":
       var cart = cartLib.getCart(params.id);
-      return{body:mailsLib.getorderCreatedMail( {
-        cart: cart
-      }).body,contentType: "text/html"};
+      return {
+        body: mailsLib.getorderCreatedMail({
+          cart: cart
+        }).body,
+        contentType: "text/html"
+      };
       break;
     case "fixgamesplayers":
-      formPlayerLib.checkPlayersCartsBooking();
+      festivalLib.checkPlayersCartsBooking();
+      break;
+    case "fixgamesspace":
+      festivalLib.fixAllGamesSpace();
       break;
     case "fixgamedate":
       formPlayerLib.updateGameDate();

@@ -31,6 +31,10 @@
           <label>kosticonnect2022 Turbo</label>
           <occurrences minimum="0" maximum="1"/> 
         </input>
+        <input name="kosticonnect2022Online" type="CheckBox">
+          <label>kosticonnect2022 Online</label>
+          <occurrences minimum="0" maximum="1"/> 
+        </input>
         <input name="admins" type="CheckBox">
           <label>Admins</label>
           <occurrences minimum="0" maximum="1"/> 

@@ -96,11 +96,14 @@ function handleReq(req) {
 
     let userHasTicket =
       currUserFlag && currUser.content.data.kosticonnect2022 ? true : false;
-    let turboTicket = false;
+    let ticket = null;
     if (currUserFlag && currUser.content.data.kosticonnect2022) {
       const cart = cartLib.getCartByQr(currUser.content.data.kosticonnect2022);
-      if (cart) turboTicket = cart.legendary;
-      if (!cart) userHasTicket = false;
+      if (cart)
+        ticket = {
+          turbo: cart.legendary,
+          qr: cart.qr
+        };
     }
     content.votes = blogLib.countUserRating(content._id);
     var date = new Date(moment(content.publish.from.replace("Z", "")));
@@ -249,7 +252,7 @@ function handleReq(req) {
         resolve("components/userEditModal.html"),
         {
           userHasTicket: userHasTicket,
-          turboTicket: turboTicket,
+          ticket: ticket,
           countries: countries,
           user: content,
           discord: discord,

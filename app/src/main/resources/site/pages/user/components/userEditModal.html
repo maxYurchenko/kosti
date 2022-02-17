@@ -90,10 +90,10 @@
                     <div class="form-group">
                         <label for="address-user-input" class="label">Билет
                             Костиконнект2022</label>
-                        <input data-th-if="${userHasTicket}" data-th-disabled="${userHasTicket}"
-                            data-th-value="${turboTicket} ? 'Турбо билет' : 'Онлайн билет'" name="kosticonnect2022"
-                            type="text" class="input-text" id="kosticonnect2022-input" />
-                        <input data-th-unless="${userHasTicket}" name="kosticonnect2022" type="text" class="input-text"
+                        <input data-th-if="${ticket}" data-th-disabled="${ticket ? true : false}"
+                            data-th-value="${(ticket.turbo ? 'Турбо билет' : 'Онлайн билет') + ':' + ticket.qr}"
+                            name="kosticonnect2022" type="text" class="input-text" id="kosticonnect2022-input" />
+                        <input data-th-unless="${ticket}" name="kosticonnect2022" type="text" class="input-text"
                             id="kosticonnect2022-input" />
                     </div>
                     <input name="id" type="hidden" data-th-value="${user._id}" />

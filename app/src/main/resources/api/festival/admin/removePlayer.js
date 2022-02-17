@@ -15,8 +15,8 @@ exports.get = function (req) {
     return { success: false };
   }
   gmLib.deletePlayer(req.params.gameId, req.params.playerId);
-  let players = gmLib.listPlayers(req.params.gameId);
-  let game = contentLib.get({ key: req.params.gameId });
+  let players = gmLib.listPlayers(req.params.gameId).data;
+  game = contentLib.get({ key: req.params.gameId });
 
   return {
     body: {

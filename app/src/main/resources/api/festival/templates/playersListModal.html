@@ -8,15 +8,23 @@
     <div class="table-wrap" data-th-if="${players.size > 0}">
         <div class="table-header_row">
             <div class="table-header_cell k_games-table-name">
-                <span class="label">Им'я</span>
+                <span class="label">Имя</span>
             </div>
 
             <div class="table-header_cell">
-                <span class="label">номер телефона</span>
+                <span class="label">Номер телефона</span>
             </div>
 
             <div class="table-header_cell">
-                <span class="label">email</span>
+                <span class="label">Email</span>
+            </div>
+
+            <div class="table-header_cell">
+                <span class="label">Discord</span>
+            </div>
+
+            <div class="table-header_cell">
+                <span class="label">Билет</span>
             </div>
 
             <div class="table-header_cell">
@@ -31,14 +39,29 @@
             </div>
 
             <div class="table-body_cell">
-                <span class="value" data-th-text="${player.data.phone}">
+                <span class="value" data-th-text="${player.phone}">
                 </span>
             </div>
 
             <div class="table-body_cell">
-                <span class="value" data-th-text="${player.data.email}">
+                <span class="value" data-th-text="${player.email}">
                 </span>
             </div>
+
+            <div class="table-body_cell">
+                <span class="value" data-th-text="${player.discord.username + ':' + player.discord.discriminator}">
+                </span>
+            </div>
+
+            <div class="table-body_cell">
+                <span data-th-if="${player.ticket}" class="value"
+                    data-th-text="${player.ticket.turbo ? 'Турбо билет' : 'Онлайн билет'}">
+                </span>
+                <span data-th-unless="${player.ticket}" class="value">
+                    Билета нет.
+                </span>
+            </div>
+
             <div class="table-body_cell k_games-table-remove_btn">
                 <button class="button js_remove-player"
                     data-th-attr="data-playerid=${player._id}, data-gameid=${gameId}">Удалить</button>
