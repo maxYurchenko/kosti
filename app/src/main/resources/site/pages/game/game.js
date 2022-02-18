@@ -20,6 +20,9 @@ function handleReq(req) {
         bodyEnd: [
           "<script src='" +
             portal.assetUrl({ path: "js/festivalGame.js" }) +
+            "'></script>",
+          "<script src='" +
+            portal.assetUrl({ path: "js/festivalAdmin.js" }) +
             "'></script>"
         ]
       }
@@ -89,6 +92,11 @@ function handleReq(req) {
         kostirpgUrl: app.config["base.url"],
         logoUrl: portal.pageUrl({ id: siteConfig.festivalLanding })
       }
+    );
+
+    model.pageComponents["modal"] = thymeleaf.render(
+      resolve("../components/modal.html"),
+      {}
     );
 
     return model;
