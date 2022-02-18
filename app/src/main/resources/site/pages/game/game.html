@@ -76,21 +76,23 @@
                     </div>
                     <div class="k_gdp-value" data-th-utext="${game.processed.table}"></div>
                 </div>
-                <div class="k_gdp-info m-gm_info">
+                <div class="k_gdp-info"
+                    data-th-classappend="${game and game.processed.players and game.processed.players.size > 0 and game.processed.currUserMaster ? 'm-gm_info' : ''}">
                     <div class="k_gdp-label"
                         data-th-text="${portal.localize({'_key=myGames.gameDetails.seats', '_locale=' + lang})}"></div>
                     <div class="k_gdp-value"
                         data-th-text="${game.processed.seatsReserved + '/' + game.content.data.maxPlayers}">0\5</div>
 
-                    <div class="my_games-text my_games-players-list">
-                        <div class="my_games-players-item">
+                    <div data-th-if="${game and game.processed.players and game.processed.players.size > 0 and game.processed.currUserMaster}"
+                        class="my_games-text my_games-players-list">
+                        <div class="my_games-players-item" data-th-each="player : ${game.processed.players}">
                             <span>
                                 <span class="label">Имя</span>
-                                <span class="value">Ярик</span>
+                                <span class="value" data-th-text="${player.displayName}"></span>
                             </span>
                             <span>
                                 <span class="label">Дискорд</span>
-                                <span class="value">Диск</span>
+                                <span class="value" data-th-text="${player.discord}"></span>
                             </span>
                         </div>
                     </div>

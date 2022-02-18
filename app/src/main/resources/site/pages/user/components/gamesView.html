@@ -33,16 +33,17 @@
                             </span>
                             <span data-th-unless="${game.processed.block.processed.time.end}"
                                 data-th-text="${game.processed.block.processed.time.start + ' MSK'}"></span>
-                            <div class="my_games-text">
+                            <div class="my_games-text" data-th-if="${game and game.processed.table}">
                                 <span class="label">Игровой стол</span>
-                                <span class="value">30</span>
+                                <span class="value" data-th-text="${game.processed.table}"></span>
                             </div>
                         </div>
                         <div class="my_games-short_info-right">
                             <a class="my_games-signed-link" data-th-href="${game.processed.url}"
                                 data-th-text="${game.content.displayName}"></a>
                             <div class="my_games-action-block">
-                                <div data-th-classappend="${game.processed.currUserMaster? 'my_games-signed-info' : ''}">
+                                <div
+                                    data-th-classappend="${game.processed.currUserMaster? 'my_games-signed-info' : ''}">
                                     <span data-th-unless="${game.processed.currUserMaster}" data-th-remove="tag">
                                         <span>Ведущий</span>
                                         <span data-th-text="${game.processed.master.displayName}"></span>
@@ -50,16 +51,18 @@
                                     <span data-th-if="${game.processed.currUserMaster}" class="my_games-action-text">
                                         Ты ведущий игры!
                                     </span>
-                                    <div class="my_games-text my_games-players-list">
+                                    <div class="my_games-text my_games-players-list"
+                                        data-th-if="${game and game.processed.players and game.processed.players.size > 0 and game.processed.currUserMaster}">
                                         <div class="label">Игроки</div>
-                                        <div class="my_games-players-item">
+                                        <div data-th-each="player : ${game.processed.players}"
+                                            class="my_games-players-item">
                                             <span>
-                                                <span class="label">Имя</span>
-                                                <span class="value">Ярик</span>
+                                                <span class="label">Имя:</span>
+                                                <span class="value" data-th-text="${player.displayName}"></span>
                                             </span>
                                             <span>
-                                                <span class="label">Дискорд</span>
-                                                <span class="value">Диск</span>
+                                                <span class="label">Дискорд:</span>
+                                                <span class="value" data-th-text="${player.discord}"></span>
                                             </span>
                                         </div>
                                     </div>
@@ -82,12 +85,14 @@
         </div>
     </div>
     <h3 class="my_games-gm-header" style="margin-top: 25px;">
-        <a target="_blank" href="/kosticonnect/igry">Здесь</a> вы можете записаться на игры онлайн фестиваля KostiСONnect-2022.
+        <a target="_blank" href="/kosticonnect/igry">Здесь</a> вы можете записаться на игры онлайн фестиваля
+        KostiСONnect-2022.
     </h3>
 </div>
 <div class="blog-list-empty js_blog-list-empty" data-th-unless="${hasGames}">
     Игр пока нет.
     <h3 style="margin-top: 25px;">
-        <a target="_blank" href="/kosticonnect/igry">Здесь</a> вы можете записаться на игры онлайн фестиваля <span style="white-space: nowrap;">KostiСONnect-2022.</span>
+        <a target="_blank" href="/kosticonnect/igry">Здесь</a> вы можете записаться на игры онлайн фестиваля <span
+            style="white-space: nowrap;">KostiСONnect-2022.</span>
     </h3>
 </div>

@@ -10,7 +10,7 @@ const context = {
   branch: "master",
   principals: ["role:system.admin"],
   user: {
-    login: "su",
+    login: "mvy",
     userStore: "system"
   }
 };
