@@ -68,7 +68,17 @@
             </div>
             <div class="my_games-text" data-th-if="${game and game.processed.players and game.processed.players != ''}">
                 <span class="label" data-th-text="${portal.localize({'_key=myGames.players', '_locale=ru'})}"></span>
-                <span class="value" data-th-text="${game.processed.players}">
+                <span class="value my_games-players-list">
+                    <div class="my_games-players-item">
+                        <span>
+                            <span class="label">Имя</span>
+                            <span class="value">Ярик</span>
+                        </span>
+                        <span>
+                            <span class="label">Дискорд</span>
+                            <span class="value">Диск</span>
+                        </span>
+                    </div>
                 </span>
             </div>
             <div class="my_games-text" data-th-if="${game and game.processed.table}">

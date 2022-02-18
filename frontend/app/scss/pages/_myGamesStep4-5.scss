@@ -72,4 +72,19 @@
         color: #1b2125;
         font-weight: bold;
     }
+
+    &-players {
+        &-list {
+            margin-top: 10px;
+        }
+
+        &-item {
+            padding-left: 25px;
+            display: flex;
+    
+            span {
+                flex: 1 1 50%;
+            }
+        }
+    }
 }

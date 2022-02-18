@@ -33,12 +33,16 @@
                             </span>
                             <span data-th-unless="${game.processed.block.processed.time.end}"
                                 data-th-text="${game.processed.block.processed.time.start + ' MSK'}"></span>
+                            <div class="my_games-text">
+                                <span class="label">Игровой стол</span>
+                                <span class="value">30</span>
+                            </div>
                         </div>
                         <div class="my_games-short_info-right">
                             <a class="my_games-signed-link" data-th-href="${game.processed.url}"
                                 data-th-text="${game.content.displayName}"></a>
                             <div class="my_games-action-block">
-                                <div>
+                                <div data-th-classappend="${game.processed.currUserMaster? 'my_games-signed-info' : ''}">
                                     <span data-th-unless="${game.processed.currUserMaster}" data-th-remove="tag">
                                         <span>Ведущий</span>
                                         <span data-th-text="${game.processed.master.displayName}"></span>
@@ -46,6 +50,19 @@
                                     <span data-th-if="${game.processed.currUserMaster}" class="my_games-action-text">
                                         Ты ведущий игры!
                                     </span>
+                                    <div class="my_games-text my_games-players-list">
+                                        <div class="label">Игроки</div>
+                                        <div class="my_games-players-item">
+                                            <span>
+                                                <span class="label">Имя</span>
+                                                <span class="value">Ярик</span>
+                                            </span>
+                                            <span>
+                                                <span class="label">Дискорд</span>
+                                                <span class="value">Диск</span>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <span data-th-if="${game.content.data.exclusive}"
                                         class="my_games-signed-exclusive_game">
                                         <i class="icon-rock"></i>
