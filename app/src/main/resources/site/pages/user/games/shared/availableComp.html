@@ -66,17 +66,18 @@
                 <span class="value" data-th-text="${game.processed.additionalInfo}">
                 </span>
             </div>
-            <div class="my_games-text" data-th-if="${game and game.processed.players and game.processed.players != ''}">
+            <div class="my_games-text"
+                data-th-if="${game and game.processed.players and game.processed.players.size > 0}">
                 <span class="label" data-th-text="${portal.localize({'_key=myGames.players', '_locale=ru'})}"></span>
                 <span class="value my_games-players-list">
-                    <div class="my_games-players-item">
+                    <div data-th-each="player : ${game.processed.players}" class="my_games-players-item">
                         <span>
-                            <span class="label">Имя</span>
-                            <span class="value">Ярик</span>
+                            <span class="label">Имя:</span>
+                            <span class="value" data-th-text="${player.displayName}"></span>
                         </span>
                         <span>
-                            <span class="label">Дискорд</span>
-                            <span class="value">Диск</span>
+                            <span class="label">Дискорд:</span>
+                            <span class="value" data-th-text="${player.discord}"></span>
                         </span>
                     </div>
                 </span>
