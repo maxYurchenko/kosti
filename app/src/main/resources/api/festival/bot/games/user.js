@@ -4,9 +4,7 @@ const thymeleaf = require("/lib/thymeleaf");
 
 const libLocation = "/site/lib/";
 const norseUtils = require(libLocation + "norseUtils");
-const userLib = require("/lib/userLib");
-const formPlayerLib = require(libLocation + "games/formPlayerLib");
-const festivalBotLib = require(libLocation + "games/bot");
+const festivalBotLib = require("/lib/festival/botLib");
 
 exports.get = function (req) {
   return {
